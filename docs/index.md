@@ -1,7 +1,7 @@
 --- 
 title: "고급 데이터 분석"
 author: "한국 알 사용자회"
-date: "`r Sys.Date()`"
+date: "2022-05-06"
 site: bookdown::bookdown_site
 output: bookdown::gitbook
 documentclass: book
