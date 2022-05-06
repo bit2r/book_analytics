@@ -17,10 +17,7 @@ rmd_files: [
   # "hello-world.Rmd",
   #
   # # 자동화
-  # "basics.Rmd",
-  # "basics-font.Rmd",
-  # "basics-color.Rmd",
-  # "basics-component.Rmd",
+  "shell-intro.Rmd",
   #
   # # 버전제어 및 협업
   # "data-concept.Rmd",
@@ -47,7 +44,7 @@ rmd_files: [
   # # 참고문헌
   "references.Rmd"
 
-  # "viz-motivation.Rmd",
+
 
 ]
 

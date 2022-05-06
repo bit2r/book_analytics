@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>1 . 쉘(Shell) 소개 | 고급 데이터 분석</title>
+<meta name="author" content="한국 알 사용자회">
+<meta name="description" content="1.1 배경 상위 수준에서 컴퓨터는 네가지 일을 수행한다: 프로그램 실행 데이터 저장 컴퓨터간 상호 의사소통 사람과 상호작용 마지막 작업을 뇌-컴퓨터 연결, 음성 인터페이스를 포함한 다양한 많은 방식으로 수행하고 있지만 아직은 초보적인 수준이어서, 대부분은 WIMP((Window) 윈도우, (Icon)아이콘, (Mouse)마우스,...">
+<meta name="generator" content="bookdown 0.26 with bs4_book()">
+<meta property="og:title" content="1 . 쉘(Shell) 소개 | 고급 데이터 분석">
+<meta property="og:type" content="book">
+<meta property="og:description" content="1.1 배경 상위 수준에서 컴퓨터는 네가지 일을 수행한다: 프로그램 실행 데이터 저장 컴퓨터간 상호 의사소통 사람과 상호작용 마지막 작업을 뇌-컴퓨터 연결, 음성 인터페이스를 포함한 다양한 많은 방식으로 수행하고 있지만 아직은 초보적인 수준이어서, 대부분은 WIMP((Window) 윈도우, (Icon)아이콘, (Mouse)마우스,...">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="1 . 쉘(Shell) 소개 | 고급 데이터 분석">
+<meta name="twitter:description" content="1.1 배경 상위 수준에서 컴퓨터는 네가지 일을 수행한다: 프로그램 실행 데이터 저장 컴퓨터간 상호 의사소통 사람과 상호작용 마지막 작업을 뇌-컴퓨터 연결, 음성 인터페이스를 포함한 다양한 많은 방식으로 수행하고 있지만 아직은 초보적인 수준이어서, 대부분은 WIMP((Window) 윈도우, (Icon)아이콘, (Mouse)마우스,...">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.3.1/transition.js"></script><script src="libs/bs3compat-0.3.1/tabs.js"></script><script src="libs/bs3compat-0.3.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
+    
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  </style>
+<style type="text/css">
+    /* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+    div.csl-bib-body { }
+    div.csl-entry {
+      clear: both;
+        }
+    .hanging div.csl-entry {
+      margin-left:2em;
+      text-indent:-2em;
+    }
+    div.csl-left-margin {
+      min-width:2em;
+      float:left;
+    }
+    div.csl-right-inline {
+      margin-left:2em;
+      padding-left:1em;
+    }
+    div.csl-indent {
+      margin-left: 2em;
+    }
+  </style>
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">고급 데이터 분석</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html">고급 데이터 분석</a></li>
+<li><a class="active" href="shell-intro.html"><span class="header-section-number">1</span> 쉘(Shell) 소개</a></li>
+<li><a class="" href="%EC%B0%B8%EA%B3%A0%EB%AC%B8%ED%97%8C.html">참고문헌</a></li>
+</ul>
+
+        <div class="book-extra">
+          
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="shell-intro" class="section level1" number="1">
+<h1>
+<span class="header-section-number">1 . </span> 쉘(Shell) 소개<a class="anchor" aria-label="anchor" href="#shell-intro"><i class="fas fa-link"></i></a>
+</h1>
+<div id="shell-background" class="section level2" number="1.1">
+<h2>
+<span class="header-section-number">1.1</span> 배경<a class="anchor" aria-label="anchor" href="#shell-background"><i class="fas fa-link"></i></a>
+</h2>
+<p>상위 수준에서 컴퓨터는 네가지 일을 수행한다:</p>
+<ul>
+<li>프로그램 실행</li>
+<li>데이터 저장</li>
+<li>컴퓨터간 상호 의사소통</li>
+<li>사람과 상호작용</li>
+</ul>
+<p>마지막 작업을 뇌-컴퓨터 연결, 음성 인터페이스를 포함한 다양한 많은 방식으로 수행하고 있지만
+아직은 초보적인 수준이어서, 대부분은 WIMP((Window) 윈도우, (Icon)아이콘, (Mouse)마우스, (Pointer)포인터)를 사용한다.
+1980년대까지 이러한 기술은 보편적이지 않았지만,
+기술의 뿌리는 1960년대 Doug Engelbart의 작업에 있고,
+“<a href="http://www.youtube.com/watch?v=a11JDLBXtPQ">The Mother of All Demos</a>”로 불리는 것에서 볼 수 있다.</p>
+<p>조금 더 멀리 거슬러 올라가면, 초기 컴퓨터와 상호작용하는 유일한 방법은 와이어로 다시 연결하는 것이다.
+하지만, 중간에 1950년에서 1980년 사이 대부분의 사람들이 라인 프린터(line printer)를 사용했다.
+이런 장치는 표준 키보드에 있는 문자, 숫자, 특수부호의 입력과 출력만 허용해서,
+프로그래밍 언어와 인터페이스는 이러한 제약사항에서 설계됐다.</p>
+<p>여전히 전통적인 화면, 마우수, 터치패드, 키보드를 사용하지만 터치 인터페이스와 음성 인터페이스가 보편화되고 있다.</p>
+<p>이런 종류의 인터페이스를 지금 대부분의 사람들이 사용하는 <strong>그래픽 사용자 인터페이스(GUI, graphical user interface)</strong>과 구별하기 위해서 <strong>명령-라인 인터페이스(CLI, command-line interface)</strong>라고 한다.
+CLI의 핵심은 <strong>읽기-평가-출력(REPL,read-evaluate-print loop)</strong>이다: 사용자가 명령어를 타이핑하고 엔터(enter)/반환(return)키를 입력하면,
+컴퓨터가 읽고, 실행하고, 결과를 출력한다.
+그러고 나면, 사용자는 다른 명령를 타이핑하는 것을 로그 오프해서 시스템을 빠져 나갈때까지 계속한다.</p>
+<p>GUI는 WIMP((Window) 윈도우, (Icon)아이콘, (Mouse)마우스, (Pointer)포인터)로 구성되는데 배우기 쉽고, 단순 작업에 대해서는
+환상적이다. “클릭”하게 되면 명령이 “내가 원하는 작업을 수행해”라고 손쉽게 컴퓨터에 통역된다.
+하지만, 이런 마술은 단순한 작업을 수행하고, 정확하게 이러한 유형의 작업을 수행할 수 있는 프로그램에 불과하다.</p>
+<p>만약 복잡하고, 특정 목적에 부합되는 훨씬 묵직한 작업을 컴퓨터에 내리고자 한다고 해서,
+난해하거나 어렵거나할 필요는 없고, 단지 명령 어휘가 필요하고 이를 사용하는데 필요한 단순한 문법만 필요로 한다.</p>
+<p>쉘이 이런 기능을 제공한다 - 단순한 언어로 이를 사용하는데 <strong>명령-라인 인터페이스</strong>가 필요하다.
+명령라인 인터페이스의 심장은 <strong>읽기-평가-출력(REPL,read-evaluate-print loop)</strong>이다.
+REPL로 불리는 이유는 쉘에 명령어를 타이핑하고 <kbd>Return</kbd>를 치게되면 컴퓨터가 명령어를 읽어들이고 나서,
+평가(혹은 실행)하고 출력결과를 화면에 뿌린다. 또 다른 명령어를 입력할 때까지 대기하는 루푸를 반복하게 되서 그렇다.</p>
+<p>상기 묘사가 마치 사용자가 직접 명령어를 컴퓨터에 보내고,
+컴퓨터는 사용자에게 직접적으로 출력을 보내는 것처럼 들린다.
+사실 중간에 <strong>명령 쉘(command shell)</strong>로 불리는 프로그램이 있다.
+사용자가 타이핑하는 것은 쉘로 간다.
+쉘은 무슨 명령어를 수행할지 파악해서 컴퓨터에게 수행하도록 지시한다.
+쉘을 <em>조개(shell)</em>로 불리는데 이유는 운영체제를 감싸서,
+복잡성 일부를 숨겨서 운영체제와 더 단순하게 상호작용하게 만든다.</p>
+</div>
+<div id="shell-shell" class="section level2" number="1.2">
+<h2>
+<span class="header-section-number">1.2</span> 쉘(Shell)<a class="anchor" aria-label="anchor" href="#shell-shell"><i class="fas fa-link"></i></a>
+</h2>
+<p><strong>쉘(Shell)</strong>은 다른 것과 마찬가지로 프로그램이다.
+조금 특별한 것은 자신이 연산을 수행하기 보다 다른 프로그램을 실행한다는 것이다.
+가장 보편적인 유닉스 쉘(Unix Shell)은 Bash(Bourne Again SHell)다.
+Stephen Bourne이 작성한 쉘에서 나와서 그렇게 불리우고 — 프로그래머 사이에 재치로 통한다.
+Bash는 대부분의 유닉스 컴퓨터에 기본으로 장착되는 쉘이고,
+윈도우용으로 유닉스스런 도구로 제공되는 패키지 대부분에도 적용된다.</p>
+<p>Bash나 다른 쉘을 사용하는 것이 마우스를 사용하는 것보다 프로그래밍 작성하는 느낌이 난다.
+명령어는 간략해서 (흔히 단지 2~3자리 문자다), 명령어는 자주 암호스럽고,
+출력은 그래프같이 시각적인 것보다 텍스트줄로 쭉 뿌려진다.
+다른 한편으로, 쉘을 사용하여 좀더 강력한 방식으로 현존하는 도구를 단지 키보드 입력값 몇개를 조합해서 대용량의 데이터를 자동적으로 처리할 수 있는 파이프라인을 구축할 수 있게 한다.
+추가로, 명령 라인은 종종 멀리 떨어진 컴퓨터 혹은 슈퍼컴퓨터와 상호작용하는 가장 쉬운 방법이다.
+고성능 컴퓨팅 시스템에 포함된 다양한 특화된 도구와 자원을 실행하는데 쉘과 친숙성이 거의 필연적이다.
+클러스트 컴퓨팅과 클라우드 컴퓨팅이 과학 데이터 클런칭(scientific data cruching)이 점점 대중화됨에 따라 원격 컴퓨터를 구동하는 것이 필수적인 기술이 되어가고 있다.
+여기서 다뤄지는 명령-라인 기술에 기반해서 광범위한 과학적 질문과 컴퓨터적 도전과제를 처리할 수 있다.</p>
+</div>
+<div id="shell-looks-like" class="section level2" number="1.3">
+<h2>
+<span class="header-section-number">1.3</span> 어떻게 생겼을까?<a class="anchor" aria-label="anchor" href="#shell-looks-like"><i class="fas fa-link"></i></a>
+</h2>
+<p>전형적인 쉘 윈도우는 다음과 같다:</p>
+<pre><code>bash-3.2$ 
+bash-3.2$ ls -F / 
+Applications/         System/
+Library/              Users/
+Network/              Volumes/
+bash-3.2$ </code></pre>
+<p>첫번째 줄은 <strong>프롬프트(prompt)</strong>만 보여주고 있고, 쉘이 입력준비가 되었다는 것을 나타낸다.
+프롬프트로 다른 텍스트를 지정할 수도 있다. 가장 중요한 것:
+명령어를 타이핑할 때, <em>프롬프트를 타이핑하지 말고</em>, 인식되거나 수행할 수 있는 명령어만 타이핑한다.</p>
+<p>예제 두번째 줄에서 타이핑한 <code>ls -F /</code> 부분이 전형적인 구조를 보여주고 있다:
+<strong>명령어(command)</strong>, <strong>플래그(flags)</strong> (<strong>선택옵션(options)</strong> 혹은 <strong>스위치(switches)</strong>) 그리고 <strong>인자(argument)</strong>.
+플래그는 대쉬(<code>-</code>) 혹은 더블 대쉬(<code>--</code>)로 시작하는데 명령어의 행동에 변화를 준다.</p>
+<p>인자는 명령어에 작업할 대상을 일러준다(예를 들어, 파일명과 디렉토리).
+종종 플래그를 매개변수(parameter)라고도 부른다.
+명령어를 플래그 한개 이상, 인자도 한개 이상 사용하기도 한다:
+하지만, 명령어가 항상 인자 혹은 플래그를 요구하지는 않는다.</p>
+<p>상기 예제의 두번째 줄에서, <strong>명령어는</strong> <code>ls</code>, <strong>플래그</strong>는 <code>-F</code>,
+<strong>인자</strong>는 <code>/</code>이 된다. 각각은 공백으로 뚜렸하게 구분된다:
+만약 <code>ls</code> 와 <code>-F</code> 사이 공백을 빼먹게 되면 쉘은 <code>ls-F</code> 명령어를 찾게 되는데,
+존재하지 않는 명령어다. 또한, 대문자도 문제가 될 수 있다:
+<code>LS</code> 명령어와 <code>ls</code> 명령어는 다르다.</p>
+<p>다음으로 명령어가 생성한 출력결과를 살펴보자.
+이번 경우에 <code>/</code> 폴더에 위치한 파일 목록을 출력하고 있다.
+금일 해당 출력결과가 무엇을 의미하는지 다룰 예정이다.
+맥OS를 사용하시는 참석자분들은 이번 출력결과를 이미 인지하고 있을지도 모른다.</p>
+<p>마지막으로, 쉘은 프롬프트를 출력하고 다음 명령어가 타이핑되도록 대기모드로 바뀐다.</p>
+<p>이번 학습예제에서 프롬프트가 <code>$</code>이 된다. 명령어를 <code>PS1='$ '</code> 타이핑하게 되면
+동일하게 프롬프트를 맞출 수 있다.
+하지만, 본인 취향에 맞추어 프롬프트를 둘 수도 있다 - 흔히 프롬프트에
+사용자명과 디렉토리 현재 위치정보를 포함하기도 하다.</p>
+<p>쉘 윈도우를 열고, <code>ls -F /</code> 명령어를 직접 타이핑한다.
+(공백과 대문자가 중요함으로 잊지 말자.)
+원하는 경우 프롬프트도 변경해도 좋다.</p>
+</div>
+<div id="shell-ls" class="section level2" number="1.4">
+<h2>
+<span class="header-section-number">1.4</span> <code>ls</code> 와 플래그 의미 파악<a class="anchor" aria-label="anchor" href="#shell-ls"><i class="fas fa-link"></i></a>
+</h2>
+<p>모든 쉘 명령어는 컴퓨터 어딘가에 저장된 프로그램으로,
+쉘은 명령어를 검색해서 찾을 장소를 목록으로 이미 가지고 있다.
+(명령목록은 <code>PATH</code>로 불리는 <strong>변수(variable)</strong>에 기록되어 있지만,
+이 개념을 나중에 다룰 것이라 현재로서는 그다지 중요하지는 않다.)
+명령어, 플래그, 인자가 공백으로 구분된다는 점을 다시 상기하자.</p>
+<p>REPL(읽기-평가-출력(read-evaluate-print) 루프)를 좀더 살펴보자.
+“평가(evaluate)” 단계는 두가지 부분으로 구성됨에 주목한다:</p>
+<ol style="list-style-type: decimal">
+<li>타이핑한 것을 읽어들인다(이번 예제에서 <code>ls -F /</code>)
+쉘은 공백을 사용해서 명령어로 입력된 것을 명령어, 플래그, 인자로 쪼갠다.</li>
+<li>평가(Evaluate):
+<ol style="list-style-type: lower-alpha">
+<li>
+<code>ls</code> 라는 프로그램을 찾는다.<br>
+</li>
+<li>찾은 프로그램을 실행하고 프로그램이 인식하고 해석한 플래그와 인자를 전달한다.</li>
+</ol>
+</li>
+<li>프로그램 실행 결과를 출력한다.</li>
+</ol>
+<p>그리고 나서, 프롬프트를 출력하고 또다른 명령어를 입력받도록 대기한다.</p>
+<div id="shell-error" class="rmdcaution">
+<p><strong>Command not found 오류</strong></p>
+<p>쉘이 타이핑한 명령어 이름을 갖는 프로그램을 찾을 수 없는 경우,
+다음과 같은 오류 메시지가 출력된다:</p>
+<pre><code>$ ls-F
+-bash: ls-F: command not found</code></pre>
+<p>일반적으로 명령어를 잘못 타이핑했다는 의미가 된다 - 이 경우,
+<code>ls</code> 와 <code>-F</code> 사이 공백을 빼먹어서 그렇다. 즉, <code>ls -F</code>와 같이
+명령을 전달하면 의도한 바가 기계에 정확히 전달된다.</p>
+</div>
+</div>
+<div id="shell-difficulty" class="section level2" number="1.5">
+<h2>
+<span class="header-section-number">1.5</span> 어려운가요?<a class="anchor" aria-label="anchor" href="#shell-difficulty"><i class="fas fa-link"></i></a>
+</h2>
+<p>GUI와 비교하여 컴퓨터와 상호작용하는데 있어 어려운 모형이고 학습하는데
+노력과 시간이 다소 소요도니다.
+GUI는 선택지를 보여주고, 사용자가 선택지중에서 선택하는 하는 것이다.
+<strong>명령라인 인터페이스(CLI)</strong>로 선택지가 명령어와 패러미터의 조합으로 표현된다.
+사용자에게 제시되는 것이 아니라서 새로운 언어의 어휘를 학습하듯이 일부 학습이 필요하다.
+명령어의 일부만 배우게 되면 정말 도움이 많이 되고, 핵심적인 명령어를 다뤄보자.</p>
+</div>
+<div id="shell-flexibility" class="section level2" number="1.6">
+<h2>
+<span class="header-section-number">1.6</span> 유연성과 자동화<a class="anchor" aria-label="anchor" href="#shell-flexibility"><i class="fas fa-link"></i></a>
+</h2>
+<p>쉘문법(Grammar of Shell)은 기존 도구를 조합해서 강력한 파이프라인을 구축하도록 해서
+방대한 데이터를 자동화하여 다룰 수 있다.
+명령 순서는 <em>스크립트(script)</em>로 작성하여 작업흐름의 재현가능성을 향상시켜서 쉽게
+반복이 가능하도록 한다.</p>
+<p>추가로, 명령 라인은 종종 멀리 떨어진 컴퓨터 혹은 슈퍼컴퓨터와 상호작용하는 가장 쉬운 방법이다.
+고성능 컴퓨팅 시스템에 포함된 다양한 특화된 도구와 자원을 실행하는데 쉘과 친숙성이 거의 필연적이다.
+클러스트 컴퓨팅과 클라우드 컴퓨팅이 과학 데이터 클런칭(scientific data cruching)이 점점 대중화됨에 따라 원격 컴퓨터를 구동하는 것이 필수적인 기술이 되어가고 있다.
+여기서 다뤄지는 명령-라인 기술에 기반해서 광범위한 과학적 질문과 컴퓨터적 도전과제를 처리할 수 있다.</p>
+</div>
+<div id="shell-nelle" class="section level2" number="1.7">
+<h2>
+<span class="header-section-number">1.7</span> Nelle 과학자의 고민<a class="anchor" aria-label="anchor" href="#shell-nelle"><i class="fas fa-link"></i></a>
+</h2>
+<p>해양 생물학자 넬 니모(Nell Nemo) 박사가 방금전 6개월간 <a href="http://en.wikipedia.org/wiki/North_Pacific_Gyre">북태평양 소용돌이꼴</a> 조사를 마치고 방금 귀환했다.
+<a href="http://en.wikipedia.org/wiki/Great_Pacific_Garbage_Patch">태평양 거대 쓰레기 지대</a>에서 젤리같은 해양생물을 표본주출했다.
+총 합쳐서 1,520개 시료가 있고 다음 작업이 필요하다:</p>
+<ol style="list-style-type: decimal">
+<li>서로 다른 300개 단백질의 상대적인 함유량을 측정하는 분석기계로 시료를 시험한다.
+한 시료에 대한 컴퓨터 출력결과는 각 단백질에 대해 한 줄 파일형식으로 표현된다.</li>
+<li>
+<code>goostat</code>으로 명명된 그녀의 지도교수가 작성한 프로그램을 사용하여 각 단백질에 대한 통계량을 계산한다.</li>
+<li>다른 대학원 학생중 한명이 작성한 <code>goodiff</code>로 명명된 프로그램을 사용해서, 각 단백질에 대한 통계량과
+다른 단백질에 대해 상응하는 통계량을 비교한다.</li>
+<li>결과를 작성한다. 그녀의 지도교수는 이달 말까지 이 작업을 정말로 마무리해서,
+논문이 다음번 <em>Aquatic Goo Letters</em> 저널 특별판에 게재되기를 희망한다.</li>
+</ol>
+<p>각 시료를 분석장비가 처리하는데 약 반시간 정도 소요된다.
+좋은 소식은 각 시료를 준비하는데는 단지 2분만 소요된다.
+연구실에 병렬로 사용할 수 있는 분석장비 8대가 있어서, 이 단계는 약 2주정도만 소요될 것이다.</p>
+<p>나쁜 소식은 <code>goostat</code>, <code>goodiff</code>를 수작업으로 실행한다면,
+파일이름 입력하고 “OK” 버튼을 45,150번 눌려야 된다는 사실이다 (<code>goostat</code> 300회 더하기 <code>goodiff</code> 300×299/2). 매번 30초씩 가정하면 2주 이상 소요될 것이다.
+논문 마감일을 놓칠 수도 있지만, 이 모든 명령어를 올바르게 입력할 가능성은 거의 0 에 가깝다.</p>
+<p>다음 수업 몇개는 대신에 그녀가 무엇을 해야되는지 탐색한다.
+좀더 구체적으로, 처리하는 파이프라인 중간에 반복되는 작업을 자동화하는데 쉘 명령어(command shell)를 어떻게 사용하는지 설명해서, 논문을 쓰는 동안에 컴퓨터가 하루에 24시간 작업한다.
+덤으로 중간 처리작업 파이프라인을 완성하면, 더 많은 데이터를 얻을 때마다 다시 재사용할 수 있게 된다.</p>
+
+</div>
+</div>
+  <div class="chapter-nav">
+<div class="prev"><a href="index.html">고급 데이터 분석</a></div>
+<div class="next"><a href="%EC%B0%B8%EA%B3%A0%EB%AC%B8%ED%97%8C.html">참고문헌</a></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#shell-intro"><span class="header-section-number">1</span> 쉘(Shell) 소개</a></li>
+<li><a class="nav-link" href="#shell-background"><span class="header-section-number">1.1</span> 배경</a></li>
+<li><a class="nav-link" href="#shell-shell"><span class="header-section-number">1.2</span> 쉘(Shell)</a></li>
+<li><a class="nav-link" href="#shell-looks-like"><span class="header-section-number">1.3</span> 어떻게 생겼을까?</a></li>
+<li><a class="nav-link" href="#shell-ls"><span class="header-section-number">1.4</span> ls 와 플래그 의미 파악</a></li>
+<li><a class="nav-link" href="#shell-difficulty"><span class="header-section-number">1.5</span> 어려운가요?</a></li>
+<li><a class="nav-link" href="#shell-flexibility"><span class="header-section-number">1.6</span> 유연성과 자동화</a></li>
+<li><a class="nav-link" href="#shell-nelle"><span class="header-section-number">1.7</span> Nelle 과학자의 고민</a></li>
+</ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+          
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>고급 데이터 분석</strong>" was written by 한국 알 사용자회. It was last built on 2022-05-06.</p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer>
+</body>
+</html>

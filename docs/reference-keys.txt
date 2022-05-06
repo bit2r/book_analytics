@@ -1,0 +1,8 @@
+shell-intro
+shell-background
+shell-shell
+shell-looks-like
+shell-ls
+shell-difficulty
+shell-flexibility
+shell-nelle

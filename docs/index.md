@@ -30,10 +30,13 @@ description: "데이터 분석을 위한 최신 기술을 출판하여 공개합
 [R 신병훈련소(Bootcamp)](https://dl-dashboard.shinyapps.io/rbootcamp/) 과정을
 추천드립니다.
 
+고급 데이터 분석을 위해 소프트웨어/데이터 카펜트리(Software/Data Carpentry)의 
+원작내용을 번역[@software-carpentry]하고 필요한 경우 한국에서 고급 데이터 분석작업을 수행하기 위해 
+저자들의 경험을 녹여 제작한 출판물임을 밝혀둡니다.
 
 ---
 
-::: {#viz-programming .rmdtip}
+::: {#book-sponsor .rmdtip}
 **후원계좌**
 
 디지털 불평등 해소를 위해 제작중인 오픈 통계패키지 개발과 고품질 콘텐츠 제작에 큰 힘이 됩니다.
