@@ -18,6 +18,7 @@ rmd_files: [
   #
   # # 자동화
   "shell-intro.Rmd",
+  "shell-filedir.Rmd",
   #
   # # 버전제어 및 협업
   # "data-concept.Rmd",

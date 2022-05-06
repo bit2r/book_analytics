@@ -6,3 +6,10 @@ shell-ls
 shell-difficulty
 shell-flexibility
 shell-nelle
+shell-filedir
+shell-help
+shell-help-flag
+shell-help-man
+shell-cd-change
+shell-path-absolute
+nelle-filedir

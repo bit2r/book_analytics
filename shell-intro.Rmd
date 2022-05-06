@@ -179,7 +179,7 @@ GUI는 선택지를 보여주고, 사용자가 선택지중에서 선택하는 �
 클러스트 컴퓨팅과 클라우드 컴퓨팅이 과학 데이터 클런칭(scientific data cruching)이 점점 대중화됨에 따라 원격 컴퓨터를 구동하는 것이 필수적인 기술이 되어가고 있다.
 여기서 다뤄지는 명령-라인 기술에 기반해서 광범위한 과학적 질문과 컴퓨터적 도전과제를 처리할 수 있다.
 
-## Nelle 과학자의 고민 {#shell-nelle}
+## Nelle 파이프라인 - 문제 {#shell-nelle}
 
 해양 생물학자 넬 니모(Nell Nemo) 박사가 방금전 6개월간 [북태평양 소용돌이꼴](http://en.wikipedia.org/wiki/North_Pacific_Gyre) 조사를 마치고 방금 귀환했다. 
 [태평양 거대 쓰레기 지대](http://en.wikipedia.org/wiki/Great_Pacific_Garbage_Patch)에서 젤리같은 해양생물을 표본주출했다. 
