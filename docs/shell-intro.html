@@ -4,15 +4,15 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>1 . 쉘(Shell) 소개 | 고급 데이터 분석</title>
+<title>1 . 쉘(Shell) 소개 | 데이터 과학을 지탱하는 기본기</title>
 <meta name="author" content="한국 알 사용자회">
 <meta name="description" content="1.1 배경 상위 수준에서 컴퓨터는 네가지 일을 수행한다: 프로그램 실행 데이터 저장 컴퓨터간 상호 의사소통 사람과 상호작용 마지막 작업을 뇌-컴퓨터 연결, 음성 인터페이스를 포함한 다양한 많은 방식으로 수행하고 있지만 아직은 초보적인 수준이어서, 대부분은 WIMP((Window) 윈도우, (Icon)아이콘, (Mouse)마우스,...">
 <meta name="generator" content="bookdown 0.26 with bs4_book()">
-<meta property="og:title" content="1 . 쉘(Shell) 소개 | 고급 데이터 분석">
+<meta property="og:title" content="1 . 쉘(Shell) 소개 | 데이터 과학을 지탱하는 기본기">
 <meta property="og:type" content="book">
 <meta property="og:description" content="1.1 배경 상위 수준에서 컴퓨터는 네가지 일을 수행한다: 프로그램 실행 데이터 저장 컴퓨터간 상호 의사소통 사람과 상호작용 마지막 작업을 뇌-컴퓨터 연결, 음성 인터페이스를 포함한 다양한 많은 방식으로 수행하고 있지만 아직은 초보적인 수준이어서, 대부분은 WIMP((Window) 윈도우, (Icon)아이콘, (Mouse)마우스,...">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="1 . 쉘(Shell) 소개 | 고급 데이터 분석">
+<meta name="twitter:title" content="1 . 쉘(Shell) 소개 | 데이터 과학을 지탱하는 기본기">
 <meta name="twitter:description" content="1.1 배경 상위 수준에서 컴퓨터는 네가지 일을 수행한다: 프로그램 실행 데이터 저장 컴퓨터간 상호 의사소통 사람과 상호작용 마지막 작업을 뇌-컴퓨터 연결, 음성 인터페이스를 포함한 다양한 많은 방식으로 수행하고 있지만 아직은 초보적인 수준이어서, 대부분은 WIMP((Window) 윈도우, (Icon)아이콘, (Mouse)마우스,...">
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
@@ -52,7 +52,7 @@
 
     <div class="d-flex align-items-start justify-content-between">
       <h1>
-        <a href="index.html" title="">고급 데이터 분석</a>
+        <a href="index.html" title="">데이터 과학을 지탱하는 기본기</a>
       </h1>
       <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
     </div>
@@ -65,8 +65,10 @@
       <nav aria-label="Table of contents"><h2>Table of contents</h2>
         <ul class="book-toc list-unstyled">
 <li><a class="" href="index.html">고급 데이터 분석</a></li>
+<li><a class="" href="%EC%9E%90%EB%8F%99%ED%99%94.html">자동화</a></li>
 <li><a class="active" href="shell-intro.html"><span class="header-section-number">1</span> 쉘(Shell) 소개</a></li>
 <li><a class="" href="shell-filedir.html"><span class="header-section-number">2</span> 파일과 폴더 넘나들기</a></li>
+<li><a class="" href="shell-create.html"><span class="header-section-number">3</span> 파일과 디렉토리 작업</a></li>
 <li><a class="" href="%EC%B0%B8%EA%B3%A0%EB%AC%B8%ED%97%8C.html">참고문헌</a></li>
 </ul>
 
@@ -269,7 +271,7 @@ GUI는 선택지를 보여주고, 사용자가 선택지중에서 선택하는 �
 </div>
 </div>
   <div class="chapter-nav">
-<div class="prev"><a href="index.html">고급 데이터 분석</a></div>
+<div class="prev"><a href="%EC%9E%90%EB%8F%99%ED%99%94.html">자동화</a></div>
 <div class="next"><a href="shell-filedir.html"><span class="header-section-number">2</span> 파일과 폴더 넘나들기</a></div>
 </div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
     <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
@@ -298,7 +300,7 @@ GUI는 선택지를 보여주고, 사용자가 선택지중에서 선택하는 �
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>고급 데이터 분석</strong>" was written by 한국 알 사용자회. It was last built on 2022-05-06.</p>
+    <p>"<strong>데이터 과학을 지탱하는 기본기</strong>" was written by 한국 알 사용자회. It was last built on 2022-05-09.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

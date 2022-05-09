@@ -3,7 +3,7 @@ bookdown::gitbook:
   config:
     toc:
       before: |
-        <li><a href="./">고급 데이터 분석</a></li>
+        <li><a href="./">데이터 과학을 지탱하는 기본기</a></li>
       after: |
         <li><a href="https://github.com/rstudio/bookdown" target="blank">bookdown 패키지로 출판작업</a></li>
     edit: https://github.com/bit2r/book_analytics/edit/master/%s

@@ -1,5 +1,5 @@
 --- 
-title: "고급 데이터 분석"
+title: "데이터 과학을 지탱하는 기본기"
 author: "한국 알 사용자회"
 date: "`r Sys.Date()`"
 site: bookdown::bookdown_site
@@ -9,7 +9,7 @@ bibliography: [book.bib, packages.bib]
 biblio-style: apalike
 link-citations: yes
 github-repo: bit2r/book_analytics
-description: "데이터 분석을 위한 최신 기술을 출판하여 공개합니다."
+description: "데이터 과학을 지탱하는 기본기를 정리하여 공개합니다."
 ---
 
 
@@ -30,9 +30,21 @@ description: "데이터 분석을 위한 최신 기술을 출판하여 공개합
 [R 신병훈련소(Bootcamp)](https://dl-dashboard.shinyapps.io/rbootcamp/) 과정을
 추천드립니다.
 
-고급 데이터 분석을 위해 소프트웨어/데이터 카펜트리(Software/Data Carpentry)의 
+---
+
+"데이터 과학을 지탱하는 기본기" 저작을 위해 소프트웨어/데이터 카펜트리(Software/Data Carpentry)의 
 원작내용을 번역[@software-carpentry]하고 필요한 경우 한국에서 고급 데이터 분석작업을 수행하기 위해 
 저자들의 경험을 녹여 제작한 출판물임을 밝혀둡니다.
+
+"데이터 과학을 지탱하는 기본기" 저작물을 비롯한 한국 알(R) 사용자회 저작물은 
+크리에이티브 커먼즈 [저작자표시-비영리-동일조건 변경 허락 (BY-NC-SA)](http://ccl.cckorea.org/about/)
+라이선스를 준용하고 있습니다. 
+
+<p align="center">
+  <img src="assets/images/CC-BY-NC-SA.png" alt="CC" width="25%" />
+</p>
+
+관련 문의와 연락이 필요한 경우 한국 알(R) 사용자회 admin@r2bit.com 대표전자우편으로 연락주세요.
 
 ---
 

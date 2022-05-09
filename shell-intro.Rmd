@@ -1,4 +1,6 @@
 
+# 자동화 {-}
+
 # 쉘(Shell) 소개 {#shell-intro}
 
 ## 배경 {#shell-background}

@@ -19,13 +19,12 @@ rmd_files: [
   # # 자동화
   "shell-intro.Rmd",
   "shell-filedir.Rmd",
+  "shell-create.Rmd",
   #
   # # 버전제어 및 협업
-  # "data-concept.Rmd",
-  # "data-penguin.Rmd",
-  # "data-tidyr.Rmd",
+  # "git-github.Rmd",
   #
-  # # R 프로그래밍
+  # # 프로그래밍
   # "viz-ggplot-concept.Rmd",
   # "viz-ggplot.Rmd",
   # "viz-pattern.Rmd",
@@ -35,9 +34,6 @@ rmd_files: [
   # "case-study-journalism.Rmd",
   # "case-study-worldcup.Rmd",
   # "case-study-corona.Rmd",
-  #
-  # # 커뮤니케이션
-  # "case-study.Rmd",
   #
   # # 분석 사례
   # "case-study.Rmd",
