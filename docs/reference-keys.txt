@@ -17,3 +17,5 @@ shell-create
 파일과-디렉토리를-위한-좋은-명칭
 shell-move-file
 shell-moving-multiple
+pipe-filter
+nelle-file

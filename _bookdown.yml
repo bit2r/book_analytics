@@ -20,6 +20,7 @@ rmd_files: [
   "shell-intro.Rmd",
   "shell-filedir.Rmd",
   "shell-create.Rmd",
+  "shell-pipefilter.Rmd",
   #
   # # 버전제어 및 협업
   # "git-github.Rmd",
@@ -39,7 +40,7 @@ rmd_files: [
   # "case-study.Rmd",
   #
   # # 참고문헌
-  "references.Rmd"
+  # "references.Rmd"
 
 
 
