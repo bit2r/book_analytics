@@ -19,3 +19,8 @@ shell-move-file
 shell-moving-multiple
 pipe-filter
 nelle-file
+shell-loop
+nelle-shell-loop
+shell-script
+nelle-script
+shell-find

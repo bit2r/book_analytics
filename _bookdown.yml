@@ -16,11 +16,15 @@ rmd_files: [
   # "viz-motivation.Rmd",
   # "hello-world.Rmd",
   #
-  # # 자동화
+  # 자동화
   "shell-intro.Rmd",
   "shell-filedir.Rmd",
   "shell-create.Rmd",
   "shell-pipefilter.Rmd",
+  "shell-loop.Rmd",
+  "shell-script.Rmd",
+  "shell-find.Rmd",
+
   #
   # # 버전제어 및 협업
   # "git-github.Rmd",
@@ -39,9 +43,8 @@ rmd_files: [
   # # 분석 사례
   # "case-study.Rmd",
   #
-  # # 참고문헌
-  # "references.Rmd"
-
+  # 참고문헌
+  "references.Rmd"
 
 
 ]
