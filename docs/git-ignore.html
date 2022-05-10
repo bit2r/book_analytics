@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>13 . 추적대상에서 제외 | 데이터 과학을 지탱하는 기본기</title>
+<meta name="author" content="한국 알 사용자회">
+<meta name="description" content="만약 Git가 추적하기 않았으면 하는 파일이 있다면 어떨까요? 편집기에서 자동 생성되는 백업파일 혹은 자료 분석 중에 생성되는 중간 임시 파일이 좋은 예가 된다. 몇개 마루타 더미(dummy) 파일을 생성하자: $ mkdir results $ touch a.dat b.dat c.dat results/a.out results/b.out 그려면 Git은...">
+<meta name="generator" content="bookdown 0.26 with bs4_book()">
+<meta property="og:title" content="13 . 추적대상에서 제외 | 데이터 과학을 지탱하는 기본기">
+<meta property="og:type" content="book">
+<meta property="og:description" content="만약 Git가 추적하기 않았으면 하는 파일이 있다면 어떨까요? 편집기에서 자동 생성되는 백업파일 혹은 자료 분석 중에 생성되는 중간 임시 파일이 좋은 예가 된다. 몇개 마루타 더미(dummy) 파일을 생성하자: $ mkdir results $ touch a.dat b.dat c.dat results/a.out results/b.out 그려면 Git은...">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="13 . 추적대상에서 제외 | 데이터 과학을 지탱하는 기본기">
+<meta name="twitter:description" content="만약 Git가 추적하기 않았으면 하는 파일이 있다면 어떨까요? 편집기에서 자동 생성되는 백업파일 혹은 자료 분석 중에 생성되는 중간 임시 파일이 좋은 예가 된다. 몇개 마루타 더미(dummy) 파일을 생성하자: $ mkdir results $ touch a.dat b.dat c.dat results/a.out results/b.out 그려면 Git은...">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.3.1/transition.js"></script><script src="libs/bs3compat-0.3.1/tabs.js"></script><script src="libs/bs3compat-0.3.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
+    
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  </style>
+<style type="text/css">
+    /* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+    div.csl-bib-body { }
+    div.csl-entry {
+      clear: both;
+        }
+    .hanging div.csl-entry {
+      margin-left:2em;
+      text-indent:-2em;
+    }
+    div.csl-left-margin {
+      min-width:2em;
+      float:left;
+    }
+    div.csl-right-inline {
+      margin-left:2em;
+      padding-left:1em;
+    }
+    div.csl-indent {
+      margin-left: 2em;
+    }
+  </style>
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">데이터 과학을 지탱하는 기본기</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html">고급 데이터 분석</a></li>
+<li><a class="" href="%EC%9E%90%EB%8F%99%ED%99%94.html">자동화</a></li>
+<li><a class="" href="shell-intro.html"><span class="header-section-number">1</span> 쉘(Shell) 소개</a></li>
+<li><a class="" href="shell-filedir.html"><span class="header-section-number">2</span> 파일과 폴더 넘나들기</a></li>
+<li><a class="" href="shell-create.html"><span class="header-section-number">3</span> 파일과 디렉토리 작업</a></li>
+<li><a class="" href="pipe-filter.html"><span class="header-section-number">4</span> 파이프와 필터</a></li>
+<li><a class="" href="shell-loop.html"><span class="header-section-number">5</span> 루프(Loops)</a></li>
+<li><a class="" href="shell-script.html"><span class="header-section-number">6</span> 쉘 스크립트</a></li>
+<li><a class="" href="shell-find.html"><span class="header-section-number">7</span> 파일, 문자, 디렉토리 등 찾기</a></li>
+<li><a class="" href="%EB%B2%84%EC%A0%84%EC%A0%9C%EC%96%B4%EC%99%80-%ED%98%91%EC%97%85.html">버전제어와 협업</a></li>
+<li><a class="" href="git.html"><span class="header-section-number">8</span> 자동화된 버젼제어</a></li>
+<li><a class="" href="git-setup.html"><span class="header-section-number">9</span> Git 구축 및 설정</a></li>
+<li><a class="" href="git-create.html"><span class="header-section-number">10</span> 저장소 생성</a></li>
+<li><a class="" href="git-change.html"><span class="header-section-number">11</span> 변경사항 추적</a></li>
+<li><a class="" href="git-history.html"><span class="header-section-number">12</span> 이력 탐색</a></li>
+<li><a class="active" href="git-ignore.html"><span class="header-section-number">13</span> 추적대상에서 제외</a></li>
+<li><a class="" href="git-github.html"><span class="header-section-number">14</span> GitHub 원격작업</a></li>
+<li><a class="" href="git-collab.html"><span class="header-section-number">15</span> 협업 (Collaborating)</a></li>
+<li><a class="" href="git-conflict.html"><span class="header-section-number">16</span> 충돌 (Conflicts)</a></li>
+<li><a class="" href="git-open.html"><span class="header-section-number">17</span> 공개 과학 (Open Science)</a></li>
+<li><a class="" href="git-licensing.html"><span class="header-section-number">18</span> 라이선싱 (Licensing)</a></li>
+<li><a class="" href="git-hosting.html"><span class="header-section-number">19</span> 호스팅 (Hosting)</a></li>
+<li><a class="" href="git-korean.html"><span class="header-section-number">20</span> Git 추가설정</a></li>
+<li><a class="" href="%EC%B0%B8%EA%B3%A0%EB%AC%B8%ED%97%8C.html">참고문헌</a></li>
+</ul>
+
+        <div class="book-extra">
+          
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="git-ignore" class="section level1" number="13">
+<h1>
+<span class="header-section-number">13 . </span> 추적대상에서 제외<a class="anchor" aria-label="anchor" href="#git-ignore"><i class="fas fa-link"></i></a>
+</h1>
+<p>만약 Git가 추적하기 않았으면 하는 파일이 있다면 어떨까요?
+편집기에서 자동 생성되는 백업파일 혹은 자료 분석 중에 생성되는 중간 임시 파일이 좋은 예가 된다. 몇개 마루타 더미(dummy) 파일을 생성하자:</p>
+<pre><code>$ mkdir results
+$ touch a.dat b.dat c.dat results/a.out results/b.out</code></pre>
+<p>그려면 Git은 다음을 보여준다:</p>
+<pre><code>$ git status
+
+On branch master
+Untracked files:
+  (use "git add &lt;file&gt;..." to include in what will be committed)
+
+    a.dat
+    b.dat
+    c.dat
+    results/
+nothing added to commit but untracked files present (use "git add" to track)</code></pre>
+<p>벼젼 제어 아래 이런 파일을 놓는 것은 디스크 공간 낭비다.
+더 좋은 않는 것은, 이런 파일을 모두 관리목록에 넣는 것이 실제적으로 중요한 변경사항을 관리하는데 집중하지 못하게 한다는 것이다.
+그래서 Git에게 중요하지 않는 이런 파일을 무시하게 일러준다.</p>
+<p><code>.gitignore</code>라는 프로젝트 루트 디렉토리에 파일을 생성해서 무시할 것을 명기함으로써 해당작업을 수행한다:</p>
+<pre><code>$ nano .gitignore
+$ cat .gitignore
+
+*.dat
+results/</code></pre>
+<p>상기 패턴은 <code>.dat</code> 확장자를 갖는 임의 파일과 <code>results</code> 디렉토리에 있는 모든 것을 무시한다.
+(하지만, 이들 파일 중 일부가 이미 추적되고 있다면, Git은 계속 추적한다.)</p>
+<p><code>.gitignore</code> 파일을 생성하자마자, <code>git status</code> 출력결과는 훨씬 깨끗해졌다:</p>
+<pre><code>$ git status
+
+On branch master
+Untracked files:
+  (use "git add &lt;file&gt;..." to include in what will be committed)
+
+    .gitignore
+nothing added to commit but untracked files present (use "git add" to track)</code></pre>
+<p>이제 Git가 알아차리는 유일한 것은 새로 생성된 <code>.gitignore</code> 파일이 된다.
+우리는 이들 파일을 추적하여 관리하지 않는다고 생각할 수도 있지만,
+우리와 저장소를 공유하고 있는 다른 모든 사람도 우리가 추적관리하지 않는 동일한 것을 무시하고 싶을 것이다.
+<code>.gitignore</code> 를 추가하고 커밋하자:</p>
+<pre><code>$ git add .gitignore
+$ git commit -m "Ignore data files and the results folder."
+$ git status
+
+# On branch master
+nothing to commit, working directory clean</code></pre>
+<p>보너스로, <code>.gitignore</code>는 실수로 추적하고 싶지 않는 파일이 저장소에 추가되는 것을 피할 수 있게 돕는다:</p>
+<pre><code>$ git add a.dat
+
+The following paths are ignored by one of your .gitignore files:
+a.dat
+Use -f if you really want to add them.</code></pre>
+<p>만약 <code>.gitignore</code> 설정에 우선해서 파일을 추가하려면,
+<code>git add -f</code>를 사용해서 강제로 Git에 파일을 추가할 수 있다.
+예를 들어, <code>git add -f a.dat</code>.
+추적관리되지 않는 파일의 상태를 항상 보려면 다음을 사용한다:</p>
+<pre><code>$ git status --ignored
+
+On branch master
+Ignored files:
+ (use "git add -f &lt;file&gt;..." to include in what will be committed)
+
+        a.dat
+        b.dat
+        c.dat
+        results/
+
+nothing to commit, working directory clean</code></pre>
+<div id="git-ignore-dup" class="rmdcaution">
+<p><strong>중첩된 파일 추적하지 않기</strong></p>
+<p>디렉토리 구조가 다음과 같다:</p>
+<pre><code>results/data
+results/plots</code></pre>
+<p>어떻게 하면 <code>results/plots</code> 만 추적하지 않을 수 있을까? <code>results/data</code> 디렉토리는 추적한다.</p>
+<blockquote>
+<p><strong>해답</strong></p>
+<p>대부분의 프로그래밍 이슈와 마찬가지로,
+이 문제를 해결하는 몇가지 방식이 있다.
+<code>results/plots</code> 디렉토리 콘텐츠만 추적하지 않기로 한다면,
+<code>.gitignore</code> 파일에 <code>/plots/</code> 폴더만 추적하지 않도록 다음과 같이
+<code>.gitignore</code> 파일을 변경하면 된다:</p>
+<p><code>results/plots/</code></p>
+<p>대신에 <code>/results/</code> 디렉토리에 모든 것을 추적하지 않지만, <code>results/data</code>만 추적하고자 한다면,
+<code>results/</code> 폴더를 <code>.gitignore</code> 파일에 추가하고 <code>results/data/</code> 폴더에 대해서 예외를 생성한다.
+다음 도전과제가 이런 유형의 해법을 다루게 된다.</p>
+<p>종종 <code>**</code> 패턴이 사용하기 수월한데, 다수 디렉토리와 매칭을 지원한다.
+예를 들어, <code>**/results/plots/*</code>은 루트 디렉토리에 <code>results/plots</code> 디렉토리를 추정하기 않게 도니다.</p>
+</blockquote>
+</div>
+<div id="git-ignore-include" class="rmdcaution">
+<p><strong>특정 파일만 포함시키기</strong></p>
+<p><code>final.data</code> 파일만 제외하고 모든 <code>.data</code> 파일은 추적하지 않고자 하면 어떻게 하면 될까?
+힌트: <code>!</code> (느낌표 연산자) 부호가 수행하는 작업을 알아본다.</p>
+<blockquote>
+<p><strong>해법</strong></p>
+<p><code>.gitignore</code> 파일에 다음 두 줄을 추가한다:</p>
+<pre><code>*.data           # 모든 data 파일을 추적하지 않는다.
+!final.data      # final.data 파일만 예외로 한다.</code></pre>
+<p>느낌표 연산자가 앞서 제외된 항목을 포함시키게 한다.</p>
+</blockquote>
+</div>
+<div id="git-ignore-tracking" class="rmdcaution">
+<p><strong>디렉토리에 모든 파일 추적하지 않기</strong></p>
+<p>디렉토리 구조가 다음과 같다:</p>
+<pre><code>results/data/position/gps/a.data
+results/data/position/gps/b.data
+results/data/position/gps/c.data
+results/data/position/gps/info.txt
+results/plots</code></pre>
+<p><code>result/data/position/gps</code> 디렉토리에 모든 <code>.data</code> 파일을 추적하지 않도록
+<code>.gitignore</code> 파일에 규칙을 작성하는데 가장 짧은 규칙은 무엇일까?
+<code>info.txt</code> 파일은 추적하자.</p>
+<blockquote>
+<p><strong>해답</strong></p>
+<p><code>results/data/position/gps</code> 디렉토리에 <code>.data</code>로 끝나는 모든 파일은 <code>results/data/position/gps/*.data</code> 규칙으로 매칭된다.
+<code>results/data/position/gps/info.txt</code> 파일은 확장자가 달라서 계속 추적된다.</p>
+</blockquote>
+</div>
+<div id="git-ignore-tracking-order" class="rmdcaution">
+<p><strong>적용 규칙 순서</strong></p>
+<p><code>.gitignore</code> 파일에 다음 내용이 담겨있다:</p>
+<pre><code>*.data
+!*.data</code></pre>
+<p>적용 결과는 어떻게 될까?</p>
+<blockquote>
+<p><strong>해답</strong></p>
+<p><code>!</code> 연산자는 이전에 정의된 추적제외 패턴을 부정한다.
+<code>.gitignore</code>파일에서 <code>!*.data</code> 규칙은 앞서 추적에서 제외한 <code>.data</code> 모든 파일 추적제외를 부정한다.
+따라서, 어떤 것도 추적제외되지 않고, <code>.data</code> 파일 모두가 추적된다.</p>
+</blockquote>
+</div>
+<div id="git-ignore-tracking-logfile" class="rmdcaution">
+<p><strong>로그 파일</strong></p>
+<p>스크립트를 작성해서 <code>log_01</code>, <code>log_02</code>, <code>log_03</code> 형태의 중간 로그 파일이 많이 생성되었다.
+로그 파일을 보관하고자 하지만, <code>git</code>으로 추적하고 싶지는 않다.</p>
+<ol style="list-style-type: decimal">
+<li>
+<code>log_01</code>, <code>log_02</code> … 형태 모든 파일을 추적 제외하는 <code>.gitignore</code> 규칙을 <strong>하나</strong> 작성한다.</li>
+<li>
+<code>log_01</code> 형태 마루타 파일을 생성해서 “추적제외 패턴”을 테스트한다.</li>
+<li>종국에 <code>log_01</code> 파일이 매우 중요하는 것을 알게 되어서 <code>.gitignore</code> 파일을 변경하지 않고 추적되게 추가한다.</li>
+<li>추적하기를 원하지 않지만, <code>.gitignore</code>를 통해서 추적제외할 수 있는 파일이 어떤 유형이 있는지 주변 동료와 상의하자.</li>
+</ol>
+<blockquote>
+<p><strong>해답</strong></p>
+<ol style="list-style-type: decimal">
+<li>
+<code>log_*</code> 혹은 <code>log*</code> 규칙을 <code>.gitignore</code> 파일에 추가한다.</li>
+<li>
+<code>git add -f log_01</code> 명령어를 사용해서 <code>log_01</code> 파일에 대한 추적을 수행한다.</li>
+</ol>
+</blockquote>
+</div>
+
+</div>
+  <div class="chapter-nav">
+<div class="prev"><a href="git-history.html"><span class="header-section-number">12</span> 이력 탐색</a></div>
+<div class="next"><a href="git-github.html"><span class="header-section-number">14</span> GitHub 원격작업</a></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav"><li><a class="nav-link" href="#git-ignore"><span class="header-section-number">13</span> 추적대상에서 제외</a></li></ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+          
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>데이터 과학을 지탱하는 기본기</strong>" was written by 한국 알 사용자회. It was last built on 2022-05-10.</p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer>
+</body>
+</html>

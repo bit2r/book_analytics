@@ -17,21 +17,28 @@ rmd_files: [
   # "hello-world.Rmd",
   #
   # 자동화
-  # "shell-intro.Rmd",
-  # "shell-filedir.Rmd",
-  # "shell-create.Rmd",
-  # "shell-pipefilter.Rmd",
-  # "shell-loop.Rmd",
-  # "shell-script.Rmd",
-  # "shell-find.Rmd",
-
+  "shell-intro.Rmd",
+  "shell-filedir.Rmd",
+  "shell-create.Rmd",
+  "shell-pipefilter.Rmd",
+  "shell-loop.Rmd",
+  "shell-script.Rmd",
+  "shell-find.Rmd",
   #
-  # # 버전제어 및 협업
+  # 버전제어 및 협업
   "git-basics.Rmd",
   "git-setup.Rmd",
   "git-create.Rmd",
   "git-change.Rmd",
   "git-history.Rmd",
+  "git-ignore.Rmd",
+  "git-github.Rmd",
+  "git-collab.Rmd",
+  "git-conflict.Rmd",
+  "git-open.Rmd",
+  "git-licensing.Rmd",
+  "git-hosting.Rmd",
+  "git-korean.Rmd",
   #
   # # 프로그래밍
   # "viz-ggplot-concept.Rmd",

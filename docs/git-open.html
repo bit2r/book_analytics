@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>17 . 공개 과학 (Open Science) | 데이터 과학을 지탱하는 기본기</title>
+<meta name="author" content="한국 알 사용자회">
+<meta name="description" content="“공개(open)”의 반대는 “폐쇄(closed)”가 아니다. (The opposite of “open” isn’t “closed”.) “공개(open)”의 반대는 “망한(broken)” 것이다. (The opposite of “open” is “broken”.) 정보의 자유 공유는 과학에서 이상적일지 모르지만, 현실은 좀더 복잡하다. 현재, 보통...">
+<meta name="generator" content="bookdown 0.26 with bs4_book()">
+<meta property="og:title" content="17 . 공개 과학 (Open Science) | 데이터 과학을 지탱하는 기본기">
+<meta property="og:type" content="book">
+<meta property="og:description" content="“공개(open)”의 반대는 “폐쇄(closed)”가 아니다. (The opposite of “open” isn’t “closed”.) “공개(open)”의 반대는 “망한(broken)” 것이다. (The opposite of “open” is “broken”.) 정보의 자유 공유는 과학에서 이상적일지 모르지만, 현실은 좀더 복잡하다. 현재, 보통...">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="17 . 공개 과학 (Open Science) | 데이터 과학을 지탱하는 기본기">
+<meta name="twitter:description" content="“공개(open)”의 반대는 “폐쇄(closed)”가 아니다. (The opposite of “open” isn’t “closed”.) “공개(open)”의 반대는 “망한(broken)” 것이다. (The opposite of “open” is “broken”.) 정보의 자유 공유는 과학에서 이상적일지 모르지만, 현실은 좀더 복잡하다. 현재, 보통...">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.3.1/transition.js"></script><script src="libs/bs3compat-0.3.1/tabs.js"></script><script src="libs/bs3compat-0.3.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
+    
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  </style>
+<style type="text/css">
+    /* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+    div.csl-bib-body { }
+    div.csl-entry {
+      clear: both;
+        }
+    .hanging div.csl-entry {
+      margin-left:2em;
+      text-indent:-2em;
+    }
+    div.csl-left-margin {
+      min-width:2em;
+      float:left;
+    }
+    div.csl-right-inline {
+      margin-left:2em;
+      padding-left:1em;
+    }
+    div.csl-indent {
+      margin-left: 2em;
+    }
+  </style>
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">데이터 과학을 지탱하는 기본기</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html">고급 데이터 분석</a></li>
+<li><a class="" href="%EC%9E%90%EB%8F%99%ED%99%94.html">자동화</a></li>
+<li><a class="" href="shell-intro.html"><span class="header-section-number">1</span> 쉘(Shell) 소개</a></li>
+<li><a class="" href="shell-filedir.html"><span class="header-section-number">2</span> 파일과 폴더 넘나들기</a></li>
+<li><a class="" href="shell-create.html"><span class="header-section-number">3</span> 파일과 디렉토리 작업</a></li>
+<li><a class="" href="pipe-filter.html"><span class="header-section-number">4</span> 파이프와 필터</a></li>
+<li><a class="" href="shell-loop.html"><span class="header-section-number">5</span> 루프(Loops)</a></li>
+<li><a class="" href="shell-script.html"><span class="header-section-number">6</span> 쉘 스크립트</a></li>
+<li><a class="" href="shell-find.html"><span class="header-section-number">7</span> 파일, 문자, 디렉토리 등 찾기</a></li>
+<li><a class="" href="%EB%B2%84%EC%A0%84%EC%A0%9C%EC%96%B4%EC%99%80-%ED%98%91%EC%97%85.html">버전제어와 협업</a></li>
+<li><a class="" href="git.html"><span class="header-section-number">8</span> 자동화된 버젼제어</a></li>
+<li><a class="" href="git-setup.html"><span class="header-section-number">9</span> Git 구축 및 설정</a></li>
+<li><a class="" href="git-create.html"><span class="header-section-number">10</span> 저장소 생성</a></li>
+<li><a class="" href="git-change.html"><span class="header-section-number">11</span> 변경사항 추적</a></li>
+<li><a class="" href="git-history.html"><span class="header-section-number">12</span> 이력 탐색</a></li>
+<li><a class="" href="git-ignore.html"><span class="header-section-number">13</span> 추적대상에서 제외</a></li>
+<li><a class="" href="git-github.html"><span class="header-section-number">14</span> GitHub 원격작업</a></li>
+<li><a class="" href="git-collab.html"><span class="header-section-number">15</span> 협업 (Collaborating)</a></li>
+<li><a class="" href="git-conflict.html"><span class="header-section-number">16</span> 충돌 (Conflicts)</a></li>
+<li><a class="active" href="git-open.html"><span class="header-section-number">17</span> 공개 과학 (Open Science)</a></li>
+<li><a class="" href="git-licensing.html"><span class="header-section-number">18</span> 라이선싱 (Licensing)</a></li>
+<li><a class="" href="git-hosting.html"><span class="header-section-number">19</span> 호스팅 (Hosting)</a></li>
+<li><a class="" href="git-korean.html"><span class="header-section-number">20</span> Git 추가설정</a></li>
+<li><a class="" href="%EC%B0%B8%EA%B3%A0%EB%AC%B8%ED%97%8C.html">참고문헌</a></li>
+</ul>
+
+        <div class="book-extra">
+          
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="git-open" class="section level1" number="17">
+<h1>
+<span class="header-section-number">17 . </span> 공개 과학 (Open Science)<a class="anchor" aria-label="anchor" href="#git-open"><i class="fas fa-link"></i></a>
+</h1>
+<div id="book-sponsor" class="rmdtip">
+<p>“공개(open)”의 반대는 “폐쇄(closed)”가 아니다. (The opposite of “open” isn’t “closed”.)
+“공개(open)”의 반대는 “망한(broken)” 것이다. (The opposite of “open” is “broken”.)</p>
+</div>
+<p>정보의 자유 공유는 과학에서 이상적일지 모르지만, 현실은 좀더 복잡하다. 현재, 보통 실무사례는 다음과 같다:</p>
+<ul>
+<li>과학자가 데이터를 수집하고 학과에 가끔 백업되는 컴퓨터에 저장한다.</li>
+<li>데이터를 분석하기 위해서 작은 프로그램을 작성하고 수정한다. (프로그램도 연구원의 로컬 노트북에 저장된다.)</li>
+<li>적당한 분석 결과가 생성되자 마자, 작성해서 논문을 제출한다.
+데이터를 논문에 포함할 수도 있다. (점점 많은 저널이 데이터를 요구한다.) 하지만, 아마도 프로그램 코드는 포함하지 않을 것이다.</li>
+<li>시간이 흐른다.</li>
+<li>저널에서는 연구원 분야의 익명으로된 소수의 사람들에게서 받아 검토(review)결과를 보낸다. 검토 결과를 충족하도록 논문을 수정한다.
+수정하는 동안에 앞서 작성한 프로그램, 스크립트를 변경해서 다시 제출한다.</li>
+<li>좀더 많은 시간이 흐른다.</li>
+<li>종국에 논문이 출판된다.
+논문에 데이터 온라인 사본 링크를 포함할 수도 있다.
+하지만, 논문은 유료로 돈을 내야만 접근가능하다는 장벽(paywall)에 막혀있다:
+개인 혹은 기관 접근 권한을 가진 사람만이 논문을 읽을 수 있다.</li>
+</ul>
+<p>하지만, 점점 더 많은 과학자들에게, 프로세스는 다음과 같다:</p>
+<ul>
+<li>과학자가 수집한 데이터가 수집되는 즉시, <a href="http://figshare.com/">figshare</a> 혹은 <a href="http://zenodo.org">Zenodo</a>같은 공개 접근 저장소에 저장된다.
+그리고 <a href="https://en.wikipedia.org/wiki/Digital_object_identifier">디지털 객체 식별자(Digital Object Identifier, DOI)</a>가 부여된다.
+혹은 데이터를 이미 게시하고 <a href="http://datadryad.org/">Dryad</a>에 저장한다.</li>
+<li>과학자가 작업물을 보관할 저장소를 GitHub에 생성한다.</li>
+<li>분석작업을 수행하면서, 스크립트의 변경사항을 (아마도 몇몇 산출 결과도 포함해서) 저장소에 푸쉬한다.
+논문을 위한 저장소를 다목적으로 사용한다; 이 저장소가 다른 동료 과학자와 협업하는 허브가 된다.</li>
+<li>논문 상태에 만족할 정도로 진행되면,
+<a href="http://arxiv.org/">arXiv</a> 혹은 다른 사전 출력 서비스에 게시하고, 다른 동료 과학자를 초대해서 피드백을 받는다.</li>
+<li>피드백에 기초해서 저널에 논문을 마지막으로 제출하기 전 몇번의 수정사항을 게시할 수도 있다.</li>
+<li>출판된 논문은 사전출판논문, 코드, 그리고 데이터 저장소의 링크를 포함한다.
+그렇게 함으로써 다른 과학자가 본인 연구의 시작점으로 삼아서 연구를 쉽게 연결해서 수행할 수 있게 된다.</li>
+</ul>
+<p>이러한 공개 연구 모형은 발견을 가속시킨다.
+연구 작업이 더 많이 공개될수록,
+<a href="http://dx.doi.org/10.1371/journal.pone.0000308">더 많이 인용되고 재사용된다(the more widely it is cited and re-used)</a>.
+하지만, 이런 방식으로 작업하고 연구하고자 하는 사람들은 실무에서 “공개(open)”가 정확하게 의미하는 바에 대해서 몇가지 결정을 내릴 필요가 있다.
+공개 과학(Open Science)에 관한 다른 측면에 대해서 <a href="https://link.springer.com/book/10.1007/978-3-319-00026-8">이 책</a>을 참고한다.</p>
+<p>이것이 버젼 제어(version control)를 가르치는 (많은) 이유 중의 하나다.
+버젼제어가 꾸준히 사용될 때,
+컴퓨터 작업에 대한 공유가능한 전자연구노트로 활동함으로써 “방법”에 대한 질문에 답을 한다:</p>
+<ul>
+<li>누가 언제 무엇을 했는지를 포함해서, 작업에 대한 개념적 단계가 문서화된다.
+모든 단계는 (커밋 ID)식별자로 도장이 찍힌다. 식별자는 의도와 목적을 갖는 중복되지 않고 유일하다.</li>
+<li>정당성(rationale), 아이디어, 다른 지적 작업에 대한 문서화를 이것에서 파생된 변경사항과 묶을 수 있다.</li>
+<li>중복되지 않고 유일하며 복구가능한 방식으로 컴퓨터 작업 결과물을 얻어서 연구에 사용할 것을 조회할 수 있다.</li>
+<li>Git같은 분산된 버젼제어 시스템으로,
+버젼제어 저장소는 영속성을 쉽게 얻을 수 있고, 전체 이력을 담아낼 수 있다.</li>
+</ul>
+<div id="git-code-cite" class="rmdcaution">
+<p><strong>코드를 인용가능하게 만들기</strong></p>
+<p>버젼제어 저장소에 올라온 모든 것(데이터, 코드, 논문 등)은 인용가능한 객체로 변환시킬 수 있다.
+<a href="%7B%7B%20page.root%20%7D%7D/12-citation/">lesson 12: 인용(Citation)</a>에서 인용하는 방법에 대해서 학습하게 된다.</p>
+</div>
+<div id="git-code-reproducible" class="rmdcaution">
+<p><strong>내 작업을 어떻게 재현가능하게 만들 수 있을까?</strong></p>
+<p>연구실 동료중 한명에게 논문에 나온 내용과 웹으로만
+최근에 본인이 성취한 결과를 재현할 수 있는지 물어본다.
+동료 결과물 중 하나에 대해서도 같은 작업을 수행해 본다.
+그리고 나서, 일하고 있는 연구실에 나온 결과물에 대해서도
+시도를 해본다.</p>
+</div>
+<div id="git-code-repository" class="rmdcaution">
+<p><strong>적절한 데이터 저장소를 찾는 방법?</strong></p>
+<p>2~3분정도 인터넷을 검색하고 앞에서 언급된 데이터 저장소를 조사해 본다:
+<a href="https://figshare.com/">Figshare</a>, <a href="https://zenodo.org">Zenodo</a>,
+<a href="https://datadryad.org/">Dryad</a>.
+전공분야에 따라, 본인 전공분야별로 잘 알려진 저장소가 도움이 될 수 있다.
+<a href="https://www.nature.com/sdata/data-policies/repositories">Nature에서 추천한 데이터 저장소</a>도
+유용할 수 있다.</p>
+<p>주변 동료와 현재 작업에 사용하고 있는 데이터 저장소에 대해서 토론해 보고,
+이유도 설명해 보자.</p>
+</div>
+
+</div>
+  <div class="chapter-nav">
+<div class="prev"><a href="git-conflict.html"><span class="header-section-number">16</span> 충돌 (Conflicts)</a></div>
+<div class="next"><a href="git-licensing.html"><span class="header-section-number">18</span> 라이선싱 (Licensing)</a></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav"><li><a class="nav-link" href="#git-open"><span class="header-section-number">17</span> 공개 과학 (Open Science)</a></li></ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+          
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>데이터 과학을 지탱하는 기본기</strong>" was written by 한국 알 사용자회. It was last built on 2022-05-10.</p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer>
+</body>
+</html>

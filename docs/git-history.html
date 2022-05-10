@@ -4,15 +4,15 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>5 . 이력 탐색 | 데이터 과학을 지탱하는 기본기</title>
+<title>12 . 이력 탐색 | 데이터 과학을 지탱하는 기본기</title>
 <meta name="author" content="한국 알 사용자회">
 <meta name="description" content="앞선 학습에서 살펴봤듯이, 식별자로 커밋을 조회할 수 있다. HEAD 식별자를 사용해서 작업 디렉토리의 가장 최근 커밋을 조회할 수 있다. mars.txt 파일에 한번에 한줄씩 추가했다. 따라서, 눈으로 봐도 진행사항을 쉽게 추적할 수 있다. HEAD를 사용해서 추적작업을 수행해보자. 시작전에 mars.txt 파일에 변경을 가해보자. $ nano...">
 <meta name="generator" content="bookdown 0.26 with bs4_book()">
-<meta property="og:title" content="5 . 이력 탐색 | 데이터 과학을 지탱하는 기본기">
+<meta property="og:title" content="12 . 이력 탐색 | 데이터 과학을 지탱하는 기본기">
 <meta property="og:type" content="book">
 <meta property="og:description" content="앞선 학습에서 살펴봤듯이, 식별자로 커밋을 조회할 수 있다. HEAD 식별자를 사용해서 작업 디렉토리의 가장 최근 커밋을 조회할 수 있다. mars.txt 파일에 한번에 한줄씩 추가했다. 따라서, 눈으로 봐도 진행사항을 쉽게 추적할 수 있다. HEAD를 사용해서 추적작업을 수행해보자. 시작전에 mars.txt 파일에 변경을 가해보자. $ nano...">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="5 . 이력 탐색 | 데이터 과학을 지탱하는 기본기">
+<meta name="twitter:title" content="12 . 이력 탐색 | 데이터 과학을 지탱하는 기본기">
 <meta name="twitter:description" content="앞선 학습에서 살펴봤듯이, 식별자로 커밋을 조회할 수 있다. HEAD 식별자를 사용해서 작업 디렉토리의 가장 최근 커밋을 조회할 수 있다. mars.txt 파일에 한번에 한줄씩 추가했다. 따라서, 눈으로 봐도 진행사항을 쉽게 추적할 수 있다. HEAD를 사용해서 추적작업을 수행해보자. 시작전에 mars.txt 파일에 변경을 가해보자. $ nano...">
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
@@ -65,12 +65,28 @@
       <nav aria-label="Table of contents"><h2>Table of contents</h2>
         <ul class="book-toc list-unstyled">
 <li><a class="" href="index.html">고급 데이터 분석</a></li>
+<li><a class="" href="%EC%9E%90%EB%8F%99%ED%99%94.html">자동화</a></li>
+<li><a class="" href="shell-intro.html"><span class="header-section-number">1</span> 쉘(Shell) 소개</a></li>
+<li><a class="" href="shell-filedir.html"><span class="header-section-number">2</span> 파일과 폴더 넘나들기</a></li>
+<li><a class="" href="shell-create.html"><span class="header-section-number">3</span> 파일과 디렉토리 작업</a></li>
+<li><a class="" href="pipe-filter.html"><span class="header-section-number">4</span> 파이프와 필터</a></li>
+<li><a class="" href="shell-loop.html"><span class="header-section-number">5</span> 루프(Loops)</a></li>
+<li><a class="" href="shell-script.html"><span class="header-section-number">6</span> 쉘 스크립트</a></li>
+<li><a class="" href="shell-find.html"><span class="header-section-number">7</span> 파일, 문자, 디렉토리 등 찾기</a></li>
 <li><a class="" href="%EB%B2%84%EC%A0%84%EC%A0%9C%EC%96%B4%EC%99%80-%ED%98%91%EC%97%85.html">버전제어와 협업</a></li>
-<li><a class="" href="git.html"><span class="header-section-number">1</span> 자동화된 버젼제어</a></li>
-<li><a class="" href="git-setup.html"><span class="header-section-number">2</span> Git 구축 및 설정</a></li>
-<li><a class="" href="git-create.html"><span class="header-section-number">3</span> 저장소 생성</a></li>
-<li><a class="" href="git-change.html"><span class="header-section-number">4</span> 변경사항 추적</a></li>
-<li><a class="active" href="git-history.html"><span class="header-section-number">5</span> 이력 탐색</a></li>
+<li><a class="" href="git.html"><span class="header-section-number">8</span> 자동화된 버젼제어</a></li>
+<li><a class="" href="git-setup.html"><span class="header-section-number">9</span> Git 구축 및 설정</a></li>
+<li><a class="" href="git-create.html"><span class="header-section-number">10</span> 저장소 생성</a></li>
+<li><a class="" href="git-change.html"><span class="header-section-number">11</span> 변경사항 추적</a></li>
+<li><a class="active" href="git-history.html"><span class="header-section-number">12</span> 이력 탐색</a></li>
+<li><a class="" href="git-ignore.html"><span class="header-section-number">13</span> 추적대상에서 제외</a></li>
+<li><a class="" href="git-github.html"><span class="header-section-number">14</span> GitHub 원격작업</a></li>
+<li><a class="" href="git-collab.html"><span class="header-section-number">15</span> 협업 (Collaborating)</a></li>
+<li><a class="" href="git-conflict.html"><span class="header-section-number">16</span> 충돌 (Conflicts)</a></li>
+<li><a class="" href="git-open.html"><span class="header-section-number">17</span> 공개 과학 (Open Science)</a></li>
+<li><a class="" href="git-licensing.html"><span class="header-section-number">18</span> 라이선싱 (Licensing)</a></li>
+<li><a class="" href="git-hosting.html"><span class="header-section-number">19</span> 호스팅 (Hosting)</a></li>
+<li><a class="" href="git-korean.html"><span class="header-section-number">20</span> Git 추가설정</a></li>
 <li><a class="" href="%EC%B0%B8%EA%B3%A0%EB%AC%B8%ED%97%8C.html">참고문헌</a></li>
 </ul>
 
@@ -79,9 +95,9 @@
         </div>
       </nav>
 </div>
-  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="git-history" class="section level1" number="5">
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="git-history" class="section level1" number="12">
 <h1>
-<span class="header-section-number">5 . </span> 이력 탐색<a class="anchor" aria-label="anchor" href="#git-history"><i class="fas fa-link"></i></a>
+<span class="header-section-number">12 . </span> 이력 탐색<a class="anchor" aria-label="anchor" href="#git-history"><i class="fas fa-link"></i></a>
 </h1>
 <p>앞선 학습에서 살펴봤듯이, 식별자로 커밋을 조회할 수 있다.
 <code>HEAD</code> 식별자를 사용해서 작업 디렉토리의 <em>가장 최근 커밋</em>을 조회할 수 있다.</p>
@@ -372,11 +388,11 @@ $ cat venus.txt #this will print the contents of venus.txt to the screen</code><
 
 </div>
   <div class="chapter-nav">
-<div class="prev"><a href="git-change.html"><span class="header-section-number">4</span> 변경사항 추적</a></div>
-<div class="next"><a href="%EC%B0%B8%EA%B3%A0%EB%AC%B8%ED%97%8C.html">참고문헌</a></div>
+<div class="prev"><a href="git-change.html"><span class="header-section-number">11</span> 변경사항 추적</a></div>
+<div class="next"><a href="git-ignore.html"><span class="header-section-number">13</span> 추적대상에서 제외</a></div>
 </div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
     <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
-      <ul class="nav navbar-nav"><li><a class="nav-link" href="#git-history"><span class="header-section-number">5</span> 이력 탐색</a></li></ul>
+      <ul class="nav navbar-nav"><li><a class="nav-link" href="#git-history"><span class="header-section-number">12</span> 이력 탐색</a></li></ul>
 
       <div class="book-extra">
         <ul class="list-unstyled">
