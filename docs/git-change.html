@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>4 . 변경사항 추적 | 데이터 과학을 지탱하는 기본기</title>
+<meta name="author" content="한국 알 사용자회">
+<meta name="description" content="먼저 디렉토리 위치가 맞는 확인하자. planets 디렉토리에 위치해야 한다. $ pwd /home/vlad/Desktop/planets moons 디렉토리에 여전히 있다면, planets 디렉토로리 되돌아간다. $ pwd /home/vlad/Desktop/planets/moons $ cd .. 전진기지로서 화성의 적합성에 관한 기록을 담고 있는...">
+<meta name="generator" content="bookdown 0.26 with bs4_book()">
+<meta property="og:title" content="4 . 변경사항 추적 | 데이터 과학을 지탱하는 기본기">
+<meta property="og:type" content="book">
+<meta property="og:description" content="먼저 디렉토리 위치가 맞는 확인하자. planets 디렉토리에 위치해야 한다. $ pwd /home/vlad/Desktop/planets moons 디렉토리에 여전히 있다면, planets 디렉토로리 되돌아간다. $ pwd /home/vlad/Desktop/planets/moons $ cd .. 전진기지로서 화성의 적합성에 관한 기록을 담고 있는...">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="4 . 변경사항 추적 | 데이터 과학을 지탱하는 기본기">
+<meta name="twitter:description" content="먼저 디렉토리 위치가 맞는 확인하자. planets 디렉토리에 위치해야 한다. $ pwd /home/vlad/Desktop/planets moons 디렉토리에 여전히 있다면, planets 디렉토로리 되돌아간다. $ pwd /home/vlad/Desktop/planets/moons $ cd .. 전진기지로서 화성의 적합성에 관한 기록을 담고 있는...">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.3.1/transition.js"></script><script src="libs/bs3compat-0.3.1/tabs.js"></script><script src="libs/bs3compat-0.3.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
+    
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  </style>
+<style type="text/css">
+    /* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+    div.csl-bib-body { }
+    div.csl-entry {
+      clear: both;
+        }
+    .hanging div.csl-entry {
+      margin-left:2em;
+      text-indent:-2em;
+    }
+    div.csl-left-margin {
+      min-width:2em;
+      float:left;
+    }
+    div.csl-right-inline {
+      margin-left:2em;
+      padding-left:1em;
+    }
+    div.csl-indent {
+      margin-left: 2em;
+    }
+  </style>
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">데이터 과학을 지탱하는 기본기</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html">고급 데이터 분석</a></li>
+<li><a class="" href="%EB%B2%84%EC%A0%84%EC%A0%9C%EC%96%B4%EC%99%80-%ED%98%91%EC%97%85.html">버전제어와 협업</a></li>
+<li><a class="" href="git.html"><span class="header-section-number">1</span> 자동화된 버젼제어</a></li>
+<li><a class="" href="git-setup.html"><span class="header-section-number">2</span> Git 구축 및 설정</a></li>
+<li><a class="" href="git-create.html"><span class="header-section-number">3</span> 저장소 생성</a></li>
+<li><a class="active" href="git-change.html"><span class="header-section-number">4</span> 변경사항 추적</a></li>
+<li><a class="" href="git-history.html"><span class="header-section-number">5</span> 이력 탐색</a></li>
+<li><a class="" href="%EC%B0%B8%EA%B3%A0%EB%AC%B8%ED%97%8C.html">참고문헌</a></li>
+</ul>
+
+        <div class="book-extra">
+          
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="git-change" class="section level1" number="4">
+<h1>
+<span class="header-section-number">4 . </span> 변경사항 추적<a class="anchor" aria-label="anchor" href="#git-change"><i class="fas fa-link"></i></a>
+</h1>
+<p>먼저 디렉토리 위치가 맞는 확인하자.
+<code>planets</code> 디렉토리에 위치해야 한다.</p>
+<pre><code>$ pwd
+
+/home/vlad/Desktop/planets</code></pre>
+<p><code>moons</code> 디렉토리에 여전히 있다면, <code>planets</code> 디렉토로리 되돌아간다.</p>
+<pre><code>$ pwd
+
+/home/vlad/Desktop/planets/moons</code></pre>
+<pre><code>$ cd ..</code></pre>
+<p>전진기지로서 화성의 적합성에 관한 기록을 담고 있는 <code>mars.txt</code> 파일을 생성한다.
+(파일 편집을 위해서 <code>nano</code> 편집기를 사용한다; 원하는 어떤 편집기를 사용해도 된다.
+특히, 앞에서 전역으로 설정한 <code>core.editor</code>일 필요는 없다.
+하지만, 파일을 새로 생성하거나 편집할 때 배쉬 명령어는 사용자가 선택한 편집기에 의존하게 된다.(<code>nano</code>일 필요는 없다.)
+텍스트 편집기에 대한 환기로, <a href="https://swcarpentry.github.io/shell-novice/">The Unix Shell</a>의 <a href="https://swcarpentry.github.io/shell-novice/03-create/">“Which Editor?”</a> 부분을 참고한다.</p>
+<pre><code>$ nano mars.txt</code></pre>
+<p><code>mars.txt</code> 파일에 다음 텍스트를 타이핑한다:</p>
+<pre><code>Cold and dry, but everything is my favorite color</code></pre>
+<p><code>mars.txt</code> 파일은 이제 한 줄을 포함하게 되어서, 다음 명령어로 내용을 확인할 수 있다:</p>
+<pre><code>$ ls
+
+mars.txt</code></pre>
+<pre><code>$ cat mars.txt
+
+Cold and dry, but everything is my favorite color</code></pre>
+<p>다시 한번 프로젝트의 상태를 확인하고자 하면,
+새로운 파일이 인지되었다고 Git이 일러준다:</p>
+<pre><code>$ git status
+
+On branch master
+
+Initial commit
+
+Untracked files:
+   (use "git add &lt;file&gt;..." to include in what will be committed)
+
+    mars.txt
+nothing added to commit but untracked files present (use "git add" to track)</code></pre>
+<p>“untracked files” 메시지가 의미하는 것은 Git가 추적하고 있지 않는 파일 하나가 디렉토리에 있다는 것이다.
+<code>git add</code>를 사용해서 Git에게 추적관리하라고 일러준다:</p>
+<pre><code>$ git add mars.txt</code></pre>
+<p>그리고 나서, 올바르게 처리되었는지 확인한다:</p>
+<pre><code>$ git status
+
+On branch master
+
+Initial commit
+
+Changes to be committed:
+  (use "git rm --cached &lt;file&gt;..." to unstage)
+
+    new file:   mars.txt
+</code></pre>
+<p>이제 Git은 <code>mars.txt</code> 파일을 추적할 것이라는 것을 알고 있지만,
+커밋으로 아직 저장소에는 어떤 변경사항도 기록되지 않았다.
+이를 위해서 명령어 하나 더 실행할 필요가 있다:</p>
+<pre><code>$ git commit -m "Start notes on Mars as a base"
+
+[master (root-commit) f22b25e] Start notes on Mars as a base
+ 1 file changed, 1 insertion(+)
+ create mode 100644 mars.txt</code></pre>
+<p><code>git commit</code>을 실행할 때,
+Git은 <code>git add</code>를 사용해서 저장하려고 하는 모든 대상을 받아서
+<code>.git</code> 디렉토리 내부에 영구적으로 사본을 저장한다.
+이 영구 사본을 <a href="%7B%7B%20page.root%20%7D%7D/reference#commit">커밋(commit)</a>
+(혹은 <a href="%7B%7B%20page.root%20%7D%7D/reference#revision">수정(revision)</a>)이라고 하고,
+짧은 식별자는 <code>f22b25e</code>이다. (여러분의 커밋번호의 짧은 식별자는 다를 수 있다.)</p>
+<p><code>-m</code> (“message”를 위미) 플래그를 사용해서 나중에 무엇을 왜 했는지 기억에 도움이 될 수 있는 주석을 기록한다.
+<code>-m</code>옵션 없이 <code>git commit</code>을 실행하면,
+Git는 <code>nano</code>(혹은 처음에 <code>core.editor</code>에서 설정한 다른 편집기)를 실행해서 좀더 긴 메시지를 작성할 수 있다.</p>
+<p><a href="https://chris.beams.io/posts/git-commit/">좋은 커밋 메시지(Good commit messages)</a> 작성은
+커밋으로 만들어진 간략한 (영문자 기준 50문자 이하) 변경사항 요약으로 시작된다.
+일반적으로 메시지는 완전한 문장이 되어야 한다. 예를 들어, “If applied, this commit will” <commit>.
+만약 좀더 상세한 사항을 남기려면,
+요약줄 사이에 빈줄을 추가하고 추가적인 내역을 적는다.
+추가되는 공간에 왜 변경을 하는지 사유를 남기고, 어떤 영향을 미치는지도 기록한다.</commit></p>
+<p>이제 <code>git status</code>를 시작하면:</p>
+<pre><code>$ git status
+
+On branch master
+nothing to commit, working directory clean</code></pre>
+<p>모든 것이 최신 상태라고 보여준다.
+최근에 작업한 것을 알고자 한다면,
+<code>git log</code>를 사용해서 프로젝트 이력을 보여주도록 Git에게 명령어를 보낸다:</p>
+<pre><code>$ git log
+
+commit f22b25e3233b4645dabd0d81e651fe074bd8e73b
+Author: Vlad Dracula &lt;vlad@tran.sylvan.ia&gt;
+Date:   Thu Aug 22 09:51:46 2013 -0400
+
+    Start notes on Mars as a base</code></pre>
+<p><code>git log</code>는 시간 역순으로 저장소의 모든 변경사항을 나열한다.
+각 수정사항 목록은 전체 커밋 식별자(앞서 <code>git commit</code> 명령어로 출력한 짧은 문자와 동일하게 시작),
+수정한 사람,
+언제 생성되었는지,
+커밋을 생성할 때 Git에 남긴 로그 메시지가 포함된다.</p>
+<div id="git-repo-location" class="rmdcaution">
+<p><strong>내가 작성한 변경사항은 어디있나?</strong></p>
+<p>이 시점에서 <code>ls</code> 명령어를 다시 실행하면,
+<code>mars.txt</code> 파일만 덩그러니 보게 된다.
+왜냐하면, Git이 앞에서 언급한 <code>.git</code> 특수 디렉토리에 파일 변경 이력 정보를 저장했기 때문이다.
+그래서 파일 시스템이 뒤죽박죽되지 않게 된다.
+(따라서, 옛 버젼을 실수로 편집하거나 삭제할 수 없다.)</p>
+</div>
+<p>이제 드라큘라가 이 파일에 정보를 더 추가했다고 가정하자.
+(다시 한번 <code>nano</code>편집기로 편집하고 나서 <code>cat</code>으로 파일 내용을 살펴본다.
+다른 편집기를 사용할 수도 있고, <code>cat</code>으로 파일 내용을 꼭 볼 필요도 없다.)</p>
+<pre><code>$ nano mars.txt
+$ cat mars.txt
+
+Cold and dry, but everything is my favorite color
+The two moons may be a problem for Wolfman</code></pre>
+<p><code>git status</code>를 실행하면,
+Git이 이미 알고 있는 파일이 변경되었다고 일러준다:</p>
+<pre><code>$ git status
+
+On branch master
+Changes not staged for commit:
+  (use "git add &lt;file&gt;..." to update what will be committed)
+  (use "git checkout -- &lt;file&gt;..." to discard changes in working directory)
+
+    modified:   mars.txt
+
+no changes added to commit (use "git add" and/or "git commit -a")</code></pre>
+<p>마지막 줄이 중요한 문구다:
+“no changes added to commit”.
+<code>mars.txt</code> 파일을 변경했지만, 아직 Git에게는 변경을 사항을 저장하려고 하거나 (<code>git add</code>로 수행),
+저장소에 저장하라고 (<code>git commit</code>로 수행) 일러주지도 않았다.
+이제 행동에 나서보자.
+저장하기 전에 변경사항을 항상 검토하는 것은 좋은 습관이다.
+<code>git diff</code>를 사용해서 작업 내용을 두번 검증한다.
+<code>git diff</code>는 현재 파일의 상태와 가장 최근에 저장된 버젼의 차이를 보여준다:</p>
+<pre><code>$ git diff
+
+diff --git a/mars.txt b/mars.txt
+index df0654a..315bf3a 100644
+--- a/mars.txt
++++ b/mars.txt
+@@ -1 +1,2 @@
+ Cold and dry, but everything is my favorite color
++The two moons may be a problem for Wolfman</code></pre>
+<p>출력 결과가 암호같은데 이유는 한 파일이 주어졌을 때 다른 파일 하나를 어떻게 재구성하는지를 일러주는
+<code>patch</code>와 편집기 같은 도구를 위한 일련의 명령어라서 그렇다.
+만약 해당 내역을 조각내서 쪼개다면:</p>
+<ol style="list-style-type: decimal">
+<li>첫번째 행은 Git이 신규 파일과 옛 버젼 파일을 비교하는 유닉스 <code>diff</code> 명령어와 유사한 출력결과를 생성하고 있다.</li>
+<li>두번째 행은 정확하게 Git이 파일 어느 버젼을 비교하는지 일러준다;
+<code>df0654a</code>와 <code>315bf3a</code>은 해당 버젼에 대해서 중복되지 않게 컴퓨터가 생성한 표식이다.</li>
+<li>세번째와 네번째 행은 변경되는 파일 명칭을 다시한번 보여주고 있다.<br>
+</li>
+<li>나머지 행이 가장 흥미롭다. 실제 차이가 나는 것과 어느 행에서 발생했는지 보여준다.
+특히 첫번째 열의 <code>+</code> 기호는 어디서 행이 추가 되었는지 보여준다.</li>
+</ol>
+<p>변경사항 검토후에, 변경사항을 커밋(commit)하자.</p>
+<pre><code>$ git commit -m "Add concerns about effects of Mars' moons on Wolfman"
+$ git status
+
+On branch master
+Changes not staged for commit:
+  (use "git add &lt;file&gt;..." to update what will be committed)
+  (use "git checkout -- &lt;file&gt;..." to discard changes in working directory)
+
+    modified:   mars.txt
+
+no changes added to commit (use "git add" and/or "git commit -a")</code></pre>
+<p>이럴 수가, <code>git add</code>을 먼저 하지 않아서 Git이 커밋을 할 수 없다.
+고쳐봅시다:</p>
+<pre><code>$ git add mars.txt
+$ git commit -m "Add concerns about effects of Mars' moons on Wolfman"
+
+[master 34961b1] Add concerns about effects of Mars' moons on Wolfman
+ 1 file changed, 1 insertion(+)</code></pre>
+<p>실제로 무엇을 커밋하기 전에 커밋하고자하는 파일을 먼저 추가하라고 Git이 주문하는데,
+이유는 한번에 모든것을 커밋하지 싶지 않을 수도 있기 때문이다.
+예를 들어, 작성하고 있는 논문에 지도교수 논문을 일부 인용하여 추가한다고 가정하자.
+논문 중간에 인용되는 추가부분과 상응되는 참고문헌을 커밋하고는 싶지만,
+결론 부분을 커밋하고는 싶지 <em>않다.</em> (아직 결론이 완성되지 않았다.)</p>
+<p>이런 점을 고려해서,
+Git은 특별한 <em>준비 영역(staging)</em>이 있어서 현재 <a href="%7B%7B%20page.root%20%7D%7D/reference#changeset">변경부분(change set)</a>을 추가는 했으나 아직 커밋하지 않는 것을 준비 영역에서 추적하고 있다.</p>
+<div id="git-repo-staging" class="rmdcaution">
+<p><strong>준비 영역(Staging area)</strong></p>
+<p>프로젝트 기간 동안에 걸쳐 발생된 변경사항에 대해 스냅사진을 찍는 것으로 Git을 바라보면,
+<code>git add</code> 명령어는 <em>무엇</em>이 스냅사진(준비영역에 놓는 것)에 들어갈지 명세하고,
+<code>git commit</code> 명령어는 <em>실제로</em> 스탭사진을 찍는 것이다.
+만약 <code>git commit</code>을 타이핑할 때 준비된 어떤 것도 없다면,
+Git이 <code>git commit -a</code> 혹은 <code>git commit --all</code> 명령어 사용을 재촉한다.
+사진을 찍으려고 <em>모두</em> 모이세요 하는 것과 같다.
+하지만, 준비영역에 추가할 것을 명시적으로 하는 것이 항상 좋다.
+왜냐하면 커밋을 했는데 잊은 것이 있을 수도 있기 때문이다.
+(스냅사진으로 돌아가서, <code>-a</code> 옵션을 사용했기 때문에 스냅사진에 들어갈 항목을 불완전하게
+작성했을 수도 있다!)
+수작업으로 준비영역에 올리거나,
+원하는 것보다 많은 것을 올렸다면 “git undo commit”을 찾아보라.</p>
+</div>
+<div class="figure">
+<img src="assets/images/git/git-staging-area.svg" alt=""><p class="caption">Git 준비(Staging) 영역</p>
+</div>
+<p>파일 변경사항을 편집기에서 준비 영역으로, 그리고 장기 저장소로 옮기는 것을 살펴보자.
+먼저, 파일에 행 하나를 더 추가한다:</p>
+<pre><code>$ nano mars.txt
+$ cat mars.txt
+
+Cold and dry, but everything is my favorite color
+The two moons may be a problem for Wolfman
+But the Mummy will appreciate the lack of humidity</code></pre>
+<pre><code>$ git diff
+
+diff --git a/mars.txt b/mars.txt
+index 315bf3a..b36abfd 100644
+--- a/mars.txt
++++ b/mars.txt
+@@ -1,2 +1,3 @@
+ Cold and dry, but everything is my favorite color
+ The two moons may be a problem for Wolfman
++But the Mummy will appreciate the lack of humidity</code></pre>
+<p>지금까지 좋다.
+파일의 끝에 행을 하나 추가했다(첫 열에 <code>+</code>이 보인다).
+이제, 준비영역에 변경 사항을 놓고, <code>git diff</code> 명령어가 보고하는 것을 살펴보자:</p>
+<pre><code>$ git add mars.txt
+$ git diff</code></pre>
+<p>출력결과가 없다.
+Git이 일러줄 수 있는 것은 영구히 저장되는 것과 현재 디렉토리에 작업하고 있는 것에 차이가 없다는 것이다.
+하지만, 다음과 같이 명령어를 친다면:</p>
+<pre><code>$ git diff --staged
+
+diff --git a/mars.txt b/mars.txt
+index 315bf3a..b36abfd 100644
+--- a/mars.txt
++++ b/mars.txt
+@@ -1,2 +1,3 @@
+ Cold and dry, but everything is my favorite color
+ The two moons may be a problem for Wolfman
++But the Mummy will appreciate the lack of humidity</code></pre>
+<p>마지막으로 커밋된 변경사항과 준비 영역(Staging)에 있는 것과 차이를 보여준다.
+변경사항을 저장하자:</p>
+<pre><code>$ git commit -m "Discuss concerns about Mars' climate for Mummy"
+
+[master 005937f] Discuss concerns about Mars' climate for Mummy
+ 1 file changed, 1 insertion(+)</code></pre>
+<p>현재 상태를 확인하자:</p>
+<pre><code>$ git status
+
+On branch master
+nothing to commit, working directory clean</code></pre>
+<p>그리고 지금까지 작업한 이력을 살펴보자:</p>
+<pre><code>$ git log
+
+commit 005937fbe2a98fb83f0ade869025dc2636b4dad5
+Author: Vlad Dracula &lt;vlad@tran.sylvan.ia&gt;
+Date:   Thu Aug 22 10:14:07 2013 -0400
+
+    Discuss concerns about Mars' climate for Mummy
+
+commit 34961b159c27df3b475cfe4415d94a6d1fcd064d
+Author: Vlad Dracula &lt;vlad@tran.sylvan.ia&gt;
+Date:   Thu Aug 22 10:07:21 2013 -0400
+
+    Add concerns about effects of Mars' moons on Wolfman
+
+commit f22b25e3233b4645dabd0d81e651fe074bd8e73b
+Author: Vlad Dracula &lt;vlad@tran.sylvan.ia&gt;
+Date:   Thu Aug 22 09:51:46 2013 -0400
+
+    Start notes on Mars as a base</code></pre>
+<div id="git-repo-diffing" class="rmdcaution">
+<p><strong>단어 단위 차이분석(Word-based diffing)</strong></p>
+<p>경우에 따라서는 줄단위로 텍스트 차이 분석이 너무 자세하지 않을 수도 있다.
+<code>git diff</code> 명령어에 <code>--color-words</code> 선택옵션이 유용할 수 있는데
+이유는 색상을 사용해서 변경된 단어를 강조해서 표시해 주기 때문이다.</p>
+</div>
+<div id="git-repo-log" class="rmdcaution">
+<p><strong>로그 페이지별 보기</strong></p>
+<p>화면에 <code>git log</code> 출력결과가 너무 긴 경우,
+<code>git</code>에 화면 크기에 맞춰 페이지 단위로 쪼개주는 프로그램이 제공된다.
+페이지별 쪼개보기(“pager”)가 호출되면, 화면 마지막 줄에 프롬프트 대신에 <code>:</code>이 나타난다.</p>
+<ul>
+<li>페이저(pager)에서 나오려면, <kbd>Q</kbd>를 타이핑한다.</li>
+<li>다음 페이지로 이동하려면, <kbd>Spacebar</kbd>를 타이핑한다.</li>
+<li>전체 페이지에서 특정 단어를 검색하려면,
+<kbd>/</kbd> 타이핑하고,
+and 특정단어를 검색하는 <code>검색어</code>를 타이핑한다.
+검색에 매칭되는 단어를 따라가려면 <kbd>N</kbd>을 타이핑한다.</li>
+</ul>
+</div>
+<div id="git-repo-log-limit" class="rmdcaution">
+<p><strong>로그 크기 제한걸기</strong></p>
+<p><code>git log</code>가 전체 터미널 화면을 접수하는 것을 피하려면,
+<code>-N</code> 선택옵션을 적용해서 Git이 화면에 출력하는 커밋 숫자에 제한을 건다.
+여기서 <code>-N</code>은 보고자 하는 커밋 갯수가 된다.
+예를 들어 가장 마지막 커밋만 보려고 한다면 다음과 같이 타이핑한다:</p>
+<pre><code>$ git log -1
+
+commit 005937fbe2a98fb83f0ade869025dc2636b4dad5
+Author: Vlad Dracula &lt;vlad@tran.sylvan.ia&gt;
+Date:   Thu Aug 22 10:14:07 2013 -0400
+   Discuss concerns about Mars' climate for Mummy</code></pre>
+<p><code>--oneline</code> 선택옵션을 사용해서 출력되는 로그 메시지 크기를 줄일 수도 있다:</p>
+<pre><code>$ git log --oneline
+
+* 005937f Discuss concerns about Mars' climate for Mummy
+* 34961b1 Add concerns about effects of Mars' moons on Wolfman
+* f22b25e Start notes on Mars as a base</code></pre>
+<p><code>--oneline</code> 선택옵션과 다른 선택옵션을 조합할 수도 있다.
+유용한 조합 사례로 다음이 있다:</p>
+<pre><code>$ git log --oneline --graph --all --decorate
+
+* 005937f Discuss concerns about Mars' climate for Mummy (HEAD, master)
+* 34961b1 Add concerns about effects of Mars' moons on Wolfman
+* f22b25e Start notes on Mars as a base</code></pre>
+</div>
+<div id="git-repo-directory" class="rmdcaution">
+<p><strong>디렉토리</strong></p>
+<p>Git에서 디렉토리에 관해서 알아두면 좋을 두가지 사실.</p>
+<ol style="list-style-type: decimal">
+<li>Git은 그 자체로 디렉토리를 추적하지 않고, 디렉토리에 담긴 파일만 추적한다.
+믿지 못하겠다면, 직접 다음과 같이 시도해 본다:</li>
+</ol>
+<pre><code>$ mkdir directory
+$ git status
+$ git add directory
+$ git status</code></pre>
+<p>새로 생성된 <code>directory</code> 이름을 갖는 디렉토리가 <code>git add</code> 명령어로 명시적으로
+추가했음에도 불구하고 untracked files 목록에 나오지 않고 있다.
+이런 이유로 인해서 가끔 <code>.gitkeep</code> 파일을 보게 된다.
+<code>.gitignore</code>와 달리, 특별하지는 않고 유일한 목적은 디렉토리를 만들어 내어
+Git이 저장소에 추가하도록 하는 역할만 수행한다.
+사실 원하는 이름으로 파일명을 붙일 수 있다.</p>
+<ol start="2" style="list-style-type: decimal">
+<li>Git 저장소에 디렉토리를 생성하고 파일로 채워넣으면,
+다음과 같이 디렉토리의 모든 파일을 추가할 수 있다:</li>
+</ol>
+<pre><code>git add &lt;directory-with-files&gt;</code></pre>
+</div>
+<p>요약하면,
+변경사항을 저장소에 추가하고자 할 때,
+먼저 변경된 파일을 준비 영역(Staging)에 <code>git add</code> 명령어로 추가하고 나서,
+준비 영역의 변경사항을 저장소에 <code>git commit</code> 명령어로 최종 커밋한다:</p>
+<div class="figure">
+<img src="assets/images/git/git-committing.svg" alt=""><p class="caption">Git 커밋(Commit) 작업흐름</p>
+</div>
+<div id="git-repo-commit" class="rmdcaution">
+<p><strong>커밋 메시지 고르기</strong></p>
+<p>다음 중 어떤 커밋 메시지가 <code>mars.txt</code> 파일의 마지막 커밋으로 가장 적절할까요?
+1. “Changes”
+2. “Added line ‘But the Mummy will appreciate the lack of humidity’ to mars.txt”
+3. “Discuss effects of Mars’ climate on the Mummy”</p>
+<blockquote>
+<p><strong>해답</strong>
+1번은 충분히 기술되어 있지 못하고 커밋 목적이 불확실하다;
+2번은 “git diff” 명령어를 사용한 것과 불필요하게 중복된다;
+3번이 좋다: 짧고, 기술이 잘되어 있고, 피할 수 없게 명백하다(imperative).</p>
+</blockquote>
+</div>
+<div id="git-repo-commit-changes" class="rmdcaution">
+<p><strong>Git에 변경사항 커밋하기</strong></p>
+<p>다음 중 어떤 명령어가 로컬 Git 저장소에
+<code>myfile.txt</code> 파일 변경사항을 저장시키는걸까?</p>
+<ol style="list-style-type: decimal">
+<li><pre><code>   $ git commit -m "my recent changes"</code></pre></li>
+<li><pre><code>   $ git init myfile.txt
+   $ git commit -m "my recent changes"</code></pre></li>
+<li><pre><code>   $ git add myfile.txt
+   $ git commit -m "my recent changes"</code></pre></li>
+<li><pre><code>   $ git commit -m myfile.txt "my recent changes"</code></pre></li>
+</ol>
+<blockquote>
+<p><strong>해답</strong></p>
+<ol style="list-style-type: decimal">
+<li>파일이 이미 준비영역(staging)에 올라온 경우만 커밋이 생성된다.</li>
+<li>신규 저장소를 생성하게 된다.</li>
+<li>정답: 파일을 준비영역에 추가하고 나서, 커밋하게 된다.</li>
+<li>myfile.txt 파일에 “my recent changes” 메시지를 갖는 커밋을 생성한다.</li>
+</ol>
+</blockquote>
+</div>
+<div id="git-many-commit-changes" class="rmdcaution">
+<p><strong>파일 다수를 커밋</strong></p>
+<p>준비영역(staging area)은 스냅샷 한번에 원하는 만큼 파일을 변경사항을 담아 낼 수 있다.
+1. <code>mars.txt</code> 파일에 전진기지로 생각하는 금성(Venus)를 고려하고 있다는 결정을 담은 텍스트를 추가한다.
+2. <code>venus.txt</code> 파일을 새로 생성해서 본인과 친구들에게 금성에 관한 첫생각을 담아낸다.
+3. 파일 두개에 변경사항을 준비영역에 추가하고 커밋한다.</p>
+<blockquote>
+<p><strong>해답</strong></p>
+<p>먼저, <code>mars.txt</code>, <code>venus.txt</code> 파일에 변경사항을 기록한다:</p>
+<pre><code>$ nano mars.txt
+$ cat mars.txt
+
+Maybe I should start with a base on Venus.</code></pre>
+</blockquote>
+<blockquote>
+<pre><code>$ nano venus.txt
+$ cat venus.txt
+
+Venus is a nice planet and I definitely should consider it as a base.</code></pre>
+<p>준비영역에 파일 두개를 추가한다.
+한줄로 추가작업을 수행할 수 있다:</p>
+<pre><code>$ git add mars.txt venus.txt</code></pre>
+<p>혹은 명령어를 다수 타이핑하면 된다:</p>
+<pre><code>$ git add mars.txt
+$ git add venus.txt</code></pre>
+<p>이제 파일을 커밋할 준비가 되었다.
+<code>git status</code>를 사용해서 확인하면, 커밋을 할 준비가 되었다:</p>
+<pre><code>$ git commit -m "Write plans to start a base on Venus"
+
+[master cc127c2]
+ Write plans to start a base on Venus
+ 2 files changed, 2 insertions(+)
+ create mode 100644 venus.txt</code></pre>
+</blockquote>
+</div>
+<div id="git-commit-bio" class="rmdcaution">
+<p><strong><code>bio</code> 저장소</strong></p>
+<ul>
+<li>
+<code>bio</code>라는 새로운 Git 저장소를 본인 로컬 컴퓨터에 생성한다.</li>
+<li>
+<code>me.txt</code>라는 파일로 본인에 대한 3줄 이력서를 작성한다.
+변경사항을 커밋한다.</li>
+<li>그리고 나서 한줄을 바꾸고, 네번째 줄을 추가하고 나서,</li>
+<li>원래 상태와 갱신된 상태의 차이를 화면에 출력한다.</li>
+</ul>
+<blockquote>
+<p><strong>해답</strong></p>
+<p>필요하다면, <code>planets</code> 폴더에서 빠져나온다:</p>
+<pre><code>$ cd ..</code></pre>
+<p><code>bio</code> 폴더를 새로 생성하고 <code>bio</code> 폴더로 이동한다:</p>
+<pre><code>$ mkdir bio
+$ cd bio</code></pre>
+<p>git 명령어로 초기화한다:</p>
+<pre><code>$ git init</code></pre>
+<p><code>nano</code> 혹은 선호하는 편집기를 사용해서 <code>me.txt</code> 파일에 본인 일대기를 작성한다.
+파일을 추가하고 나서, 저장소에 커밋한다:</p>
+<pre><code>$ git add me.txt
+$ git commit -m'Adding biography file'</code></pre>
+<p>기술된 것(한줄 변경하고, 4번째 줄을 추가한다)처럼 파일을 변경한다.
+원본 상태와 수정된 상태를 <code>git diff</code> 명령어를 사용해서 화면에 출력한다:</p>
+<pre><code>$ git diff me.txt</code></pre>
+</blockquote>
+</div>
+<div id="git-commit-author" class="rmdcaution">
+<p><strong>저자(Author)와 커미터(Committer)</strong></p>
+<p>매번 커밋을 할 때마다, Git은 이름을 두번 저장한다.
+본인 이름이 저자(Author)와 커미터(Committer)로 기록된다.
+마지막 커밋에 추가 정보를 Git에게 요구하면 확인이 가능하다:</p>
+<pre><code>$ git log --format=full</code></pre>
+<p>커밋할 때, 저자를 다른 누군가로 바꿀 수 있다:</p>
+<pre><code>$ git commit --author="Vlad Dracula &lt;vlad@tran.sylvan.ia&gt;"</code></pre>
+<p>커밋을 두개 생성한다: 하나는 <code>--author</code> 옵션을 갖는 것으로
+저자로 동료이름을 반영한다.
+<code>git log</code>와 <code>git log --format=full</code> 명령어를 실행한다.
+이런 방식이 동료와 협업하는 방식이 될 수도 있겠다고는 생각이 될 수 있다.</p>
+<blockquote>
+<p><strong>해법</strong></p>
+<pre><code>$ git add me.txt
+$ git commit -m "Update Vlad's bio." --author="Frank N. Stein &lt;franky@monster.com&gt;"
+
+[master 4162a51] Update Vlad's bio.
+Author: Frank N. Stein &lt;franky@monster.com&gt;
+1 file changed, 2 insertions(+), 2 deletions(-)
+
+$ git log --format=full
+commit 4162a51b273ba799a9d395dd70c45d96dba4e2ff
+Author: Frank N. Stein &lt;franky@monster.com&gt;
+Commit: Vlad Dracula &lt;vlad@tran.sylvan.ia&gt;
+
+Update Vlad's bio.
+
+commit aaa3271e5e26f75f11892718e83a3e2743fab8ea
+Author: Vlad Dracula &lt;vlad@tran.sylvan.ia&gt;
+Commit: Vlad Dracula &lt;vlad@tran.sylvan.ia&gt;
+
+Vlad's initial bio.</code></pre>
+</blockquote>
+</div>
+
+</div>
+  <div class="chapter-nav">
+<div class="prev"><a href="git-create.html"><span class="header-section-number">3</span> 저장소 생성</a></div>
+<div class="next"><a href="git-history.html"><span class="header-section-number">5</span> 이력 탐색</a></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav"><li><a class="nav-link" href="#git-change"><span class="header-section-number">4</span> 변경사항 추적</a></li></ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+          
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>데이터 과학을 지탱하는 기본기</strong>" was written by 한국 알 사용자회. It was last built on 2022-05-10.</p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer>
+</body>
+</html>

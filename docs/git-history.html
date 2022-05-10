@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>5 . 이력 탐색 | 데이터 과학을 지탱하는 기본기</title>
+<meta name="author" content="한국 알 사용자회">
+<meta name="description" content="앞선 학습에서 살펴봤듯이, 식별자로 커밋을 조회할 수 있다. HEAD 식별자를 사용해서 작업 디렉토리의 가장 최근 커밋을 조회할 수 있다. mars.txt 파일에 한번에 한줄씩 추가했다. 따라서, 눈으로 봐도 진행사항을 쉽게 추적할 수 있다. HEAD를 사용해서 추적작업을 수행해보자. 시작전에 mars.txt 파일에 변경을 가해보자. $ nano...">
+<meta name="generator" content="bookdown 0.26 with bs4_book()">
+<meta property="og:title" content="5 . 이력 탐색 | 데이터 과학을 지탱하는 기본기">
+<meta property="og:type" content="book">
+<meta property="og:description" content="앞선 학습에서 살펴봤듯이, 식별자로 커밋을 조회할 수 있다. HEAD 식별자를 사용해서 작업 디렉토리의 가장 최근 커밋을 조회할 수 있다. mars.txt 파일에 한번에 한줄씩 추가했다. 따라서, 눈으로 봐도 진행사항을 쉽게 추적할 수 있다. HEAD를 사용해서 추적작업을 수행해보자. 시작전에 mars.txt 파일에 변경을 가해보자. $ nano...">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="5 . 이력 탐색 | 데이터 과학을 지탱하는 기본기">
+<meta name="twitter:description" content="앞선 학습에서 살펴봤듯이, 식별자로 커밋을 조회할 수 있다. HEAD 식별자를 사용해서 작업 디렉토리의 가장 최근 커밋을 조회할 수 있다. mars.txt 파일에 한번에 한줄씩 추가했다. 따라서, 눈으로 봐도 진행사항을 쉽게 추적할 수 있다. HEAD를 사용해서 추적작업을 수행해보자. 시작전에 mars.txt 파일에 변경을 가해보자. $ nano...">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.3.1/transition.js"></script><script src="libs/bs3compat-0.3.1/tabs.js"></script><script src="libs/bs3compat-0.3.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
+    
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  </style>
+<style type="text/css">
+    /* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+    div.csl-bib-body { }
+    div.csl-entry {
+      clear: both;
+        }
+    .hanging div.csl-entry {
+      margin-left:2em;
+      text-indent:-2em;
+    }
+    div.csl-left-margin {
+      min-width:2em;
+      float:left;
+    }
+    div.csl-right-inline {
+      margin-left:2em;
+      padding-left:1em;
+    }
+    div.csl-indent {
+      margin-left: 2em;
+    }
+  </style>
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">데이터 과학을 지탱하는 기본기</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html">고급 데이터 분석</a></li>
+<li><a class="" href="%EB%B2%84%EC%A0%84%EC%A0%9C%EC%96%B4%EC%99%80-%ED%98%91%EC%97%85.html">버전제어와 협업</a></li>
+<li><a class="" href="git.html"><span class="header-section-number">1</span> 자동화된 버젼제어</a></li>
+<li><a class="" href="git-setup.html"><span class="header-section-number">2</span> Git 구축 및 설정</a></li>
+<li><a class="" href="git-create.html"><span class="header-section-number">3</span> 저장소 생성</a></li>
+<li><a class="" href="git-change.html"><span class="header-section-number">4</span> 변경사항 추적</a></li>
+<li><a class="active" href="git-history.html"><span class="header-section-number">5</span> 이력 탐색</a></li>
+<li><a class="" href="%EC%B0%B8%EA%B3%A0%EB%AC%B8%ED%97%8C.html">참고문헌</a></li>
+</ul>
+
+        <div class="book-extra">
+          
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="git-history" class="section level1" number="5">
+<h1>
+<span class="header-section-number">5 . </span> 이력 탐색<a class="anchor" aria-label="anchor" href="#git-history"><i class="fas fa-link"></i></a>
+</h1>
+<p>앞선 학습에서 살펴봤듯이, 식별자로 커밋을 조회할 수 있다.
+<code>HEAD</code> 식별자를 사용해서 작업 디렉토리의 <em>가장 최근 커밋</em>을 조회할 수 있다.</p>
+<p><code>mars.txt</code> 파일에 한번에 한줄씩 추가했다. 따라서, 눈으로 봐도 진행사항을 쉽게 추적할 수 있다.
+<code>HEAD</code>를 사용해서 추적작업을 수행해보자. 시작전에 <code>mars.txt</code> 파일에 변경을 가해보자.</p>
+<pre><code>$ nano mars.txt
+$ cat mars.txt
+
+Cold and dry, but everything is my favorite color
+The two moons may be a problem for Wolfman
+But the Mummy will appreciate the lack of humidity
+An ill-considered change</code></pre>
+<p>이제, 변경된 사항을 살펴보자.</p>
+<pre><code>$ git diff HEAD mars.txt
+
+diff --git a/mars.txt b/mars.txt
+index b36abfd..0848c8d 100644
+--- a/mars.txt
++++ b/mars.txt
+@@ -1,3 +1,4 @@
+ Cold and dry, but everything is my favorite color
+ The two moons may be a problem for Wolfman
+ But the Mummy will appreciate the lack of humidity
++An ill-considered change.</code></pre>
+<p><code>HEAD</code>만 빼면, 앞서 살펴본 것과 동일하다.
+이러한 접근법의 정말 좋은 점은 이전 커밋을 조회살 수 있다는 점이다.
+<code>~1</code>(“~”은 “틸드(tilde)”, 발음기호 [<strong>til</strong>-d<em>uh</em>])을 추가해서 <code>HEAD</code> 이전 첫번째 커밋을 조회할 수 있다.</p>
+<pre><code>$ git diff HEAD~1 mars.txt</code></pre>
+<p><code>git diff</code> 명령어를 사용해서 이전 커밋과 차이난 점을 보고자 한다면,
+<code>HEAD~1</code>, <code>HEAD~2</code> 표기법을 사용해서 조회를 쉽게 할 수 있다:</p>
+<pre><code>$ git diff HEAD~2 mars.txt
+
+diff --git a/mars.txt b/mars.txt
+index df0654a..b36abfd 100644
+--- a/mars.txt
++++ b/mars.txt
+@@ -1 +1,4 @@
+ Cold and dry, but everything is my favorite color
++The two moons may be a problem for Wolfman
++But the Mummy will appreciate the lack of humidity
++An ill-considered change</code></pre>
+<p><code>git show</code>를 사용해서도 커밋 메시지 분만 아니라 이전 커밋과 변경사항을 보여준다.
+<code>git diff</code>는 작업 디렉토리와 커밋 사이 <em>차이나는 부분</em>을 보여준다.</p>
+<pre><code>$ git show HEAD~2 mars.txt
+
+commit 34961b159c27df3b475cfe4415d94a6d1fcd064d
+Author: Vlad Dracula &lt;vlad@tran.sylvan.ia&gt;
+Date:   Thu Aug 22 10:07:21 2013 -0400
+
+    Start notes on Mars as a base
+
+diff --git a/mars.txt b/mars.txt
+new file mode 100644
+index 0000000..df0654a
+--- /dev/null
++++ b/mars.txt
+@@ -0,0 +1 @@
++Cold and dry, but everything is my favorite color</code></pre>
+<p>이런 방식으로,
+연쇄 커밋 사슬을 구성할 수 있다.
+가장 최근 사슬의 끝값은 <code>HEAD</code>로 조회된다;
+<code>~</code> 표기법을 사용하여 이전 커밋을 조회할 수 있다.
+그래서 <code>HEAD~1</code>(“head 마이너스 1”으로 읽는다.)은 “바로 앞선 커밋”을 의미하고,
+<code>HEAD~123</code>은 지금 있는 위치에서 123번째 이전 수정으로 간다는 의미가 된다.</p>
+<p>커밋된 것을 <code>git log</code> 명령어로 화면에 뿌려주는 숫자와 문자로 구성된 긴 문자열을 사용하여 조회할 수도 있다.
+변경사항에 대해서 중복되지 않는 ID로 “중복되지 않는(unique)”의 의미는 정말 유일하다는 의미다:
+특정 컴퓨터에 있는 임의 파일 집합에 대한 모든 변경사항은 중복되지 않는 40-문자 식별자가 붙어있다.
+첫번째 커밋은 ID로 f22b25e3233b4645dabd0d81e651fe074bd8e73b 이 주어졌다.
+그래서 다음과 같이 시도하자:</p>
+<pre><code>$ git diff f22b25e3233b4645dabd0d81e651fe074bd8e73b mars.txt
+
+diff --git a/mars.txt b/mars.txt
+index df0654a..93a3e13 100644
+--- a/mars.txt
++++ b/mars.txt
+@@ -1 +1,4 @@
+ Cold and dry, but everything is my favorite color
++The two moons may be a problem for Wolfman
++But the Mummy will appreciate the lack of humidity
++An ill-considered change</code></pre>
+<p>올바든 정답이지만,
+난수 40-문자로 된 문자열을 타이핑하는 것은 매우 귀찮은 일이다.
+그래서 Git 앞의 몇개 문자만으로도 사용할 수 있게 했다:</p>
+<pre><code>$ git diff f22b25e mars.txt
+
+diff --git a/mars.txt b/mars.txt
+index df0654a..93a3e13 100644
+--- a/mars.txt
++++ b/mars.txt
+@@ -1 +1,4 @@
+ Cold and dry, but everything is my favorite color
++The two moons may be a problem for Wolfman
++But the Mummy will appreciate the lack of humidity
++An ill-considered change</code></pre>
+<p>좋았어요!
+파일에 변경사항을 저장할 수 있고 변경된 것을 확인할 수 있다.
+어떻게 옛 버젼 파일을 되살릴 수 있을까?
+우연히 파일을 덮어썼다고 가정하자:</p>
+<pre><code>$ nano mars.txt
+$ cat mars.txt
+
+We will need to manufacture our own oxygen</code></pre>
+<p>이제 <code>git status</code>를 통해서 파일이 변경되었다고 하지만,
+변경사항은 아직 준비영역(Staging area)에 옮겨지지 않은 것으로 확인된다:</p>
+<pre><code>$ git status
+
+On branch master
+Changes not staged for commit:
+  (use "git add &lt;file&gt;..." to update what will be committed)
+  (use "git checkout -- &lt;file&gt;..." to discard changes in working directory)
+
+    modified:   mars.txt
+
+no changes added to commit (use "git add" and/or "git commit -a")</code></pre>
+<p><code>git checkout</code> 명령어를 사용해서 과거에 있던 상태로 파일을 돌려 놓을 수 있다:</p>
+<pre><code>$ git checkout HEAD mars.txt
+$ cat mars.txt
+
+Cold and dry, but everything is my favorite color
+The two moons may be a problem for Wolfman
+But the Mummy will appreciate the lack of humidity</code></pre>
+<p>이름에서 유추할 수 있듯이, <code>git checkout</code> 명령어는 파일 옛 버젼을 확인하고 갖고 나간다. 즉, 되살린다.
+이 경우 <code>HEAD</code>에 기록된 가장 최근에 저장된 파일 버젼을 되살린다.
+좀더 오래된 버젼을 되살리고자 한다면, 대신에 커밋 식별자를 사용한다:</p>
+<pre><code>$ git checkout f22b25e mars.txt</code></pre>
+<pre><code>$ cat mars.txt
+
+Cold and dry, but everything is my favorite color</code></pre>
+<pre><code>$ git status
+
+# On branch master
+Changes to be committed:
+  (use "git reset HEAD &lt;file&gt;..." to unstage)
+# Changes not staged for commit:
+#   (use "git add &lt;file&gt;..." to update what will be committed)
+#   (use "git checkout -- &lt;file&gt;..." to discard changes in working directory)
+#
+#   modified:   mars.txt
+#
+no changes added to commit (use "git add" and/or "git commit -a")</code></pre>
+<p>변경사항은 준비영역에 머물러 있는 것에 주목한다.
+다시, <code>git checkout</code> 명령어를 사용해서 이전버젼으로 되돌아 간다:</p>
+<pre><code>$ git checkout HEAD mars.txt</code></pre>
+<div id="git-head" class="rmdcaution">
+<p><strong>헤드(HEAD)를 잃지 말자</strong></p>
+<p><code>f22b25e</code> 커밋 상태로 <code>mars.txt</code> 파일을 되돌리는데 앞서 다음 명령어를 사용했다.</p>
+<pre><code>$ git checkout f22b25e mars.txt</code></pre>
+<p>하지만 주의하자! <code>checkout</code> 명령어는 다른 중요한 기능을 갖고 있고
+만약 타이핑에 오류가 있다면 의도를 Git이 오해할 수 있다.
+예를들어, 앞선 명령에서 <code>mars.txt</code>를 빼먹게 되면…</p>
+<pre><code>$ git checkout f22b25e
+
+Note: checking out 'f22b25e'.
+You are in 'detached HEAD' state. You can look around, make experimental
+changes and commit them, and you can discard any commits you make in this
+state without impacting any branches by performing another checkout.
+If you want to create a new branch to retain commits you create, you may
+do so (now or later) by using -b with the checkout command again. Example:
+ git checkout -b &lt;new-branch-name&gt;
+HEAD is now at f22b25e Start notes on Mars as a base</code></pre>
+<p>“detached HEAD”는 “보기는 하지만 건드리지는 마시오”와 같다.
+따나서 현재 상태에서 어떤 변경도 만들지 말아야한다.
+저장소 지난 상태를 살펴본 후에 <code>git checkout master</code> 명령어로 <code>HEAD</code>를 다시 붙힌다.</p>
+</div>
+<p>실행 취소를 하는 변경을 하기 *전에** 저장소 상태를 확인하는 커밋 번호를 사용해야 한다는 것을 기억하는 것이 중요하다.
+흔한 실수는 커밋 번호를 사용하는 것이다.
+아래 예제에서는 커밋 번호가 <code>f22b25e</code>인 가장 최신 커밋(<code>HEAD~1</code>) 앞의 상태로 다시 되돌리고자 한다:</p>
+<div class="figure">
+<img src="assets/images/git/git-checkout.svg" alt=""><p class="caption">Git Checkout</p>
+</div>
+<p>그래서, 모두 한군데 놓아보자:</p>
+<div class="figure">
+<img src="assets/images/git/git_staging.svg" alt=""><p class="caption"><a href="https://figshare.com/articles/How_Git_works_a_cartoon/1328266" class="uri">https://figshare.com/articles/How_Git_works_a_cartoon/1328266</a></p>
+</div>
+<div id="git-simplify-common" class="rmdcaution">
+<p><strong>흔한 사례 단순화</strong></p>
+<p><code>git status</code> 출력결과를 주의깊이 읽게 되면,
+힌트가 포함된 것을 볼 수 있다.</p>
+<pre><code>(use "git checkout -- &lt;file&gt;..." to discard changes in working directory)</code></pre>
+<p>출력결과가 언급하는 바는, 버전 식별자 없이 <code>git checkout</code> 명령어를 실행하게 되면
+<code>HEAD</code>에 저장된 상태로 파일을 원복시킨다.
+더블 대쉬 <code>--</code>가 필요한 경우는 명령어 자체로부터 복구회야 되는 파일명을 구별할 때다:
+없는 경우, 커밋 식별자에 Git은 파일명을 사용한다.</p>
+</div>
+<p>파일이 하나씩 하나씩 옛 상태로 되돌린다는 사실이 사람들이 작업을 조직하는 방식에 변화를 주는 경향이 있다.
+모든 것이 하나의 큰 문서로 되어있다면,
+나중에 결론부분에 변경사항을 실행취소하지 않고, 소개부분에 변경을 다시 되돌리기가 쉽지 않다(하지만 불가능하지는 않다).
+다른 한편으로 만약 소개부분과 결론부분이 다른 파일에 저장되어 있다면,
+시간 앞뒤로 이동하기가 훨씬 쉽다.</p>
+<div id="git-recover-version" class="rmdcaution">
+<p><strong>파일 이전 버젼 복구하기</strong></p>
+<p>정훈이가 몇주동안 작업한 파이썬 스크립트에 변경을 했고,
+오늘 아침 정훈이가 작업한 변경사항이 스크립트를 “망가 먹어서” 더이상 실행이 되지 않는다.
+복도 없이, 버그를 고치는데 1시간 이상 소모했다…</p>
+<p>다행스럽게도, Git을 사용한 프로젝트 버젼을 추적하고 있었다!
+다음 아래 명령어 중 어떤 것이 <code>data_cruncher.py</code>로 불리는 파이썬 스크립트 가장 최근 버젼을
+복구하게 할까요?</p>
+<ol style="list-style-type: decimal">
+<li><code>$ git checkout HEAD</code></li>
+<li><code>$ git checkout HEAD data_cruncher.py</code></li>
+<li><code>$ git checkout HEAD~1 data_cruncher.py</code></li>
+<li><code>$ git checkout &lt;unique ID of last commit&gt; data_cruncher.py</code></li>
+<li>Both 2 and 4</li>
+</ol>
+</div>
+<div id="git-commit-revert" class="rmdcaution">
+<p><strong>커밋 되돌리기(Reverting a Commit)</strong></p>
+<p>정훈이는 동료와 함께 파이썬 코드를 협업해서 작성하고 있다.
+그룹 저장소에 마지막으로 커밋한 것이 잘못된 것을 알게 되서,
+실행취소하여 원복하고자 한다.</p>
+<p>정훈이는 실행취소를 올바르게 해서 그룹저장소를 사용하는
+모든 구성원이 제대로된 변경사항을 가지고 작업을 계속하길 원한다.
+<code>git revert [잘못된 커밋 ID]</code> 명령어는 정훈이가 이전에 잘못 커밋했던
+작업에 대해 실행취소하는 커밋을 새로 생성시킨다.</p>
+<p>따라서, <code>git revert</code>는 <code>git checkout [커밋 ID]</code>와 다른데
+이유는 <code>checkout</code>이 그룹 저장소에 커밋되지 않는 로컬 변경사항에
+대해서 적용된다는 점에서 차이가 난다.
+정훈이가 <code>git revert</code>를 사용할 올바른 절차와 설명이 아래에 나와있다.
+빠진 명령어가 무엇일까?</p>
+<ol style="list-style-type: decimal">
+<li>`________ # 커밋 ID를 찾을 수 있도록 Git 프로젝트 이력을 살펴본다.</li>
+<li>ID를 복사한다. (ID의 첫 문자 몇개만 사용한다. 예를 들어, 0b1d055).</li>
+<li><code>git revert [커밋 ID]</code></li>
+<li>새로운 커밋 메시지를 타이핑한다.</li>
+<li>저장하고 종료한다.</li>
+</ol>
+</div>
+<div id="git-workflow" class="rmdcaution">
+<p><strong>작업흐름과 이력 이해하기</strong></p>
+<p>다음 마지막 명령의 출력결과는 무엇일까?</p>
+<pre><code>$ cd planets
+$ echo "Venus is beautiful and full of love" &gt; venus.txt
+$ git add venus.txt
+$ echo "Venus is too hot to be suitable as a base" &gt;&gt; venus.txt
+$ git commit -m "Comment on Venus as an unsuitable base"
+$ git checkout HEAD venus.txt
+$ cat venus.txt #this will print the contents of venus.txt to the screen</code></pre>
+<ol style="list-style-type: decimal">
+<li><pre><code>   Venus is too hot to be suitable as a base</code></pre></li>
+<li><pre><code>   Venus is beautiful and full of love</code></pre></li>
+<li><pre><code>   Venus is beautiful and full of love
+   Venus is too hot to be suitable as a base</code></pre></li>
+<li><pre><code>   Error because you have changed venus.txt without committing the changes</code></pre></li>
+</ol>
+<blockquote>
+<p><strong>해법</strong></p>
+<p>정답은 2. 왜냐하면, <code>git add venus.txt</code>가 <code>Venus is too hot to be suitable as a base</code> 행을
+추가하기 전에만 적용된다. <code>git checkout</code>이 실행될 때 반영이 되지 않아서 그렇다.
+<code>git commit</code> 명령어에 <code>-a</code> 플래그를 사용하게 되면 이런 손실을 막을 수 있다.</p>
+</blockquote>
+</div>
+<div id="git-diff-understand" class="rmdcaution">
+<p><strong><code>git diff</code> 이해 확인하기</strong></p>
+<p><code>git diff HEAD~3 mars.txt</code> 명령어를 고려해 보자.
+이 명령어를 실행하게 되면 실행결과로 예상하는 바를 말해보세요.
+명령어를 실행하게 되면 어떤 일이 발생하는가? 그리고 이유는 무엇인가?</p>
+<p>또 다른 명령어 <code>git diff [ID] mars.txt</code>를 시도해 보자.
+여기서, [ID]를 가장 최근 커밋 식별자로 치환한다.
+무슨 일이 생길까? 그리고 실제로 생긴 일은 무엇인가?</p>
+</div>
+<div id="git-staged-change" class="rmdcaution">
+<p><strong>준비 단계 변경사항(Staged Changes) 제거하기</strong></p>
+<p><code>git checkout</code> 명령어를 통해서 준비영역으로 올라오지 않은 변경사항이 있을 대, 이전 커밋을 복구할 수 있었다.
+하지만, <code>git checkout</code>은 준비영역에 올라왔지만, 커밋되지 않는 변경사항에 대해서도 동작한다.
+<code>mars.txt</code> 파일에 변경사항을 만들고, 변경사항을 추가하고 나서,
+<code>git checkout</code> 명령어를 사용하게 되면 변경사항이 사라졌는지 살펴보자.</p>
+</div>
+<div id="git-change-summary" class="rmdcaution">
+<p><strong>변경 이력 탐색과 요약</strong></p>
+<p>변경 이력 탐색은 Git에 있어 중요한 부분 중의 하나로,
+특히 커밋이 수개월 전에 이뤄졌다면, 올바른 커밋 ID를 찾는 것이 종종 크나큰 도전과제가 된다.
+<code>planets</code> 프로젝트가 50 파일 이상으로 구성되었다고 상상해 보자.</p>
+<p><code>mars.txt</code> 파일에 특정 텍스트가 변경된 커밋을 찾고자 한다.
+<code>git log</code>를 타이핑하게 되면 매우 긴 목록이 출력된다.
+어떻게 하면 검색범위를 좁힐 수 있을까?
+<code>git diff</code> 명령어가 특정 파일만 탐색할 수 있단느 점을 상기하자.</p>
+<p>예를 들어, <code>git diff mars.txt</code>. 이 문제에 유사한 아이디어를 적용해 보자.</p>
+<pre><code>$ git log mars.txt</code></pre>
+<p>불행하게도 커밋 메시지 일부는 매우 애매모호하다. 예를 들어, <code>update files</code>.
+어떻게 하면 파일을 잘 검색할 수 있을까?
+<code>git diff</code>, <code>git log</code> 명령어 모두 매우 유용하다. 두 명령어 모두 변경이력의 다른 부분을 요약해준다.
+둘을 조합하는 것은 가능할까? 다음 명령어를 실행해 보자:</p>
+<pre><code>$ git log --patch mars.txt</code></pre>
+<p>엄청 긴 출력 목록이 나타난다. 각 커밋마다 커밋 메시지와 차이가 쭉 출력된다.
+질문: 다음 명령어는 무슨 작업을 수행할까요?</p>
+<pre><code>$ git log --patch HEAD~3 *.txt</code></pre>
+</div>
+
+</div>
+  <div class="chapter-nav">
+<div class="prev"><a href="git-change.html"><span class="header-section-number">4</span> 변경사항 추적</a></div>
+<div class="next"><a href="%EC%B0%B8%EA%B3%A0%EB%AC%B8%ED%97%8C.html">참고문헌</a></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav"><li><a class="nav-link" href="#git-history"><span class="header-section-number">5</span> 이력 탐색</a></li></ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+          
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>데이터 과학을 지탱하는 기본기</strong>" was written by 한국 알 사용자회. It was last built on 2022-05-10.</p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer>
+</body>
+</html>

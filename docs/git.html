@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>1 . 자동화된 버젼제어 | 데이터 과학을 지탱하는 기본기</title>
+<meta name="author" content="한국 알 사용자회">
+<meta name="description" content="누군가 무엇을 했는지, 언제 했는지를 추적하기 위해서, 버젼제어를 어떻게 사용할 수 있는지 탐색해보자. 다른 사람과 협업을 하지 않더라도, 자동화된 버젼제어가 다음 상황보다 훨씬 더 낫다: 이전에 상기와 같은 상황에 처했었다: 같은 문서에 대해서 거의 동일한 다수 버젼을 관리하는 것은 우스워 보인다. 일부 워드프로세서가 이런 상황을 좀더 잘...">
+<meta name="generator" content="bookdown 0.26 with bs4_book()">
+<meta property="og:title" content="1 . 자동화된 버젼제어 | 데이터 과학을 지탱하는 기본기">
+<meta property="og:type" content="book">
+<meta property="og:description" content="누군가 무엇을 했는지, 언제 했는지를 추적하기 위해서, 버젼제어를 어떻게 사용할 수 있는지 탐색해보자. 다른 사람과 협업을 하지 않더라도, 자동화된 버젼제어가 다음 상황보다 훨씬 더 낫다: 이전에 상기와 같은 상황에 처했었다: 같은 문서에 대해서 거의 동일한 다수 버젼을 관리하는 것은 우스워 보인다. 일부 워드프로세서가 이런 상황을 좀더 잘...">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="1 . 자동화된 버젼제어 | 데이터 과학을 지탱하는 기본기">
+<meta name="twitter:description" content="누군가 무엇을 했는지, 언제 했는지를 추적하기 위해서, 버젼제어를 어떻게 사용할 수 있는지 탐색해보자. 다른 사람과 협업을 하지 않더라도, 자동화된 버젼제어가 다음 상황보다 훨씬 더 낫다: 이전에 상기와 같은 상황에 처했었다: 같은 문서에 대해서 거의 동일한 다수 버젼을 관리하는 것은 우스워 보인다. 일부 워드프로세서가 이런 상황을 좀더 잘...">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.3.1/transition.js"></script><script src="libs/bs3compat-0.3.1/tabs.js"></script><script src="libs/bs3compat-0.3.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
+    
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  </style>
+<style type="text/css">
+    /* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+    div.csl-bib-body { }
+    div.csl-entry {
+      clear: both;
+        }
+    .hanging div.csl-entry {
+      margin-left:2em;
+      text-indent:-2em;
+    }
+    div.csl-left-margin {
+      min-width:2em;
+      float:left;
+    }
+    div.csl-right-inline {
+      margin-left:2em;
+      padding-left:1em;
+    }
+    div.csl-indent {
+      margin-left: 2em;
+    }
+  </style>
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">데이터 과학을 지탱하는 기본기</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html">고급 데이터 분석</a></li>
+<li><a class="" href="%EB%B2%84%EC%A0%84%EC%A0%9C%EC%96%B4%EC%99%80-%ED%98%91%EC%97%85.html">버전제어와 협업</a></li>
+<li><a class="active" href="git.html"><span class="header-section-number">1</span> 자동화된 버젼제어</a></li>
+<li><a class="" href="git-setup.html"><span class="header-section-number">2</span> Git 구축 및 설정</a></li>
+<li><a class="" href="git-create.html"><span class="header-section-number">3</span> 저장소 생성</a></li>
+<li><a class="" href="git-change.html"><span class="header-section-number">4</span> 변경사항 추적</a></li>
+<li><a class="" href="git-history.html"><span class="header-section-number">5</span> 이력 탐색</a></li>
+<li><a class="" href="%EC%B0%B8%EA%B3%A0%EB%AC%B8%ED%97%8C.html">참고문헌</a></li>
+</ul>
+
+        <div class="book-extra">
+          
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="git" class="section level1" number="1">
+<h1>
+<span class="header-section-number">1 . </span> 자동화된 버젼제어<a class="anchor" aria-label="anchor" href="#git"><i class="fas fa-link"></i></a>
+</h1>
+<p>누군가 무엇을 했는지, 언제 했는지를 추적하기 위해서, 버젼제어를 어떻게 사용할 수 있는지 탐색해보자.
+다른 사람과 협업을 하지 않더라도, 자동화된 버젼제어가 다음 상황보다 훨씬 더 낫다:</p>
+<p><a href="http://www.phdcomics.com" width="100%"><img src="assets/images/git/phd101212s.png" alt="Piled Higher and Deeper by Jorge Cham, http://www.phdcomics.com/comics/archive_print.php?comicid=1531"></a></p>
+<p>이전에 상기와 같은 상황에 처했었다: 같은 문서에 대해서 거의 동일한 다수 버젼을 관리하는 것은 우스워 보인다.
+일부 워드프로세서가 이런 상황을 좀더 잘 처리하도록 하는 기능이 있다. 예를 들어, 마이크로소프트 워드 “변경사항 추적(Track Changes)” 혹은
+구글 닥스(Google Docs)의 버젼 이력이 그것이다.</p>
+<p>버젼제어 시슽메은 문서의 기본 버젼으로 시작하고 나서, 각 단계마다 변경한 이력을 저장한다.
+테이프로 생각하면 쉽다: 테이프를 되감으면, 문서 시작한 지점으로 가고, 각 변경사항을 다시 돌리면 가장 최근 버젼이 된다.</p>
+<div class="figure">
+<img src="assets/images/git/play-changes.svg" style="width:100.0%" alt=""><p class="caption">변경사항이 순차적으로 저장된다.</p>
+</div>
+<p>변경사항을 문서 그자체로부터 떨어진 것으로 생각하면,
+동일 기반 문서에 다른 변경사항을 “재생(playback)”하고, 다른 문서 버젼을 관리하는 것으로 간주할 수 있다.
+예를 들어, 사용자 두명이 같은 문서에 독립적인 변경 작업을 수행할 수 있다.</p>
+<div class="figure">
+<img src="assets/images/git/versions.svg" style="width:100.0%" alt=""><p class="caption">다른 버전이 저장될 수도 있다.</p>
+</div>
+<p>만약 충돌나지 않으면, 심지어 동일 문서에서 두가지 변경사항을 작업할 수도 있다.</p>
+<div class="figure">
+<img src="assets/images/git/merge.svg" style="width:100.0%" alt=""><p class="caption">버전 다수가 병합될 수도 있다.</p>
+</div>
+<p>버젼제어 시스템은 사용자를 대신해서 변경사항을 기록하고,
+파일 버젼을 생성하고 파일병합하는데 유용한 도구다.
+버젼제어 시스템은 어떤 변경사항을 다음 버젼에 반영(<strong>커밋(commit)</strong>)으로 불림)할지 결정하는 할 수 있게 하고,
+커밋에 관한 유용한 메타정보를 보관한다.
+특정 프로젝트와 프로젝트 메타정보에 대한 완전한 커밋이력은
+<strong>저장소(repository)</strong>에 보관된다.
+저장소는 협업하는 여러 동료 컴퓨터에 걸쳐 동기화될 수 있다.</p>
+<div id="git-history" class="rmdcaution">
+<p><strong>버젼제어 시스템의 오랜 역사</strong></p>
+<p>자동화된 버젼제어 시스템이 새로운 것은 전혀 아니다.
+1980년부터 RCS, CVS, Subversion 같은 도구가 존재했고, 많은 대기업에서 사용되고 있다.
+하지만, 다양한 기능의 한계로 인해서 이들 중 다수는 이제 레거시 시스템(legacy system)으로 간주된다.
+최근에 등장한 도구 Git과 <a href="http://swcarpentry.github.io/hg-novice/">Mercurial</a>은 <em>분산(distributed)</em> 기능을 제공한다.
+저장소를 굳이 중앙 서버에 둘 필요가 없다는 의미다.
+이러한 최신 시스템에는 동시간에 동일한 파일에 다수 저작자가 작업하는 것을 가능하게 하는 강력한 병합(merge) 도구도 내장하고 있다.</p>
+</div>
+<div id="git-writing" class="rmdcaution">
+<p><strong>논문 작성</strong></p>
+<ul>
+<li><p>논문을 작성하면서 정말 멋진 문단을 초안을 작성했지만, 나중에 망치게 되었다고 상상해 보자.
+어떻게 <em>정말 멋진</em> 맺음말 버전이 포함된 문서를 되살릴 수 있을까? 가능하기도 할까?</p></li>
+<li><p>공저자가 5명이라고 상상해보자. 공저자가 논문에 반영한 변경사항과 코멘트를 어떻게 관리할 수 있을까?
+마이크로소프트 워드나 리브레오피스 Writer를 사용하는 경우, <code>Track Changes</code> 옵션을 사용해서 변경한 것을 반영하게 되면 어떻게 될까?
+이러한 변경사항에 대한 이력은 갖고 있는가?</p></li>
+</ul>
+</div>
+
+</div>
+  <div class="chapter-nav">
+<div class="prev"><a href="%EB%B2%84%EC%A0%84%EC%A0%9C%EC%96%B4%EC%99%80-%ED%98%91%EC%97%85.html">버전제어와 협업</a></div>
+<div class="next"><a href="git-setup.html"><span class="header-section-number">2</span> Git 구축 및 설정</a></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav"><li><a class="nav-link" href="#git"><span class="header-section-number">1</span> 자동화된 버젼제어</a></li></ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+          
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>데이터 과학을 지탱하는 기본기</strong>" was written by 한국 알 사용자회. It was last built on 2022-05-10.</p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer>
+</body>
+</html>

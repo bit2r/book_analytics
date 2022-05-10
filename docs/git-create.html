@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>3 . 저장소 생성 | 데이터 과학을 지탱하는 기본기</title>
+<meta name="author" content="한국 알 사용자회">
+<meta name="description" content="Git 환경설정이 완료되면, Git를 사용할 수 있다. 행성 착륙선을 화성에 보낼 수 있는지 조사를 하고 있는 늑대인간과 드라큘라 이야기를 계속해서 진행해 보자. motivatingexample 먼저 바탕화면(Desktop)에 작업할 디렉토리를 생성하고, 생성한 디렉토리로 이동하자: $ cd ~/Desktop $ mkdir planets $ cd...">
+<meta name="generator" content="bookdown 0.26 with bs4_book()">
+<meta property="og:title" content="3 . 저장소 생성 | 데이터 과학을 지탱하는 기본기">
+<meta property="og:type" content="book">
+<meta property="og:description" content="Git 환경설정이 완료되면, Git를 사용할 수 있다. 행성 착륙선을 화성에 보낼 수 있는지 조사를 하고 있는 늑대인간과 드라큘라 이야기를 계속해서 진행해 보자. motivatingexample 먼저 바탕화면(Desktop)에 작업할 디렉토리를 생성하고, 생성한 디렉토리로 이동하자: $ cd ~/Desktop $ mkdir planets $ cd...">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="3 . 저장소 생성 | 데이터 과학을 지탱하는 기본기">
+<meta name="twitter:description" content="Git 환경설정이 완료되면, Git를 사용할 수 있다. 행성 착륙선을 화성에 보낼 수 있는지 조사를 하고 있는 늑대인간과 드라큘라 이야기를 계속해서 진행해 보자. motivatingexample 먼저 바탕화면(Desktop)에 작업할 디렉토리를 생성하고, 생성한 디렉토리로 이동하자: $ cd ~/Desktop $ mkdir planets $ cd...">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.3.1/transition.js"></script><script src="libs/bs3compat-0.3.1/tabs.js"></script><script src="libs/bs3compat-0.3.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
+    
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  </style>
+<style type="text/css">
+    /* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+    div.csl-bib-body { }
+    div.csl-entry {
+      clear: both;
+        }
+    .hanging div.csl-entry {
+      margin-left:2em;
+      text-indent:-2em;
+    }
+    div.csl-left-margin {
+      min-width:2em;
+      float:left;
+    }
+    div.csl-right-inline {
+      margin-left:2em;
+      padding-left:1em;
+    }
+    div.csl-indent {
+      margin-left: 2em;
+    }
+  </style>
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">데이터 과학을 지탱하는 기본기</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html">고급 데이터 분석</a></li>
+<li><a class="" href="%EB%B2%84%EC%A0%84%EC%A0%9C%EC%96%B4%EC%99%80-%ED%98%91%EC%97%85.html">버전제어와 협업</a></li>
+<li><a class="" href="git.html"><span class="header-section-number">1</span> 자동화된 버젼제어</a></li>
+<li><a class="" href="git-setup.html"><span class="header-section-number">2</span> Git 구축 및 설정</a></li>
+<li><a class="active" href="git-create.html"><span class="header-section-number">3</span> 저장소 생성</a></li>
+<li><a class="" href="git-change.html"><span class="header-section-number">4</span> 변경사항 추적</a></li>
+<li><a class="" href="git-history.html"><span class="header-section-number">5</span> 이력 탐색</a></li>
+<li><a class="" href="%EC%B0%B8%EA%B3%A0%EB%AC%B8%ED%97%8C.html">참고문헌</a></li>
+</ul>
+
+        <div class="book-extra">
+          
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="git-create" class="section level1" number="3">
+<h1>
+<span class="header-section-number">3 . </span> 저장소 생성<a class="anchor" aria-label="anchor" href="#git-create"><i class="fas fa-link"></i></a>
+</h1>
+<p>Git 환경설정이 완료되면, Git를 사용할 수 있다.
+행성 착륙선을 화성에 보낼 수 있는지 조사를 하고 있는 늑대인간과 드라큘라 이야기를 계속해서 진행해 보자.</p>
+<div class="figure">
+<img src="assets/images/git/motivatingexample.png" alt=""><p class="caption">motivatingexample</p>
+</div>
+<p>먼저 바탕화면(<code>Desktop</code>)에 작업할 디렉토리를 생성하고, 생성한 디렉토리로 이동하자:</p>
+<pre><code>$ cd ~/Desktop
+$ mkdir planets
+$ cd planets</code></pre>
+<p>그리고 나서, <code>planets</code>을 <strong>저장소(repository)</strong>로 만든다 —
+저장소는 Git이 파일에 대한 버젼정보를 저장하는 장소다:</p>
+<pre><code>$ git init</code></pre>
+<p><code>git init</code> 명령어가 서브디렉토리(subdirectory)와 파일을 담고 있는 저장소를 생성하는데 주목한다 —
+<code>planets</code> 저장소 내부에 중첩된 별도 저장소를 생성할 필요는 없다.
+또한, <code>planets</code> 디렉토리를 생성하고 저장소로 초기화하는 것은 완전히 서로 다른 과정이다.</p>
+<p><code>ls</code>를 사용해서 디렉토리 내용을 살펴보면, 변한 것이 아무것도 없는 것처럼 보인다:</p>
+<pre><code>$ ls</code></pre>
+<p>하지만, 모든 것을 보여주는 <code>-a</code> 플래그를 추가하면,
+Git은 <code>planets</code> 디렉토리 내부에 <code>.git</code> 로 불리는 숨겨진 디렉토리를 생성한 것을 볼 수 있다:</p>
+<pre><code>$ ls -a
+
+.   ..  .git</code></pre>
+<p>Git은 <code>.git</code>이라는 특별한 하위 디렉토리에 프로젝트에 대한 정보를 저장한다.
+여기에는 프로젝트 디렉토리 내부에 위치한 모든 파일과 서브 디렉토리가 포함된다.
+만약 <code>.git</code>를 삭제하면, 프로젝트 이력을 모두 잃어버리게 된다.</p>
+<p>모든 것이 제대로 설정되었는지를 확인을 하려면,
+Git에게 다음과 같이 프로젝트 상태를 확인 명령어를 던진다:</p>
+<pre><code>$ git status
+
+# On branch master
+#
+# Initial commit
+#
+nothing to commit (create/copy files and use "git add" to track)</code></pre>
+<p>다른 <code>git</code> 버전을 사용할 경우, 출력 결과물이 다소 다를 수도 있다.</p>
+<div id="git-repository" class="rmdcaution">
+<p><strong>Git 저장소를 생성할 장소</strong></p>
+<p>(이미 생성한 프로젝트) 행성에 대한 정보를 추적하면서,
+드라큘라는 달에 관한 정보도 추적하고자 한다.
+<code>plantes</code> 프로젝트와 관련된, 새로운 프로젝트 <code>moons</code> 를 시작한다.
+늑대인간의 걱정에 불구하고, Git 저장소 내부에 또다른 Git 저장소를 생성하려고
+다음 순서로 명령어를 입력해 나간다:</p>
+<pre><code>$ cd ~/Desktop   # 바탕화면 디렉토리로 되돌아 간다.
+$ cd planets     # planets 디렉토리로 들어간다.
+$ ls -a          # planets 디렉토리에 .git 서브 디렉토리가 있는지 확인한다.
+$ mkdir moons    # planets/moons 서브 디렉토릴르 생성한다.
+$ cd moons       # moons 서브 디렉토리로 이동한다.
+$ git init       # Git 저장소를 moons 하위디렉토리에 생성한다.
+$ ls -a          # 새로운 Git 저장소가 .git 하위 디렉토리에 있는지 확인한다.</code></pre>
+<p><code>moons</code> 서브 디렉토리에 저장된 파일을 추적하기 위해
+<code>moons</code> 디렉토리 안에서 <code>git init</code> 명령을 실행해야 할까?</p>
+<blockquote>
+<p><strong>해답</strong></p>
+<p>아니다. <code>moons</code> 서브 디렉토리에 Git 저장소를 만들 필요는 없다.
+왜냐하면, <code>planets</code> 저장소가 이미 모든 파일, 서브 디렉토리, <code>planets</code> 디렉토리
+아래 서브 디렉토리 파일 모두를 추적하기 때문이다.
+따라서, 달에 관한 모든 정보를 추정하는데, 드랴큘라는 <code>planets</code> 디렉토리 아래
+<code>moons</code> 서브 디렉토리를 추가하는 것으로 충분하다.</p>
+<p>추가적으로, 만약 Git 저장소가 중첩(nested)되면, Git 저장소는 서로 방해할 수 있다:
+바깥 저장소가 내부 저장소 버전관리를 하게 된다.
+따라서, 별도 디렉토리에 서로 다른 신규 Git 저장소를 생성하는게 최선이다.</p>
+<p>디렉토리에 저장소가 서로 충돌하지 않도록 하려면, <code>git status</code> 출력물을 점검하면 된다.
+만약, 다음과 같은 출력물이 생성되게 되면 신규 저장소를 생성하는 것이 권장된다:</p>
+<pre><code>$ git status
+
+fatal: Not a git repository (or any of the parent directories): .git</code></pre>
+</blockquote>
+</div>
+<div id="git-init" class="rmdcaution">
+<p><strong><code>git init</code> 실수 올바르게 고치기</strong></p>
+<p>늑대인간은 드라큘라에게 중첩된 저장소가 중복되어 불필요한 이유와 함께 향후 혼란을 야기할 수 있는
+이유를 설명했다. 드라큘라는 중첩된 저장소를 제거하고자 한다.
+<code>moons</code> 서브 디렉토리에 마지막으로 날린 <code>git init</code> 명령어 실행취소를 어떻게 할 수 있을까?</p>
+<blockquote>
+<p><strong>해답 – 주의해서 사용바람!</strong></p>
+<p>이러한 사소한 실수를 원복하고자, 드라큘라는 <code>planets</code> 디렉토리에서 다음 명령어를 실행하여
+<code>.git</code> 디렉토리를 제거하기만 하면 된다:</p>
+<pre><code>$ rm -rf moons/.git</code></pre>
+<p>하지만, 주의한다! 디렉토리를 잘못 타이핑하게 되면, 보관해야하는 프로젝트 정보를 담고 있는
+Git 이력 전체가 날아가게 된다. 따라서, <code>pwd</code> 명령어를 사용해서 현재 작업 디렉토리를 항상 확인한다.</p>
+</blockquote>
+</div>
+
+</div>
+  <div class="chapter-nav">
+<div class="prev"><a href="git-setup.html"><span class="header-section-number">2</span> Git 구축 및 설정</a></div>
+<div class="next"><a href="git-change.html"><span class="header-section-number">4</span> 변경사항 추적</a></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav"><li><a class="nav-link" href="#git-create"><span class="header-section-number">3</span> 저장소 생성</a></li></ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+          
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>데이터 과학을 지탱하는 기본기</strong>" was written by 한국 알 사용자회. It was last built on 2022-05-10.</p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer>
+</body>
+</html>

@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>2 . Git 구축 및 설정 | 데이터 과학을 지탱하는 기본기</title>
+<meta name="author" content="한국 알 사용자회">
+<meta name="description" content="처음 Git를 새로운 컴퓨터에 사용할 때, 몇가지 설정이 필요하다. 다음에 Git을 시작할 때, 설정해야 되는 몇가지 사례가 나와있다: 이름과 전자우편 주소 선호하는 텍스트 편집기 선정 전역(즉, 모든 프로젝트)으로 이런 설정을 할지 여부 명령라인에서 Git 명령어는 다음과 같이 작성된다; git verb options, 즉, git 동사 선택옵션....">
+<meta name="generator" content="bookdown 0.26 with bs4_book()">
+<meta property="og:title" content="2 . Git 구축 및 설정 | 데이터 과학을 지탱하는 기본기">
+<meta property="og:type" content="book">
+<meta property="og:description" content="처음 Git를 새로운 컴퓨터에 사용할 때, 몇가지 설정이 필요하다. 다음에 Git을 시작할 때, 설정해야 되는 몇가지 사례가 나와있다: 이름과 전자우편 주소 선호하는 텍스트 편집기 선정 전역(즉, 모든 프로젝트)으로 이런 설정을 할지 여부 명령라인에서 Git 명령어는 다음과 같이 작성된다; git verb options, 즉, git 동사 선택옵션....">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="2 . Git 구축 및 설정 | 데이터 과학을 지탱하는 기본기">
+<meta name="twitter:description" content="처음 Git를 새로운 컴퓨터에 사용할 때, 몇가지 설정이 필요하다. 다음에 Git을 시작할 때, 설정해야 되는 몇가지 사례가 나와있다: 이름과 전자우편 주소 선호하는 텍스트 편집기 선정 전역(즉, 모든 프로젝트)으로 이런 설정을 할지 여부 명령라인에서 Git 명령어는 다음과 같이 작성된다; git verb options, 즉, git 동사 선택옵션....">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.3.1/transition.js"></script><script src="libs/bs3compat-0.3.1/tabs.js"></script><script src="libs/bs3compat-0.3.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
+    
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  </style>
+<style type="text/css">
+    /* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+    div.csl-bib-body { }
+    div.csl-entry {
+      clear: both;
+        }
+    .hanging div.csl-entry {
+      margin-left:2em;
+      text-indent:-2em;
+    }
+    div.csl-left-margin {
+      min-width:2em;
+      float:left;
+    }
+    div.csl-right-inline {
+      margin-left:2em;
+      padding-left:1em;
+    }
+    div.csl-indent {
+      margin-left: 2em;
+    }
+  </style>
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">데이터 과학을 지탱하는 기본기</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html">고급 데이터 분석</a></li>
+<li><a class="" href="%EB%B2%84%EC%A0%84%EC%A0%9C%EC%96%B4%EC%99%80-%ED%98%91%EC%97%85.html">버전제어와 협업</a></li>
+<li><a class="" href="git.html"><span class="header-section-number">1</span> 자동화된 버젼제어</a></li>
+<li><a class="active" href="git-setup.html"><span class="header-section-number">2</span> Git 구축 및 설정</a></li>
+<li><a class="" href="git-create.html"><span class="header-section-number">3</span> 저장소 생성</a></li>
+<li><a class="" href="git-change.html"><span class="header-section-number">4</span> 변경사항 추적</a></li>
+<li><a class="" href="git-history.html"><span class="header-section-number">5</span> 이력 탐색</a></li>
+<li><a class="" href="%EC%B0%B8%EA%B3%A0%EB%AC%B8%ED%97%8C.html">참고문헌</a></li>
+</ul>
+
+        <div class="book-extra">
+          
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="git-setup" class="section level1" number="2">
+<h1>
+<span class="header-section-number">2 . </span> Git 구축 및 설정<a class="anchor" aria-label="anchor" href="#git-setup"><i class="fas fa-link"></i></a>
+</h1>
+<p>처음 Git를 새로운 컴퓨터에 사용할 때, 몇가지 설정이 필요하다.
+다음에 Git을 시작할 때, 설정해야 되는 몇가지 사례가 나와있다:</p>
+<ul>
+<li>이름과 전자우편 주소</li>
+<li>선호하는 텍스트 편집기 선정</li>
+<li>전역(즉, 모든 프로젝트)으로 이런 설정을 할지 여부</li>
+</ul>
+<p>명령라인에서 Git 명령어는 다음과 같이 작성된다; <code>git verb options</code>, 즉, <code>git 동사 선택옵션</code>.
+<code>verb</code> 가 실제로 수행하고자 하는 명령어가 되고, <code>options</code>는 <code>verb</code>에 필요할지도 모르는 추가 선택옵션 정보가 된다.
+다음에 Dracula가 새로 구입한 노트북에 환경설정하는 방법이 나와있다:</p>
+<pre><code>$ git config --global user.name "Vlad Dracula"
+$ git config --global user.email "vlad@tran.sylvan.ia"</code></pre>
+<p>Dracula 대신에 본인 이름과 본인 전자우편 주소를 사용합니다. 사용자명과 전자우편 주소는 후속 Git 활동과 연관된다.
+이것이 의미하는 바는
+<a href="https://github.com/">GitHub</a>,
+<a href="https://bitbucket.org/">BitBucket</a>,
+<a href="https://gitlab.com/">GitLab</a>, 혹은 Git 호스트 서버에 푸쉬하는 어떤 변경사항도 사용자명과 전자우편 주소를 담게되는 것을 의미한다.</p>
+<div id="git-line-ending" class="rmdcaution">
+<p><strong>줄마침(Line Endings)</strong></p>
+<p>다른 키보트 타이핑과 마찬가지로, 키보드로 <kbd>Return</kbd>를 치게 되면,
+컴퓨터는 엔터값을 문자로 인코딩한다.
+줄마침을 표현하기 위해서 운영체제마다 별도 문자를 사용한다.
+(개행 혹은 줄중단, 영어로 newline 혹은 line breaks를 들어봤을 수도 있다.)
+Git이 파일을 비교하는데 이러한 문자를 사용하기 때문에,
+운영체제가 다른 컴퓨텅에서 파일을 편집할 때 예기치 않은 이슈가 발생될 수 있다.
+이 문제는 금번 학습 범위를 넘어서는 것이지만, <a href="https://help.github.com/articles/dealing-with-line-endings/">on this GitHub page</a>
+웹페이지에서 좀더 자세한 정보를 얻을 수 있다.</p>
+<p>Git에서 줄마침을 인식하고 인코딩하는 방식을 변경하려면,
+<code>git config</code>에 <code>core.autocrlf</code> 명령을 사용한다.
+권장되는 설정은 다음과 같다:</p>
+<p>맥OS와 리눅스:</p>
+<pre><code>$ git config --global core.autocrlf input</code></pre>
+<p>윈도우:</p>
+<pre><code>$ git config --global core.autocrlf true</code></pre>
+</div>
+<p>이번 학습에서, <a href="https://github.com/">GitHub</a>을 사용하게 되는데, 사용되는 전자우편주소는 GitHub 계정을 설정할 때 사용하는 것과 같은 것이 되어야 한다.
+만약, 개인정보에 대해 걱정이 된다면, <a href="https://help.github.com/articles/keeping-your-email-address-private/">GitHub’s instructions for keeping your email address private</a>을 참조한다.
+GitHub에서 사적인 개인 전자우편주소를 선택하기로 했다면,
+<code>user.email</code>에 동일한 전자우편주소를 사용한다. 즉, <code>username</code>을 GitHub의 설정된 것으로 바꿔놓아 <code>username@users.noreply.github.com</code>게 된다.
+나중에 <code>git config</code> 명령어를 사용해서 전자우편 주소를 변경할 수 있다.</p>
+<p>Dracula도 자신이 선호하는 텍스트 편집기를 설정해야 하는데, 다음 표를 참조한다:</p>
+<div class="inline-table"><table class="table table-sm">
+<colgroup>
+<col width="28%">
+<col width="71%">
+</colgroup>
+<thead><tr class="header">
+<th align="left">편집기</th>
+<th align="left">환경설정 명령어</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left">Atom</td>
+<td align="left"><code>$ git config --global core.editor "atom --wait"</code></td>
+</tr>
+<tr class="even">
+<td align="left">nano</td>
+<td align="left"><code>$ git config --global core.editor "nano -w"</code></td>
+</tr>
+<tr class="odd">
+<td align="left">BBEdit (Mac, with command line tools)</td>
+<td align="left"><code>$ git config --global core.editor "bbedit -w"</code></td>
+</tr>
+<tr class="even">
+<td align="left">Sublime Text (Mac)</td>
+<td align="left"><code>$ git config --global core.editor "/Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl -n -w"</code></td>
+</tr>
+<tr class="odd">
+<td align="left">Sublime Text (Win, 32-bit install)</td>
+<td align="left"><code>$ git config --global core.editor "'c:/program files (x86)/sublime text 3/sublime_text.exe' -w"</code></td>
+</tr>
+<tr class="even">
+<td align="left">Sublime Text (Win, 64-bit install)</td>
+<td align="left"><code>$ git config --global core.editor "'c:/program files/sublime text 3/sublime_text.exe' -w"</code></td>
+</tr>
+<tr class="odd">
+<td align="left">Notepad++ (Win, 32-bit install)</td>
+<td align="left"><code>$ git config --global core.editor "'c:/program files (x86)/Notepad++/notepad++.exe' -multiInst -notabbar -nosession -noPlugin"</code></td>
+</tr>
+<tr class="even">
+<td align="left">Notepad++ (Win, 64-bit install)</td>
+<td align="left"><code>$ git config --global core.editor "'c:/program files/Notepad++/notepad++.exe' -multiInst -notabbar -nosession -noPlugin"</code></td>
+</tr>
+<tr class="odd">
+<td align="left">Kate (Linux)</td>
+<td align="left"><code>$ git config --global core.editor "kate"</code></td>
+</tr>
+<tr class="even">
+<td align="left">Gedit (Linux)</td>
+<td align="left"><code>$ git config --global core.editor "gedit --wait --new-window"</code></td>
+</tr>
+<tr class="odd">
+<td align="left">Scratch (Linux)</td>
+<td align="left"><code>$ git config --global core.editor "scratch-text-editor"</code></td>
+</tr>
+<tr class="even">
+<td align="left">Emacs</td>
+<td align="left"><code>$ git config --global core.editor "emacs"</code></td>
+</tr>
+<tr class="odd">
+<td align="left">Vim</td>
+<td align="left"><code>$ git config --global core.editor "vim"</code></td>
+</tr>
+</tbody>
+</table></div>
+<p>원할 때마다 Git에 사용할 텍스트 편집기 환경설정을 다시 할 수 있다.</p>
+<div id="git-vim" class="rmdcaution">
+<p><strong>Vim 나가기</strong></p>
+<p>다수 프로그램에서 Vim이 기본설정된 편집기다.
+Vim을 예전에 사용한 적이 없고, 변경사항을 저장하지 않고 세션을 빠져나가고자 한다면,
+<kbd>Esc</kbd> 다음에, <code>:q!</code>를 타이핑하고 나서 <kbd>Return</kbd>를 친다.
+변경사항을 저장하고 나가려면, <kbd>Esc</kbd> 다음에, <code>:wq</code>를 타이핑하고 <kbd>Return</kbd>을 친다.</p>
+</div>
+<p>앞서 실행한 상기 명령어는 한번만 실행하면 된다: <code>--global</code> 플래그는 Git으로 하여금 해당 컴퓨터에 본인 계정의
+모든 프로젝트에 환경설정한 것을 사용하도록 한다.</p>
+<p>본인이 설정한 환경설정 내용은 언제라도 다음 명령어를 입력하여 확인할 수 있다:</p>
+<pre><code>$ git config --list</code></pre>
+<p>원하는 만큼 환경설정을 바꿀 수도 있다: 편집기를 바꾸거나 전자우편주소를 갱신할 때
+동일한 명령어를 사용하면 된다.</p>
+<div id="git-proxy" class="rmdcaution">
+<p><strong>프록시(Proxy)</strong></p>
+<p>일부 네트워크에서 <a href="https://en.wikipedia.org/wiki/Proxy_server">proxy</a>를 사용할 필요가 있다.
+이런 경우, Git에게 프록시에 대해 일러줘야 한다:</p>
+<pre><code>$ git config --global http.proxy proxy-url
+$ git config --global https.proxy proxy-url</code></pre>
+<p>프록시를 비활성화 하는 경우, 다음 명령어를 사용한다.</p>
+<pre><code>$ git config --global --unset http.proxy
+$ git config --global --unset https.proxy</code></pre>
+</div>
+<div id="git-help-manual" class="rmdcaution">
+<p><strong>Git 도움말과 매뉴얼</strong></p>
+<p>항상 기억할 것은 <code>git</code> 명령어를 잊은 경우, <code>-h</code> 선택옵션을 주어 명령어 목록을 볼 수 있고, <code>--help</code>를 사용해서 Git 매뉴얼도 이용할 수 있다:</p>
+<pre><code>$ git config -h
+$ git config --help</code></pre>
+</div>
+
+</div>
+  <div class="chapter-nav">
+<div class="prev"><a href="git.html"><span class="header-section-number">1</span> 자동화된 버젼제어</a></div>
+<div class="next"><a href="git-create.html"><span class="header-section-number">3</span> 저장소 생성</a></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav"><li><a class="nav-link" href="#git-setup"><span class="header-section-number">2</span> Git 구축 및 설정</a></li></ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+          
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>데이터 과학을 지탱하는 기본기</strong>" was written by 한국 알 사용자회. It was last built on 2022-05-10.</p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer>
+</body>
+</html>
