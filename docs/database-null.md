@@ -25,6 +25,12 @@ sqlite>
 ```
 
 
+
+```sql
+select * from Visited;
+```
+
+
 <div class="knitsql-table">
 
 
@@ -48,6 +54,12 @@ Table: (\#tab:sqlite-null-sql)결측값을 갖는 테이블
 만약 1930년 이전 레코드를 선택한다면, 
 
 
+
+```sql
+select * from Visited where dated<'1930-00-00';
+```
+
+
 <div class="knitsql-table">
 
 
@@ -62,6 +74,12 @@ Table: (\#tab:sqlite-null-where)1930년 이전 레코드 선택
 
 
 결과 2개를 얻게 되고, 만약 1930년 동안 혹은 이후 레코드를 선택한다면,
+
+
+```sql
+select * from Visited where dated>='1930-00-00';
+```
+
 
 <div class="knitsql-table">
 
@@ -93,6 +111,12 @@ Table: (\#tab:sqlite-null-where-after)1930년 이후 레코드 선택
 `log(null)`도 `null`이 된다.
 특히, 무언가를 = 과 != 으로 `null`과 비교하는 것도 `null`이 된다.
 
+
+```sql
+select * from Visited where dated=NULL;
+```
+
+
 <div class="knitsql-table">
 
 
@@ -102,6 +126,12 @@ Table: (\#tab:sqlite-null-filter)NULL 값 갖는 레코드 선택
 |-----:|:----|:-----|
 
 </div>
+
+
+
+```sql
+select * from Visited where dated!=NULL;
+```
 
 
 <div class="knitsql-table">
@@ -118,6 +148,12 @@ Table: (\#tab:sqlite-not-null-filter)NULL 값 갖지 않는 레코드 선택
 `null` 인지 아닌지를 점검하기 위해서, 특별한 테스트 `is null`을 사용해야 한다.
 
 
+
+```sql
+select * from Visited where dated is NULL;
+```
+
+
 <div class="knitsql-table">
 
 
@@ -131,6 +167,12 @@ Table: (\#tab:sqlite-is-null-filter)`is NULL` 사용 NULL 값 갖는 레코드 �
 
 
 혹은, 역으로는 `is not null`을 사용한다.
+
+
+
+```sql
+select * from Visited where dated is not NULL;
+```
 
 
 <div class="knitsql-table">
@@ -155,6 +197,12 @@ Table: (\#tab:sqlite-is-not-null-filter)`is not NULL` 사용 NULL 값 갖지 않
 예를 들어, Dyer가 측정하지 않은 모든 염분 정보를 찾는다고 가정하자.
 다음과 같이 쿼리를 작성하는 것은 당연하다.
 
+
+```sql
+select * from Survey where quant='sal' and person!='lake';
+```
+
+
 <div class="knitsql-table">
 
 
@@ -173,6 +221,12 @@ Table: (\#tab:sqlite-null-filter-headache)NULL 값이 갖는 문제
 다시 한번, 이유는 `person`이 `null`일 때, `!=`비교는 `null`값을 만들어서
 레코드가 결과값에 있지 않게 된다. 만약 이런 레코드도 유지하려고 한다면, 
 명시적으로 검사를 추가할 필요가 있다.
+
+
+
+```sql
+select * from Survey where quant='sal' and (person!='lake' or person is null);
+```
 
 
 <div class="knitsql-table">

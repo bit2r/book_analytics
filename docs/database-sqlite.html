@@ -4,15 +4,15 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>22 . SQLite 설치 | 데이터 과학을 지탱하는 기본기</title>
+<title>26 . SQLite 설치 | 데이터 과학을 지탱하는 기본기</title>
 <meta name="author" content="한국 알 사용자회">
 <meta name="description" content="이번 학습은 다음 장에서 사용되는 예제 데이터베이스를 어떻게 설치하는지 설명한다. 다음의 지도사항을 따르기 위해서는 명령-라인을 사용하여 어떻게 디렉토리를 여기저기 이동하는지와 명령-라인에서 명령문을 어떻게 실행하는지 숙지할 필요가 있다. 이런 주제와 친숙하지 않다면, 유닉스 쉘(Unix Shell) 학습을 참조하세요. 이후의 장에서 데이터베이스를...">
 <meta name="generator" content="bookdown 0.26 with bs4_book()">
-<meta property="og:title" content="22 . SQLite 설치 | 데이터 과학을 지탱하는 기본기">
+<meta property="og:title" content="26 . SQLite 설치 | 데이터 과학을 지탱하는 기본기">
 <meta property="og:type" content="book">
 <meta property="og:description" content="이번 학습은 다음 장에서 사용되는 예제 데이터베이스를 어떻게 설치하는지 설명한다. 다음의 지도사항을 따르기 위해서는 명령-라인을 사용하여 어떻게 디렉토리를 여기저기 이동하는지와 명령-라인에서 명령문을 어떻게 실행하는지 숙지할 필요가 있다. 이런 주제와 친숙하지 않다면, 유닉스 쉘(Unix Shell) 학습을 참조하세요. 이후의 장에서 데이터베이스를...">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="22 . SQLite 설치 | 데이터 과학을 지탱하는 기본기">
+<meta name="twitter:title" content="26 . SQLite 설치 | 데이터 과학을 지탱하는 기본기">
 <meta name="twitter:description" content="이번 학습은 다음 장에서 사용되는 예제 데이터베이스를 어떻게 설치하는지 설명한다. 다음의 지도사항을 따르기 위해서는 명령-라인을 사용하여 어떻게 디렉토리를 여기저기 이동하는지와 명령-라인에서 명령문을 어떻게 실행하는지 숙지할 필요가 있다. 이런 주제와 친숙하지 않다면, 유닉스 쉘(Unix Shell) 학습을 참조하세요. 이후의 장에서 데이터베이스를...">
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
@@ -87,17 +87,22 @@
 <li><a class="" href="git-licensing.html"><span class="header-section-number">18</span> 라이선싱 (Licensing)</a></li>
 <li><a class="" href="git-hosting.html"><span class="header-section-number">19</span> 호스팅 (Hosting)</a></li>
 <li><a class="" href="git-korean.html"><span class="header-section-number">20</span> Git 추가설정</a></li>
+<li class="book-part">프로그래밍</li>
+<li><a class="" href="r-intro.html"><span class="header-section-number">21</span> R과 RStudio 소개</a></li>
+<li><a class="" href="r-project.html"><span class="header-section-number">22</span> RStudio 프로젝트 관리</a></li>
+<li><a class="" href="r-help.html"><span class="header-section-number">23</span> 도움 청하기</a></li>
+<li><a class="" href="r-data-structure.html"><span class="header-section-number">24</span> 자료구조</a></li>
 <li class="book-part">데이터베이스</li>
-<li><a class="" href="database-sql.html"><span class="header-section-number">21</span> 데이터베이스와 SQL 사용하기</a></li>
-<li><a class="active" href="database-sqlite.html"><span class="header-section-number">22</span> SQLite 설치</a></li>
-<li><a class="" href="database-select.html"><span class="header-section-number">23</span> 변수/칼럼 선택하기</a></li>
-<li><a class="" href="database-sort.html"><span class="header-section-number">24</span> 정렬, 중복 제거</a></li>
-<li><a class="" href="database-filter.html"><span class="header-section-number">25</span> 필터링 (Filtering)</a></li>
-<li><a class="" href="database-calc.html"><span class="header-section-number">26</span> 새로운 값 계산하기</a></li>
-<li><a class="" href="database-null.html"><span class="header-section-number">27</span> 결측 데이터 (Missing Data)</a></li>
-<li><a class="" href="database-agg.html"><span class="header-section-number">28</span> 집합(Aggregation)</a></li>
-<li><a class="" href="database-table-join.html"><span class="header-section-number">29</span> 데이터 결합하기</a></li>
-<li><a class="" href="database-data-create.html"><span class="header-section-number">30</span> 데이터 생성과 변형</a></li>
+<li><a class="" href="database-sql.html"><span class="header-section-number">25</span> 데이터베이스와 SQL 사용하기</a></li>
+<li><a class="active" href="database-sqlite.html"><span class="header-section-number">26</span> SQLite 설치</a></li>
+<li><a class="" href="database-select.html"><span class="header-section-number">27</span> 변수/칼럼 선택하기</a></li>
+<li><a class="" href="database-sort.html"><span class="header-section-number">28</span> 정렬, 중복 제거</a></li>
+<li><a class="" href="database-filter.html"><span class="header-section-number">29</span> 필터링 (Filtering)</a></li>
+<li><a class="" href="database-calc.html"><span class="header-section-number">30</span> 새로운 값 계산하기</a></li>
+<li><a class="" href="database-null.html"><span class="header-section-number">31</span> 결측 데이터 (Missing Data)</a></li>
+<li><a class="" href="database-agg.html"><span class="header-section-number">32</span> 집합(Aggregation)</a></li>
+<li><a class="" href="database-table-join.html"><span class="header-section-number">33</span> 데이터 결합하기</a></li>
+<li><a class="" href="database-data-create.html"><span class="header-section-number">34</span> 데이터 생성과 변형</a></li>
 <li><a class="" href="%EC%B0%B8%EA%B3%A0%EB%AC%B8%ED%97%8C.html">참고문헌</a></li>
 </ul>
 
@@ -106,18 +111,18 @@
         </div>
       </nav>
 </div>
-  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="database-sqlite" class="section level1" number="22">
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="database-sqlite" class="section level1" number="26">
 <h1>
-<span class="header-section-number">22 . </span> SQLite 설치<a class="anchor" aria-label="anchor" href="#database-sqlite"><i class="fas fa-link"></i></a>
+<span class="header-section-number">26 . </span> SQLite 설치<a class="anchor" aria-label="anchor" href="#database-sqlite"><i class="fas fa-link"></i></a>
 </h1>
 <p>이번 학습은 다음 장에서 사용되는 예제 데이터베이스를 어떻게 설치하는지 설명한다.
 다음의 지도사항을 따르기 위해서는 명령-라인을 사용하여 어떻게 디렉토리를 여기저기 이동하는지와 명령-라인에서 명령문을 어떻게 실행하는지 숙지할 필요가 있다.
 이런 주제와 친숙하지 않다면, <strong>유닉스 쉘(Unix Shell)</strong> 학습을 참조하세요.
 이후의 장에서 데이터베이스를 어떻게 생성하고 데이터를 채우는지 배울 것이지만, 먼저 SQLite 데이터베이스가 어떻게 동작하는지 설명을 할 필요가 있어서
 데이터베이스를 선행하여 제공한다.</p>
-<div id="sqlite-install" class="section level2" number="22.1">
+<div id="sqlite-install" class="section level2" number="26.1">
 <h2>
-<span class="header-section-number">22.1</span> 설치<a class="anchor" aria-label="anchor" href="#sqlite-install"><i class="fas fa-link"></i></a>
+<span class="header-section-number">26.1</span> 설치<a class="anchor" aria-label="anchor" href="#sqlite-install"><i class="fas fa-link"></i></a>
 </h2>
 <p>인터랙티브하게 다음 학습을 수행하기 위해서는 <a href="http://software-carpentry.org/v5/setup.html">설치 방법</a>에 언급된 SQLite 를 참조하여 설치하세요.</p>
 <p>그리고 , 여러분이 선택한 위치에 “software_carpentry_sql” 디렉토리를 생성하세요.예를 들어</p>
@@ -131,24 +136,24 @@
 </ol>
 <pre><code>cd ~/swc/sql</code></pre>
 </div>
-<div id="install-sqlite" class="section level2" number="22.2">
+<div id="install-sqlite" class="section level2" number="26.2">
 <h2>
-<span class="header-section-number">22.2</span> SQLite 설치 <a class="footnote-ref" tabindex="0" data-toggle="popover" data-content='&lt;p&gt;&lt;a href="http://blog.simplism.kr/?p=2329"&gt;SQLite3 설치 및 간단한 사용법&lt;/a&gt;&lt;/p&gt;'><sup>3</sup></a><a class="anchor" aria-label="anchor" href="#install-sqlite"><i class="fas fa-link"></i></a>
+<span class="header-section-number">26.2</span> SQLite 설치 <a class="footnote-ref" tabindex="0" data-toggle="popover" data-content='&lt;p&gt;&lt;a href="http://blog.simplism.kr/?p=2329"&gt;SQLite3 설치 및 간단한 사용법&lt;/a&gt;&lt;/p&gt;'><sup>3</sup></a><a class="anchor" aria-label="anchor" href="#install-sqlite"><i class="fas fa-link"></i></a>
 </h2>
 <p><a href="http://sqlite.org/download.html">SQLite Download Page</a>에서 <a href="http://sqlite.org/2017/sqlite-tools-win32-x86-3200000.zip">sqlite-tools-win32-x86-3200000.zip</a>을 다운로드 받는다.
 압축을 풀면 황당하게 몇개 <code>.exe</code> 파일이 존재하는 황당함을 느낀다. 설치가 완료되었다.</p>
-<div class="sourceCode" id="cb362"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb362-1"><a href="database-sqlite.html#cb362-1" aria-hidden="true" tabindex="-1"></a><span class="sc">$</span> ls</span>
-<span id="cb362-2"><a href="database-sqlite.html#cb362-2" aria-hidden="true" tabindex="-1"></a>gen<span class="sc">-</span>survey<span class="sc">-</span>database.sql  sqlite3.exe           survey.db</span>
-<span id="cb362-3"><a href="database-sqlite.html#cb362-3" aria-hidden="true" tabindex="-1"></a>sqldiff.exe              sqlite3_analyzer.exe</span></code></pre></div>
+<div class="sourceCode" id="cb615"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb615-1"><a href="database-sqlite.html#cb615-1" aria-hidden="true" tabindex="-1"></a><span class="sc">$</span> ls</span>
+<span id="cb615-2"><a href="database-sqlite.html#cb615-2" aria-hidden="true" tabindex="-1"></a>gen<span class="sc">-</span>survey<span class="sc">-</span>database.sql  sqlite3.exe           survey.db</span>
+<span id="cb615-3"><a href="database-sqlite.html#cb615-3" aria-hidden="true" tabindex="-1"></a>sqldiff.exe              sqlite3_analyzer.exe</span></code></pre></div>
 <ul>
 <li>sqlite3.exe: sqlite 실행파일</li>
 <li>gen-survey-database.sql: <code>survey.db</code> sqlite 데이터베이스를 생성시키는데 사용되는 스크립트</li>
 <li>survey.db: <code>sqlite3.exe</code> 명령어를 실행해서 <code>gen-survey-database.sql</code> 스크립트를 통해 생성된 데이터베이스</li>
 </ul>
 </div>
-<div id="download-database" class="section level2" number="22.3">
+<div id="download-database" class="section level2" number="26.3">
 <h2>
-<span class="header-section-number">22.3</span> 실습 데이터베이스 다운로드<a class="anchor" aria-label="anchor" href="#download-database"><i class="fas fa-link"></i></a>
+<span class="header-section-number">26.3</span> 실습 데이터베이스 다운로드<a class="anchor" aria-label="anchor" href="#download-database"><i class="fas fa-link"></i></a>
 </h2>
 <p><code>깃헙(GitHub)</code>에서 <code>gen-survey-database.sql</code> 파일을 어떻게 다운로드 받을까요?</p>
 <p><code>~/swc/sql</code> 디렉토리로 이동한 후에 그 디렉토리에서
@@ -161,54 +166,54 @@ HTTP, HTTPS, FTP 프로토콜을 지원하는 명령-라인 웹크롤러(web-cra
 두가지 도구 모두 크로스 플랫폼(cross platform)으로 다양한 운영체제를 지원한다.</p>
 <p><code>Wget</code> 혹은 <code>cURL</code>을 로컬에 설치한 후에, 터미널에서 다음 명령어를 실행한다.</p>
 <p><strong>Tip:</strong> 만약 <code>cURL</code>을 선호한다면, 다음 명령문에서 “wget”을 <code>curl -O</code>로 대체하세요.</p>
-<div class="sourceCode" id="cb363"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb363-1"><a href="database-sqlite.html#cb363-1" aria-hidden="true" tabindex="-1"></a>root<span class="sc">@</span>hangul<span class="sc">:</span><span class="er">~/</span>swc<span class="sc">/</span>sql<span class="sc">$</span> wget https<span class="sc">:</span><span class="er">//</span>raw.githubusercontent.com<span class="sc">/</span>swcarpentry<span class="sc">/</span>bc<span class="sc">/</span>master<span class="sc">/</span>novice<span class="sc">/</span>sql<span class="sc">/</span>gen<span class="sc">-</span>survey<span class="sc">-</span>database.sql</span></code></pre></div>
+<div class="sourceCode" id="cb616"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb616-1"><a href="database-sqlite.html#cb616-1" aria-hidden="true" tabindex="-1"></a>root<span class="sc">@</span>hangul<span class="sc">:</span><span class="er">~/</span>swc<span class="sc">/</span>sql<span class="sc">$</span> wget https<span class="sc">:</span><span class="er">//</span>raw.githubusercontent.com<span class="sc">/</span>swcarpentry<span class="sc">/</span>bc<span class="sc">/</span>master<span class="sc">/</span>novice<span class="sc">/</span>sql<span class="sc">/</span>gen<span class="sc">-</span>survey<span class="sc">-</span>database.sql</span></code></pre></div>
 <p>상기 명령문으로 Wget은 HTTP 요청을 생성해서 github 저장소의 “gen-survey-database.sql” 원파일만 현재 작업 디렉토리로 가져온다.</p>
 <p>성공적으로 완료되면 터미널은 다음 출력결과를 화면에 표시한다.</p>
-<div class="sourceCode" id="cb364"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb364-1"><a href="database-sqlite.html#cb364-1" aria-hidden="true" tabindex="-1"></a><span class="sc">--</span><span class="dv">2014-09-02</span> <span class="dv">18</span><span class="sc">:</span><span class="dv">31</span><span class="sc">:</span><span class="dv">43</span><span class="sc">--</span>  https<span class="sc">:</span><span class="er">//</span>raw.githubusercontent.com<span class="sc">/</span>swcarpentry<span class="sc">/</span>bc<span class="sc">/</span>master<span class="sc">/</span>novice<span class="sc">/</span>sql<span class="sc">/</span>gen<span class="sc">-</span>survey<span class="sc">-</span>database.sql</span>
-<span id="cb364-2"><a href="database-sqlite.html#cb364-2" aria-hidden="true" tabindex="-1"></a>Resolving <span class="fu">raw.githubusercontent.com</span> (raw.githubusercontent.com)... <span class="dv">103</span>.<span class="dv">245</span>.<span class="fl">222.133</span></span>
-<span id="cb364-3"><a href="database-sqlite.html#cb364-3" aria-hidden="true" tabindex="-1"></a>Connecting to <span class="fu">raw.githubusercontent.com</span> (raw.githubusercontent.com)<span class="sc">|</span><span class="dv">103</span>.<span class="dv">245</span>.<span class="fl">222.133</span><span class="sc">|</span><span class="er">:</span><span class="dv">443</span>... connected.</span>
-<span id="cb364-4"><a href="database-sqlite.html#cb364-4" aria-hidden="true" tabindex="-1"></a>HTTP request sent, awaiting response... <span class="dv">200</span> OK</span>
-<span id="cb364-5"><a href="database-sqlite.html#cb364-5" aria-hidden="true" tabindex="-1"></a>Length<span class="sc">:</span> <span class="dv">3297</span> (<span class="fl">3.2</span>K) [text<span class="sc">/</span>plain]</span>
-<span id="cb364-6"><a href="database-sqlite.html#cb364-6" aria-hidden="true" tabindex="-1"></a>Saving to<span class="sc">:</span> ‘gen<span class="sc">-</span>survey<span class="sc">-</span>database.sql’</span>
-<span id="cb364-7"><a href="database-sqlite.html#cb364-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb364-8"><a href="database-sqlite.html#cb364-8" aria-hidden="true" tabindex="-1"></a><span class="dv">100</span>%[<span class="sc">==</span><span class="er">=======================================================================================================================&amp;</span>gt;] <span class="dv">3</span>,<span class="dv">297</span>       <span class="sc">--</span>.<span class="sc">-</span>K<span class="sc">/</span>s   <span class="cf">in</span> <span class="fl">0.01</span>s   </span>
-<span id="cb364-9"><a href="database-sqlite.html#cb364-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb364-10"><a href="database-sqlite.html#cb364-10" aria-hidden="true" tabindex="-1"></a><span class="dv">2014-09-02</span> <span class="dv">18</span><span class="sc">:</span><span class="dv">31</span><span class="sc">:</span><span class="dv">45</span> (<span class="dv">264</span> KB<span class="sc">/</span>s) <span class="sc">-</span> ‘gen<span class="sc">-</span>survey<span class="sc">-</span>database.sql’ saved [<span class="dv">3297</span><span class="sc">/</span><span class="dv">3297</span>]</span></code></pre></div>
+<div class="sourceCode" id="cb617"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb617-1"><a href="database-sqlite.html#cb617-1" aria-hidden="true" tabindex="-1"></a><span class="sc">--</span><span class="dv">2014-09-02</span> <span class="dv">18</span><span class="sc">:</span><span class="dv">31</span><span class="sc">:</span><span class="dv">43</span><span class="sc">--</span>  https<span class="sc">:</span><span class="er">//</span>raw.githubusercontent.com<span class="sc">/</span>swcarpentry<span class="sc">/</span>bc<span class="sc">/</span>master<span class="sc">/</span>novice<span class="sc">/</span>sql<span class="sc">/</span>gen<span class="sc">-</span>survey<span class="sc">-</span>database.sql</span>
+<span id="cb617-2"><a href="database-sqlite.html#cb617-2" aria-hidden="true" tabindex="-1"></a>Resolving <span class="fu">raw.githubusercontent.com</span> (raw.githubusercontent.com)... <span class="dv">103</span>.<span class="dv">245</span>.<span class="fl">222.133</span></span>
+<span id="cb617-3"><a href="database-sqlite.html#cb617-3" aria-hidden="true" tabindex="-1"></a>Connecting to <span class="fu">raw.githubusercontent.com</span> (raw.githubusercontent.com)<span class="sc">|</span><span class="dv">103</span>.<span class="dv">245</span>.<span class="fl">222.133</span><span class="sc">|</span><span class="er">:</span><span class="dv">443</span>... connected.</span>
+<span id="cb617-4"><a href="database-sqlite.html#cb617-4" aria-hidden="true" tabindex="-1"></a>HTTP request sent, awaiting response... <span class="dv">200</span> OK</span>
+<span id="cb617-5"><a href="database-sqlite.html#cb617-5" aria-hidden="true" tabindex="-1"></a>Length<span class="sc">:</span> <span class="dv">3297</span> (<span class="fl">3.2</span>K) [text<span class="sc">/</span>plain]</span>
+<span id="cb617-6"><a href="database-sqlite.html#cb617-6" aria-hidden="true" tabindex="-1"></a>Saving to<span class="sc">:</span> ‘gen<span class="sc">-</span>survey<span class="sc">-</span>database.sql’</span>
+<span id="cb617-7"><a href="database-sqlite.html#cb617-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb617-8"><a href="database-sqlite.html#cb617-8" aria-hidden="true" tabindex="-1"></a><span class="dv">100</span>%[<span class="sc">==</span><span class="er">=======================================================================================================================&amp;</span>gt;] <span class="dv">3</span>,<span class="dv">297</span>       <span class="sc">--</span>.<span class="sc">-</span>K<span class="sc">/</span>s   <span class="cf">in</span> <span class="fl">0.01</span>s   </span>
+<span id="cb617-9"><a href="database-sqlite.html#cb617-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb617-10"><a href="database-sqlite.html#cb617-10" aria-hidden="true" tabindex="-1"></a><span class="dv">2014-09-02</span> <span class="dv">18</span><span class="sc">:</span><span class="dv">31</span><span class="sc">:</span><span class="dv">45</span> (<span class="dv">264</span> KB<span class="sc">/</span>s) <span class="sc">-</span> ‘gen<span class="sc">-</span>survey<span class="sc">-</span>database.sql’ saved [<span class="dv">3297</span><span class="sc">/</span><span class="dv">3297</span>]</span></code></pre></div>
 <p>이제 성공적으로 단일 SQL 파일을 가져와서,
 <code>survey.db</code> 데이터베이스를 생성하고
 <code>gen-survey-database.sql</code> 에 저장된 지시방법에 따라서 데이터를 채워넣는다.</p>
 <p>명령-라인 터미널에서 SQLite3 프로그램을 호출하기 위해서, 다음 명령문을 실행한다.</p>
-<div class="sourceCode" id="cb365"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb365-1"><a href="database-sqlite.html#cb365-1" aria-hidden="true" tabindex="-1"></a>root<span class="sc">@</span>hangul<span class="sc">:</span><span class="er">~/</span>swc<span class="sc">/</span>sql<span class="sc">$</span> sqlite3 survey.db <span class="sc">&lt;</span> gen<span class="sc">-</span>survey<span class="sc">-</span>database.sql</span></code></pre></div>
+<div class="sourceCode" id="cb618"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb618-1"><a href="database-sqlite.html#cb618-1" aria-hidden="true" tabindex="-1"></a>root<span class="sc">@</span>hangul<span class="sc">:</span><span class="er">~/</span>swc<span class="sc">/</span>sql<span class="sc">$</span> sqlite3 survey.db <span class="sc">&lt;</span> gen<span class="sc">-</span>survey<span class="sc">-</span>database.sql</span></code></pre></div>
 </div>
-<div id="connect-sqlite" class="section level2" number="22.4">
+<div id="connect-sqlite" class="section level2" number="26.4">
 <h2>
-<span class="header-section-number">22.4</span> SQLite DB 연결/설치 테스트<a class="anchor" aria-label="anchor" href="#connect-sqlite"><i class="fas fa-link"></i></a>
+<span class="header-section-number">26.4</span> SQLite DB 연결/설치 테스트<a class="anchor" aria-label="anchor" href="#connect-sqlite"><i class="fas fa-link"></i></a>
 </h2>
 <p>생성된 데이터베이스에 연결하기 위해서,
 데이터베이스를 생성한 디렉토리 안에서 SQLite를 시작한다.
 그래서 <code>~/swc/sql</code> 디렉토리에서 다음과 같이 타이핑한다.</p>
-<div class="sourceCode" id="cb366"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb366-1"><a href="database-sqlite.html#cb366-1" aria-hidden="true" tabindex="-1"></a>root<span class="sc">@</span>hangul<span class="sc">:</span><span class="er">~/</span>swc<span class="sc">/</span>sql<span class="sc">$</span> sqlite3 survey.db</span></code></pre></div>
+<div class="sourceCode" id="cb619"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb619-1"><a href="database-sqlite.html#cb619-1" aria-hidden="true" tabindex="-1"></a>root<span class="sc">@</span>hangul<span class="sc">:</span><span class="er">~/</span>swc<span class="sc">/</span>sql<span class="sc">$</span> sqlite3 survey.db</span></code></pre></div>
 <p><code>sqlite3 survey.db</code> 명령문이 데이터베이스를 열고 데이터베이스 명령-라인 프롬프트로 안내한다.
 SQLite에서 데이터베이스는 플랫 파일(flat file)로 명시적으로 열 필요가 있다.
 그리고 나서 SQLite 시작되고 <code>sqlite</code>로 명령-라인 프롬프트가 다음과 같이 변경되어 표시된다.</p>
-<div class="sourceCode" id="cb367"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb367-1"><a href="database-sqlite.html#cb367-1" aria-hidden="true" tabindex="-1"></a>SQLite version <span class="dv">3</span>.<span class="fl">20.0</span> <span class="dv">2017-08-01</span> <span class="dv">13</span><span class="sc">:</span><span class="dv">24</span><span class="sc">:</span><span class="dv">15</span></span>
-<span id="cb367-2"><a href="database-sqlite.html#cb367-2" aria-hidden="true" tabindex="-1"></a>Enter <span class="st">".help"</span> <span class="cf">for</span> usage hints.</span>
-<span id="cb367-3"><a href="database-sqlite.html#cb367-3" aria-hidden="true" tabindex="-1"></a>Connected to a transient <span class="cf">in</span><span class="sc">-</span>memory database.</span>
-<span id="cb367-4"><a href="database-sqlite.html#cb367-4" aria-hidden="true" tabindex="-1"></a>Use <span class="st">".open FILENAME"</span> to reopen on a persistent database.</span>
-<span id="cb367-5"><a href="database-sqlite.html#cb367-5" aria-hidden="true" tabindex="-1"></a>sqlite<span class="sc">&gt;</span>  </span></code></pre></div>
+<div class="sourceCode" id="cb620"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb620-1"><a href="database-sqlite.html#cb620-1" aria-hidden="true" tabindex="-1"></a>SQLite version <span class="dv">3</span>.<span class="fl">20.0</span> <span class="dv">2017-08-01</span> <span class="dv">13</span><span class="sc">:</span><span class="dv">24</span><span class="sc">:</span><span class="dv">15</span></span>
+<span id="cb620-2"><a href="database-sqlite.html#cb620-2" aria-hidden="true" tabindex="-1"></a>Enter <span class="st">".help"</span> <span class="cf">for</span> usage hints.</span>
+<span id="cb620-3"><a href="database-sqlite.html#cb620-3" aria-hidden="true" tabindex="-1"></a>Connected to a transient <span class="cf">in</span><span class="sc">-</span>memory database.</span>
+<span id="cb620-4"><a href="database-sqlite.html#cb620-4" aria-hidden="true" tabindex="-1"></a>Use <span class="st">".open FILENAME"</span> to reopen on a persistent database.</span>
+<span id="cb620-5"><a href="database-sqlite.html#cb620-5" aria-hidden="true" tabindex="-1"></a>sqlite<span class="sc">&gt;</span>  </span></code></pre></div>
 <p>다음 출력결과가 보여주듯이 <code>.databases</code> 명령문으로 소속된 데이터베이스 이름과 파일 목록을 확인한다.</p>
-<div class="sourceCode" id="cb368"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb368-1"><a href="database-sqlite.html#cb368-1" aria-hidden="true" tabindex="-1"></a>sqlite<span class="sc">&gt;</span> .databases</span>
-<span id="cb368-2"><a href="database-sqlite.html#cb368-2" aria-hidden="true" tabindex="-1"></a>seq  name             file                                                      </span>
-<span id="cb368-3"><a href="database-sqlite.html#cb368-3" aria-hidden="true" tabindex="-1"></a><span class="sc">---</span>  <span class="sc">---------------</span>  <span class="sc">----------------------------------------------------------</span></span>
-<span id="cb368-4"><a href="database-sqlite.html#cb368-4" aria-hidden="true" tabindex="-1"></a><span class="dv">0</span>    main             <span class="sc">~</span><span class="er">/</span>novice<span class="sc">/</span>sql<span class="sc">/</span>survey.db</span></code></pre></div>
+<div class="sourceCode" id="cb621"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb621-1"><a href="database-sqlite.html#cb621-1" aria-hidden="true" tabindex="-1"></a>sqlite<span class="sc">&gt;</span> .databases</span>
+<span id="cb621-2"><a href="database-sqlite.html#cb621-2" aria-hidden="true" tabindex="-1"></a>seq  name             file                                                      </span>
+<span id="cb621-3"><a href="database-sqlite.html#cb621-3" aria-hidden="true" tabindex="-1"></a><span class="sc">---</span>  <span class="sc">---------------</span>  <span class="sc">----------------------------------------------------------</span></span>
+<span id="cb621-4"><a href="database-sqlite.html#cb621-4" aria-hidden="true" tabindex="-1"></a><span class="dv">0</span>    main             <span class="sc">~</span><span class="er">/</span>novice<span class="sc">/</span>sql<span class="sc">/</span>survey.db</span></code></pre></div>
 <p>다음과 같이 타이핑해서 필요한 “Person”, “Survey”, “Site” “Visited” 테이블이 존재하는 것을 확인한다.
 <code>.table</code>의 출력결과는 다음과 같다.</p>
-<div class="sourceCode" id="cb369"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb369-1"><a href="database-sqlite.html#cb369-1" aria-hidden="true" tabindex="-1"></a>sqlite<span class="sc">&gt;</span> .tables</span>
-<span id="cb369-2"><a href="database-sqlite.html#cb369-2" aria-hidden="true" tabindex="-1"></a>Person   Site     Survey   Visited</span></code></pre></div>
+<div class="sourceCode" id="cb622"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb622-1"><a href="database-sqlite.html#cb622-1" aria-hidden="true" tabindex="-1"></a>sqlite<span class="sc">&gt;</span> .tables</span>
+<span id="cb622-2"><a href="database-sqlite.html#cb622-2" aria-hidden="true" tabindex="-1"></a>Person   Site     Survey   Visited</span></code></pre></div>
 </div>
-<div id="sqlite-escape" class="section level2" number="22.5">
+<div id="sqlite-escape" class="section level2" number="26.5">
 <h2>
-<span class="header-section-number">22.5</span> SQLite DB 나오는 법<a class="anchor" aria-label="anchor" href="#sqlite-escape"><i class="fas fa-link"></i></a>
+<span class="header-section-number">26.5</span> SQLite DB 나오는 법<a class="anchor" aria-label="anchor" href="#sqlite-escape"><i class="fas fa-link"></i></a>
 </h2>
 <p>SQLite3 DB 명령-라인 인터페이스(CLI)를 어떻게 빠져나올까요?</p>
 <p>SQLite3를 빠져나오기 위해서, 다음과 같이 타이핑한다.</p>
@@ -218,17 +223,17 @@ SQLite에서 데이터베이스는 플랫 파일(flat file)로 명시적으로 �
 </div>
 
   <div class="chapter-nav">
-<div class="prev"><a href="database-sql.html"><span class="header-section-number">21</span> 데이터베이스와 SQL 사용하기</a></div>
-<div class="next"><a href="database-select.html"><span class="header-section-number">23</span> 변수/칼럼 선택하기</a></div>
+<div class="prev"><a href="database-sql.html"><span class="header-section-number">25</span> 데이터베이스와 SQL 사용하기</a></div>
+<div class="next"><a href="database-select.html"><span class="header-section-number">27</span> 변수/칼럼 선택하기</a></div>
 </div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
     <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
       <ul class="nav navbar-nav">
-<li><a class="nav-link" href="#database-sqlite"><span class="header-section-number">22</span> SQLite 설치</a></li>
-<li><a class="nav-link" href="#sqlite-install"><span class="header-section-number">22.1</span> 설치</a></li>
-<li><a class="nav-link" href="#install-sqlite"><span class="header-section-number">22.2</span> SQLite 설치 3</a></li>
-<li><a class="nav-link" href="#download-database"><span class="header-section-number">22.3</span> 실습 데이터베이스 다운로드</a></li>
-<li><a class="nav-link" href="#connect-sqlite"><span class="header-section-number">22.4</span> SQLite DB 연결/설치 테스트</a></li>
-<li><a class="nav-link" href="#sqlite-escape"><span class="header-section-number">22.5</span> SQLite DB 나오는 법</a></li>
+<li><a class="nav-link" href="#database-sqlite"><span class="header-section-number">26</span> SQLite 설치</a></li>
+<li><a class="nav-link" href="#sqlite-install"><span class="header-section-number">26.1</span> 설치</a></li>
+<li><a class="nav-link" href="#install-sqlite"><span class="header-section-number">26.2</span> SQLite 설치 3</a></li>
+<li><a class="nav-link" href="#download-database"><span class="header-section-number">26.3</span> 실습 데이터베이스 다운로드</a></li>
+<li><a class="nav-link" href="#connect-sqlite"><span class="header-section-number">26.4</span> SQLite DB 연결/설치 테스트</a></li>
+<li><a class="nav-link" href="#sqlite-escape"><span class="header-section-number">26.5</span> SQLite DB 나오는 법</a></li>
 </ul>
 
       <div class="book-extra">

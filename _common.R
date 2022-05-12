@@ -2,7 +2,7 @@ set.seed(7654)
 options(digits = 3)
 
 knitr::opts_chunk$set(
-  echo = FALSE,
+  echo = TRUE,
   message = FALSE,
   warning = FALSE,
   cache = FALSE,

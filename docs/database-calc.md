@@ -22,6 +22,12 @@ sqlite>
 ```
 
 
+
+```sql
+select 1.05 * reading from Survey where quant='rad';
+```
+
+
 <div class="knitsql-table">
 
 
@@ -47,6 +53,12 @@ Table: (\#tab:sqlite-sql-calc-reading)신규 칼럼 생성 쿼리문
 예를 들어, 온도 측정치를 화씨에서 섭씨로 소수점 아래 두자리에서 반올림하여 변환할 수 있다.
 
 
+
+```sql
+select taken, round(5*(reading-32)/9, 2) from Survey where quant='temp';
+```
+
+
 <div class="knitsql-table">
 
 
@@ -63,6 +75,12 @@ Table: (\#tab:sqlite-sql-calc-rounding)신규 칼럼 반올림 적용 쿼리문
 
 
 다른 필드의 값을 조합할 수도 있다. 예를 들어, 문자열 접합 연산자 (string concatenation operator, `||`)를 사용한다. 
+
+
+```sql
+select personal || ' ' || family from Person;
+```
+
 
 <div class="knitsql-table">
 
@@ -107,6 +125,12 @@ Table: (\#tab:sqlite-sql-calc-concat)접합연산자 적용 신규 칼럼 생성
 2.  `union` 연산자는 두 쿼리의 결과를 조합한다.
 
 
+
+```sql
+select * from Person where ident='dyer' union select * from Person where ident='roe';
+```
+
+
 <div class="knitsql-table">
 
 
@@ -137,6 +161,9 @@ Table: (\#tab:sqlite-sql-calc-union)union 연산자 적용 쿼리 두개 결합 
 3.  `Visited` 테이블에 사이트 식별자는 '-'으로 구분되는 두 부분으로 구성되어 있다.
 
 
+```sql
+select distinct site from Visited;
+```
 
 <div class="out"><table>
 <tr><td>DR-1</td></tr>

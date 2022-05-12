@@ -4,16 +4,16 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>25 . 필터링 (Filtering) | 데이터 과학을 지탱하는 기본기</title>
+<title>29 . 필터링 (Filtering) | 데이터 과학을 지탱하는 기본기</title>
 <meta name="author" content="한국 알 사용자회">
-<meta name="description" content="데이터베이스의 가장 강력한 기능중 하나는 데이터를 필터(filter)하는 능력이다. 즉, 특정 기준에 맞는 레코드만 선택한다. 예를 들어, 특정 사이트를 언제 방문했는지 확인한다고 가정하자. 쿼리에 where 절을 사용해서 Visited 테이블로부터 레코드를 뽑아낼 수 있다.  표 25.1: SQL 필터 쿼리문 ident site dated 619...">
+<meta name="description" content="데이터베이스의 가장 강력한 기능중 하나는 데이터를 필터(filter)하는 능력이다. 즉, 특정 기준에 맞는 레코드만 선택한다. 예를 들어, 특정 사이트를 언제 방문했는지 확인한다고 가정하자. 쿼리에 where 절을 사용해서 Visited 테이블로부터 레코드를 뽑아낼 수 있다. select * from Visited where site='DR-1'; ...">
 <meta name="generator" content="bookdown 0.26 with bs4_book()">
-<meta property="og:title" content="25 . 필터링 (Filtering) | 데이터 과학을 지탱하는 기본기">
+<meta property="og:title" content="29 . 필터링 (Filtering) | 데이터 과학을 지탱하는 기본기">
 <meta property="og:type" content="book">
-<meta property="og:description" content="데이터베이스의 가장 강력한 기능중 하나는 데이터를 필터(filter)하는 능력이다. 즉, 특정 기준에 맞는 레코드만 선택한다. 예를 들어, 특정 사이트를 언제 방문했는지 확인한다고 가정하자. 쿼리에 where 절을 사용해서 Visited 테이블로부터 레코드를 뽑아낼 수 있다.  표 25.1: SQL 필터 쿼리문 ident site dated 619...">
+<meta property="og:description" content="데이터베이스의 가장 강력한 기능중 하나는 데이터를 필터(filter)하는 능력이다. 즉, 특정 기준에 맞는 레코드만 선택한다. 예를 들어, 특정 사이트를 언제 방문했는지 확인한다고 가정하자. 쿼리에 where 절을 사용해서 Visited 테이블로부터 레코드를 뽑아낼 수 있다. select * from Visited where site='DR-1'; ...">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="25 . 필터링 (Filtering) | 데이터 과학을 지탱하는 기본기">
-<meta name="twitter:description" content="데이터베이스의 가장 강력한 기능중 하나는 데이터를 필터(filter)하는 능력이다. 즉, 특정 기준에 맞는 레코드만 선택한다. 예를 들어, 특정 사이트를 언제 방문했는지 확인한다고 가정하자. 쿼리에 where 절을 사용해서 Visited 테이블로부터 레코드를 뽑아낼 수 있다.  표 25.1: SQL 필터 쿼리문 ident site dated 619...">
+<meta name="twitter:title" content="29 . 필터링 (Filtering) | 데이터 과학을 지탱하는 기본기">
+<meta name="twitter:description" content="데이터베이스의 가장 강력한 기능중 하나는 데이터를 필터(filter)하는 능력이다. 즉, 특정 기준에 맞는 레코드만 선택한다. 예를 들어, 특정 사이트를 언제 방문했는지 확인한다고 가정하자. 쿼리에 where 절을 사용해서 Visited 테이블로부터 레코드를 뽑아낼 수 있다. select * from Visited where site='DR-1'; ...">
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
 <script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.3.1/transition.js"></script><script src="libs/bs3compat-0.3.1/tabs.js"></script><script src="libs/bs3compat-0.3.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
@@ -87,17 +87,22 @@
 <li><a class="" href="git-licensing.html"><span class="header-section-number">18</span> 라이선싱 (Licensing)</a></li>
 <li><a class="" href="git-hosting.html"><span class="header-section-number">19</span> 호스팅 (Hosting)</a></li>
 <li><a class="" href="git-korean.html"><span class="header-section-number">20</span> Git 추가설정</a></li>
+<li class="book-part">프로그래밍</li>
+<li><a class="" href="r-intro.html"><span class="header-section-number">21</span> R과 RStudio 소개</a></li>
+<li><a class="" href="r-project.html"><span class="header-section-number">22</span> RStudio 프로젝트 관리</a></li>
+<li><a class="" href="r-help.html"><span class="header-section-number">23</span> 도움 청하기</a></li>
+<li><a class="" href="r-data-structure.html"><span class="header-section-number">24</span> 자료구조</a></li>
 <li class="book-part">데이터베이스</li>
-<li><a class="" href="database-sql.html"><span class="header-section-number">21</span> 데이터베이스와 SQL 사용하기</a></li>
-<li><a class="" href="database-sqlite.html"><span class="header-section-number">22</span> SQLite 설치</a></li>
-<li><a class="" href="database-select.html"><span class="header-section-number">23</span> 변수/칼럼 선택하기</a></li>
-<li><a class="" href="database-sort.html"><span class="header-section-number">24</span> 정렬, 중복 제거</a></li>
-<li><a class="active" href="database-filter.html"><span class="header-section-number">25</span> 필터링 (Filtering)</a></li>
-<li><a class="" href="database-calc.html"><span class="header-section-number">26</span> 새로운 값 계산하기</a></li>
-<li><a class="" href="database-null.html"><span class="header-section-number">27</span> 결측 데이터 (Missing Data)</a></li>
-<li><a class="" href="database-agg.html"><span class="header-section-number">28</span> 집합(Aggregation)</a></li>
-<li><a class="" href="database-table-join.html"><span class="header-section-number">29</span> 데이터 결합하기</a></li>
-<li><a class="" href="database-data-create.html"><span class="header-section-number">30</span> 데이터 생성과 변형</a></li>
+<li><a class="" href="database-sql.html"><span class="header-section-number">25</span> 데이터베이스와 SQL 사용하기</a></li>
+<li><a class="" href="database-sqlite.html"><span class="header-section-number">26</span> SQLite 설치</a></li>
+<li><a class="" href="database-select.html"><span class="header-section-number">27</span> 변수/칼럼 선택하기</a></li>
+<li><a class="" href="database-sort.html"><span class="header-section-number">28</span> 정렬, 중복 제거</a></li>
+<li><a class="active" href="database-filter.html"><span class="header-section-number">29</span> 필터링 (Filtering)</a></li>
+<li><a class="" href="database-calc.html"><span class="header-section-number">30</span> 새로운 값 계산하기</a></li>
+<li><a class="" href="database-null.html"><span class="header-section-number">31</span> 결측 데이터 (Missing Data)</a></li>
+<li><a class="" href="database-agg.html"><span class="header-section-number">32</span> 집합(Aggregation)</a></li>
+<li><a class="" href="database-table-join.html"><span class="header-section-number">33</span> 데이터 결합하기</a></li>
+<li><a class="" href="database-data-create.html"><span class="header-section-number">34</span> 데이터 생성과 변형</a></li>
 <li><a class="" href="%EC%B0%B8%EA%B3%A0%EB%AC%B8%ED%97%8C.html">참고문헌</a></li>
 </ul>
 
@@ -106,17 +111,18 @@
         </div>
       </nav>
 </div>
-  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="database-filter" class="section level1" number="25">
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="database-filter" class="section level1" number="29">
 <h1>
-<span class="header-section-number">25 . </span> 필터링 (Filtering)<a class="anchor" aria-label="anchor" href="#database-filter"><i class="fas fa-link"></i></a>
+<span class="header-section-number">29 . </span> 필터링 (Filtering)<a class="anchor" aria-label="anchor" href="#database-filter"><i class="fas fa-link"></i></a>
 </h1>
 <p>데이터베이스의 가장 강력한 기능중 하나는 데이터를 <a href="../../gloss.html#filter">필터(filter)</a>하는 능력이다.
 즉, 특정 기준에 맞는 레코드만 선택한다. 예를 들어, 특정 사이트를 언제 방문했는지 확인한다고 가정하자.
 쿼리에 <code>where</code> 절을 사용해서 <code>Visited</code> 테이블로부터 레코드를 뽑아낼 수 있다.</p>
+<div class="sourceCode" id="cb640"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb640-1"><a href="database-filter.html#cb640-1" aria-hidden="true" tabindex="-1"></a><span class="kw">select</span> <span class="op">*</span> <span class="kw">from</span> Visited <span class="kw">where</span> site<span class="op">=</span><span class="st">'DR-1'</span>;</span></code></pre></div>
 <div class="knitsql-table">
 <div class="inline-table"><table class="table table-sm">
 <caption>
-<span id="tab:sqlite-sql-filter-site">표 25.1: </span>SQL 필터 쿼리문</caption>
+<span id="tab:sqlite-sql-filter-site">표 29.1: </span>SQL 필터 쿼리문</caption>
 <thead><tr class="header">
 <th align="right">ident</th>
 <th align="left">site</th>
@@ -146,10 +152,11 @@
 <code>Visited</code> 테이블의 각 행을 점검한다.
 그리고 나서 무슨 칼럼을 표시할지 결정하기 위해서 <code>select</code> 키워드 다음에 있는 칼럼 이름을 사용한다.</p>
 <p>이러한 처리 순서가 의미하는 바는 화면에 표시되지 않는 칼럼 값에 기반해서도 <code>where</code> 절을 사용해서 레코드를 필터링할 수 있다는 것이다.</p>
+<div class="sourceCode" id="cb641"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb641-1"><a href="database-filter.html#cb641-1" aria-hidden="true" tabindex="-1"></a><span class="kw">select</span> ident <span class="kw">from</span> Visited <span class="kw">where</span> site<span class="op">=</span><span class="st">'DR-1'</span>;</span></code></pre></div>
 <div class="knitsql-table">
 <div class="inline-table"><table class="table table-sm">
 <caption>
-<span id="tab:sqlite-sql-filter-select">표 25.2: </span>SQL 칼럼 선택과 결합된 필터 쿼리문</caption>
+<span id="tab:sqlite-sql-filter-select">표 29.2: </span>SQL 칼럼 선택과 결합된 필터 쿼리문</caption>
 <thead><tr class="header">
 <th align="right">ident</th>
 </tr></thead>
@@ -170,10 +177,11 @@
 <img src="assets/images/database/sql-filter.svg" alt=""><p class="caption">SQL 필터 쿼리문 적용 과정</p>
 </div>
 <p>데이터를 필터링하는데 불 연산자(Boolean Operators)를 사용할 수 있다. 예를 들어, 1930년 이후로 DR-1 사이트에서 수집된 모든 정보를 요청할 수도 있다.</p>
+<div class="sourceCode" id="cb642"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb642-1"><a href="database-filter.html#cb642-1" aria-hidden="true" tabindex="-1"></a><span class="kw">select</span> <span class="op">*</span> <span class="kw">from</span> Visited <span class="kw">where</span> (site<span class="op">=</span><span class="st">'DR-1'</span>) <span class="kw">and</span> (dated<span class="op">&gt;=</span><span class="st">'1930-00-00'</span>);</span></code></pre></div>
 <div class="knitsql-table">
 <div class="inline-table"><table class="table table-sm">
 <caption>
-<span id="tab:sqlite-sql-filter-boolean">표 25.3: </span>SQL 필터 부울연산 반영쿼리문</caption>
+<span id="tab:sqlite-sql-filter-boolean">표 29.3: </span>SQL 필터 부울연산 반영쿼리문</caption>
 <thead><tr class="header">
 <th align="right">ident</th>
 <th align="left">site</th>
@@ -197,10 +205,11 @@ SQLite는 구분하지는 않는다. 대신에 SQLite는 날짜를 텍스트 (IS
 이해하는 것만큼 복잡하는지는 않다.</p>
 </blockquote>
 <p>Lake 혹은 Roerich가 무슨 측정을 했는지 알아내고자 한다면, <code>or</code>를 사용하여 이름에 테스트를 조합할 수 있다.</p>
+<div class="sourceCode" id="cb643"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb643-1"><a href="database-filter.html#cb643-1" aria-hidden="true" tabindex="-1"></a><span class="kw">select</span> <span class="op">*</span> <span class="kw">from</span> Survey <span class="kw">where</span> person<span class="op">=</span><span class="st">'lake'</span> <span class="kw">or</span> person<span class="op">=</span><span class="st">'roe'</span>;</span></code></pre></div>
 <div class="knitsql-table">
 <div class="inline-table"><table class="table table-sm">
 <caption>
-<span id="tab:sqlite-sql-filter">표 25.4: </span>SQL 필터 부울 선택(OR) 연산자 반영쿼리문</caption>
+<span id="tab:sqlite-sql-filter">표 29.4: </span>SQL 필터 부울 선택(OR) 연산자 반영쿼리문</caption>
 <thead><tr class="header">
 <th align="right">taken</th>
 <th align="left">person</th>
@@ -272,10 +281,11 @@ SQLite는 구분하지는 않는다. 대신에 SQLite는 날짜를 텍스트 (IS
 </table></div>
 </div>
 <p>다른 방식으로, <code>in</code>을 사용하여 특정 집합에 값이 있는지 확인할 수 있다.</p>
+<div class="sourceCode" id="cb644"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb644-1"><a href="database-filter.html#cb644-1" aria-hidden="true" tabindex="-1"></a><span class="kw">select</span> <span class="op">*</span> <span class="kw">from</span> Survey <span class="kw">where</span> person <span class="kw">in</span> (<span class="st">'lake'</span>, <span class="st">'roe'</span>);</span></code></pre></div>
 <div class="knitsql-table">
 <div class="inline-table"><table class="table table-sm">
 <caption>
-<span id="tab:sqlite-sql-filter-in">표 25.5: </span>SQL 필터 가독성 높은 부울 선택(OR) 연산 쿼리문</caption>
+<span id="tab:sqlite-sql-filter-in">표 29.5: </span>SQL 필터 가독성 높은 부울 선택(OR) 연산 쿼리문</caption>
 <thead><tr class="header">
 <th align="right">taken</th>
 <th align="left">person</th>
@@ -348,10 +358,11 @@ SQLite는 구분하지는 않는다. 대신에 SQLite는 날짜를 텍스트 (IS
 </div>
 <p><code>and</code>와 <code>or</code>를 조합할 수는 있지만, 어느 연산자가 먼저 수행되는지 주의할 필요가 있다.
 만약 괄호를 사용하지 <em>않는다면</em>, 다음을 얻게 된다.</p>
+<div class="sourceCode" id="cb645"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb645-1"><a href="database-filter.html#cb645-1" aria-hidden="true" tabindex="-1"></a><span class="kw">select</span> <span class="op">*</span> <span class="kw">from</span> Survey <span class="kw">where</span> quant<span class="op">=</span><span class="st">'sal'</span> <span class="kw">and</span> person<span class="op">=</span><span class="st">'lake'</span> <span class="kw">or</span> person<span class="op">=</span><span class="st">'roe'</span>;</span></code></pre></div>
 <div class="knitsql-table">
 <div class="inline-table"><table class="table table-sm">
 <caption>
-<span id="tab:sqlite-sql-filter-order">표 25.6: </span>SQL 필터 부울 선택(OR) 연산 적용순서</caption>
+<span id="tab:sqlite-sql-filter-order">표 29.6: </span>SQL 필터 부울 선택(OR) 연산 적용순서</caption>
 <thead><tr class="header">
 <th align="right">taken</th>
 <th align="left">person</th>
@@ -406,10 +417,11 @@ SQLite는 구분하지는 않는다. 대신에 SQLite는 날짜를 텍스트 (IS
 </div>
 <p>상기 결과는 Lake가 측정한 염분량과 Roerich가 측정한 <em>임의</em> 측정값이다.
 대신에 아마도 다음과 같은 결과를 얻고자 했을 것이다.</p>
+<div class="sourceCode" id="cb646"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb646-1"><a href="database-filter.html#cb646-1" aria-hidden="true" tabindex="-1"></a><span class="kw">select</span> <span class="op">*</span> <span class="kw">from</span> Survey <span class="kw">where</span> quant<span class="op">=</span><span class="st">'sal'</span> <span class="kw">and</span> (person<span class="op">=</span><span class="st">'lake'</span> <span class="kw">or</span> person<span class="op">=</span><span class="st">'roe'</span>);</span></code></pre></div>
 <div class="knitsql-table">
 <div class="inline-table"><table class="table table-sm">
 <caption>
-<span id="tab:sqlite-sql-filter-order-parenthesis">표 25.7: </span>SQL 필터 괄호적용 부울 선택(OR) 연산 적용순서</caption>
+<span id="tab:sqlite-sql-filter-order-parenthesis">표 29.7: </span>SQL 필터 괄호적용 부울 선택(OR) 연산 적용순서</caption>
 <thead><tr class="header">
 <th align="right">taken</th>
 <th align="left">person</th>
@@ -457,10 +469,11 @@ SQLite는 구분하지는 않는다. 대신에 SQLite는 날짜를 텍스트 (IS
 </table></div>
 </div>
 <p>마지막으로 <code>distinct</code>와 <code>where</code>를 사용하여 두번째 수준의 필터링을 한다.</p>
+<div class="sourceCode" id="cb647"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb647-1"><a href="database-filter.html#cb647-1" aria-hidden="true" tabindex="-1"></a><span class="kw">select</span> <span class="kw">distinct</span> person, quant <span class="kw">from</span> Survey <span class="kw">where</span> person<span class="op">=</span><span class="st">'lake'</span> <span class="kw">or</span> person<span class="op">=</span><span class="st">'roe'</span>;</span></code></pre></div>
 <div class="knitsql-table">
 <div class="inline-table"><table class="table table-sm">
 <caption>
-<span id="tab:sqlite-sql-filter-order-distinct">표 25.8: </span>SQL 중복제거 선택문과 결합된 필터 부울 선택(OR) 연산</caption>
+<span id="tab:sqlite-sql-filter-order-distinct">표 29.8: </span>SQL 중복제거 선택문과 결합된 필터 부울 선택(OR) 연산</caption>
 <thead><tr class="header">
 <th align="left">person</th>
 <th align="left">quant</th>
@@ -500,9 +513,9 @@ SQLite는 구분하지는 않는다. 대신에 SQLite는 날짜를 텍스트 (IS
 예를 들어, 2천만 호주사람의 실제 데이터베이스에 쿼리를 작업하지 말고,
 1만명 샘플을 뽑아 쿼리를 돌리거나 작은 프로그램을 작성해서 랜덤으로 혹은 그럴듯한 1만명 레코드를 생성해서 사용한다.</p>
 </blockquote>
-<div id="db-filter-challenge" class="section level2" number="25.1">
+<div id="db-filter-challenge" class="section level2" number="29.1">
 <h2>
-<span class="header-section-number">25.1</span> 도전 과제<a class="anchor" aria-label="anchor" href="#db-filter-challenge"><i class="fas fa-link"></i></a>
+<span class="header-section-number">29.1</span> 도전 과제<a class="anchor" aria-label="anchor" href="#db-filter-challenge"><i class="fas fa-link"></i></a>
 </h2>
 <ol style="list-style-type: decimal">
 <li>
@@ -572,9 +585,9 @@ SQLite는 구분하지는 않는다. 대신에 SQLite는 날짜를 텍스트 (IS
 </li>
 </ol>
 </div>
-<div id="db-filter-points" class="section level2" number="25.2">
+<div id="db-filter-points" class="section level2" number="29.2">
 <h2>
-<span class="header-section-number">25.2</span> 주요점<a class="anchor" aria-label="anchor" href="#db-filter-points"><i class="fas fa-link"></i></a>
+<span class="header-section-number">29.2</span> 주요점<a class="anchor" aria-label="anchor" href="#db-filter-points"><i class="fas fa-link"></i></a>
 </h2>
 <ul>
 <li>
@@ -584,14 +597,14 @@ SQLite는 구분하지는 않는다. 대신에 SQLite는 날짜를 텍스트 (IS
 </div>
 </div>
   <div class="chapter-nav">
-<div class="prev"><a href="database-sort.html"><span class="header-section-number">24</span> 정렬, 중복 제거</a></div>
-<div class="next"><a href="database-calc.html"><span class="header-section-number">26</span> 새로운 값 계산하기</a></div>
+<div class="prev"><a href="database-sort.html"><span class="header-section-number">28</span> 정렬, 중복 제거</a></div>
+<div class="next"><a href="database-calc.html"><span class="header-section-number">30</span> 새로운 값 계산하기</a></div>
 </div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
     <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
       <ul class="nav navbar-nav">
-<li><a class="nav-link" href="#database-filter"><span class="header-section-number">25</span> 필터링 (Filtering)</a></li>
-<li><a class="nav-link" href="#db-filter-challenge"><span class="header-section-number">25.1</span> 도전 과제</a></li>
-<li><a class="nav-link" href="#db-filter-points"><span class="header-section-number">25.2</span> 주요점</a></li>
+<li><a class="nav-link" href="#database-filter"><span class="header-section-number">29</span> 필터링 (Filtering)</a></li>
+<li><a class="nav-link" href="#db-filter-challenge"><span class="header-section-number">29.1</span> 도전 과제</a></li>
+<li><a class="nav-link" href="#db-filter-points"><span class="header-section-number">29.2</span> 주요점</a></li>
 </ul>
 
       <div class="book-extra">

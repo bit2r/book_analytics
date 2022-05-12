@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>23 . 도움 청하기 | 데이터 과학을 지탱하는 기본기</title>
+<meta name="author" content="한국 알 사용자회">
+<meta name="description" content="23.1 도움말 파일 읽기 R과 모든 팩키지는 함수에 대한 도움말 파일을 제공한다. 네임스페이스(인터랙티브 R 세션)에 적재된 팩키지에 있는 특정 함수에 대한 도움말은 다음과 같이 찾는다: ?function_name help(function_name) RStudio에 도움말 페이지에 도움말이 표시된다. (혹은 R 자체로 일반 텍스트로 표시된다) 각...">
+<meta name="generator" content="bookdown 0.26 with bs4_book()">
+<meta property="og:title" content="23 . 도움 청하기 | 데이터 과학을 지탱하는 기본기">
+<meta property="og:type" content="book">
+<meta property="og:description" content="23.1 도움말 파일 읽기 R과 모든 팩키지는 함수에 대한 도움말 파일을 제공한다. 네임스페이스(인터랙티브 R 세션)에 적재된 팩키지에 있는 특정 함수에 대한 도움말은 다음과 같이 찾는다: ?function_name help(function_name) RStudio에 도움말 페이지에 도움말이 표시된다. (혹은 R 자체로 일반 텍스트로 표시된다) 각...">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="23 . 도움 청하기 | 데이터 과학을 지탱하는 기본기">
+<meta name="twitter:description" content="23.1 도움말 파일 읽기 R과 모든 팩키지는 함수에 대한 도움말 파일을 제공한다. 네임스페이스(인터랙티브 R 세션)에 적재된 팩키지에 있는 특정 함수에 대한 도움말은 다음과 같이 찾는다: ?function_name help(function_name) RStudio에 도움말 페이지에 도움말이 표시된다. (혹은 R 자체로 일반 텍스트로 표시된다) 각...">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.3.1/transition.js"></script><script src="libs/bs3compat-0.3.1/tabs.js"></script><script src="libs/bs3compat-0.3.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
+    
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  </style>
+<style type="text/css">
+    /* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+    div.csl-bib-body { }
+    div.csl-entry {
+      clear: both;
+        }
+    .hanging div.csl-entry {
+      margin-left:2em;
+      text-indent:-2em;
+    }
+    div.csl-left-margin {
+      min-width:2em;
+      float:left;
+    }
+    div.csl-right-inline {
+      margin-left:2em;
+      padding-left:1em;
+    }
+    div.csl-indent {
+      margin-left: 2em;
+    }
+  </style>
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">데이터 과학을 지탱하는 기본기</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html">데이터 과학을 지탱하는 기본기</a></li>
+<li class="book-part">자동화</li>
+<li><a class="" href="shell-intro.html"><span class="header-section-number">1</span> 쉘(Shell) 소개</a></li>
+<li><a class="" href="shell-filedir.html"><span class="header-section-number">2</span> 파일과 폴더 넘나들기</a></li>
+<li><a class="" href="shell-create.html"><span class="header-section-number">3</span> 파일과 디렉토리 작업</a></li>
+<li><a class="" href="pipe-filter.html"><span class="header-section-number">4</span> 파이프와 필터</a></li>
+<li><a class="" href="shell-loop.html"><span class="header-section-number">5</span> 루프(Loops)</a></li>
+<li><a class="" href="shell-script.html"><span class="header-section-number">6</span> 쉘 스크립트</a></li>
+<li><a class="" href="shell-find.html"><span class="header-section-number">7</span> 파일, 문자, 디렉토리 등 찾기</a></li>
+<li class="book-part">버전제어와 협업</li>
+<li><a class="" href="git.html"><span class="header-section-number">8</span> 자동화된 버젼제어</a></li>
+<li><a class="" href="git-setup.html"><span class="header-section-number">9</span> Git 구축 및 설정</a></li>
+<li><a class="" href="git-create.html"><span class="header-section-number">10</span> 저장소 생성</a></li>
+<li><a class="" href="git-change.html"><span class="header-section-number">11</span> 변경사항 추적</a></li>
+<li><a class="" href="git-history.html"><span class="header-section-number">12</span> 이력 탐색</a></li>
+<li><a class="" href="git-ignore.html"><span class="header-section-number">13</span> 추적대상에서 제외</a></li>
+<li><a class="" href="git-github.html"><span class="header-section-number">14</span> GitHub 원격작업</a></li>
+<li><a class="" href="git-collab.html"><span class="header-section-number">15</span> 협업 (Collaborating)</a></li>
+<li><a class="" href="git-conflict.html"><span class="header-section-number">16</span> 충돌 (Conflicts)</a></li>
+<li><a class="" href="git-open.html"><span class="header-section-number">17</span> 공개 과학 (Open Science)</a></li>
+<li><a class="" href="git-licensing.html"><span class="header-section-number">18</span> 라이선싱 (Licensing)</a></li>
+<li><a class="" href="git-hosting.html"><span class="header-section-number">19</span> 호스팅 (Hosting)</a></li>
+<li><a class="" href="git-korean.html"><span class="header-section-number">20</span> Git 추가설정</a></li>
+<li class="book-part">프로그래밍</li>
+<li><a class="" href="r-intro.html"><span class="header-section-number">21</span> R과 RStudio 소개</a></li>
+<li><a class="" href="r-project.html"><span class="header-section-number">22</span> RStudio 프로젝트 관리</a></li>
+<li><a class="active" href="r-help.html"><span class="header-section-number">23</span> 도움 청하기</a></li>
+<li><a class="" href="r-data-structure.html"><span class="header-section-number">24</span> 자료구조</a></li>
+<li class="book-part">데이터베이스</li>
+<li><a class="" href="database-sql.html"><span class="header-section-number">25</span> 데이터베이스와 SQL 사용하기</a></li>
+<li><a class="" href="database-sqlite.html"><span class="header-section-number">26</span> SQLite 설치</a></li>
+<li><a class="" href="database-select.html"><span class="header-section-number">27</span> 변수/칼럼 선택하기</a></li>
+<li><a class="" href="database-sort.html"><span class="header-section-number">28</span> 정렬, 중복 제거</a></li>
+<li><a class="" href="database-filter.html"><span class="header-section-number">29</span> 필터링 (Filtering)</a></li>
+<li><a class="" href="database-calc.html"><span class="header-section-number">30</span> 새로운 값 계산하기</a></li>
+<li><a class="" href="database-null.html"><span class="header-section-number">31</span> 결측 데이터 (Missing Data)</a></li>
+<li><a class="" href="database-agg.html"><span class="header-section-number">32</span> 집합(Aggregation)</a></li>
+<li><a class="" href="database-table-join.html"><span class="header-section-number">33</span> 데이터 결합하기</a></li>
+<li><a class="" href="database-data-create.html"><span class="header-section-number">34</span> 데이터 생성과 변형</a></li>
+<li><a class="" href="%EC%B0%B8%EA%B3%A0%EB%AC%B8%ED%97%8C.html">참고문헌</a></li>
+</ul>
+
+        <div class="book-extra">
+          
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="r-help" class="section level1" number="23">
+<h1>
+<span class="header-section-number">23 . </span> 도움 청하기<a class="anchor" aria-label="anchor" href="#r-help"><i class="fas fa-link"></i></a>
+</h1>
+<div id="r-help-read" class="section level2" number="23.1">
+<h2>
+<span class="header-section-number">23.1</span> 도움말 파일 읽기<a class="anchor" aria-label="anchor" href="#r-help-read"><i class="fas fa-link"></i></a>
+</h2>
+<p>R과 모든 팩키지는 함수에 대한 도움말 파일을 제공한다.
+네임스페이스(인터랙티브 R 세션)에 적재된 팩키지에 있는 특정 함수에 대한 도움말은 다음과 같이 찾는다:</p>
+<div class="sourceCode" id="cb434"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="op">?</span><span class="va">function_name</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/help.html">help</a></span><span class="op">(</span><span class="va">function_name</span><span class="op">)</span></code></pre></div>
+<p>RStudio에 도움말 페이지에 도움말이 표시된다. (혹은 R 자체로 일반 텍스트로 표시된다)</p>
+<p>각 도움말 페이지는 절(section)로 구분된다:</p>
+<ul>
+<li>기술(Description): 함수가 어떤 작업을 수행하는가에 대한 충분한 기술</li>
+<li>사용법(Usage): 함수 인자와 기본디폴트 설정값</li>
+<li>인자(Arguments): 각 인자가 예상하는 데이터 설명</li>
+<li>상세 설명(Details): 알고 있어야 되는 중요한 구체적인 설명</li>
+<li>값(Value): 함수가 반환하는 데이터</li>
+<li>함께 보기(See Also): 유용할 수 있는 연관된 함수.</li>
+<li>예제(Examples): 함수 사용법에 대한 예제들.</li>
+</ul>
+<p>함수마다 상이한 절을 갖추고 있다.
+하지만, 상기 항목이 알고 있어야 하는 핵심 내용이다.</p>
+<div id="r-help-tips" class="rmdcaution">
+<p><strong>꿀팁: 도움말 파일 불러 읽어오기</strong></p>
+<p>R에 대해 가장 기죽게 되는 한 측면이 엄청난 함수 갯수다.
+모든 함수에 대한 올바른 사용법을 기억하지 못하면,
+엄두가 나지 않을 것이다.
+운좋게도, 도움말 파일로 인해 기억할 필요가 없다!</p>
+</div>
+</div>
+<div id="r-help-special" class="section level2" number="23.2">
+<h2>
+<span class="header-section-number">23.2</span> 특수 연산자<a class="anchor" aria-label="anchor" href="#r-help-special"><i class="fas fa-link"></i></a>
+</h2>
+<p>특수 연산자에 대한 도움말을 찾으려면, 인용부호를 사용한다:</p>
+<div class="sourceCode" id="cb435"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="op">?</span><span class="st">"&lt;-"</span></code></pre></div>
+</div>
+<div id="r-help-pkg" class="section level2" number="23.3">
+<h2>
+<span class="header-section-number">23.3</span> 팩키지 도움말 얻기<a class="anchor" aria-label="anchor" href="#r-help-pkg"><i class="fas fa-link"></i></a>
+</h2>
+<p>많은 팩키지에 “소품문(vignettes)”이 따라온다: 활용법과 풍부한 예제를 담은 문서.
+어떤 인자도 없이, <code><a href="https://rdrr.io/r/utils/vignette.html">vignette()</a></code> 명령어를 입력하면 설치된 모든 팩키지에 대한
+모든 소품문 목록이 출력된다;
+<code>vignette(package="package-name")</code> 명령어는 <code>package-name</code> 팩키지명에 대한
+이용가능한 모든 소품문 목록을 출력하고, <code>vignette("vignette-name")</code>
+명령어는 특정된 소품문을 연다.</p>
+<p>팩키지에 어떤 소품문도 포함되지 않는다면, 일반적으로
+<code>help("package-name")</code> 명령어를 타이핑해서 도움말을 얻는다.</p>
+</div>
+<div id="r-help-function" class="section level2" number="23.4">
+<h2>
+<span class="header-section-number">23.4</span> 함수가 정확하게 기억나지 않을 때<a class="anchor" aria-label="anchor" href="#r-help-function"><i class="fas fa-link"></i></a>
+</h2>
+<p>함수가 어느 팩키지에 있는지 확신을 못하거나, 구체적인 철자법을 모르는 경우,
+퍼지 검색(fuzzy search)을 실행한다:</p>
+<div class="sourceCode" id="cb436"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="op">?</span><span class="op">?</span><span class="va">function_name</span></code></pre></div>
+</div>
+<div id="r-help-no-idea" class="section level2" number="23.5">
+<h2>
+<span class="header-section-number">23.5</span> 어디서 시작해야 될지 아무 생각이 없을 때<a class="anchor" aria-label="anchor" href="#r-help-no-idea"><i class="fas fa-link"></i></a>
+</h2>
+<p>어떤 함수 혹은 팩키지가 필요한지 모르는 경우,
+<a href="http://cran.at.r-project.org/web/views">CRAN Task Views</a> 사이트가
+좋은 시작점이 된다. 유지관리되는 팩키지 목록이 필드로 묶여 잘 정리되어 있다.</p>
+</div>
+<div id="r-help-not-working" class="section level2" number="23.6">
+<h2>
+<span class="header-section-number">23.6</span> 코드가 동작않을 때: 동료에게 도움 구함<a class="anchor" aria-label="anchor" href="#r-help-not-working"><i class="fas fa-link"></i></a>
+</h2>
+<p>함수 사용에 어려움이 있는 경우, 10 에 9 경우에 찾는 정답이
+이미 <a href="http://stackoverflow.com/">Stack Overflow</a>에 답글이 달려 있다.
+검색할 때 <code>[r]</code> 태그를 사용한다:</p>
+<p>원하는 답을 찾지 못한 경우, 동료에게 질문을 만드는데 몇가지 유용한 함수가 있다:</p>
+<div class="sourceCode" id="cb437"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="op">?</span><span class="va">dput</span></code></pre></div>
+<p><code><a href="https://rdrr.io/r/base/dput.html">dput()</a></code> 함수는 작업하고 있는 데이터를 텍스트 파일 형식으로 덤프해서 저장한다.
+그래서 다른 사람 R 세션으로 복사해서 붙여넣기 좋게 돕는다.</p>
+<div class="sourceCode" id="cb438"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/sessionInfo.html">sessionInfo</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<pre><code>## R version 4.2.0 (2022-04-22 ucrt)
+## Platform: x86_64-w64-mingw32/x64 (64-bit)
+## Running under: Windows 10 x64 (build 19043)
+## 
+## Matrix products: default
+## 
+## locale:
+## [1] LC_COLLATE=Korean_Korea.utf8  LC_CTYPE=Korean_Korea.utf8   
+## [3] LC_MONETARY=Korean_Korea.utf8 LC_NUMERIC=C                 
+## [5] LC_TIME=Korean_Korea.utf8    
+## 
+## attached base packages:
+## [1] stats     graphics  grDevices utils     datasets  methods   base     
+## 
+## other attached packages:
+##  [1] forcats_0.5.1   stringr_1.4.0   dplyr_1.0.8     purrr_0.3.4    
+##  [5] readr_2.1.2     tidyr_1.2.0     tibble_3.1.6    ggplot2_3.3.5  
+##  [9] tidyverse_1.3.1 DBI_1.1.2      
+## 
+## loaded via a namespace (and not attached):
+##  [1] Rcpp_1.0.8.3     lubridate_1.8.0  assertthat_0.2.1 digest_0.6.29   
+##  [5] utf8_1.2.2       R6_2.5.1         cellranger_1.1.0 backports_1.4.1 
+##  [9] reprex_2.0.1     RSQLite_2.2.12   evaluate_0.15    httr_1.4.2      
+## [13] pillar_1.7.0     rlang_1.0.2      readxl_1.4.0     rstudioapi_0.13 
+## [17] blob_1.2.3       jquerylib_0.1.4  rmarkdown_2.13   bit_4.0.4       
+## [21] munsell_0.5.0    broom_0.8.0      compiler_4.2.0   modelr_0.1.8    
+## [25] xfun_0.30        pkgconfig_2.0.3  htmltools_0.5.2  downlit_0.4.0   
+## [29] tidyselect_1.1.2 bookdown_0.26    fansi_1.0.3      crayon_1.5.1    
+## [33] tzdb_0.3.0       dbplyr_2.1.1     withr_2.5.0      grid_4.2.0      
+## [37] jsonlite_1.8.0   gtable_0.3.0     lifecycle_1.0.1  magrittr_2.0.3  
+## [41] scales_1.2.0     cli_3.2.0        stringi_1.7.6    cachem_1.0.6    
+## [45] fs_1.5.2         xml2_1.3.3       bslib_0.3.1      ellipsis_0.3.2  
+## [49] generics_0.1.2   vctrs_0.4.1      tools_4.2.0      bit64_4.0.5     
+## [53] glue_1.6.2       hms_1.1.1        fastmap_1.1.0    yaml_2.3.5      
+## [57] colorspace_2.0-3 rvest_1.0.2      memoise_2.0.1    knitr_1.38      
+## [61] haven_2.5.0      sass_0.4.1</code></pre>
+<p><code><a href="https://rdrr.io/r/utils/sessionInfo.html">sessionInfo()</a></code>는 R 현재 버젼 정보과 함께 적재된 팩키지 정보를 출력한다.
+이 정보가 다른 사람이 여러분 문제를 재현하고 디버그하는데 유용할 수 있다.</p>
+</div>
+<div id="r-help-challenge-one" class="section level2" number="23.7">
+<h2>
+<span class="header-section-number">23.7</span> 도전과제 1<a class="anchor" aria-label="anchor" href="#r-help-challenge-one"><i class="fas fa-link"></i></a>
+</h2>
+<p><code>c</code> 연결함수에 대한 도움말을 살펴본다.
+다음 명령어를 실행하면, 어떤 종류 벡터가 생성될 것으로 예상되는가:</p>
+<div class="sourceCode" id="cb440"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb440-1"><a href="r-help.html#cb440-1" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>)</span>
+<span id="cb440-2"><a href="r-help.html#cb440-2" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="st">'d'</span>, <span class="st">'e'</span>, <span class="st">'f'</span>)</span>
+<span id="cb440-3"><a href="r-help.html#cb440-3" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="st">'f'</span>)<span class="st">`</span></span></code></pre></div>
+<blockquote>
+<p><strong>도전과제 1에 대한 해답</strong></p>
+<p><code><a href="https://rdrr.io/r/base/c.html">c()</a></code> 함수는 벡터를 생성하는데 벡터내 모든 원소는 동일한 자료형태여야 한다.
+첫번째의 경우 모든 원소는 숫자형이다. 두번째의 경우 모두 문자형이다.
+세번째의 경우 문자형이다: 숫자형은 문자로 강제변환(coerced) 된다.</p>
+</blockquote>
+</div>
+<div id="r-help-challenge-two" class="section level2" number="23.8">
+<h2>
+<span class="header-section-number">23.8</span> 도전과제 2<a class="anchor" aria-label="anchor" href="#r-help-challenge-two"><i class="fas fa-link"></i></a>
+</h2>
+<p><code>paste</code> 함수에 대한 도움말을 살펴본다.
+나중에 이 함수를 사용할 것이다.
+<code>sep</code> 와 <code>collapse</code> 인자 사이에 차이는 무엇인가?</p>
+<blockquote>
+<p><strong>도전과제 2에 대한 해답</strong></p>
+<p><code><a href="https://rdrr.io/r/base/paste.html">paste()</a></code> 함수에 대한 도움말은 다음 명령어를 사용한다:</p>
+<div class="sourceCode" id="cb441"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/help.html">help</a></span><span class="op">(</span><span class="st">"paste"</span><span class="op">)</span>
+<span class="op">?</span><span class="va">paste</span></code></pre></div>
+<p><code>sep</code>, <code>collapse</code> 함수 차이는 다소 난해하다.
+<code>paste</code> 함수는 임의 숫자 인자를 받는데 각가은 임의 길이를 갖는 벡터가 될 수 있다.
+<code>sep</code> 인자는 결합되는 요소들 사이에 문자를 지정한다; 기본디폴트로 공백이 된다.
+반환되는 결과는 벡터로 된다. 반대로 <code>collapse</code>는 원소를 결합한 후에 해당 구분자를
+이용하여 축약되어 하나의 문자열이 된다. 예를 들어,</p>
+<div class="sourceCode" id="cb442"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"a"</span>,<span class="st">"b"</span><span class="op">)</span>, <span class="st">"c"</span><span class="op">)</span></code></pre></div>
+<pre><code>## [1] "a c" "b c"</code></pre>
+<div class="sourceCode" id="cb444"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"a"</span>,<span class="st">"b"</span><span class="op">)</span>, <span class="st">"c"</span>, sep <span class="op">=</span> <span class="st">","</span><span class="op">)</span></code></pre></div>
+<pre><code>## [1] "a,c" "b,c"</code></pre>
+<div class="sourceCode" id="cb446"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"a"</span>,<span class="st">"b"</span><span class="op">)</span>, <span class="st">"c"</span>, collapse <span class="op">=</span> <span class="st">"|"</span><span class="op">)</span></code></pre></div>
+<pre><code>## [1] "a c|b c"</code></pre>
+<div class="sourceCode" id="cb448"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"a"</span>,<span class="st">"b"</span><span class="op">)</span>, <span class="st">"c"</span>, sep <span class="op">=</span> <span class="st">","</span>, collapse <span class="op">=</span> <span class="st">"|"</span><span class="op">)</span></code></pre></div>
+<pre><code>## [1] "a,c|b,c"</code></pre>
+<p>(추가 정보가 필요한 경우,
+<code>paste</code> 도움말 페이지 하단에 예제를 참조한다.
+혹은 <code>example('paste')</code> 명령어를 실행한다.</p>
+</blockquote>
+</div>
+<div id="r-help-challenge-three" class="section level2" number="23.9">
+<h2>
+<span class="header-section-number">23.9</span> 도전과제 3<a class="anchor" aria-label="anchor" href="#r-help-challenge-three"><i class="fas fa-link"></i></a>
+</h2>
+<p>칼럼이 탭(“)와 소수점(”.”)으로 구분되는 csv 파일을 불러올 수 있는 함수(연관된 모수)를 찾아내는데
+도움말을 사용해보자.
+소수점 구분자에 대한 확인이 중요한데 전세계 동료와 공동작업을 한다면 더욱 그렇다.
+왜냐하면 다른 나라는 소수점 표기에 다른 관례를 사용하기 때문이다(예를 들어, 콤마 vs 점)
+힌트: <code>??csv</code> 명령어를 사용해서 csv 관련 함수를 찾아낸다.</p>
+<blockquote>
+<p><strong>도전과제 3에 대한 해답</strong></p>
+<p>소수점 구분자를 갖는 탭 구분 파일을 읽어 오는 표준 R 함수는 <code><a href="https://rdrr.io/r/utils/read.table.html">read.delim()</a></code>이다.
+<code>read.table(file, sep="\t")</code> 명령어로 작업을 수행할 수 있다.
+<code><a href="https://rdrr.io/r/utils/read.table.html">read.table()</a></code> 함수에 소수점이 기본설정된 구분자이며,
+데이터파일에 hash (#) 문자를 갖가 포함되어 있다면 <code>comment.char</code> 인자도 변경해야 한다.</p>
+</blockquote>
+</div>
+<div id="r-help-website" class="section level2" number="23.10">
+<h2>
+<span class="header-section-number">23.10</span> 도움 되는 웹사이트<a class="anchor" aria-label="anchor" href="#r-help-website"><i class="fas fa-link"></i></a>
+</h2>
+<ul>
+<li><a href="http://www.statmethods.net/">Quick R</a></li>
+<li><a href="http://www.rstudio.com/resources/cheatsheets/">RStudio cheat sheets</a></li>
+<li><a href="http://www.cookbook-r.com/">Cookbook for R</a></li>
+</ul>
+</div>
+</div>
+  <div class="chapter-nav">
+<div class="prev"><a href="r-project.html"><span class="header-section-number">22</span> RStudio 프로젝트 관리</a></div>
+<div class="next"><a href="r-data-structure.html"><span class="header-section-number">24</span> 자료구조</a></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#r-help"><span class="header-section-number">23</span> 도움 청하기</a></li>
+<li><a class="nav-link" href="#r-help-read"><span class="header-section-number">23.1</span> 도움말 파일 읽기</a></li>
+<li><a class="nav-link" href="#r-help-special"><span class="header-section-number">23.2</span> 특수 연산자</a></li>
+<li><a class="nav-link" href="#r-help-pkg"><span class="header-section-number">23.3</span> 팩키지 도움말 얻기</a></li>
+<li><a class="nav-link" href="#r-help-function"><span class="header-section-number">23.4</span> 함수가 정확하게 기억나지 않을 때</a></li>
+<li><a class="nav-link" href="#r-help-no-idea"><span class="header-section-number">23.5</span> 어디서 시작해야 될지 아무 생각이 없을 때</a></li>
+<li><a class="nav-link" href="#r-help-not-working"><span class="header-section-number">23.6</span> 코드가 동작않을 때: 동료에게 도움 구함</a></li>
+<li><a class="nav-link" href="#r-help-challenge-one"><span class="header-section-number">23.7</span> 도전과제 1</a></li>
+<li><a class="nav-link" href="#r-help-challenge-two"><span class="header-section-number">23.8</span> 도전과제 2</a></li>
+<li><a class="nav-link" href="#r-help-challenge-three"><span class="header-section-number">23.9</span> 도전과제 3</a></li>
+<li><a class="nav-link" href="#r-help-website"><span class="header-section-number">23.10</span> 도움 되는 웹사이트</a></li>
+</ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+          
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>데이터 과학을 지탱하는 기본기</strong>" was written by 한국 알 사용자회. It was last built on 2022-05-12.</p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer>
+</body>
+</html>

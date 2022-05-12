@@ -21,6 +21,12 @@ sqlite>
 ```
 
 
+
+```sql
+select quant from Survey;
+```
+
+
 <div class="knitsql-table">
 
 
@@ -46,6 +52,12 @@ Table: (\#tab:sqlite-sort-sql)SQL select 쿼리문
 결과를 좀더 읽을 수 있게 만들기 위해서 쿼리에 `distinct` 키워드를 추가해서 중복된 출력을 제거한다.
 
 
+
+```sql
+select distinct quant from Survey;
+```
+
+
 <div class="knitsql-table">
 
 
@@ -61,6 +73,12 @@ Table: (\#tab:sqlite-sort-dedup)중복 제거 쿼리문
 
 
 하나 이상의 칼럼(예를 들어 survey 사이트 ID와 측정된 수량)을 선택한다면, 별개로 구별된 값의 쌍이 반환된다.
+
+
+```sql
+select distinct taken, quant from Survey;
+```
+
 
 <div class="knitsql-table">
 
@@ -95,6 +113,12 @@ Table: (\#tab:sqlite-sort-dedup-distinct)칼럼 두개 중복 제거
 설사 정렬이 되어 있더라도, 종종 다른 방식으로 정렬하고 싶을 것이다.
 예를 들어 과학자의 이름 대신에 프로젝트 이름으로 정렬할 수도 있다. SQL에서 쿼리에 `order by` 절을 추가해서 간단하게 구현할 수 있다.
 
+
+```sql
+select * from Person order by ident;
+```
+
+
 <div class="knitsql-table">
 
 
@@ -113,6 +137,12 @@ Table: (\#tab:sqlite-sort-id)ident 칼럼 기준 정렬
 
 디폴트로, 결과는 오름차순으로 정렬되어야 한다. (즉, 가장 적은 값에서 가장 큰 값 순으로 정렬된다.) 
 `desc` ("descending")를 사용해서 역순으로도 정렬할 수 있다.
+
+
+```sql
+select * from person order by ident desc;
+```
+
 
 <div class="knitsql-table">
 
@@ -133,6 +163,12 @@ Table: (\#tab:sqlite-sort-desc)ident 칼럼 기준 역정렬
 
 한번에 여러 필드를 정렬할 수도 있다. 예를 들어, 다음 쿼리는 `taken` 필드를 오름차순으로 그리고 동일 그룹의 `taken` 값 내에서는 
 `person`으로 내림차순으로 결과를 정렬한다.
+
+
+```sql
+select taken, person from Survey order by taken asc, person desc;
+```
+
 
 <div class="knitsql-table">
 
@@ -157,6 +193,12 @@ Table: (\#tab:sqlite-sort-asc-desc)칼럼 기준 순정렬, 역정렬
 
 
 만약 중복을 제거한다면 이해하기가 더 쉽다.
+
+
+```sql
+select distinct taken, person from Survey order by taken asc, person desc;
+```
+
 
 <div class="knitsql-table">
 

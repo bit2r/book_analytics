@@ -15,6 +15,12 @@ editor_options:
 쿼리에 `where` 절을 사용해서 `Visited` 테이블로부터 레코드를 뽑아낼 수 있다.
 
 
+
+```sql
+select * from Visited where site='DR-1';
+```
+
+
 <div class="knitsql-table">
 
 
@@ -37,6 +43,12 @@ Table: (\#tab:sqlite-sql-filter-site)SQL 필터 쿼리문
 
 이러한 처리 순서가 의미하는 바는 화면에 표시되지 않는 칼럼 값에 기반해서도 `where` 절을 사용해서 레코드를 필터링할 수 있다는 것이다.
 
+
+```sql
+select ident from Visited where site='DR-1';
+```
+
+
 <div class="knitsql-table">
 
 
@@ -55,6 +67,12 @@ Table: (\#tab:sqlite-sql-filter-select)SQL 칼럼 선택과 결합된 필터 쿼
 
 
 데이터를 필터링하는데 불 연산자(Boolean Operators)를 사용할 수 있다. 예를 들어, 1930년 이후로 DR-1 사이트에서 수집된 모든 정보를 요청할 수도 있다.
+
+
+
+```sql
+select * from Visited where (site='DR-1') and (dated>='1930-00-00');
+```
 
 
 <div class="knitsql-table">
@@ -83,6 +101,12 @@ Table: (\#tab:sqlite-sql-filter-boolean)SQL 필터 부울연산 반영쿼리문
 
 Lake 혹은 Roerich가 무슨 측정을 했는지 알아내고자 한다면, `or`를 사용하여 이름에 테스트를 조합할 수 있다.
 
+
+```sql
+select * from Survey where person='lake' or person='roe';
+```
+
+
 <div class="knitsql-table">
 
 
@@ -105,6 +129,12 @@ Table: (\#tab:sqlite-sql-filter)SQL 필터 부울 선택(OR) 연산자 반영쿼
 
 
 다른 방식으로, `in`을 사용하여 특정 집합에 값이 있는지 확인할 수 있다.
+
+
+```sql
+select * from Survey where person in ('lake', 'roe');
+```
+
 
 <div class="knitsql-table">
 
@@ -130,6 +160,12 @@ Table: (\#tab:sqlite-sql-filter-in)SQL 필터 가독성 높은 부울 선택(OR)
 `and`와 `or`를 조합할 수는 있지만, 어느 연산자가 먼저 수행되는지 주의할 필요가 있다.
 만약 괄호를 사용하지 *않는다면*, 다음을 얻게 된다.
 
+
+```sql
+select * from Survey where quant='sal' and person='lake' or person='roe';
+```
+
+
 <div class="knitsql-table">
 
 
@@ -152,6 +188,12 @@ Table: (\#tab:sqlite-sql-filter-order)SQL 필터 부울 선택(OR) 연산 적용
 대신에 아마도 다음과 같은 결과를 얻고자 했을 것이다.
 
 
+
+```sql
+select * from Survey where quant='sal' and (person='lake' or person='roe');
+```
+
+
 <div class="knitsql-table">
 
 
@@ -170,6 +212,12 @@ Table: (\#tab:sqlite-sql-filter-order-parenthesis)SQL 필터 괄호적용 부울
 
 
 마지막으로 `distinct`와 `where`를 사용하여  두번째 수준의 필터링을 한다.
+
+
+```sql
+select distinct person, quant from Survey where person='lake' or person='roe';
+```
+
 
 <div class="knitsql-table">
 

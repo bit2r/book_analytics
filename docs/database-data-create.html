@@ -4,15 +4,15 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>30 . 데이터 생성과 변형 | 데이터 과학을 지탱하는 기본기</title>
+<title>34 . 데이터 생성과 변형 | 데이터 과학을 지탱하는 기본기</title>
 <meta name="author" content="한국 알 사용자회">
 <meta name="description" content="지금까지 어떻게 데이터베이스에서 정보를 추출하는지만 살펴봤다. 왜냐하면, 정보를 추가하는 것보다 정보를 조회하는 것이 더 자주 있는 일이기도 하고, 다른 연산자는 쿼리가 이해되어야만 의미가 통하기 때문이다. 만약 데이터를 생성하고 변형하고자 한다면, 다른 두짝의 명령어를 공부할 필요가 있다. 첫번째 짝은 create table과 drop...">
 <meta name="generator" content="bookdown 0.26 with bs4_book()">
-<meta property="og:title" content="30 . 데이터 생성과 변형 | 데이터 과학을 지탱하는 기본기">
+<meta property="og:title" content="34 . 데이터 생성과 변형 | 데이터 과학을 지탱하는 기본기">
 <meta property="og:type" content="book">
 <meta property="og:description" content="지금까지 어떻게 데이터베이스에서 정보를 추출하는지만 살펴봤다. 왜냐하면, 정보를 추가하는 것보다 정보를 조회하는 것이 더 자주 있는 일이기도 하고, 다른 연산자는 쿼리가 이해되어야만 의미가 통하기 때문이다. 만약 데이터를 생성하고 변형하고자 한다면, 다른 두짝의 명령어를 공부할 필요가 있다. 첫번째 짝은 create table과 drop...">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="30 . 데이터 생성과 변형 | 데이터 과학을 지탱하는 기본기">
+<meta name="twitter:title" content="34 . 데이터 생성과 변형 | 데이터 과학을 지탱하는 기본기">
 <meta name="twitter:description" content="지금까지 어떻게 데이터베이스에서 정보를 추출하는지만 살펴봤다. 왜냐하면, 정보를 추가하는 것보다 정보를 조회하는 것이 더 자주 있는 일이기도 하고, 다른 연산자는 쿼리가 이해되어야만 의미가 통하기 때문이다. 만약 데이터를 생성하고 변형하고자 한다면, 다른 두짝의 명령어를 공부할 필요가 있다. 첫번째 짝은 create table과 drop...">
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
@@ -87,17 +87,22 @@
 <li><a class="" href="git-licensing.html"><span class="header-section-number">18</span> 라이선싱 (Licensing)</a></li>
 <li><a class="" href="git-hosting.html"><span class="header-section-number">19</span> 호스팅 (Hosting)</a></li>
 <li><a class="" href="git-korean.html"><span class="header-section-number">20</span> Git 추가설정</a></li>
+<li class="book-part">프로그래밍</li>
+<li><a class="" href="r-intro.html"><span class="header-section-number">21</span> R과 RStudio 소개</a></li>
+<li><a class="" href="r-project.html"><span class="header-section-number">22</span> RStudio 프로젝트 관리</a></li>
+<li><a class="" href="r-help.html"><span class="header-section-number">23</span> 도움 청하기</a></li>
+<li><a class="" href="r-data-structure.html"><span class="header-section-number">24</span> 자료구조</a></li>
 <li class="book-part">데이터베이스</li>
-<li><a class="" href="database-sql.html"><span class="header-section-number">21</span> 데이터베이스와 SQL 사용하기</a></li>
-<li><a class="" href="database-sqlite.html"><span class="header-section-number">22</span> SQLite 설치</a></li>
-<li><a class="" href="database-select.html"><span class="header-section-number">23</span> 변수/칼럼 선택하기</a></li>
-<li><a class="" href="database-sort.html"><span class="header-section-number">24</span> 정렬, 중복 제거</a></li>
-<li><a class="" href="database-filter.html"><span class="header-section-number">25</span> 필터링 (Filtering)</a></li>
-<li><a class="" href="database-calc.html"><span class="header-section-number">26</span> 새로운 값 계산하기</a></li>
-<li><a class="" href="database-null.html"><span class="header-section-number">27</span> 결측 데이터 (Missing Data)</a></li>
-<li><a class="" href="database-agg.html"><span class="header-section-number">28</span> 집합(Aggregation)</a></li>
-<li><a class="" href="database-table-join.html"><span class="header-section-number">29</span> 데이터 결합하기</a></li>
-<li><a class="active" href="database-data-create.html"><span class="header-section-number">30</span> 데이터 생성과 변형</a></li>
+<li><a class="" href="database-sql.html"><span class="header-section-number">25</span> 데이터베이스와 SQL 사용하기</a></li>
+<li><a class="" href="database-sqlite.html"><span class="header-section-number">26</span> SQLite 설치</a></li>
+<li><a class="" href="database-select.html"><span class="header-section-number">27</span> 변수/칼럼 선택하기</a></li>
+<li><a class="" href="database-sort.html"><span class="header-section-number">28</span> 정렬, 중복 제거</a></li>
+<li><a class="" href="database-filter.html"><span class="header-section-number">29</span> 필터링 (Filtering)</a></li>
+<li><a class="" href="database-calc.html"><span class="header-section-number">30</span> 새로운 값 계산하기</a></li>
+<li><a class="" href="database-null.html"><span class="header-section-number">31</span> 결측 데이터 (Missing Data)</a></li>
+<li><a class="" href="database-agg.html"><span class="header-section-number">32</span> 집합(Aggregation)</a></li>
+<li><a class="" href="database-table-join.html"><span class="header-section-number">33</span> 데이터 결합하기</a></li>
+<li><a class="active" href="database-data-create.html"><span class="header-section-number">34</span> 데이터 생성과 변형</a></li>
 <li><a class="" href="%EC%B0%B8%EA%B3%A0%EB%AC%B8%ED%97%8C.html">참고문헌</a></li>
 </ul>
 
@@ -106,9 +111,9 @@
         </div>
       </nav>
 </div>
-  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="database-data-create" class="section level1" number="30">
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="database-data-create" class="section level1" number="34">
 <h1>
-<span class="header-section-number">30 . </span> 데이터 생성과 변형<a class="anchor" aria-label="anchor" href="#database-data-create"><i class="fas fa-link"></i></a>
+<span class="header-section-number">34 . </span> 데이터 생성과 변형<a class="anchor" aria-label="anchor" href="#database-data-create"><i class="fas fa-link"></i></a>
 </h1>
 <p>지금까지 어떻게 데이터베이스에서 정보를 추출하는지만 살펴봤다.
 왜냐하면, 정보를 추가하는 것보다 정보를 조회하는 것이 더 자주 있는 일이기도 하고, 다른 연산자는 쿼리가 이해되어야만 의미가 통하기 때문이다.
@@ -211,9 +216,9 @@ insert into JustLatLong select lat, long from site;</code></pre>
 대부분의 음악 재생기(MP3 플레이어) 소프트웨어가 작성되는 방식이기도 하다.
 응용프로그램 내부 데이터베이스는 MP3 파일을 기억하고 있지만, MP3 파일 자체는 디스크에 있다.</p>
 </blockquote>
-<div id="db-database-create-challenge" class="section level2" number="30.1">
+<div id="db-database-create-challenge" class="section level2" number="34.1">
 <h2>
-<span class="header-section-number">30.1</span> 도전 과제<a class="anchor" aria-label="anchor" href="#db-database-create-challenge"><i class="fas fa-link"></i></a>
+<span class="header-section-number">34.1</span> 도전 과제<a class="anchor" aria-label="anchor" href="#db-database-create-challenge"><i class="fas fa-link"></i></a>
 </h2>
 <ol style="list-style-type: decimal">
 <li><p><code>Survey.person</code>의 <code>null</code>인 모든 사용자를 문자열 <code>'unknown'</code>으로 대체하는 SQL문을 작성하세요.</p></li>
@@ -236,9 +241,9 @@ insert into JustLatLong select lat, long from site;</code></pre>
 이러한 접근법의 장점과 단점은 무엇일까요? (힌트: 레코드는 어느 특정한 순서로 저장되지 않는다.)</p></li>
 </ol>
 </div>
-<div id="db-database-create-points" class="section level2" number="30.2">
+<div id="db-database-create-points" class="section level2" number="34.2">
 <h2>
-<span class="header-section-number">30.2</span> 주요점<a class="anchor" aria-label="anchor" href="#db-database-create-points"><i class="fas fa-link"></i></a>
+<span class="header-section-number">34.2</span> 주요점<a class="anchor" aria-label="anchor" href="#db-database-create-points"><i class="fas fa-link"></i></a>
 </h2>
 <ul>
 <li>데이터베이스 테이블은 테이블 이름과 필드의 이름과 특성을 명시하는 쿼리를 사용해서 생성된다.</li>
@@ -248,14 +253,14 @@ insert into JustLatLong select lat, long from site;</code></pre>
 </div>
 </div>
   <div class="chapter-nav">
-<div class="prev"><a href="database-table-join.html"><span class="header-section-number">29</span> 데이터 결합하기</a></div>
+<div class="prev"><a href="database-table-join.html"><span class="header-section-number">33</span> 데이터 결합하기</a></div>
 <div class="next"><a href="%EC%B0%B8%EA%B3%A0%EB%AC%B8%ED%97%8C.html">참고문헌</a></div>
 </div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
     <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
       <ul class="nav navbar-nav">
-<li><a class="nav-link" href="#database-data-create"><span class="header-section-number">30</span> 데이터 생성과 변형</a></li>
-<li><a class="nav-link" href="#db-database-create-challenge"><span class="header-section-number">30.1</span> 도전 과제</a></li>
-<li><a class="nav-link" href="#db-database-create-points"><span class="header-section-number">30.2</span> 주요점</a></li>
+<li><a class="nav-link" href="#database-data-create"><span class="header-section-number">34</span> 데이터 생성과 변형</a></li>
+<li><a class="nav-link" href="#db-database-create-challenge"><span class="header-section-number">34.1</span> 도전 과제</a></li>
+<li><a class="nav-link" href="#db-database-create-points"><span class="header-section-number">34.2</span> 주요점</a></li>
 </ul>
 
       <div class="book-extra">

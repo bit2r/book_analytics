@@ -128,6 +128,12 @@ Enter ".help" for usage hints.
 sqlite>
 ```
 
+
+```sql
+SELECT family, personal from Person;
+```
+
+
 <div class="knitsql-table">
 
 
@@ -148,6 +154,12 @@ Table: (\#tab:db-selection)첫번째 SQL 쿼리
 쿼리 끝에 세미콜론(`;`)은 쿼리가 완료되어 실행준비 되었다고 데이터베이스 관리자에게 알려준다.
 명령문과 칼럼 이름을 모두 소문자로 작성했고, 테이블 이름은 타이틀 케이스(Title Case, 단어의 첫 문자를 대문자로 표기)로 작성했다.
 하지만 그렇게 반듯이 할 필요는 없다. 아래 예제가 보여주듯이, SQL은 **대소문자 구분하지 않는다**
+
+
+
+```sql
+SeLeCt FaMiLy, PeRsOnAl FrOm PeRsOn;
+```
 
 
 <div class="knitsql-table">
@@ -173,6 +185,12 @@ Table: (\#tab:db-selection-variation)SQL 쿼리문은 대소문자 구분하지 
 어떤 순서로 항상 *표시되지만*, 다양한 방식으로 제어할 수 있다.
 예를 들어, 쿼리를 다음과 같이 작성해서 칼럼을 교환할 수 있다.
 
+
+```sql
+SELECT personal, family from Person;
+```
+
+
 <div class="knitsql-table">
 
 
@@ -192,6 +210,12 @@ Table: (\#tab:db-selection-order)칼럼 교환
 혹은 심지어 칼럼을 반복할 수도 있다.
 
 
+
+```sql
+select ident, ident, ident from Person;
+```
+
+
 <div class="knitsql-table">
 
 
@@ -209,6 +233,12 @@ Table: (\#tab:db-selection-dup)칼럼명 중복 선택
 
 
 손쉬운 방법으로, `*`을 사용해서 테이블의 모든 칼럼을 선택할 수도 있다.
+
+
+```sql
+select * from Person;
+```
+
 
 <div class="knitsql-table">
 

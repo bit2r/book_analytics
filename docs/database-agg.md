@@ -19,6 +19,12 @@ sqlite>
 ```
 
 
+
+```sql
+select dated from Visited;
+```
+
+
 <div class="knitsql-table">
 
 
@@ -42,6 +48,12 @@ Table: (\#tab:sqlite-sql-agg-select)SQL select 쿼리문
 각 함수는 입력으로 레코드 집합을 받고 출력으로 단일 레코드를 만든다.
 
 
+
+```sql
+select min(dated) from Visited;
+```
+
+
 <div class="knitsql-table">
 
 
@@ -55,6 +67,12 @@ Table: (\#tab:sqlite-sql-agg-min)최소값 집합 함수 적용 쿼리문
 
 ![SQL 집합함수 최소값(min) 찾는 과정](assets/images/database/sql-aggregation.svg)
 
+
+
+
+```sql
+select max(dated) from Visited;
+```
 
 
 <div class="knitsql-table">
@@ -74,6 +92,12 @@ Table: (\#tab:sqlite-sql-agg-max)최대값 집합 함수 적용 쿼리문
 
 
 
+
+```sql
+select avg(reading) from Survey where quant='sal';
+```
+
+
 <div class="knitsql-table">
 
 
@@ -85,6 +109,12 @@ Table: (\#tab:sqlite-sql-agg-avg)평균값 집합 함수 적용 쿼리문
 
 </div>
 
+
+```sql
+select count(reading) from Survey where quant='sal';
+```
+
+
 <div class="knitsql-table">
 
 
@@ -95,6 +125,12 @@ Table: (\#tab:sqlite-sql-agg-count)개수 집합 함수 적용 쿼리문
 |              9|
 
 </div>
+
+
+
+```sql
+select sum(reading) from Survey where quant='sal';
+```
 
 
 <div class="knitsql-table">
@@ -115,6 +151,12 @@ Table: (\#tab:sqlite-sql-agg-sum)합계 집합 함수 적용 쿼리문
 
 SQL이 여러개의 집합연산도 한번에 수행한다. 예를 들어, 염분측정치의 범위도 알 수 있다.
 
+
+```sql
+select min(reading), max(reading) from Survey where quant='sal' and reading<=1.0;
+```
+
+
 <div class="knitsql-table">
 
 
@@ -128,6 +170,12 @@ Table: (\#tab:sqlite-sql-agg-minmax)최소, 최대값 집합 함수 적용 쿼�
 
 
 출력결과가 놀라움을 줄 수도 있지만, 원 결과값과 집합 결과를 조합할 수도 있다.
+
+
+
+```sql
+select person, count(*) from Survey where quant='sal' and reading<=1.0;
+```
 
 
 <div class="knitsql-table">
@@ -148,6 +196,12 @@ Table: (\#tab:sqlite-sql-agg-composition)원 결과값과 집합 함수를 적�
 
 또다른 중요한 사실은 집합할 어떠한 값도 없을 때, 집합 결과는 0 혹은 다른 임의의 값 보다 "알지 못한다(don't know)"가 된다.
 
+
+```sql
+select person, count(*) from Survey where quant='sal' and reading<=1.0;
+```
+
+
 <div class="knitsql-table">
 
 
@@ -166,6 +220,12 @@ Table: (\#tab:sqlite-sql-agg-null)NULL 값이 포함된 원데이터에 집합 �
 결과도 또한 `null`이어야 한다. 하지만 집합함수가 `null` 값을 무시하고 단지 `non-null` 값만을 조합한다면 훨씬 더 유용하다.
 명시적으로 항상 필터해야하는 대신에 이것의 결과 쿼리를 다음과 같이 작성할 수 있게 한다.
 
+
+```sql
+select min(dated) from Visited;
+```
+
+
 <div class="knitsql-table">
 
 
@@ -178,6 +238,12 @@ Table: (\#tab:sqlite-sql-agg-null-deal)NULL 값이 포함된 원데이터를 명
 </div>
 
 명시적으로 항상 다음과 같이 필터하는 쿼리를 작성할 필요가 없다.
+
+
+```sql
+select min(dated) from Visited where dated is not null;
+```
+
 
 <div class="knitsql-table">
 
@@ -195,6 +261,14 @@ Table: (\#tab:sqlite-sql-agg-null-explicit)NULL 값이 포함된 원데이터를
 예를 들어, Gina가 데이터에 체계적인 편의(bias)가 있어서 다른 과학자의 방사선 측정치가 다른 사람의 것과 비교하여 높다고 의심한다고 가정하자.
 다음 쿼리가 의도를 반영하여 동작하지 않는다는 것은 알고 있다.
 
+
+```sql
+select person, count(reading), round(avg(reading), 2)
+from  Survey
+where quant='rad';
+```
+
+
 <div class="knitsql-table">
 
 
@@ -209,6 +283,15 @@ Table: (\#tab:sqlite-sql-agg-rad-issue)주의깊이 살펴볼 쿼리문
 
 왜냐하면 데이터베이스 관리자가 각 과학자별로 구분된 집합하기 보다는 임의의 한명의 과학자 이름만 선택하기 때문이다.
 단지 5명의 과학자만 있기 때문에, 다음과 같은 형식의 5개 쿼리를 작성할 수 있다.
+
+
+```sql
+select person, count(reading), round(avg(reading), 2)
+from  Survey
+where quant='rad'
+and   person='dyer';
+```
+
 
 <div class="knitsql-table">
 
@@ -226,6 +309,15 @@ Table: (\#tab:sqlite-sql-agg-rad)사람별로 작성한 쿼리문 문제 예제
 모든 쿼리를 올바르게 작성할 가능성은 작다.
 
 필요한 것은 데이터베이스 관리자가 `group by`절을 사용해서 각 과학자별로 시간을 집합하도록 지시하는 것이다.
+
+
+```sql
+select   person, count(reading), round(avg(reading), 2)
+from     Survey
+where    quant='rad'
+group by person;
+```
+
 
 <div class="knitsql-table">
 
@@ -254,6 +346,14 @@ Table: (\#tab:sqlite-sql-agg-group-by)`group by` 문을 사용해서 사람별�
 `group by` 절에 또다른 필드만 추가한다.
 
 
+
+```sql
+select   person, quant, count(reading), round(avg(reading), 2)
+from     Survey
+group by person, quant;
+```
+
+
 <div class="knitsql-table">
 
 
@@ -278,6 +378,16 @@ Table: (\#tab:sqlite-sql-agg-groupby-advanced)`group by` 문을 확장하여 적
 그렇지 않으면 결과가 의미가 없기 때문에, `person`을 표시되는 필드 리스트에 추가한 것을 주목하라.
 
 한단계 더나아가 누가 측정을 했는지 알지 못하는 모든 항목을 제거하자.
+
+
+
+```sql
+select   person, quant, count(reading), round(avg(reading), 2)
+from     Survey
+where    person is not null
+group by person, quant
+order by person, quant;
+```
 
 
 <div class="knitsql-table">

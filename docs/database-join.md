@@ -27,6 +27,12 @@ sqlite>
 ```
 
 
+
+```sql
+select * from Site join Visited;
+```
+
+
 <div class="knitsql-table">
 
 
@@ -57,6 +63,12 @@ Table: (\#tab:sqlite-sql-join)SQL join 쿼리문
 어떻게 조인할지 명시할 때까지 레코드가 서로 관계가 있는지 없는지 알 수 있는 방법은 없다.
 이를 위해서 동일한 사이트 이름을 가진 조합에만 관심있다는 것을 명시하는 절(clause)을 추가한다.
 
+
+```sql
+select * from Site join Visited on Site.name = Visited.site;
+```
+
+
 <div class="knitsql-table">
 
 
@@ -86,6 +98,14 @@ Table: (\#tab:sqlite-sql-join-key)키값을 명시한 SQL join 쿼리문
 
 이제는 조인에서 원하는 3개의 칼럼을 선택하려고 점 표기법(dotted notation)을 사용할 수 있다.
 
+
+```sql
+select Site.lat, Site.long, Visited.dated
+from   Site join Visited
+on     Site.name=Visited.site;
+```
+
+
 <div class="knitsql-table">
 
 
@@ -106,6 +126,16 @@ Table: (\#tab:sqlite-sql-join-key-notation)점표기법을 적용한 SQL join �
 
 만약 두개의 테이블을 조인하는 것이 좋은 경우에, 많은 데이블을 조인하는 것은 더 좋아야한다.
 더 많은 `join` 절과 의미없는 레코드 조합을 필터링해서 제거하는 더 많은 `on` 테스트를 단순히 추가해서 사실 쿼리에 임의 갯수의 테이블을 조인할 수 있다.
+
+
+```sql
+select Site.lat, Site.long, Visited.dated, Survey.quant, Survey.reading
+from   Site join Visited join Survey
+on     Site.name=Visited.site
+and    Visited.ident=Survey.taken
+and    Visited.dated is not null;
+```
+
 
 <div class="knitsql-table">
 
@@ -143,6 +173,12 @@ Table: (\#tab:sqlite-sql-join-key-more)다수 테이블을 확장하여 결합�
 실제로 이방법은 매우 흔하게 사용된다. "student numbers", "patient numbers" 같은 이름을 ID로 사용하고,
 몇몇 데이터베이스 시스템 혹은 다른 곳에서 원래 고유 레코드 식별자로 거의 항상 판명된다.
 다음 쿼리가 시범으로 보여주듯이, 테이블에 레코드가 추가됨에 따라 SQLite는 자동으로 레코드에 숫자를 붙이고, 쿼리에서 이렇게 붙여진 레코드 숫자를 사용한다.
+
+
+
+```sql
+select rowid, * from Person;
+```
 
 
 <div class="knitsql-table">
