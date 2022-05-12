@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>3 . 데이터 결합하기 | 데이터 과학을 지탱하는 기본기</title>
+<meta name="author" content="한국 알 사용자회">
+<meta name="description" content="과거 기상 자료를 집계하는 웹사이트에 데이터를 제출해야 되어서, Gina는 위도, 경도, 날짜, 수량, 측정값 형식으로 자료를 체계적으로 만들 필요가 있다. 하지만, 위도와 경도 정보는 Site 테이블에 있는 반면에 측정 날짜 정보는 Visited 테이블에 있고, 측정값 자체는 Survey 테이블에 있다. 어떤 방식이든지 상기 테이블을 조합할 필요가...">
+<meta name="generator" content="bookdown 0.26 with bs4_book()">
+<meta property="og:title" content="3 . 데이터 결합하기 | 데이터 과학을 지탱하는 기본기">
+<meta property="og:type" content="book">
+<meta property="og:description" content="과거 기상 자료를 집계하는 웹사이트에 데이터를 제출해야 되어서, Gina는 위도, 경도, 날짜, 수량, 측정값 형식으로 자료를 체계적으로 만들 필요가 있다. 하지만, 위도와 경도 정보는 Site 테이블에 있는 반면에 측정 날짜 정보는 Visited 테이블에 있고, 측정값 자체는 Survey 테이블에 있다. 어떤 방식이든지 상기 테이블을 조합할 필요가...">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="3 . 데이터 결합하기 | 데이터 과학을 지탱하는 기본기">
+<meta name="twitter:description" content="과거 기상 자료를 집계하는 웹사이트에 데이터를 제출해야 되어서, Gina는 위도, 경도, 날짜, 수량, 측정값 형식으로 자료를 체계적으로 만들 필요가 있다. 하지만, 위도와 경도 정보는 Site 테이블에 있는 반면에 측정 날짜 정보는 Visited 테이블에 있고, 측정값 자체는 Survey 테이블에 있다. 어떤 방식이든지 상기 테이블을 조합할 필요가...">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.3.1/transition.js"></script><script src="libs/bs3compat-0.3.1/tabs.js"></script><script src="libs/bs3compat-0.3.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
+    
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  </style>
+<style type="text/css">
+    /* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+    div.csl-bib-body { }
+    div.csl-entry {
+      clear: both;
+        }
+    .hanging div.csl-entry {
+      margin-left:2em;
+      text-indent:-2em;
+    }
+    div.csl-left-margin {
+      min-width:2em;
+      float:left;
+    }
+    div.csl-right-inline {
+      margin-left:2em;
+      padding-left:1em;
+    }
+    div.csl-indent {
+      margin-left: 2em;
+    }
+  </style>
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">데이터 과학을 지탱하는 기본기</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html">데이터 과학을 지탱하는 기본기</a></li>
+<li class="book-part">자동화</li>
+<li><a class="" href="shell-intro.html"><span class="header-section-number">1</span> 쉘(Shell) 소개</a></li>
+<li class="book-part">버전제어와 협업</li>
+<li><a class="" href="git.html"><span class="header-section-number">2</span> 자동화된 버젼제어</a></li>
+<li><a class="active" href="database-join.html"><span class="header-section-number">3</span> 데이터 결합하기</a></li>
+<li><a class="" href="database-data-create.html"><span class="header-section-number">4</span> 데이터 생성과 변형</a></li>
+<li><a class="" href="%EC%B0%B8%EA%B3%A0%EB%AC%B8%ED%97%8C.html">참고문헌</a></li>
+</ul>
+
+        <div class="book-extra">
+          
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="database-join" class="section level1" number="3">
+<h1>
+<span class="header-section-number">3 . </span> 데이터 결합하기<a class="anchor" aria-label="anchor" href="#database-join"><i class="fas fa-link"></i></a>
+</h1>
+<p>과거 기상 자료를 집계하는 웹사이트에 데이터를 제출해야 되어서,
+Gina는 위도, 경도, 날짜, 수량, 측정값 형식으로 자료를 체계적으로 만들 필요가 있다.
+하지만, 위도와 경도 정보는 <code>Site</code> 테이블에 있는 반면에 측정 날짜 정보는 <code>Visited</code> 테이블에 있고,
+측정값 자체는 <code>Survey</code> 테이블에 있다.
+어떤 방식이든지 상기 테이블을 조합할 필요가 있다.</p>
+<p>이러한 작업을 하는 SQL 명령어가 <code>join</code>이다. 어떻게 동작하는지 확인하기 위해서,
+<code>Site</code>와 <code>Visited</code> 테이블을 조인하면서 출발해보자.</p>
+<pre><code>$ sqlite3 survey.db
+SQLite version 3.35.4 2021-04-02 15:20:15
+Enter ".help" for usage hints.
+sqlite&gt;</code></pre>
+<div class="knitsql-table">
+<div class="inline-table"><table class="table table-sm">
+<caption>
+<span id="tab:sqlite-sql-join">표 3.1: </span>SQL join 쿼리문</caption>
+<thead><tr class="header">
+<th align="left">name</th>
+<th align="right">lat</th>
+<th align="right">long</th>
+<th align="right">ident</th>
+<th align="left">site</th>
+<th align="left">dated</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left">DR-1</td>
+<td align="right">-49.9</td>
+<td align="right">-129</td>
+<td align="right">619</td>
+<td align="left">DR-1</td>
+<td align="left">1927-02-08</td>
+</tr>
+<tr class="even">
+<td align="left">DR-1</td>
+<td align="right">-49.9</td>
+<td align="right">-129</td>
+<td align="right">622</td>
+<td align="left">DR-1</td>
+<td align="left">1927-02-10</td>
+</tr>
+<tr class="odd">
+<td align="left">DR-1</td>
+<td align="right">-49.9</td>
+<td align="right">-129</td>
+<td align="right">734</td>
+<td align="left">DR-3</td>
+<td align="left">1939-01-07</td>
+</tr>
+<tr class="even">
+<td align="left">DR-1</td>
+<td align="right">-49.9</td>
+<td align="right">-129</td>
+<td align="right">735</td>
+<td align="left">DR-3</td>
+<td align="left">1930-01-12</td>
+</tr>
+<tr class="odd">
+<td align="left">DR-1</td>
+<td align="right">-49.9</td>
+<td align="right">-129</td>
+<td align="right">751</td>
+<td align="left">DR-3</td>
+<td align="left">1930-02-26</td>
+</tr>
+<tr class="even">
+<td align="left">DR-1</td>
+<td align="right">-49.9</td>
+<td align="right">-129</td>
+<td align="right">752</td>
+<td align="left">DR-3</td>
+<td align="left">NA</td>
+</tr>
+<tr class="odd">
+<td align="left">DR-1</td>
+<td align="right">-49.9</td>
+<td align="right">-129</td>
+<td align="right">837</td>
+<td align="left">MSK-4</td>
+<td align="left">1932-01-14</td>
+</tr>
+<tr class="even">
+<td align="left">DR-1</td>
+<td align="right">-49.9</td>
+<td align="right">-129</td>
+<td align="right">844</td>
+<td align="left">DR-1</td>
+<td align="left">1932-03-22</td>
+</tr>
+<tr class="odd">
+<td align="left">DR-3</td>
+<td align="right">-47.1</td>
+<td align="right">-127</td>
+<td align="right">619</td>
+<td align="left">DR-1</td>
+<td align="left">1927-02-08</td>
+</tr>
+<tr class="even">
+<td align="left">DR-3</td>
+<td align="right">-47.1</td>
+<td align="right">-127</td>
+<td align="right">622</td>
+<td align="left">DR-1</td>
+<td align="left">1927-02-10</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p><code>join</code>은 두 테이블을 <strong>벡터곱(cross product)</strong>한다.
+즉, 모든 가능한 조합을 표현하려고 한 테이블의 레코드 각각마다 다른 테이블의 각 레코드와 조인한다.
+<code>Site</code> 테이블에 3개 레코드가 있고, <code>Visited</code> 테이블에 8개 레코드가 있어서,
+조인된 결과는 24개 레코드가 된다. 그리고, 각 테이블이 3개 필드가 있어서 출력은 6개의 필드가 된다.</p>
+<p>조인이 수행하지 <em>않은</em> 것은 조인되는 레코드가 서로 관계가 있는지를 파악하는 것이다.
+어떻게 조인할지 명시할 때까지 레코드가 서로 관계가 있는지 없는지 알 수 있는 방법은 없다.
+이를 위해서 동일한 사이트 이름을 가진 조합에만 관심있다는 것을 명시하는 절(clause)을 추가한다.</p>
+<div class="knitsql-table">
+<div class="inline-table"><table class="table table-sm">
+<caption>
+<span id="tab:sqlite-sql-join-key">표 3.2: </span>키값을 명시한 SQL join 쿼리문</caption>
+<thead><tr class="header">
+<th align="left">name</th>
+<th align="right">lat</th>
+<th align="right">long</th>
+<th align="right">ident</th>
+<th align="left">site</th>
+<th align="left">dated</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left">DR-1</td>
+<td align="right">-49.9</td>
+<td align="right">-129</td>
+<td align="right">619</td>
+<td align="left">DR-1</td>
+<td align="left">1927-02-08</td>
+</tr>
+<tr class="even">
+<td align="left">DR-1</td>
+<td align="right">-49.9</td>
+<td align="right">-129</td>
+<td align="right">622</td>
+<td align="left">DR-1</td>
+<td align="left">1927-02-10</td>
+</tr>
+<tr class="odd">
+<td align="left">DR-1</td>
+<td align="right">-49.9</td>
+<td align="right">-129</td>
+<td align="right">844</td>
+<td align="left">DR-1</td>
+<td align="left">1932-03-22</td>
+</tr>
+<tr class="even">
+<td align="left">DR-3</td>
+<td align="right">-47.1</td>
+<td align="right">-127</td>
+<td align="right">734</td>
+<td align="left">DR-3</td>
+<td align="left">1939-01-07</td>
+</tr>
+<tr class="odd">
+<td align="left">DR-3</td>
+<td align="right">-47.1</td>
+<td align="right">-127</td>
+<td align="right">735</td>
+<td align="left">DR-3</td>
+<td align="left">1930-01-12</td>
+</tr>
+<tr class="even">
+<td align="left">DR-3</td>
+<td align="right">-47.1</td>
+<td align="right">-127</td>
+<td align="right">751</td>
+<td align="left">DR-3</td>
+<td align="left">1930-02-26</td>
+</tr>
+<tr class="odd">
+<td align="left">DR-3</td>
+<td align="right">-47.1</td>
+<td align="right">-127</td>
+<td align="right">752</td>
+<td align="left">DR-3</td>
+<td align="left">NA</td>
+</tr>
+<tr class="even">
+<td align="left">MSK-4</td>
+<td align="right">-48.9</td>
+<td align="right">-123</td>
+<td align="right">837</td>
+<td align="left">MSK-4</td>
+<td align="left">1932-01-14</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p><code>on</code> 은 <code>where</code>와 같은 역할을 한다. 특정 테스트를 통과한 레코드만 간직한다.
+(<code>on</code>과 <code>where</code>의 차이점은 <code>on</code>은 레코드가 생성될 때 레코드를 필터링하는 반면에, <code>where</code>는 조인작업이 완료될 때까지 기다리고 난 뒤에 필터링을 한다.)
+쿼리에 레코드를 추가하자 마자 데이터베이스 관리자는 두 다른 사이트에 관한 조합된 정보는 사용한 뒤에 버려버리고, 원하는 레코드만 남겨둔다.</p>
+<p>조인 결과에 필드이름을 명기하기 위해서 <code>table.field</code>를 사용한 것에 주목하세요.
+이렇게 하는 이유는 테이블이 동일한 이름을 가질 수 있고 어느 필드를 언급하는지 좀더 구체성을 띌 필요가 있다.
+예를 들어, <code>person</code>과 <code>visited</code> 테이블을 조인한다면, 결과는 각각의 원래 테이블에서 <code>ident</code>로 불리는 필드를 상속한다.</p>
+<p>이제는 조인에서 원하는 3개의 칼럼을 선택하려고 점 표기법(dotted notation)을 사용할 수 있다.</p>
+<div class="knitsql-table">
+<div class="inline-table"><table class="table table-sm">
+<caption>
+<span id="tab:sqlite-sql-join-key-notation">표 3.3: </span>점표기법을 적용한 SQL join 쿼리문</caption>
+<thead><tr class="header">
+<th align="right">lat</th>
+<th align="right">long</th>
+<th align="left">dated</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="right">-49.9</td>
+<td align="right">-129</td>
+<td align="left">1927-02-08</td>
+</tr>
+<tr class="even">
+<td align="right">-49.9</td>
+<td align="right">-129</td>
+<td align="left">1927-02-10</td>
+</tr>
+<tr class="odd">
+<td align="right">-49.9</td>
+<td align="right">-129</td>
+<td align="left">1932-03-22</td>
+</tr>
+<tr class="even">
+<td align="right">-47.1</td>
+<td align="right">-127</td>
+<td align="left">NA</td>
+</tr>
+<tr class="odd">
+<td align="right">-47.1</td>
+<td align="right">-127</td>
+<td align="left">1930-01-12</td>
+</tr>
+<tr class="even">
+<td align="right">-47.1</td>
+<td align="right">-127</td>
+<td align="left">1930-02-26</td>
+</tr>
+<tr class="odd">
+<td align="right">-47.1</td>
+<td align="right">-127</td>
+<td align="left">1939-01-07</td>
+</tr>
+<tr class="even">
+<td align="right">-48.9</td>
+<td align="right">-123</td>
+<td align="left">1932-01-14</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p>만약 두개의 테이블을 조인하는 것이 좋은 경우에, 많은 데이블을 조인하는 것은 더 좋아야한다.
+더 많은 <code>join</code> 절과 의미없는 레코드 조합을 필터링해서 제거하는 더 많은 <code>on</code> 테스트를 단순히 추가해서 사실 쿼리에 임의 갯수의 테이블을 조인할 수 있다.</p>
+<div class="knitsql-table">
+<div class="inline-table"><table class="table table-sm">
+<caption>
+<span id="tab:sqlite-sql-join-key-more">표 3.4: </span>다수 테이블을 확장하여 결합한 SQL join 쿼리문</caption>
+<thead><tr class="header">
+<th align="right">lat</th>
+<th align="right">long</th>
+<th align="left">dated</th>
+<th align="left">quant</th>
+<th align="right">reading</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="right">-49.9</td>
+<td align="right">-129</td>
+<td align="left">1927-02-08</td>
+<td align="left">rad</td>
+<td align="right">9.82</td>
+</tr>
+<tr class="even">
+<td align="right">-49.9</td>
+<td align="right">-129</td>
+<td align="left">1927-02-08</td>
+<td align="left">sal</td>
+<td align="right">0.13</td>
+</tr>
+<tr class="odd">
+<td align="right">-49.9</td>
+<td align="right">-129</td>
+<td align="left">1927-02-10</td>
+<td align="left">rad</td>
+<td align="right">7.80</td>
+</tr>
+<tr class="even">
+<td align="right">-49.9</td>
+<td align="right">-129</td>
+<td align="left">1927-02-10</td>
+<td align="left">sal</td>
+<td align="right">0.09</td>
+</tr>
+<tr class="odd">
+<td align="right">-47.1</td>
+<td align="right">-127</td>
+<td align="left">1939-01-07</td>
+<td align="left">rad</td>
+<td align="right">8.41</td>
+</tr>
+<tr class="even">
+<td align="right">-47.1</td>
+<td align="right">-127</td>
+<td align="left">1939-01-07</td>
+<td align="left">sal</td>
+<td align="right">0.05</td>
+</tr>
+<tr class="odd">
+<td align="right">-47.1</td>
+<td align="right">-127</td>
+<td align="left">1939-01-07</td>
+<td align="left">temp</td>
+<td align="right">-21.50</td>
+</tr>
+<tr class="even">
+<td align="right">-47.1</td>
+<td align="right">-127</td>
+<td align="left">1930-01-12</td>
+<td align="left">rad</td>
+<td align="right">7.22</td>
+</tr>
+<tr class="odd">
+<td align="right">-47.1</td>
+<td align="right">-127</td>
+<td align="left">1930-01-12</td>
+<td align="left">sal</td>
+<td align="right">0.06</td>
+</tr>
+<tr class="even">
+<td align="right">-47.1</td>
+<td align="right">-127</td>
+<td align="left">1930-01-12</td>
+<td align="left">temp</td>
+<td align="right">-26.00</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p><code>Site</code>, <code>Visited</code>, <code>Survey</code> 테이블의 어느 레코드가 서로 대응되지는 분간할 수 있는데 이유는 각 테이블이
+<strong>기본키(primary keys)</strong>와 <strong>외래키(foreign keys)</strong>를 가지고 있기 때문이다..
+기본키는 하나의 값 혹은 여러 값의 조합으로 테이블의 각 레코드를 유일하게 식별한다.
+외래키는 또 다른 테이블에 있는 유일하게 레코드를 식별하는 하나의 값(혹은 여러 값의 조합)이다.
+다르게 표현하면, 외래캐는 다른 테이블에 존재하는 테이블의 기본키다.
+예제 데이터베이스에서 <code>Person.ident</code>는 <code>Person</code> 테이블의 기본키인 반면에,
+<code>Survey.person</code>은 외래키로 <code>Survey</code> 테이블의 항목과 <code>Person</code> 테이블의 항목을 연결한다.</p>
+<p>대부분의 데이터베이스 디자이너는 모든 테이블은 잘 정의된 기본키가 있어야된다고 믿는다.
+또한 이 키는 데이터와 떨어져서 만약 데이터를 변경할 필요가 있다면, 한 곳의 변경이 한 곳에만 변경을 만들어야만 한다.
+이를 위한 쉬운 방법은 데이터베이스에 레코드를 추가할 때 임의의 유일한 ID를 각 레코드마다 추가하는 것이다.
+실제로 이방법은 매우 흔하게 사용된다. “student numbers”, “patient numbers” 같은 이름을 ID로 사용하고,
+몇몇 데이터베이스 시스템 혹은 다른 곳에서 원래 고유 레코드 식별자로 거의 항상 판명된다.
+다음 쿼리가 시범으로 보여주듯이, 테이블에 레코드가 추가됨에 따라 SQLite는 자동으로 레코드에 숫자를 붙이고, 쿼리에서 이렇게 붙여진 레코드 숫자를 사용한다.</p>
+<div class="knitsql-table">
+<div class="inline-table"><table class="table table-sm">
+<caption>
+<span id="tab:sqlite-sql-join-rowid">표 3.5: </span>행ID(rowid) 쿼리문</caption>
+<thead><tr class="header">
+<th align="left">rowid</th>
+<th align="left">ident</th>
+<th align="left">personal</th>
+<th align="left">family</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left">1</td>
+<td align="left">dyer</td>
+<td align="left">William</td>
+<td align="left">Dyer</td>
+</tr>
+<tr class="even">
+<td align="left">2</td>
+<td align="left">pb</td>
+<td align="left">Frank</td>
+<td align="left">Pabodie</td>
+</tr>
+<tr class="odd">
+<td align="left">3</td>
+<td align="left">lake</td>
+<td align="left">Anderson</td>
+<td align="left">Lake</td>
+</tr>
+<tr class="even">
+<td align="left">4</td>
+<td align="left">roe</td>
+<td align="left">Valentina</td>
+<td align="left">Roerich</td>
+</tr>
+<tr class="odd">
+<td align="left">5</td>
+<td align="left">danforth</td>
+<td align="left">Frank</td>
+<td align="left">Danforth</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div id="db-join-hygiene" class="section level2" number="3.1">
+<h2>
+<span class="header-section-number">3.1</span> 데이터 위생 (Data Hygiene)<a class="anchor" aria-label="anchor" href="#db-join-hygiene"><i class="fas fa-link"></i></a>
+</h2>
+<p>지금까지 조인이 어떻게 동작하는지 살펴봤으니, 왜 관계형 모델이 그렇게 유용한지 그리고 어떻게 가장 잘 사용할 수 있는지 살펴보자.
+첫번째 규칙은 모든 값은 독립 요소로 분해될 수 없는 <a href="../../gloss.html#atomic-value">원자(atomic)</a>적 속성을 지녀야 한다.
+즉, 구별해서 작업하고자 하는 부분을 포함해서는 안된다. 하나의 칼럼에 전체 이름을 넣는 대신에
+별도로 구별되는 칼럼에 이름과 성을 저장해서 이름 컴포넌트를 뽑아내는 부분 문자열 연산(substring operation)을 사용할 필요가 없다.
+좀더 중요하게는, 별도로 이름을 두 부분으로 저장한다. 왜냐하면, 공백으로 쪼개는 것은 신뢰성이 약하다.
+“Eloise St. Cyr” 혹은 “Jan Mikkel Steubart” 같은 이름을 생각하면 쉽게 알 수 있다.</p>
+<p>두번째 규칙은 모든 레코드는 유일한 기본키를 가져야한다. 내재적인 의미가 전혀없는 일련번호가 될 수 있고, 레코드의 값중의 하나
+(<code>Person</code> 테이블의 <code>ident</code> 필드), 혹은 <code>Survey</code> 테이블에서 심지어 모든 측정값을 유일하게 식별하는 <code>(taken, person, quant)</code> 삼중값의 조합도 될 수 있다.</p>
+<p>세번째 규칙은 불필요한 정보가 없어야 한다. 예를 들어, <code>Site</code>테이블을 제거하고 다음과 같이 <code>Visited</code> 테이블을 다시 작성할 수 있다.</p>
+<div class="inline-table"><table class="table table-sm">
+<tr>
+<td>
+619
+</td>
+<td>
+-49.85
+</td>
+<td>
+-128.57
+</td>
+<td>
+1927-02-08
+</td>
+</tr>
+<tr>
+<td>
+622
+</td>
+<td>
+-49.85
+</td>
+<td>
+-128.57
+</td>
+<td>
+1927-02-10
+</td>
+</tr>
+<tr>
+<td>
+734
+</td>
+<td>
+-47.15
+</td>
+<td>
+-126.72
+</td>
+<td>
+1939-01-07
+</td>
+</tr>
+<tr>
+<td>
+735
+</td>
+<td>
+-47.15
+</td>
+<td>
+-126.72
+</td>
+<td>
+1930-01-12
+</td>
+</tr>
+<tr>
+<td>
+751
+</td>
+<td>
+-47.15
+</td>
+<td>
+-126.72
+</td>
+<td>
+1930-02-26
+</td>
+</tr>
+<tr>
+<td>
+752
+</td>
+<td>
+-47.15
+</td>
+<td>
+-126.72
+</td>
+<td>
+null
+</td>
+</tr>
+<tr>
+<td>
+837
+</td>
+<td>
+-48.87
+</td>
+<td>
+-123.40
+</td>
+<td>
+1932-01-14
+</td>
+</tr>
+<tr>
+<td>
+844
+</td>
+<td>
+-49.85
+</td>
+<td>
+-128.57
+</td>
+<td>
+1932-03-22
+</td>
+</tr>
+</table></div>
+<p>사실, 스프레드쉬트와 마찬가지로 각 행에 각 측정값에 관한 모든 정보를 기록하는 하나의 테이블을 사용할 수도 있다.
+문제는 이와 같은 방식으로 조직된 데이터를 일관성있게 관리하는 것은 매우 어렵다.
+만약 특정한 사이트의 특정한 방문 날짜가 잘못된다면, 데이터베이스에 다수의 레코드를 변경해야한다.
+더 안좋은 것은 다른 사이트도 그 날짜에 방문되었기 때문에 어느 레코드를 변경할지 추정해야하는 것이다.</p>
+<p>네번째 규칙은 모든 값의 단위는 명시적으로 저장되어야한다. 예제 데이터베이스는 그렇지 못해서 문제다.</p>
+<p>Roerich의 염분치는 다른 사람의 측정치보다 수천배 크다. 하지만, 천단위 대신에 백만 단위를 사용하고 있는지 혹은 1932년
+그 사이트에 염분에 이상 실제로 있었는지 알지못한다.</p>
+<p>한걸음 물러나서 생각하자, 데이터와 저장하는데 사용되는 도구는 공생관계다. 테이블과 조인은 데이터가 특정 방식으로 잘 조직되었다면 매우 효과적이다.
+하지만, 만약 특정 형태로 되어 있다면 효과적으로 다룰 수 있는 도구가 있기 때문에 데이터를 그와 같은 방식으로 조직하기도 한다.
+인류학자가 말했듯이, 도구는 도구를 만드는 손을 만든다. (the tool shapes the hand that shapes the tool)</p>
+</div>
+<div id="db-join-chellenge" class="section level2" number="3.2">
+<h2>
+<span class="header-section-number">3.2</span> 도전 과제<a class="anchor" aria-label="anchor" href="#db-join-chellenge"><i class="fas fa-link"></i></a>
+</h2>
+<ol style="list-style-type: decimal">
+<li><p>DR-1 사이트의 모든 방사선 측정치를 출력하는 쿼리를 작성하세요.</p></li>
+<li><p>“Frank” 가 방문한 모든 사이트를 출력하는 쿼리를 작성하세요.</p></li>
+<li>
+<p>다음 쿼리가 무슨 결과를 산출하는지 말로 기술하세요.</p>
+<pre><code>select Site.name from Site join Visited
+on Site.lat&lt;-49.0 and Site.name=Visited.site and Visited.dated&gt;='1932-00-00';</code></pre>
+</li>
+</ol>
+</div>
+<div id="db-join-points" class="section level2" number="3.3">
+<h2>
+<span class="header-section-number">3.3</span> 주요점<a class="anchor" aria-label="anchor" href="#db-join-points"><i class="fas fa-link"></i></a>
+</h2>
+<ul>
+<li>모든 사실은 데이터베이스에서 정확하게 한번만 표현되어야 한다.</li>
+<li>조인은 한 테이블의 레코드와 다른 테이블의 레코드를 모두 조합한 결과를 출력한다.</li>
+<li>기본키는 테이블의 레코드를 유일하게 식별하는 필드값(혹은 필드의 집합)이다.</li>
+<li>외래키는 또 다른 테이블의 기본키가되는 필드값(혹은 필드의 집합)이다.</li>
+<li>테이블사이에 기본키와 외래키를 매칭해서 의미없는 레코드의 조합을 제거할 수 있다.</li>
+<li>조인을 좀더 단순하고 효율적으로 만들기 위해서 키(key)는 원자값(atomic value)이 되어야 한다.</li>
+</ul>
+</div>
+</div>
+  <div class="chapter-nav">
+<div class="prev"><a href="git.html"><span class="header-section-number">2</span> 자동화된 버젼제어</a></div>
+<div class="next"><a href="database-data-create.html"><span class="header-section-number">4</span> 데이터 생성과 변형</a></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#database-join"><span class="header-section-number">3</span> 데이터 결합하기</a></li>
+<li><a class="nav-link" href="#db-join-hygiene"><span class="header-section-number">3.1</span> 데이터 위생 (Data Hygiene)</a></li>
+<li><a class="nav-link" href="#db-join-chellenge"><span class="header-section-number">3.2</span> 도전 과제</a></li>
+<li><a class="nav-link" href="#db-join-points"><span class="header-section-number">3.3</span> 주요점</a></li>
+</ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+          
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>데이터 과학을 지탱하는 기본기</strong>" was written by 한국 알 사용자회. It was last built on 2022-05-12.</p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer>
+</body>
+</html>

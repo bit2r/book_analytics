@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>27 . 결측 데이터 (Missing Data) | 데이터 과학을 지탱하는 기본기</title>
+<meta name="author" content="한국 알 사용자회">
+<meta name="description" content="현실 세계 데이터는 결코 완전하지 않고 구멍은 항상 있다. null로 불리는 특별한 값을 사용하여 데이터베이스는 구멍을 표현한다. null는 0, False, 혹은 빈 문자열도 아니다.”아무것도 없음(nothing here)“을 의미하는 특별한 값이다. null을 다루는 것은 약간 특별한 기교와 신중한 생각을 요구한다. 시작으로 Visited...">
+<meta name="generator" content="bookdown 0.26 with bs4_book()">
+<meta property="og:title" content="27 . 결측 데이터 (Missing Data) | 데이터 과학을 지탱하는 기본기">
+<meta property="og:type" content="book">
+<meta property="og:description" content="현실 세계 데이터는 결코 완전하지 않고 구멍은 항상 있다. null로 불리는 특별한 값을 사용하여 데이터베이스는 구멍을 표현한다. null는 0, False, 혹은 빈 문자열도 아니다.”아무것도 없음(nothing here)“을 의미하는 특별한 값이다. null을 다루는 것은 약간 특별한 기교와 신중한 생각을 요구한다. 시작으로 Visited...">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="27 . 결측 데이터 (Missing Data) | 데이터 과학을 지탱하는 기본기">
+<meta name="twitter:description" content="현실 세계 데이터는 결코 완전하지 않고 구멍은 항상 있다. null로 불리는 특별한 값을 사용하여 데이터베이스는 구멍을 표현한다. null는 0, False, 혹은 빈 문자열도 아니다.”아무것도 없음(nothing here)“을 의미하는 특별한 값이다. null을 다루는 것은 약간 특별한 기교와 신중한 생각을 요구한다. 시작으로 Visited...">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.3.1/transition.js"></script><script src="libs/bs3compat-0.3.1/tabs.js"></script><script src="libs/bs3compat-0.3.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
+    
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  </style>
+<style type="text/css">
+    /* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+    div.csl-bib-body { }
+    div.csl-entry {
+      clear: both;
+        }
+    .hanging div.csl-entry {
+      margin-left:2em;
+      text-indent:-2em;
+    }
+    div.csl-left-margin {
+      min-width:2em;
+      float:left;
+    }
+    div.csl-right-inline {
+      margin-left:2em;
+      padding-left:1em;
+    }
+    div.csl-indent {
+      margin-left: 2em;
+    }
+  </style>
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">데이터 과학을 지탱하는 기본기</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html">데이터 과학을 지탱하는 기본기</a></li>
+<li class="book-part">자동화</li>
+<li><a class="" href="shell-intro.html"><span class="header-section-number">1</span> 쉘(Shell) 소개</a></li>
+<li><a class="" href="shell-filedir.html"><span class="header-section-number">2</span> 파일과 폴더 넘나들기</a></li>
+<li><a class="" href="shell-create.html"><span class="header-section-number">3</span> 파일과 디렉토리 작업</a></li>
+<li><a class="" href="pipe-filter.html"><span class="header-section-number">4</span> 파이프와 필터</a></li>
+<li><a class="" href="shell-loop.html"><span class="header-section-number">5</span> 루프(Loops)</a></li>
+<li><a class="" href="shell-script.html"><span class="header-section-number">6</span> 쉘 스크립트</a></li>
+<li><a class="" href="shell-find.html"><span class="header-section-number">7</span> 파일, 문자, 디렉토리 등 찾기</a></li>
+<li class="book-part">버전제어와 협업</li>
+<li><a class="" href="git.html"><span class="header-section-number">8</span> 자동화된 버젼제어</a></li>
+<li><a class="" href="git-setup.html"><span class="header-section-number">9</span> Git 구축 및 설정</a></li>
+<li><a class="" href="git-create.html"><span class="header-section-number">10</span> 저장소 생성</a></li>
+<li><a class="" href="git-change.html"><span class="header-section-number">11</span> 변경사항 추적</a></li>
+<li><a class="" href="git-history.html"><span class="header-section-number">12</span> 이력 탐색</a></li>
+<li><a class="" href="git-ignore.html"><span class="header-section-number">13</span> 추적대상에서 제외</a></li>
+<li><a class="" href="git-github.html"><span class="header-section-number">14</span> GitHub 원격작업</a></li>
+<li><a class="" href="git-collab.html"><span class="header-section-number">15</span> 협업 (Collaborating)</a></li>
+<li><a class="" href="git-conflict.html"><span class="header-section-number">16</span> 충돌 (Conflicts)</a></li>
+<li><a class="" href="git-open.html"><span class="header-section-number">17</span> 공개 과학 (Open Science)</a></li>
+<li><a class="" href="git-licensing.html"><span class="header-section-number">18</span> 라이선싱 (Licensing)</a></li>
+<li><a class="" href="git-hosting.html"><span class="header-section-number">19</span> 호스팅 (Hosting)</a></li>
+<li><a class="" href="git-korean.html"><span class="header-section-number">20</span> Git 추가설정</a></li>
+<li class="book-part">데이터베이스</li>
+<li><a class="" href="database-sql.html"><span class="header-section-number">21</span> 데이터베이스와 SQL 사용하기</a></li>
+<li><a class="" href="database-sqlite.html"><span class="header-section-number">22</span> SQLite 설치</a></li>
+<li><a class="" href="database-select.html"><span class="header-section-number">23</span> 변수/칼럼 선택하기</a></li>
+<li><a class="" href="database-sort.html"><span class="header-section-number">24</span> 정렬, 중복 제거</a></li>
+<li><a class="" href="database-filter.html"><span class="header-section-number">25</span> 필터링 (Filtering)</a></li>
+<li><a class="" href="database-calc.html"><span class="header-section-number">26</span> 새로운 값 계산하기</a></li>
+<li><a class="active" href="database-null.html"><span class="header-section-number">27</span> 결측 데이터 (Missing Data)</a></li>
+<li><a class="" href="database-agg.html"><span class="header-section-number">28</span> 집합(Aggregation)</a></li>
+<li><a class="" href="database-table-join.html"><span class="header-section-number">29</span> 데이터 결합하기</a></li>
+<li><a class="" href="database-data-create.html"><span class="header-section-number">30</span> 데이터 생성과 변형</a></li>
+<li><a class="" href="%EC%B0%B8%EA%B3%A0%EB%AC%B8%ED%97%8C.html">참고문헌</a></li>
+</ul>
+
+        <div class="book-extra">
+          
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="database-null" class="section level1" number="27">
+<h1>
+<span class="header-section-number">27 . </span> 결측 데이터 (Missing Data)<a class="anchor" aria-label="anchor" href="#database-null"><i class="fas fa-link"></i></a>
+</h1>
+<p>현실 세계 데이터는 결코 완전하지 않고 구멍은 항상 있다.
+<code>null</code>로 불리는 특별한 값을 사용하여 데이터베이스는 구멍을 표현한다.
+<code>null</code>는 0, <code>False</code>, 혹은 빈 문자열도 아니다.”아무것도 없음(nothing here)“을 의미하는 특별한 값이다.
+<code>null</code>을 다루는 것은 약간 특별한 기교와 신중한 생각을 요구한다.</p>
+<p>시작으로 <code>Visited</code> 테이블을 살펴보자. 레코드가 8개 있지만 #752은 날짜가 없다. 혹은 더 정확히 말하면 날짜가 <code>null</code>이다.</p>
+<pre><code>$ sqlite3 survey.db
+SQLite version 3.35.4 2021-04-02 15:20:15
+Enter ".help" for usage hints.
+sqlite&gt;</code></pre>
+<div class="knitsql-table">
+<div class="inline-table"><table class="table table-sm">
+<caption>
+<span id="tab:sqlite-null-sql">표 27.1: </span>결측값을 갖는 테이블</caption>
+<thead><tr class="header">
+<th align="right">ident</th>
+<th align="left">site</th>
+<th align="left">dated</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="right">619</td>
+<td align="left">DR-1</td>
+<td align="left">1927-02-08</td>
+</tr>
+<tr class="even">
+<td align="right">622</td>
+<td align="left">DR-1</td>
+<td align="left">1927-02-10</td>
+</tr>
+<tr class="odd">
+<td align="right">734</td>
+<td align="left">DR-3</td>
+<td align="left">1939-01-07</td>
+</tr>
+<tr class="even">
+<td align="right">735</td>
+<td align="left">DR-3</td>
+<td align="left">1930-01-12</td>
+</tr>
+<tr class="odd">
+<td align="right">751</td>
+<td align="left">DR-3</td>
+<td align="left">1930-02-26</td>
+</tr>
+<tr class="even">
+<td align="right">752</td>
+<td align="left">DR-3</td>
+<td align="left">NA</td>
+</tr>
+<tr class="odd">
+<td align="right">837</td>
+<td align="left">MSK-4</td>
+<td align="left">1932-01-14</td>
+</tr>
+<tr class="even">
+<td align="right">844</td>
+<td align="left">DR-1</td>
+<td align="left">1932-03-22</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p><code>Null</code> 다른 값과는 다르게 동작한다.
+만약 1930년 이전 레코드를 선택한다면,</p>
+<div class="knitsql-table">
+<div class="inline-table"><table class="table table-sm">
+<caption>
+<span id="tab:sqlite-null-where">표 27.2: </span>1930년 이전 레코드 선택</caption>
+<thead><tr class="header">
+<th align="right">ident</th>
+<th align="left">site</th>
+<th align="left">dated</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="right">619</td>
+<td align="left">DR-1</td>
+<td align="left">1927-02-08</td>
+</tr>
+<tr class="even">
+<td align="right">622</td>
+<td align="left">DR-1</td>
+<td align="left">1927-02-10</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p>결과 2개를 얻게 되고, 만약 1930년 동안 혹은 이후 레코드를 선택한다면,</p>
+<div class="knitsql-table">
+<div class="inline-table"><table class="table table-sm">
+<caption>
+<span id="tab:sqlite-null-where-after">표 27.3: </span>1930년 이후 레코드 선택</caption>
+<thead><tr class="header">
+<th align="right">ident</th>
+<th align="left">site</th>
+<th align="left">dated</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="right">734</td>
+<td align="left">DR-3</td>
+<td align="left">1939-01-07</td>
+</tr>
+<tr class="even">
+<td align="right">735</td>
+<td align="left">DR-3</td>
+<td align="left">1930-01-12</td>
+</tr>
+<tr class="odd">
+<td align="right">751</td>
+<td align="left">DR-3</td>
+<td align="left">1930-02-26</td>
+</tr>
+<tr class="even">
+<td align="right">837</td>
+<td align="left">MSK-4</td>
+<td align="left">1932-01-14</td>
+</tr>
+<tr class="odd">
+<td align="right">844</td>
+<td align="left">DR-1</td>
+<td align="left">1932-03-22</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p>결과를 5개 얻게되지만, 레코드 #752은 결과값 어디에도 존재하지 않는다.
+이유는 <code>null&lt;'1930-00-00'</code> 평가결과가 참도 거짓도 아니기 때문이다.
+<code>null</code> 이 의미하는 것은 “알수가 없다”는 것이다.
+그리고 만약 비교 평가식의 왼쪽편 값을 알지 못한다면, 비교도 참인지 거짓인지 알수가 없다.
+데이터베이스는 “알 수 없음”을 <code>null</code>로 표현하기 때문에, <code>null&lt;'1930-00-00'</code>의 값도 사실 <code>null</code>이다.
+<code>null&gt;='1930-00-00'</code>도 또한 <code>null</code>인데 왜냐하면 질문에 답을 할 수 없기 때문이다.
+그리고, <code>where</code>절에 레코드는 테스트가 참인 것만 있기 때문에 레코드 #752은 어느 결과값에도 포함되지 않게 된다.</p>
+<p>평가식만 <code>null</code>값을 이와 같은 방식으로 다루는 연산자는 아니다.
+<code>1+null</code>도 <code>null</code>이고,
+<code>5*null</code>도 <code>null</code>이고,
+<code>log(null)</code>도 <code>null</code>이 된다.
+특히, 무언가를 = 과 != 으로 <code>null</code>과 비교하는 것도 <code>null</code>이 된다.</p>
+<div class="knitsql-table">
+<div class="inline-table"><table class="table table-sm">
+<caption>
+<span id="tab:sqlite-null-filter">표 27.4: </span>NULL 값 갖는 레코드 선택</caption>
+<thead><tr class="header">
+<th align="right">ident</th>
+<th align="left">site</th>
+<th align="left">dated</th>
+</tr></thead>
+<tbody></tbody>
+</table></div>
+</div>
+<div class="knitsql-table">
+<div class="inline-table"><table class="table table-sm">
+<caption>
+<span id="tab:sqlite-not-null-filter">표 27.5: </span>NULL 값 갖지 않는 레코드 선택</caption>
+<thead><tr class="header">
+<th align="right">ident</th>
+<th align="left">site</th>
+<th align="left">dated</th>
+</tr></thead>
+<tbody></tbody>
+</table></div>
+</div>
+<p><code>null</code> 인지 아닌지를 점검하기 위해서, 특별한 테스트 <code>is null</code>을 사용해야 한다.</p>
+<div class="knitsql-table">
+<div class="inline-table"><table class="table table-sm">
+<caption>
+<span id="tab:sqlite-is-null-filter">표 27.6: </span><code>is NULL</code> 사용 NULL 값 갖는 레코드 선택</caption>
+<thead><tr class="header">
+<th align="right">ident</th>
+<th align="left">site</th>
+<th align="left">dated</th>
+</tr></thead>
+<tbody><tr class="odd">
+<td align="right">752</td>
+<td align="left">DR-3</td>
+<td align="left">NA</td>
+</tr></tbody>
+</table></div>
+</div>
+<p>혹은, 역으로는 <code>is not null</code>을 사용한다.</p>
+<div class="knitsql-table">
+<div class="inline-table"><table class="table table-sm">
+<caption>
+<span id="tab:sqlite-is-not-null-filter">표 27.7: </span><code>is not NULL</code> 사용 NULL 값 갖지 않는 레코드 선택</caption>
+<thead><tr class="header">
+<th align="right">ident</th>
+<th align="left">site</th>
+<th align="left">dated</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="right">619</td>
+<td align="left">DR-1</td>
+<td align="left">1927-02-08</td>
+</tr>
+<tr class="even">
+<td align="right">622</td>
+<td align="left">DR-1</td>
+<td align="left">1927-02-10</td>
+</tr>
+<tr class="odd">
+<td align="right">734</td>
+<td align="left">DR-3</td>
+<td align="left">1939-01-07</td>
+</tr>
+<tr class="even">
+<td align="right">735</td>
+<td align="left">DR-3</td>
+<td align="left">1930-01-12</td>
+</tr>
+<tr class="odd">
+<td align="right">751</td>
+<td align="left">DR-3</td>
+<td align="left">1930-02-26</td>
+</tr>
+<tr class="even">
+<td align="right">837</td>
+<td align="left">MSK-4</td>
+<td align="left">1932-01-14</td>
+</tr>
+<tr class="odd">
+<td align="right">844</td>
+<td align="left">DR-1</td>
+<td align="left">1932-03-22</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p><code>null</code> 값은 나타나는 곳마다 두통을 일으킨다.
+예를 들어, Dyer가 측정하지 않은 모든 염분 정보를 찾는다고 가정하자.
+다음과 같이 쿼리를 작성하는 것은 당연하다.</p>
+<div class="knitsql-table">
+<div class="inline-table"><table class="table table-sm">
+<caption>
+<span id="tab:sqlite-null-filter-headache">표 27.8: </span>NULL 값이 갖는 문제</caption>
+<thead><tr class="header">
+<th align="right">taken</th>
+<th align="left">person</th>
+<th align="left">quant</th>
+<th align="right">reading</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="right">619</td>
+<td align="left">dyer</td>
+<td align="left">sal</td>
+<td align="right">0.13</td>
+</tr>
+<tr class="even">
+<td align="right">622</td>
+<td align="left">dyer</td>
+<td align="left">sal</td>
+<td align="right">0.09</td>
+</tr>
+<tr class="odd">
+<td align="right">752</td>
+<td align="left">roe</td>
+<td align="left">sal</td>
+<td align="right">41.60</td>
+</tr>
+<tr class="even">
+<td align="right">837</td>
+<td align="left">roe</td>
+<td align="left">sal</td>
+<td align="right">22.50</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p>하지만, 상기 쿼리 필터는 누가 측정을 했는지 모르는 레코드는 빠뜨린다.
+다시 한번, 이유는 <code>person</code>이 <code>null</code>일 때, <code>!=</code>비교는 <code>null</code>값을 만들어서
+레코드가 결과값에 있지 않게 된다. 만약 이런 레코드도 유지하려고 한다면,
+명시적으로 검사를 추가할 필요가 있다.</p>
+<div class="knitsql-table">
+<div class="inline-table"><table class="table table-sm">
+<caption>
+<span id="tab:sqlite-null-filter-solution">표 27.9: </span>NULL 값 갖는 문제 명시적 해결</caption>
+<thead><tr class="header">
+<th align="right">taken</th>
+<th align="left">person</th>
+<th align="left">quant</th>
+<th align="right">reading</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="right">619</td>
+<td align="left">dyer</td>
+<td align="left">sal</td>
+<td align="right">0.13</td>
+</tr>
+<tr class="even">
+<td align="right">622</td>
+<td align="left">dyer</td>
+<td align="left">sal</td>
+<td align="right">0.09</td>
+</tr>
+<tr class="odd">
+<td align="right">735</td>
+<td align="left">NA</td>
+<td align="left">sal</td>
+<td align="right">0.06</td>
+</tr>
+<tr class="even">
+<td align="right">752</td>
+<td align="left">roe</td>
+<td align="left">sal</td>
+<td align="right">41.60</td>
+</tr>
+<tr class="odd">
+<td align="right">837</td>
+<td align="left">roe</td>
+<td align="left">sal</td>
+<td align="right">22.50</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p>여전히 이러한 접근법이 맞는 것인지 아닌 것인지 판단할 필요가 있다.
+만약 절대적으로 결과에 Lake가 측정한 어떠한 값도 포함하지 않는다고 확신한다면,
+누가 작업을 한 것인지 모르는 모든 레코드를 제외할 필요가 있다.</p>
+<div id="db-null-challenge" class="section level2" number="27.1">
+<h2>
+<span class="header-section-number">27.1</span> 도전 과제<a class="anchor" aria-label="anchor" href="#db-null-challenge"><i class="fas fa-link"></i></a>
+</h2>
+<ol style="list-style-type: decimal">
+<li><p>날짜가 알려지지 않은 (즉 <code>null</code>) 항목은 빼고, 날짜 순으로 <code>Visited</code> 테이블에 있는 레코드를 정렬한 쿼리를 작성하세요.</p></li>
+<li>
+<p>다음 쿼리가 무슨 결과를 할까요?</p>
+<pre><code>select * from Visited where dated in ('1927-02-08', null);</code></pre>
+<p>상기 쿼리가 실질적으로 무엇을 생기게 할까요?</p>
+</li>
+<li><p>몇몇 데이터베이스 디자이너는 <code>null</code> 보다 결측 데이터를 표기하기 위해서 <strong>보초값(sentinel value)</strong>를 사용한다.
+예를 들어, 결측 날짜를 표기하기 위해서 “0000-00-00” 날짜를 사용하거나 결측 염분치 혹은 결측 방사선 측정값을 표기하기 위해서 -1.0을 사용한다.
+(왜냐하면 실제 측정값이 음수가 될 수 없기 때문이다.)
+이러한 접근법은 무엇을 단순화할까요? 이러한 접근법이 어떤 부담과 위험을 가져올까요?</p></li>
+</ol>
+</div>
+<div id="db-null-points" class="section level2" number="27.2">
+<h2>
+<span class="header-section-number">27.2</span> 주요점<a class="anchor" aria-label="anchor" href="#db-null-points"><i class="fas fa-link"></i></a>
+</h2>
+<ul>
+<li>데이터베이스는 결측 정보를 표현하기 위해서 <code>null</code>을 사용한다.</li>
+<li>
+<code>null</code>이 관계되는 산술 혹은 불 연산 결과도 <code>null</code>이다.</li>
+<li>
+<code>null</code>과 함께 안전하세 사용될 수 있는 유일한 연산자는 <code>is null</code>과 <code>is not null</code>이다.</li>
+</ul>
+</div>
+</div>
+  <div class="chapter-nav">
+<div class="prev"><a href="database-calc.html"><span class="header-section-number">26</span> 새로운 값 계산하기</a></div>
+<div class="next"><a href="database-agg.html"><span class="header-section-number">28</span> 집합(Aggregation)</a></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#database-null"><span class="header-section-number">27</span> 결측 데이터 (Missing Data)</a></li>
+<li><a class="nav-link" href="#db-null-challenge"><span class="header-section-number">27.1</span> 도전 과제</a></li>
+<li><a class="nav-link" href="#db-null-points"><span class="header-section-number">27.2</span> 주요점</a></li>
+</ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+          
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>데이터 과학을 지탱하는 기본기</strong>" was written by 한국 알 사용자회. It was last built on 2022-05-12.</p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer>
+</body>
+</html>

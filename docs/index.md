@@ -1,7 +1,7 @@
 --- 
 title: "데이터 과학을 지탱하는 기본기"
 author: "한국 알 사용자회"
-date: "2022-05-10"
+date: "2022-05-12"
 site: bookdown::bookdown_site
 output: bookdown::gitbook
 documentclass: book
@@ -13,7 +13,7 @@ description: "데이터 과학을 지탱하는 기본기를 정리하여 공개�
 ---
 
 
-# 고급 데이터 분석 {-}
+# 데이터 과학을 지탱하는 기본기 {-#swc-intro}
 
 사단법인 한국 알(R) 사용자회는 디지털 불평등 해소와 통계 대중화를 위해 
 2022년 설립되었습니다. 오픈 통계 패키지 개발을 비롯하여

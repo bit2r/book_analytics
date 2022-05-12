@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>24 . 정렬, 중복 제거 | 데이터 과학을 지탱하는 기본기</title>
+<meta name="author" content="한국 알 사용자회">
+<meta name="description" content='데이터는 종종 잉여가 있어서, 쿼리도 종종 과잉 정보를 반환한다. 예를 들어, survey 테이블에서 측정된 수량 정보를 선택하면, 다음을 얻게된다. $ sqlite3 survey.db SQLite version 3.35.4 2021-04-02 15:20:15 Enter ".help" for usage hints. sqlite&gt;  표 24.1:...'>
+<meta name="generator" content="bookdown 0.26 with bs4_book()">
+<meta property="og:title" content="24 . 정렬, 중복 제거 | 데이터 과학을 지탱하는 기본기">
+<meta property="og:type" content="book">
+<meta property="og:description" content='데이터는 종종 잉여가 있어서, 쿼리도 종종 과잉 정보를 반환한다. 예를 들어, survey 테이블에서 측정된 수량 정보를 선택하면, 다음을 얻게된다. $ sqlite3 survey.db SQLite version 3.35.4 2021-04-02 15:20:15 Enter ".help" for usage hints. sqlite&gt;  표 24.1:...'>
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="24 . 정렬, 중복 제거 | 데이터 과학을 지탱하는 기본기">
+<meta name="twitter:description" content='데이터는 종종 잉여가 있어서, 쿼리도 종종 과잉 정보를 반환한다. 예를 들어, survey 테이블에서 측정된 수량 정보를 선택하면, 다음을 얻게된다. $ sqlite3 survey.db SQLite version 3.35.4 2021-04-02 15:20:15 Enter ".help" for usage hints. sqlite&gt;  표 24.1:...'>
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.3.1/transition.js"></script><script src="libs/bs3compat-0.3.1/tabs.js"></script><script src="libs/bs3compat-0.3.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
+    
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  </style>
+<style type="text/css">
+    /* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+    div.csl-bib-body { }
+    div.csl-entry {
+      clear: both;
+        }
+    .hanging div.csl-entry {
+      margin-left:2em;
+      text-indent:-2em;
+    }
+    div.csl-left-margin {
+      min-width:2em;
+      float:left;
+    }
+    div.csl-right-inline {
+      margin-left:2em;
+      padding-left:1em;
+    }
+    div.csl-indent {
+      margin-left: 2em;
+    }
+  </style>
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">데이터 과학을 지탱하는 기본기</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html">데이터 과학을 지탱하는 기본기</a></li>
+<li class="book-part">자동화</li>
+<li><a class="" href="shell-intro.html"><span class="header-section-number">1</span> 쉘(Shell) 소개</a></li>
+<li><a class="" href="shell-filedir.html"><span class="header-section-number">2</span> 파일과 폴더 넘나들기</a></li>
+<li><a class="" href="shell-create.html"><span class="header-section-number">3</span> 파일과 디렉토리 작업</a></li>
+<li><a class="" href="pipe-filter.html"><span class="header-section-number">4</span> 파이프와 필터</a></li>
+<li><a class="" href="shell-loop.html"><span class="header-section-number">5</span> 루프(Loops)</a></li>
+<li><a class="" href="shell-script.html"><span class="header-section-number">6</span> 쉘 스크립트</a></li>
+<li><a class="" href="shell-find.html"><span class="header-section-number">7</span> 파일, 문자, 디렉토리 등 찾기</a></li>
+<li class="book-part">버전제어와 협업</li>
+<li><a class="" href="git.html"><span class="header-section-number">8</span> 자동화된 버젼제어</a></li>
+<li><a class="" href="git-setup.html"><span class="header-section-number">9</span> Git 구축 및 설정</a></li>
+<li><a class="" href="git-create.html"><span class="header-section-number">10</span> 저장소 생성</a></li>
+<li><a class="" href="git-change.html"><span class="header-section-number">11</span> 변경사항 추적</a></li>
+<li><a class="" href="git-history.html"><span class="header-section-number">12</span> 이력 탐색</a></li>
+<li><a class="" href="git-ignore.html"><span class="header-section-number">13</span> 추적대상에서 제외</a></li>
+<li><a class="" href="git-github.html"><span class="header-section-number">14</span> GitHub 원격작업</a></li>
+<li><a class="" href="git-collab.html"><span class="header-section-number">15</span> 협업 (Collaborating)</a></li>
+<li><a class="" href="git-conflict.html"><span class="header-section-number">16</span> 충돌 (Conflicts)</a></li>
+<li><a class="" href="git-open.html"><span class="header-section-number">17</span> 공개 과학 (Open Science)</a></li>
+<li><a class="" href="git-licensing.html"><span class="header-section-number">18</span> 라이선싱 (Licensing)</a></li>
+<li><a class="" href="git-hosting.html"><span class="header-section-number">19</span> 호스팅 (Hosting)</a></li>
+<li><a class="" href="git-korean.html"><span class="header-section-number">20</span> Git 추가설정</a></li>
+<li class="book-part">데이터베이스</li>
+<li><a class="" href="database-sql.html"><span class="header-section-number">21</span> 데이터베이스와 SQL 사용하기</a></li>
+<li><a class="" href="database-sqlite.html"><span class="header-section-number">22</span> SQLite 설치</a></li>
+<li><a class="" href="database-select.html"><span class="header-section-number">23</span> 변수/칼럼 선택하기</a></li>
+<li><a class="active" href="database-sort.html"><span class="header-section-number">24</span> 정렬, 중복 제거</a></li>
+<li><a class="" href="database-filter.html"><span class="header-section-number">25</span> 필터링 (Filtering)</a></li>
+<li><a class="" href="database-calc.html"><span class="header-section-number">26</span> 새로운 값 계산하기</a></li>
+<li><a class="" href="database-null.html"><span class="header-section-number">27</span> 결측 데이터 (Missing Data)</a></li>
+<li><a class="" href="database-agg.html"><span class="header-section-number">28</span> 집합(Aggregation)</a></li>
+<li><a class="" href="database-table-join.html"><span class="header-section-number">29</span> 데이터 결합하기</a></li>
+<li><a class="" href="database-data-create.html"><span class="header-section-number">30</span> 데이터 생성과 변형</a></li>
+<li><a class="" href="%EC%B0%B8%EA%B3%A0%EB%AC%B8%ED%97%8C.html">참고문헌</a></li>
+</ul>
+
+        <div class="book-extra">
+          
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="database-sort" class="section level1" number="24">
+<h1>
+<span class="header-section-number">24 . </span> 정렬, 중복 제거<a class="anchor" aria-label="anchor" href="#database-sort"><i class="fas fa-link"></i></a>
+</h1>
+<p>데이터는 종종 잉여가 있어서, 쿼리도 종종 과잉 정보를 반환한다.
+예를 들어, <code>survey</code> 테이블에서 측정된 수량 정보를 선택하면, 다음을 얻게된다.</p>
+<pre><code>$ sqlite3 survey.db
+SQLite version 3.35.4 2021-04-02 15:20:15
+Enter ".help" for usage hints.
+sqlite&gt;</code></pre>
+<div class="knitsql-table">
+<div class="inline-table"><table class="table table-sm">
+<caption>
+<span id="tab:sqlite-sort-sql">표 24.1: </span>SQL select 쿼리문</caption>
+<thead><tr class="header">
+<th align="left">quant</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left">rad</td>
+</tr>
+<tr class="even">
+<td align="left">sal</td>
+</tr>
+<tr class="odd">
+<td align="left">rad</td>
+</tr>
+<tr class="even">
+<td align="left">sal</td>
+</tr>
+<tr class="odd">
+<td align="left">rad</td>
+</tr>
+<tr class="even">
+<td align="left">sal</td>
+</tr>
+<tr class="odd">
+<td align="left">temp</td>
+</tr>
+<tr class="even">
+<td align="left">rad</td>
+</tr>
+<tr class="odd">
+<td align="left">sal</td>
+</tr>
+<tr class="even">
+<td align="left">temp</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p>결과를 좀더 읽을 수 있게 만들기 위해서 쿼리에 <code>distinct</code> 키워드를 추가해서 중복된 출력을 제거한다.</p>
+<div class="knitsql-table">
+<div class="inline-table"><table class="table table-sm">
+<caption>
+<span id="tab:sqlite-sort-dedup">표 24.2: </span>중복 제거 쿼리문</caption>
+<thead><tr class="header">
+<th align="left">quant</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left">rad</td>
+</tr>
+<tr class="even">
+<td align="left">sal</td>
+</tr>
+<tr class="odd">
+<td align="left">temp</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p>하나 이상의 칼럼(예를 들어 survey 사이트 ID와 측정된 수량)을 선택한다면, 별개로 구별된 값의 쌍이 반환된다.</p>
+<div class="knitsql-table">
+<div class="inline-table"><table class="table table-sm">
+<caption>
+<span id="tab:sqlite-sort-dedup-distinct">표 24.3: </span>칼럼 두개 중복 제거</caption>
+<thead><tr class="header">
+<th align="right">taken</th>
+<th align="left">quant</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="right">619</td>
+<td align="left">rad</td>
+</tr>
+<tr class="even">
+<td align="right">619</td>
+<td align="left">sal</td>
+</tr>
+<tr class="odd">
+<td align="right">622</td>
+<td align="left">rad</td>
+</tr>
+<tr class="even">
+<td align="right">622</td>
+<td align="left">sal</td>
+</tr>
+<tr class="odd">
+<td align="right">734</td>
+<td align="left">rad</td>
+</tr>
+<tr class="even">
+<td align="right">734</td>
+<td align="left">sal</td>
+</tr>
+<tr class="odd">
+<td align="right">734</td>
+<td align="left">temp</td>
+</tr>
+<tr class="even">
+<td align="right">735</td>
+<td align="left">rad</td>
+</tr>
+<tr class="odd">
+<td align="right">735</td>
+<td align="left">sal</td>
+</tr>
+<tr class="even">
+<td align="right">735</td>
+<td align="left">temp</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p>양쪽 경우에 설사 데이터베이스 내에서 서로 인접하지 않더라도 모두 중복이 제거된 것을 주목하세요.
+다시 한번, 행은 실제로 정렬되지는 않았다는 것을 기억하세요. 단지 정렬된 것으로 화면에 출력된다.</p>
+<div id="db-sort-challenge" class="section level2" number="24.1">
+<h2>
+<span class="header-section-number">24.1</span> 도전 과제<a class="anchor" aria-label="anchor" href="#db-sort-challenge"><i class="fas fa-link"></i></a>
+</h2>
+<ol style="list-style-type: decimal">
+<li>
+<code>Site</code> 테이블에서 별개로 구별되는 날짜를 선택하는 쿼리를 작성하세요.</li>
+</ol>
+<p>앞서 언급했듯이, 데이터베이스 레코드는 특별한 순서로 저장되지 않는다. 이것이 의미하는 바는 쿼리 결과가 반드시 정렬되어 있지 않다는 것이다.
+설사 정렬이 되어 있더라도, 종종 다른 방식으로 정렬하고 싶을 것이다.
+예를 들어 과학자의 이름 대신에 프로젝트 이름으로 정렬할 수도 있다. SQL에서 쿼리에 <code>order by</code> 절을 추가해서 간단하게 구현할 수 있다.</p>
+<div class="knitsql-table">
+<div class="inline-table"><table class="table table-sm">
+<caption>
+<span id="tab:sqlite-sort-id">표 24.4: </span>ident 칼럼 기준 정렬</caption>
+<thead><tr class="header">
+<th align="left">ident</th>
+<th align="left">personal</th>
+<th align="left">family</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left">danforth</td>
+<td align="left">Frank</td>
+<td align="left">Danforth</td>
+</tr>
+<tr class="even">
+<td align="left">dyer</td>
+<td align="left">William</td>
+<td align="left">Dyer</td>
+</tr>
+<tr class="odd">
+<td align="left">lake</td>
+<td align="left">Anderson</td>
+<td align="left">Lake</td>
+</tr>
+<tr class="even">
+<td align="left">pb</td>
+<td align="left">Frank</td>
+<td align="left">Pabodie</td>
+</tr>
+<tr class="odd">
+<td align="left">roe</td>
+<td align="left">Valentina</td>
+<td align="left">Roerich</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p>디폴트로, 결과는 오름차순으로 정렬되어야 한다. (즉, 가장 적은 값에서 가장 큰 값 순으로 정렬된다.)
+<code>desc</code> (“descending”)를 사용해서 역순으로도 정렬할 수 있다.</p>
+<div class="knitsql-table">
+<div class="inline-table"><table class="table table-sm">
+<caption>
+<span id="tab:sqlite-sort-desc">표 24.5: </span>ident 칼럼 기준 역정렬</caption>
+<thead><tr class="header">
+<th align="left">ident</th>
+<th align="left">personal</th>
+<th align="left">family</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left">roe</td>
+<td align="left">Valentina</td>
+<td align="left">Roerich</td>
+</tr>
+<tr class="even">
+<td align="left">pb</td>
+<td align="left">Frank</td>
+<td align="left">Pabodie</td>
+</tr>
+<tr class="odd">
+<td align="left">lake</td>
+<td align="left">Anderson</td>
+<td align="left">Lake</td>
+</tr>
+<tr class="even">
+<td align="left">dyer</td>
+<td align="left">William</td>
+<td align="left">Dyer</td>
+</tr>
+<tr class="odd">
+<td align="left">danforth</td>
+<td align="left">Frank</td>
+<td align="left">Danforth</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p>(그리고, <code>desc</code> 대신에 <code>asc</code>를 사용해서 오름차순으로 정렬하고 있다는 것을 명시적으로 표현할 수도 있다.)</p>
+<p>한번에 여러 필드를 정렬할 수도 있다. 예를 들어, 다음 쿼리는 <code>taken</code> 필드를 오름차순으로 그리고 동일 그룹의 <code>taken</code> 값 내에서는
+<code>person</code>으로 내림차순으로 결과를 정렬한다.</p>
+<div class="knitsql-table">
+<div class="inline-table"><table class="table table-sm">
+<caption>
+<span id="tab:sqlite-sort-asc-desc">표 24.6: </span>칼럼 기준 순정렬, 역정렬</caption>
+<thead><tr class="header">
+<th align="right">taken</th>
+<th align="left">person</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="right">619</td>
+<td align="left">dyer</td>
+</tr>
+<tr class="even">
+<td align="right">619</td>
+<td align="left">dyer</td>
+</tr>
+<tr class="odd">
+<td align="right">622</td>
+<td align="left">dyer</td>
+</tr>
+<tr class="even">
+<td align="right">622</td>
+<td align="left">dyer</td>
+</tr>
+<tr class="odd">
+<td align="right">734</td>
+<td align="left">pb</td>
+</tr>
+<tr class="even">
+<td align="right">734</td>
+<td align="left">pb</td>
+</tr>
+<tr class="odd">
+<td align="right">734</td>
+<td align="left">lake</td>
+</tr>
+<tr class="even">
+<td align="right">735</td>
+<td align="left">pb</td>
+</tr>
+<tr class="odd">
+<td align="right">735</td>
+<td align="left">NA</td>
+</tr>
+<tr class="even">
+<td align="right">735</td>
+<td align="left">NA</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p>만약 중복을 제거한다면 이해하기가 더 쉽다.</p>
+<div class="knitsql-table">
+<div class="inline-table"><table class="table table-sm">
+<caption>
+<span id="tab:sqlite-sort-remove-view">표 24.7: </span>중복제거 칼럼 기준 순정렬, 역정렬</caption>
+<thead><tr class="header">
+<th align="right">taken</th>
+<th align="left">person</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="right">619</td>
+<td align="left">dyer</td>
+</tr>
+<tr class="even">
+<td align="right">622</td>
+<td align="left">dyer</td>
+</tr>
+<tr class="odd">
+<td align="right">734</td>
+<td align="left">pb</td>
+</tr>
+<tr class="even">
+<td align="right">734</td>
+<td align="left">lake</td>
+</tr>
+<tr class="odd">
+<td align="right">735</td>
+<td align="left">pb</td>
+</tr>
+<tr class="even">
+<td align="right">735</td>
+<td align="left">NA</td>
+</tr>
+<tr class="odd">
+<td align="right">751</td>
+<td align="left">pb</td>
+</tr>
+<tr class="even">
+<td align="right">751</td>
+<td align="left">lake</td>
+</tr>
+<tr class="odd">
+<td align="right">752</td>
+<td align="left">roe</td>
+</tr>
+<tr class="even">
+<td align="right">752</td>
+<td align="left">lake</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<div id="db-sort-challenge-two" class="section level2" number="24.2">
+<h2>
+<span class="header-section-number">24.2</span> 도전 과제<a class="anchor" aria-label="anchor" href="#db-sort-challenge-two"><i class="fas fa-link"></i></a>
+</h2>
+<ol style="list-style-type: decimal">
+<li><p><code>Visited</code> 테이블에서 별개로 구별되는 날짜를 반환하는 쿼리를 작성하세요.</p></li>
+<li><p>성(family name)으로 정렬된 <code>Person</code> 테이블에 과학자의 성명 전부를 화면에 출력하는 쿼리를 작성하세요.</p></li>
+</ol>
+</div>
+<div id="db-sort-main-points" class="section level2" number="24.3">
+<h2>
+<span class="header-section-number">24.3</span> 주요점<a class="anchor" aria-label="anchor" href="#db-sort-main-points"><i class="fas fa-link"></i></a>
+</h2>
+<ul>
+<li>데이터베이스 테이블의 레코드는 본질적으로 정렬되지 않는다.
+만약 특정 순서로 정렬하여 표시하려면, 명시적으로 정렬을 명기하여야 한다.</li>
+<li>데이터베이스의 값이 유일(unique)함을 보장하지는 않는다.
+만약 중복을 제거하고자 한다면, 명시적으로 유일함을 명기하여야 한다.</li>
+</ul>
+</div>
+</div>
+  <div class="chapter-nav">
+<div class="prev"><a href="database-select.html"><span class="header-section-number">23</span> 변수/칼럼 선택하기</a></div>
+<div class="next"><a href="database-filter.html"><span class="header-section-number">25</span> 필터링 (Filtering)</a></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#database-sort"><span class="header-section-number">24</span> 정렬, 중복 제거</a></li>
+<li><a class="nav-link" href="#db-sort-challenge"><span class="header-section-number">24.1</span> 도전 과제</a></li>
+<li><a class="nav-link" href="#db-sort-challenge-two"><span class="header-section-number">24.2</span> 도전 과제</a></li>
+<li><a class="nav-link" href="#db-sort-main-points"><span class="header-section-number">24.3</span> 주요점</a></li>
+</ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+          
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>데이터 과학을 지탱하는 기본기</strong>" was written by 한국 알 사용자회. It was last built on 2022-05-12.</p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer>
+</body>
+</html>

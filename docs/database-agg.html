@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>28 . 집합(Aggregation) | 데이터 과학을 지탱하는 기본기</title>
+<meta name="author" content="한국 알 사용자회">
+<meta name="description" content='이제 데이터의 평균과 범위를 계산하고자 한다. Visited 테이블에서 모든 날짜 정보를 어떻게 선택하는지 알고 있다. $ sqlite3 survey.db SQLite version 3.35.4 2021-04-02 15:20:15 Enter ".help" for usage hints. sqlite&gt;  표 28.1: SQL select 쿼리문...'>
+<meta name="generator" content="bookdown 0.26 with bs4_book()">
+<meta property="og:title" content="28 . 집합(Aggregation) | 데이터 과학을 지탱하는 기본기">
+<meta property="og:type" content="book">
+<meta property="og:description" content='이제 데이터의 평균과 범위를 계산하고자 한다. Visited 테이블에서 모든 날짜 정보를 어떻게 선택하는지 알고 있다. $ sqlite3 survey.db SQLite version 3.35.4 2021-04-02 15:20:15 Enter ".help" for usage hints. sqlite&gt;  표 28.1: SQL select 쿼리문...'>
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="28 . 집합(Aggregation) | 데이터 과학을 지탱하는 기본기">
+<meta name="twitter:description" content='이제 데이터의 평균과 범위를 계산하고자 한다. Visited 테이블에서 모든 날짜 정보를 어떻게 선택하는지 알고 있다. $ sqlite3 survey.db SQLite version 3.35.4 2021-04-02 15:20:15 Enter ".help" for usage hints. sqlite&gt;  표 28.1: SQL select 쿼리문...'>
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.3.1/transition.js"></script><script src="libs/bs3compat-0.3.1/tabs.js"></script><script src="libs/bs3compat-0.3.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
+    
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  </style>
+<style type="text/css">
+    /* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+    div.csl-bib-body { }
+    div.csl-entry {
+      clear: both;
+        }
+    .hanging div.csl-entry {
+      margin-left:2em;
+      text-indent:-2em;
+    }
+    div.csl-left-margin {
+      min-width:2em;
+      float:left;
+    }
+    div.csl-right-inline {
+      margin-left:2em;
+      padding-left:1em;
+    }
+    div.csl-indent {
+      margin-left: 2em;
+    }
+  </style>
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">데이터 과학을 지탱하는 기본기</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html">데이터 과학을 지탱하는 기본기</a></li>
+<li class="book-part">자동화</li>
+<li><a class="" href="shell-intro.html"><span class="header-section-number">1</span> 쉘(Shell) 소개</a></li>
+<li><a class="" href="shell-filedir.html"><span class="header-section-number">2</span> 파일과 폴더 넘나들기</a></li>
+<li><a class="" href="shell-create.html"><span class="header-section-number">3</span> 파일과 디렉토리 작업</a></li>
+<li><a class="" href="pipe-filter.html"><span class="header-section-number">4</span> 파이프와 필터</a></li>
+<li><a class="" href="shell-loop.html"><span class="header-section-number">5</span> 루프(Loops)</a></li>
+<li><a class="" href="shell-script.html"><span class="header-section-number">6</span> 쉘 스크립트</a></li>
+<li><a class="" href="shell-find.html"><span class="header-section-number">7</span> 파일, 문자, 디렉토리 등 찾기</a></li>
+<li class="book-part">버전제어와 협업</li>
+<li><a class="" href="git.html"><span class="header-section-number">8</span> 자동화된 버젼제어</a></li>
+<li><a class="" href="git-setup.html"><span class="header-section-number">9</span> Git 구축 및 설정</a></li>
+<li><a class="" href="git-create.html"><span class="header-section-number">10</span> 저장소 생성</a></li>
+<li><a class="" href="git-change.html"><span class="header-section-number">11</span> 변경사항 추적</a></li>
+<li><a class="" href="git-history.html"><span class="header-section-number">12</span> 이력 탐색</a></li>
+<li><a class="" href="git-ignore.html"><span class="header-section-number">13</span> 추적대상에서 제외</a></li>
+<li><a class="" href="git-github.html"><span class="header-section-number">14</span> GitHub 원격작업</a></li>
+<li><a class="" href="git-collab.html"><span class="header-section-number">15</span> 협업 (Collaborating)</a></li>
+<li><a class="" href="git-conflict.html"><span class="header-section-number">16</span> 충돌 (Conflicts)</a></li>
+<li><a class="" href="git-open.html"><span class="header-section-number">17</span> 공개 과학 (Open Science)</a></li>
+<li><a class="" href="git-licensing.html"><span class="header-section-number">18</span> 라이선싱 (Licensing)</a></li>
+<li><a class="" href="git-hosting.html"><span class="header-section-number">19</span> 호스팅 (Hosting)</a></li>
+<li><a class="" href="git-korean.html"><span class="header-section-number">20</span> Git 추가설정</a></li>
+<li class="book-part">데이터베이스</li>
+<li><a class="" href="database-sql.html"><span class="header-section-number">21</span> 데이터베이스와 SQL 사용하기</a></li>
+<li><a class="" href="database-sqlite.html"><span class="header-section-number">22</span> SQLite 설치</a></li>
+<li><a class="" href="database-select.html"><span class="header-section-number">23</span> 변수/칼럼 선택하기</a></li>
+<li><a class="" href="database-sort.html"><span class="header-section-number">24</span> 정렬, 중복 제거</a></li>
+<li><a class="" href="database-filter.html"><span class="header-section-number">25</span> 필터링 (Filtering)</a></li>
+<li><a class="" href="database-calc.html"><span class="header-section-number">26</span> 새로운 값 계산하기</a></li>
+<li><a class="" href="database-null.html"><span class="header-section-number">27</span> 결측 데이터 (Missing Data)</a></li>
+<li><a class="active" href="database-agg.html"><span class="header-section-number">28</span> 집합(Aggregation)</a></li>
+<li><a class="" href="database-table-join.html"><span class="header-section-number">29</span> 데이터 결합하기</a></li>
+<li><a class="" href="database-data-create.html"><span class="header-section-number">30</span> 데이터 생성과 변형</a></li>
+<li><a class="" href="%EC%B0%B8%EA%B3%A0%EB%AC%B8%ED%97%8C.html">참고문헌</a></li>
+</ul>
+
+        <div class="book-extra">
+          
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="database-agg" class="section level1" number="28">
+<h1>
+<span class="header-section-number">28 . </span> 집합(Aggregation)<a class="anchor" aria-label="anchor" href="#database-agg"><i class="fas fa-link"></i></a>
+</h1>
+<p>이제 데이터의 평균과 범위를 계산하고자 한다. <code>Visited</code> 테이블에서 모든 날짜 정보를 어떻게 선택하는지 알고 있다.</p>
+<pre><code>$ sqlite3 survey.db
+SQLite version 3.35.4 2021-04-02 15:20:15
+Enter ".help" for usage hints.
+sqlite&gt;</code></pre>
+<div class="knitsql-table">
+<div class="inline-table"><table class="table table-sm">
+<caption>
+<span id="tab:sqlite-sql-agg-select">표 28.1: </span>SQL select 쿼리문</caption>
+<thead><tr class="header">
+<th align="left">dated</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left">1927-02-08</td>
+</tr>
+<tr class="even">
+<td align="left">1927-02-10</td>
+</tr>
+<tr class="odd">
+<td align="left">1939-01-07</td>
+</tr>
+<tr class="even">
+<td align="left">1930-01-12</td>
+</tr>
+<tr class="odd">
+<td align="left">1930-02-26</td>
+</tr>
+<tr class="even">
+<td align="left">NA</td>
+</tr>
+<tr class="odd">
+<td align="left">1932-01-14</td>
+</tr>
+<tr class="even">
+<td align="left">1932-03-22</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p>하지만 조합하기 위해서는 <code>min</code> 혹은 <code>max</code> 같은 <strong>집합 함수(aggregation function)</strong>를 사용해야만 한다.
+각 함수는 입력으로 레코드 집합을 받고 출력으로 단일 레코드를 만든다.</p>
+<div class="knitsql-table">
+<div class="inline-table"><table class="table table-sm">
+<caption>
+<span id="tab:sqlite-sql-agg-min">표 28.2: </span>최소값 집합 함수 적용 쿼리문</caption>
+<thead><tr class="header">
+<th align="left">min(dated)</th>
+</tr></thead>
+<tbody><tr class="odd">
+<td align="left">1927-02-08</td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="figure">
+<img src="assets/images/database/sql-aggregation.svg" alt=""><p class="caption">SQL 집합함수 최소값(min) 찾는 과정</p>
+</div>
+<div class="knitsql-table">
+<div class="inline-table"><table class="table table-sm">
+<caption>
+<span id="tab:sqlite-sql-agg-max">표 28.3: </span>최대값 집합 함수 적용 쿼리문</caption>
+<thead><tr class="header">
+<th align="left">max(dated)</th>
+</tr></thead>
+<tbody><tr class="odd">
+<td align="left">1939-01-07</td>
+</tr></tbody>
+</table></div>
+</div>
+<p><code>min</code>과 <code>max</code>는 SQL에 내장된 단지 두개의 집합 함수다.
+다른 세개는 <code>avg</code>, <code>count</code>, <code>sum</code>이 있다.</p>
+<div class="knitsql-table">
+<div class="inline-table"><table class="table table-sm">
+<caption>
+<span id="tab:sqlite-sql-agg-avg">표 28.4: </span>평균값 집합 함수 적용 쿼리문</caption>
+<thead><tr class="header">
+<th align="right">avg(reading)</th>
+</tr></thead>
+<tbody><tr class="odd">
+<td align="right">7.2</td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="knitsql-table">
+<div class="inline-table"><table class="table table-sm">
+<caption>
+<span id="tab:sqlite-sql-agg-count">표 28.5: </span>개수 집합 함수 적용 쿼리문</caption>
+<thead><tr class="header">
+<th align="right">count(reading)</th>
+</tr></thead>
+<tbody><tr class="odd">
+<td align="right">9</td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="knitsql-table">
+<div class="inline-table"><table class="table table-sm">
+<caption>
+<span id="tab:sqlite-sql-agg-sum">표 28.6: </span>합계 집합 함수 적용 쿼리문</caption>
+<thead><tr class="header">
+<th align="right">sum(reading)</th>
+</tr></thead>
+<tbody><tr class="odd">
+<td align="right">64.8</td>
+</tr></tbody>
+</table></div>
+</div>
+<p>여기서 <code>count(reading)</code>을 사용했다. 하지만 <code>quant</code>를 단순히 쉽게 세거나 테이블의 다른 어떤 필드도 셀 수 있고 심지어 <code>count(*)</code>을 사용하기도 한다.
+왜냐하면 <code>count()</code>함수가 값 자체보다는 얼마나 많은 값이 있는지에만 관심을 두기 때문이다.</p>
+<p>SQL이 여러개의 집합연산도 한번에 수행한다. 예를 들어, 염분측정치의 범위도 알 수 있다.</p>
+<div class="knitsql-table">
+<div class="inline-table"><table class="table table-sm">
+<caption>
+<span id="tab:sqlite-sql-agg-minmax">표 28.7: </span>최소, 최대값 집합 함수 적용 쿼리문</caption>
+<thead><tr class="header">
+<th align="right">min(reading)</th>
+<th align="right">max(reading)</th>
+</tr></thead>
+<tbody><tr class="odd">
+<td align="right">0.05</td>
+<td align="right">0.21</td>
+</tr></tbody>
+</table></div>
+</div>
+<p>출력결과가 놀라움을 줄 수도 있지만, 원 결과값과 집합 결과를 조합할 수도 있다.</p>
+<div class="knitsql-table">
+<div class="inline-table"><table class="table table-sm">
+<caption>
+<span id="tab:sqlite-sql-agg-composition">표 28.8: </span>원 결과값과 집합 함수를 적용한 쿼리문</caption>
+<thead><tr class="header">
+<th align="left">person</th>
+<th align="right">count(*)</th>
+</tr></thead>
+<tbody><tr class="odd">
+<td align="left">dyer</td>
+<td align="right">7</td>
+</tr></tbody>
+</table></div>
+</div>
+<p>왜 Roerich 혹은 Dyer가 아닌 Lake의 이름이 나타날까요?
+답은 필드를 집합하지만 어떻게 집합하는지 말을 하지 않기 때문에 데이터베이스 관리자가 입력에서 실제 값을 고른다.
+처음 처리된 것, 마지막에 처리된 것, 혹은 완전히 다른 무언가를 사용할 수도 있다.</p>
+<p>또다른 중요한 사실은 집합할 어떠한 값도 없을 때, 집합 결과는 0 혹은 다른 임의의 값 보다 “알지 못한다(don’t know)”가 된다.</p>
+<div class="knitsql-table">
+<div class="inline-table"><table class="table table-sm">
+<caption>
+<span id="tab:sqlite-sql-agg-null">표 28.9: </span>NULL 값이 포함된 원데이터에 집합 함수를 적용한 쿼리문</caption>
+<thead><tr class="header">
+<th align="left">person</th>
+<th align="right">count(*)</th>
+</tr></thead>
+<tbody><tr class="odd">
+<td align="left">dyer</td>
+<td align="right">7</td>
+</tr></tbody>
+</table></div>
+</div>
+<p>집합 함수의 마지막 중요한 한가지 기능은 매우 유용한 방식으로 나머지 SQL과는 일관되지 않다는 것이다.
+만약 두 값을 더하는데 그중 하나가 <code>null</code>이면 결과는 <code>null</code>이다.
+확장해서, 만약 한 집합의 모든 값을 더하기 위해서 <code>sum</code>을 사용하고 이들 중 임의의 값이 <code>null</code>이면,
+결과도 또한 <code>null</code>이어야 한다. 하지만 집합함수가 <code>null</code> 값을 무시하고 단지 <code>non-null</code> 값만을 조합한다면 훨씬 더 유용하다.
+명시적으로 항상 필터해야하는 대신에 이것의 결과 쿼리를 다음과 같이 작성할 수 있게 한다.</p>
+<div class="knitsql-table">
+<div class="inline-table"><table class="table table-sm">
+<caption>
+<span id="tab:sqlite-sql-agg-null-deal">표 28.10: </span>NULL 값이 포함된 원데이터를 명시적으로 처리한 후 집합 함수를 적용한 쿼리문</caption>
+<thead><tr class="header">
+<th align="left">min(dated)</th>
+</tr></thead>
+<tbody><tr class="odd">
+<td align="left">1927-02-08</td>
+</tr></tbody>
+</table></div>
+</div>
+<p>명시적으로 항상 다음과 같이 필터하는 쿼리를 작성할 필요가 없다.</p>
+<div class="knitsql-table">
+<div class="inline-table"><table class="table table-sm">
+<caption>
+<span id="tab:sqlite-sql-agg-null-explicit">표 28.11: </span>NULL 값이 포함된 원데이터를 명시적으로 처리하지 않는 집합 함수를 적용한 쿼리문</caption>
+<thead><tr class="header">
+<th align="left">min(dated)</th>
+</tr></thead>
+<tbody><tr class="odd">
+<td align="left">1927-02-08</td>
+</tr></tbody>
+</table></div>
+</div>
+<p>한번에 모든 레코드를 집합하는 것이 항상 타당하지는 않다.
+예를 들어, Gina가 데이터에 체계적인 편의(bias)가 있어서 다른 과학자의 방사선 측정치가 다른 사람의 것과 비교하여 높다고 의심한다고 가정하자.
+다음 쿼리가 의도를 반영하여 동작하지 않는다는 것은 알고 있다.</p>
+<div class="knitsql-table">
+<div class="inline-table"><table class="table table-sm">
+<caption>
+<span id="tab:sqlite-sql-agg-rad-issue">표 28.12: </span>주의깊이 살펴볼 쿼리문</caption>
+<thead><tr class="header">
+<th align="left">person</th>
+<th align="right">count(reading)</th>
+<th align="right">round(avg(reading), 2)</th>
+</tr></thead>
+<tbody><tr class="odd">
+<td align="left">dyer</td>
+<td align="right">8</td>
+<td align="right">6.56</td>
+</tr></tbody>
+</table></div>
+</div>
+<p>왜냐하면 데이터베이스 관리자가 각 과학자별로 구분된 집합하기 보다는 임의의 한명의 과학자 이름만 선택하기 때문이다.
+단지 5명의 과학자만 있기 때문에, 다음과 같은 형식의 5개 쿼리를 작성할 수 있다.</p>
+<div class="knitsql-table">
+<div class="inline-table"><table class="table table-sm">
+<caption>
+<span id="tab:sqlite-sql-agg-rad">표 28.13: </span>사람별로 작성한 쿼리문 문제 예제</caption>
+<thead><tr class="header">
+<th align="left">person</th>
+<th align="right">count(reading)</th>
+<th align="right">round(avg(reading), 2)</th>
+</tr></thead>
+<tbody><tr class="odd">
+<td align="left">dyer</td>
+<td align="right">2</td>
+<td align="right">8.81</td>
+</tr></tbody>
+</table></div>
+</div>
+<p>하지만, 이러한 접근법은 성가시고, 만약 50명 혹은 500명의 과학자를 가진 데이터셋을 분석한다면,
+모든 쿼리를 올바르게 작성할 가능성은 작다.</p>
+<p>필요한 것은 데이터베이스 관리자가 <code>group by</code>절을 사용해서 각 과학자별로 시간을 집합하도록 지시하는 것이다.</p>
+<div class="knitsql-table">
+<div class="inline-table"><table class="table table-sm">
+<caption>
+<span id="tab:sqlite-sql-agg-group-by">표 28.14: </span><code>group by</code> 문을 사용해서 사람별로 작성한 쿼리문 예제</caption>
+<thead><tr class="header">
+<th align="left">person</th>
+<th align="right">count(reading)</th>
+<th align="right">round(avg(reading), 2)</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left">dyer</td>
+<td align="right">2</td>
+<td align="right">8.81</td>
+</tr>
+<tr class="even">
+<td align="left">lake</td>
+<td align="right">2</td>
+<td align="right">1.83</td>
+</tr>
+<tr class="odd">
+<td align="left">pb</td>
+<td align="right">3</td>
+<td align="right">6.66</td>
+</tr>
+<tr class="even">
+<td align="left">roe</td>
+<td align="right">1</td>
+<td align="right">11.25</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p><code>group by</code>는 이름이 의미하는 것과 동일한 것을 정확하게 수행한다.
+지정된 필드에 동일한 값을 가진 모든 레코드를 그룹으로 묶어서 집합을 각 배치별로 처리한다.
+각 배치에 모든 레코드는 <code>person</code>에 동일한 값을 가지고 있기 때문에,
+데이터베이스 관리자가 임의의 값을 잡아서 집합된 <code>reading</code> 값과 함께 표시하는지는 더 이상 문제가 되지 않는다.</p>
+<p>한번에 다중 기준으로 정렬하듯이 다중 기준으로 묶어 그룹화할 수 있다.
+예를 들어 과학자와 측정 수량에 따라 평균 측정값을 얻기 위해서,
+<code>group by</code> 절에 또다른 필드만 추가한다.</p>
+<div class="knitsql-table">
+<div class="inline-table"><table class="table table-sm">
+<caption>
+<span id="tab:sqlite-sql-agg-groupby-advanced">표 28.15: </span><code>group by</code> 문을 확장하여 적용한 쿼리문 사례</caption>
+<thead><tr class="header">
+<th align="left">person</th>
+<th align="left">quant</th>
+<th align="right">count(reading)</th>
+<th align="right">round(avg(reading), 2)</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left">NA</td>
+<td align="left">sal</td>
+<td align="right">1</td>
+<td align="right">0.06</td>
+</tr>
+<tr class="even">
+<td align="left">NA</td>
+<td align="left">temp</td>
+<td align="right">1</td>
+<td align="right">-26.00</td>
+</tr>
+<tr class="odd">
+<td align="left">dyer</td>
+<td align="left">rad</td>
+<td align="right">2</td>
+<td align="right">8.81</td>
+</tr>
+<tr class="even">
+<td align="left">dyer</td>
+<td align="left">sal</td>
+<td align="right">2</td>
+<td align="right">0.11</td>
+</tr>
+<tr class="odd">
+<td align="left">lake</td>
+<td align="left">rad</td>
+<td align="right">2</td>
+<td align="right">1.83</td>
+</tr>
+<tr class="even">
+<td align="left">lake</td>
+<td align="left">sal</td>
+<td align="right">4</td>
+<td align="right">0.11</td>
+</tr>
+<tr class="odd">
+<td align="left">lake</td>
+<td align="left">temp</td>
+<td align="right">1</td>
+<td align="right">-16.00</td>
+</tr>
+<tr class="even">
+<td align="left">pb</td>
+<td align="left">rad</td>
+<td align="right">3</td>
+<td align="right">6.66</td>
+</tr>
+<tr class="odd">
+<td align="left">pb</td>
+<td align="left">temp</td>
+<td align="right">2</td>
+<td align="right">-20.00</td>
+</tr>
+<tr class="even">
+<td align="left">roe</td>
+<td align="left">rad</td>
+<td align="right">1</td>
+<td align="right">11.25</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p>그렇지 않으면 결과가 의미가 없기 때문에, <code>person</code>을 표시되는 필드 리스트에 추가한 것을 주목하라.</p>
+<p>한단계 더나아가 누가 측정을 했는지 알지 못하는 모든 항목을 제거하자.</p>
+<div class="knitsql-table">
+<div class="inline-table"><table class="table table-sm">
+<caption>
+<span id="tab:sqlite-sql-agg-groupby-advanced2">표 28.16: </span>사람별로 측정값을 정렬한 쿼리문 사례</caption>
+<thead><tr class="header">
+<th align="left">person</th>
+<th align="left">quant</th>
+<th align="right">count(reading)</th>
+<th align="right">round(avg(reading), 2)</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left">dyer</td>
+<td align="left">rad</td>
+<td align="right">2</td>
+<td align="right">8.81</td>
+</tr>
+<tr class="even">
+<td align="left">dyer</td>
+<td align="left">sal</td>
+<td align="right">2</td>
+<td align="right">0.11</td>
+</tr>
+<tr class="odd">
+<td align="left">lake</td>
+<td align="left">rad</td>
+<td align="right">2</td>
+<td align="right">1.83</td>
+</tr>
+<tr class="even">
+<td align="left">lake</td>
+<td align="left">sal</td>
+<td align="right">4</td>
+<td align="right">0.11</td>
+</tr>
+<tr class="odd">
+<td align="left">lake</td>
+<td align="left">temp</td>
+<td align="right">1</td>
+<td align="right">-16.00</td>
+</tr>
+<tr class="even">
+<td align="left">pb</td>
+<td align="left">rad</td>
+<td align="right">3</td>
+<td align="right">6.66</td>
+</tr>
+<tr class="odd">
+<td align="left">pb</td>
+<td align="left">temp</td>
+<td align="right">2</td>
+<td align="right">-20.00</td>
+</tr>
+<tr class="even">
+<td align="left">roe</td>
+<td align="left">rad</td>
+<td align="right">1</td>
+<td align="right">11.25</td>
+</tr>
+<tr class="odd">
+<td align="left">roe</td>
+<td align="left">sal</td>
+<td align="right">2</td>
+<td align="right">32.05</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p>좀더 면밀하게 살펴보면, 이 쿼리는,</p>
+<ol style="list-style-type: decimal">
+<li><p><code>Survey</code>테이블에서 <code>person</code> 필드가 <code>null</code>이 아닌 레코드를 선택한다.</p></li>
+<li><p>상기 레코드를 부분집합으로 그룹지어서 각 부분집합의 <code>person</code>과 <code>quant</code>의 값은 같다.</p></li>
+<li><p>먼저 <code>person</code>으로 부분집합을 정렬하고나서 <code>quant</code>로 각 하위 그룹내에서도 정렬한다.</p></li>
+<li><p>각 부분집합의 레코드 숫자를 세고, 각각 <code>reading</code> 평균을 계산하고, 각각 <code>person</code>과 <code>quant</code> 값을 선택한다.
+(모두 동등하기 때문에 어느 것인지는 문제가 되지 않는다.)</p></li>
+</ol>
+<div id="db-agg-challenge" class="section level2" number="28.1">
+<h2>
+<span class="header-section-number">28.1</span> 도전 과제<a class="anchor" aria-label="anchor" href="#db-agg-challenge"><i class="fas fa-link"></i></a>
+</h2>
+<ol style="list-style-type: decimal">
+<li><p>Frank Pabodie는 얼마 많이 온도 측정치를 기록했고 평균 값은 얼마인가요?</p></li>
+<li><p>집합 값의 평균은 값을 합한 것을 값의 갯수로 나눈 것이다.
+값이 1.0, <code>null</code>, 5.0 으로 주어졌을 때, <code>avg</code> 함수는 2.0 혹은 3.0을 반환하는 것을 의미하나요?</p></li>
+<li>
+<p>각 개별 방사선 측정값과 평균값 사이의 차이를 계산하고자 한다. 쿼리를 다음과 같이 작성한다.</p>
+<pre><code>select reading - avg(reading) from Survey where quant='rad';</code></pre>
+<p>상기 쿼리가 무엇을 만드나요? 그리고 왜 그런가요?</p>
+</li>
+<li>
+<p><code>group_concat(field, separator)</code> 함수는 지정된 구분 문자(혹은 만약 구분자가 지정되지 않는다면 ‘,’)를 사용하여 필드의 모든 값을 결합한다.
+이 함수르 사용해서 과학자의 이름을 한줄 리스트로 다음과 같이 만드세요.</p>
+<pre><code>William Dyer, Frank Pabodie, Anderson Lake, Valentina Roerich, Frank Danforth</code></pre>
+<p>성씨(surname)으로 리스트를 정렬하는 방법을 제시할 수 있나요?</p>
+</li>
+</ol>
+</div>
+<div id="db-agg-points" class="section level2" number="28.2">
+<h2>
+<span class="header-section-number">28.2</span> 주요점<a class="anchor" aria-label="anchor" href="#db-agg-points"><i class="fas fa-link"></i></a>
+</h2>
+<ul>
+<li>집합 함수는 많은 값을 조합해서 하나의 새로운 값을 만든다.</li>
+<li>집합 함수는 <code>null</code> 값을 무시한다.</li>
+<li>필터링 다음에 집합이 일어난다.</li>
+</ul>
+</div>
+</div>
+  <div class="chapter-nav">
+<div class="prev"><a href="database-null.html"><span class="header-section-number">27</span> 결측 데이터 (Missing Data)</a></div>
+<div class="next"><a href="database-table-join.html"><span class="header-section-number">29</span> 데이터 결합하기</a></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#database-agg"><span class="header-section-number">28</span> 집합(Aggregation)</a></li>
+<li><a class="nav-link" href="#db-agg-challenge"><span class="header-section-number">28.1</span> 도전 과제</a></li>
+<li><a class="nav-link" href="#db-agg-points"><span class="header-section-number">28.2</span> 주요점</a></li>
+</ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+          
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>데이터 과학을 지탱하는 기본기</strong>" was written by 한국 알 사용자회. It was last built on 2022-05-12.</p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer>
+</body>
+</html>

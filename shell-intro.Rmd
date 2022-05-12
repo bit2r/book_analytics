@@ -1,5 +1,5 @@
 
-# 자동화 {-}
+# (PART\*) 자동화 {-#automation}
 
 # 쉘(Shell) 소개 {#shell-intro}
 

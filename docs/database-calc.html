@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>26 . 새로운 값 계산하기 | 데이터 과학을 지탱하는 기본기</title>
+<meta name="author" content="한국 알 사용자회">
+<meta name="description" content='주의깊이 탐험 기록을 다시 정독한 뒤에, 탐험대가 보고한 방사선 측정치가 5%만큼 상향되어 수정될 필요가 있다는 것을 깨달았다. 저장된 데이터를 변형하기 보다는 쿼리의 일부분으로서 즉석에서 계산을 수행할 수 있다. $ sqlite3 survey.db SQLite version 3.35.4 2021-04-02 15:20:15 Enter ".help"...'>
+<meta name="generator" content="bookdown 0.26 with bs4_book()">
+<meta property="og:title" content="26 . 새로운 값 계산하기 | 데이터 과학을 지탱하는 기본기">
+<meta property="og:type" content="book">
+<meta property="og:description" content='주의깊이 탐험 기록을 다시 정독한 뒤에, 탐험대가 보고한 방사선 측정치가 5%만큼 상향되어 수정될 필요가 있다는 것을 깨달았다. 저장된 데이터를 변형하기 보다는 쿼리의 일부분으로서 즉석에서 계산을 수행할 수 있다. $ sqlite3 survey.db SQLite version 3.35.4 2021-04-02 15:20:15 Enter ".help"...'>
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="26 . 새로운 값 계산하기 | 데이터 과학을 지탱하는 기본기">
+<meta name="twitter:description" content='주의깊이 탐험 기록을 다시 정독한 뒤에, 탐험대가 보고한 방사선 측정치가 5%만큼 상향되어 수정될 필요가 있다는 것을 깨달았다. 저장된 데이터를 변형하기 보다는 쿼리의 일부분으로서 즉석에서 계산을 수행할 수 있다. $ sqlite3 survey.db SQLite version 3.35.4 2021-04-02 15:20:15 Enter ".help"...'>
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.3.1/transition.js"></script><script src="libs/bs3compat-0.3.1/tabs.js"></script><script src="libs/bs3compat-0.3.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
+    
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  </style>
+<style type="text/css">
+    /* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+    div.csl-bib-body { }
+    div.csl-entry {
+      clear: both;
+        }
+    .hanging div.csl-entry {
+      margin-left:2em;
+      text-indent:-2em;
+    }
+    div.csl-left-margin {
+      min-width:2em;
+      float:left;
+    }
+    div.csl-right-inline {
+      margin-left:2em;
+      padding-left:1em;
+    }
+    div.csl-indent {
+      margin-left: 2em;
+    }
+  </style>
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">데이터 과학을 지탱하는 기본기</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html">데이터 과학을 지탱하는 기본기</a></li>
+<li class="book-part">자동화</li>
+<li><a class="" href="shell-intro.html"><span class="header-section-number">1</span> 쉘(Shell) 소개</a></li>
+<li><a class="" href="shell-filedir.html"><span class="header-section-number">2</span> 파일과 폴더 넘나들기</a></li>
+<li><a class="" href="shell-create.html"><span class="header-section-number">3</span> 파일과 디렉토리 작업</a></li>
+<li><a class="" href="pipe-filter.html"><span class="header-section-number">4</span> 파이프와 필터</a></li>
+<li><a class="" href="shell-loop.html"><span class="header-section-number">5</span> 루프(Loops)</a></li>
+<li><a class="" href="shell-script.html"><span class="header-section-number">6</span> 쉘 스크립트</a></li>
+<li><a class="" href="shell-find.html"><span class="header-section-number">7</span> 파일, 문자, 디렉토리 등 찾기</a></li>
+<li class="book-part">버전제어와 협업</li>
+<li><a class="" href="git.html"><span class="header-section-number">8</span> 자동화된 버젼제어</a></li>
+<li><a class="" href="git-setup.html"><span class="header-section-number">9</span> Git 구축 및 설정</a></li>
+<li><a class="" href="git-create.html"><span class="header-section-number">10</span> 저장소 생성</a></li>
+<li><a class="" href="git-change.html"><span class="header-section-number">11</span> 변경사항 추적</a></li>
+<li><a class="" href="git-history.html"><span class="header-section-number">12</span> 이력 탐색</a></li>
+<li><a class="" href="git-ignore.html"><span class="header-section-number">13</span> 추적대상에서 제외</a></li>
+<li><a class="" href="git-github.html"><span class="header-section-number">14</span> GitHub 원격작업</a></li>
+<li><a class="" href="git-collab.html"><span class="header-section-number">15</span> 협업 (Collaborating)</a></li>
+<li><a class="" href="git-conflict.html"><span class="header-section-number">16</span> 충돌 (Conflicts)</a></li>
+<li><a class="" href="git-open.html"><span class="header-section-number">17</span> 공개 과학 (Open Science)</a></li>
+<li><a class="" href="git-licensing.html"><span class="header-section-number">18</span> 라이선싱 (Licensing)</a></li>
+<li><a class="" href="git-hosting.html"><span class="header-section-number">19</span> 호스팅 (Hosting)</a></li>
+<li><a class="" href="git-korean.html"><span class="header-section-number">20</span> Git 추가설정</a></li>
+<li class="book-part">데이터베이스</li>
+<li><a class="" href="database-sql.html"><span class="header-section-number">21</span> 데이터베이스와 SQL 사용하기</a></li>
+<li><a class="" href="database-sqlite.html"><span class="header-section-number">22</span> SQLite 설치</a></li>
+<li><a class="" href="database-select.html"><span class="header-section-number">23</span> 변수/칼럼 선택하기</a></li>
+<li><a class="" href="database-sort.html"><span class="header-section-number">24</span> 정렬, 중복 제거</a></li>
+<li><a class="" href="database-filter.html"><span class="header-section-number">25</span> 필터링 (Filtering)</a></li>
+<li><a class="active" href="database-calc.html"><span class="header-section-number">26</span> 새로운 값 계산하기</a></li>
+<li><a class="" href="database-null.html"><span class="header-section-number">27</span> 결측 데이터 (Missing Data)</a></li>
+<li><a class="" href="database-agg.html"><span class="header-section-number">28</span> 집합(Aggregation)</a></li>
+<li><a class="" href="database-table-join.html"><span class="header-section-number">29</span> 데이터 결합하기</a></li>
+<li><a class="" href="database-data-create.html"><span class="header-section-number">30</span> 데이터 생성과 변형</a></li>
+<li><a class="" href="%EC%B0%B8%EA%B3%A0%EB%AC%B8%ED%97%8C.html">참고문헌</a></li>
+</ul>
+
+        <div class="book-extra">
+          
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="database-calc" class="section level1" number="26">
+<h1>
+<span class="header-section-number">26 . </span> 새로운 값 계산하기<a class="anchor" aria-label="anchor" href="#database-calc"><i class="fas fa-link"></i></a>
+</h1>
+<p>주의깊이 탐험 기록을 다시 정독한 뒤에, 탐험대가 보고한 방사선 측정치가 5%만큼 상향되어 수정될 필요가 있다는 것을 깨달았다.
+저장된 데이터를 변형하기 보다는 쿼리의 일부분으로서 즉석에서 계산을 수행할 수 있다.</p>
+<pre><code>$ sqlite3 survey.db
+SQLite version 3.35.4 2021-04-02 15:20:15
+Enter ".help" for usage hints.
+sqlite&gt;</code></pre>
+<div class="knitsql-table">
+<div class="inline-table"><table class="table table-sm">
+<caption>
+<span id="tab:sqlite-sql-calc-reading">표 26.1: </span>신규 칼럼 생성 쿼리문</caption>
+<thead><tr class="header">
+<th align="right">1.05 * reading</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="right">10.31</td>
+</tr>
+<tr class="even">
+<td align="right">8.19</td>
+</tr>
+<tr class="odd">
+<td align="right">8.83</td>
+</tr>
+<tr class="even">
+<td align="right">7.58</td>
+</tr>
+<tr class="odd">
+<td align="right">4.57</td>
+</tr>
+<tr class="even">
+<td align="right">2.30</td>
+</tr>
+<tr class="odd">
+<td align="right">1.53</td>
+</tr>
+<tr class="even">
+<td align="right">11.81</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p>쿼리를 실행하면, 표현식 <code>1.05 * reading</code>이 각 행마다 평가된다.
+표현식에는 임의의 필드, 통상 많이 사용되는 연산자, 그리고 다양한 함수를 사용한다.
+(정확하게는 어느 데이터베이스 관리자를 사용되느냐에 따라 의존성을 띄게된다.)
+예를 들어, 온도 측정치를 화씨에서 섭씨로 소수점 아래 두자리에서 반올림하여 변환할 수 있다.</p>
+<div class="knitsql-table">
+<div class="inline-table"><table class="table table-sm">
+<caption>
+<span id="tab:sqlite-sql-calc-rounding">표 26.2: </span>신규 칼럼 반올림 적용 쿼리문</caption>
+<thead><tr class="header">
+<th align="right">taken</th>
+<th align="right">round(5*(reading-32)/9, 2)</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="right">734</td>
+<td align="right">-29.7</td>
+</tr>
+<tr class="even">
+<td align="right">735</td>
+<td align="right">-32.2</td>
+</tr>
+<tr class="odd">
+<td align="right">751</td>
+<td align="right">-28.1</td>
+</tr>
+<tr class="even">
+<td align="right">752</td>
+<td align="right">-26.7</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p>다른 필드의 값을 조합할 수도 있다. 예를 들어, 문자열 접합 연산자 (string concatenation operator, <code>||</code>)를 사용한다.</p>
+<div class="knitsql-table">
+<div class="inline-table"><table class="table table-sm">
+<caption>
+<span id="tab:sqlite-sql-calc-concat">표 26.3: </span>접합연산자 적용 신규 칼럼 생성 쿼리문</caption>
+<thead><tr class="header">
+<th align="left">personal || ’ ’ || family</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left">William Dyer</td>
+</tr>
+<tr class="even">
+<td align="left">Frank Pabodie</td>
+</tr>
+<tr class="odd">
+<td align="left">Anderson Lake</td>
+</tr>
+<tr class="even">
+<td align="left">Valentina Roerich</td>
+</tr>
+<tr class="odd">
+<td align="left">Frank Danforth</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<blockquote>
+<p><code>first</code>와 <code>last</code> 대신에 필드 이름으로 <code>personal</code>과 <code>family</code>를 사용하는 것이 이상해 보일지 모른다.
+하지만, 문화적 차이를 다루기 위한 필요한 첫번째 단계다. 예를 들어, 다음 규칙을 고려해보자.</p>
+</blockquote>
+<div class="inline-table"><table class="table table-sm">
+<tr>
+<th>
+성명 전부(Full Name)
+</th>
+<th>
+알파벳 순서
+</th>
+<th>
+이유
+</th>
+</tr>
+<tr>
+<td>
+Liu Xiaobo
+</td>
+<td>
+Liu
+</td>
+<td>
+중국 성이 이름보다 먼저 온다.
+</td>
+</tr>
+<tr>
+<td>
+Leonardo da Vinci
+</td>
+<td>
+Leonardo
+</td>
+<td>
+“da Vinci” 는 “from Vinci”를 뜻한다.
+</td>
+</tr>
+<tr>
+<td>
+Catherine de Medici
+</td>
+<td>
+Medici
+</td>
+<td>
+성(family name)
+</td>
+</tr>
+<tr>
+<td>
+Jean de La Fontaine
+</td>
+<td>
+La Fontaine
+</td>
+<td>
+성(family name)이 “La Fontaine”이다.
+</td>
+</tr>
+<tr>
+<td>
+Juan Ponce de Leon
+</td>
+<td>
+Ponce de Leon
+</td>
+<td>
+전체 성(full family name)이 “Ponce de Leon”이다.
+</td>
+</tr>
+<tr>
+<td>
+Gabriel Garcia Marquez
+</td>
+<td>
+Garcia Marquez
+</td>
+<td>
+이중으로 된 스페인 성(surnames)
+</td>
+</tr>
+<tr>
+<td>
+Wernher von Braun
+</td>
+<td>
+von <em>or</em> Braun
+</td>
+<td>
+독일 혹은 미국에 있는냐에 따라 달라짐
+</td>
+</tr>
+<tr>
+<td>
+Elizabeth Alexandra May Windsor
+</td>
+<td>
+Elizabeth
+</td>
+<td>
+군주가 통치하는 이름에 따라 알파벳순으로 정렬
+</td>
+</tr>
+<tr>
+<td>
+Thomas a Beckett
+</td>
+<td>
+Thomas
+</td>
+<td>
+시성된(canonized) 이름에 따라 성인이름 사용
+</td>
+</tr>
+</table></div>
+<blockquote>
+<p>분명하게, 심지어 두부분 “personal”과 “family”으로 나누는 것도 충분하지 않다.</p>
+</blockquote>
+<div id="db-calc-challenge" class="section level2" number="26.1">
+<h2>
+<span class="header-section-number">26.1</span> 도전 과제<a class="anchor" aria-label="anchor" href="#db-calc-challenge"><i class="fas fa-link"></i></a>
+</h2>
+<ol style="list-style-type: decimal">
+<li><p>좀더 조사한 뒤에, Valentina Roerich는 염도를 퍼센티지(%)로 작성한 것을 알게되었다.
+<code>Survey</code> 테이블에서 값을 100으로 나누어서 모든 염도 측정치를 반환하는 쿼리를 작성하세요.</p></li>
+<li><p><code>union</code> 연산자는 두 쿼리의 결과를 조합한다.</p></li>
+</ol>
+<div class="knitsql-table">
+<div class="inline-table"><table class="table table-sm">
+<caption>
+<span id="tab:sqlite-sql-calc-union">표 26.4: </span>union 연산자 적용 쿼리 두개 결합 결과</caption>
+<thead><tr class="header">
+<th align="left">ident</th>
+<th align="left">personal</th>
+<th align="left">family</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left">dyer</td>
+<td align="left">William</td>
+<td align="left">Dyer</td>
+</tr>
+<tr class="even">
+<td align="left">roe</td>
+<td align="left">Valentina</td>
+<td align="left">Roerich</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p><code>union</code>을 사용하여 앞선 도전과제에서 기술되어 수정된 Roerich가 측정한, Roerich만 측정한 염도 측정치의 통합 리스트를 생성하세요.
+출력결과는 다음과 같아야 한다.</p>
+<div class="inline-table"><table class="table table-sm">
+<tr>
+<td>
+619
+</td>
+<td>
+0.13
+</td>
+</tr>
+<tr>
+<td>
+622
+</td>
+<td>
+0.09
+</td>
+</tr>
+<tr>
+<td>
+734
+</td>
+<td>
+0.05
+</td>
+</tr>
+<tr>
+<td>
+751
+</td>
+<td>
+0.1
+</td>
+</tr>
+<tr>
+<td>
+752
+</td>
+<td>
+0.09
+</td>
+</tr>
+<tr>
+<td>
+752
+</td>
+<td>
+0.416
+</td>
+</tr>
+<tr>
+<td>
+837
+</td>
+<td>
+0.21
+</td>
+</tr>
+<tr>
+<td>
+837
+</td>
+<td>
+0.225
+</td>
+</tr>
+</table></div>
+<ol start="3" style="list-style-type: decimal">
+<li>
+<code>Visited</code> 테이블에 사이트 식별자는 ’-’으로 구분되는 두 부분으로 구성되어 있다.</li>
+</ol>
+<div class="out">
+<div class="inline-table"><table class="table table-sm">
+<tr>
+<td>
+DR-1
+</td>
+</tr>
+<tr>
+<td>
+DR-3
+</td>
+</tr>
+<tr>
+<td>
+MSK-4
+</td>
+</tr>
+</table></div>
+</div>
+<p>몇몇 주요 사이트 식별자는 두 문자길이를 가지고 몇몇은 3문자길이를 가진다.
+“in string” 함수 <code>instr(X, Y)</code>은 X 문자열에 문자열 Y가 첫번째 출현의 1-기반 인덱스를 반환하거나
+Y가 X에 존재하지 않으면 0 을 반환한다.
+부분 문자열 함수 <code>substr(X, I)</code>은 인덱스 I에서 시작하는 문자열 X의 부분문자열을 반환한다.
+상기 두 함수를 사용해서 유일한 주요 사이트 식별자를 생성하세요. (이 데이터에 대해서 작업된 리스트는
+“DR”과 “MSK”만 포함해야 한다.)</p>
+</div>
+<div id="db-calc-points" class="section level2" number="26.2">
+<h2>
+<span class="header-section-number">26.2</span> 주요점<a class="anchor" aria-label="anchor" href="#db-calc-points"><i class="fas fa-link"></i></a>
+</h2>
+<ul>
+<li>SQL은 쿼리의 일부로서 레코드의 값을 사용한 계산을 수행한다.</li>
+</ul>
+</div>
+</div>
+  <div class="chapter-nav">
+<div class="prev"><a href="database-filter.html"><span class="header-section-number">25</span> 필터링 (Filtering)</a></div>
+<div class="next"><a href="database-null.html"><span class="header-section-number">27</span> 결측 데이터 (Missing Data)</a></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#database-calc"><span class="header-section-number">26</span> 새로운 값 계산하기</a></li>
+<li><a class="nav-link" href="#db-calc-challenge"><span class="header-section-number">26.1</span> 도전 과제</a></li>
+<li><a class="nav-link" href="#db-calc-points"><span class="header-section-number">26.2</span> 주요점</a></li>
+</ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+          
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>데이터 과학을 지탱하는 기본기</strong>" was written by 한국 알 사용자회. It was last built on 2022-05-12.</p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer>
+</body>
+</html>
