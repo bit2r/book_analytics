@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>36 . 좋은 소프트웨어 작성법 | 데이터 과학을 지탱하는 기본기</title>
+<meta name="author" content="한국 알 사용자회">
+<meta name="description" content="36.1 프로젝트 폴더 구조화 작업 프로젝트 폴더를 구조 하위 폴더를 코드, 매뉴얼, 데이터, 바이너리, 출력 그래프 등으로 구분하여 프로젝트 폴더를 구조화 시키고, 잘 조직화하고, 깔끔하게 한다. 완전 수작업으로 할 수도 있고, RStudio New Project 기능을 활용하거나 ProjectTemplate 같은 팩키지를 사용한다. 꿀팁:...">
+<meta name="generator" content="bookdown 0.26 with bs4_book()">
+<meta property="og:title" content="36 . 좋은 소프트웨어 작성법 | 데이터 과학을 지탱하는 기본기">
+<meta property="og:type" content="book">
+<meta property="og:description" content="36.1 프로젝트 폴더 구조화 작업 프로젝트 폴더를 구조 하위 폴더를 코드, 매뉴얼, 데이터, 바이너리, 출력 그래프 등으로 구분하여 프로젝트 폴더를 구조화 시키고, 잘 조직화하고, 깔끔하게 한다. 완전 수작업으로 할 수도 있고, RStudio New Project 기능을 활용하거나 ProjectTemplate 같은 팩키지를 사용한다. 꿀팁:...">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="36 . 좋은 소프트웨어 작성법 | 데이터 과학을 지탱하는 기본기">
+<meta name="twitter:description" content="36.1 프로젝트 폴더 구조화 작업 프로젝트 폴더를 구조 하위 폴더를 코드, 매뉴얼, 데이터, 바이너리, 출력 그래프 등으로 구분하여 프로젝트 폴더를 구조화 시키고, 잘 조직화하고, 깔끔하게 한다. 완전 수작업으로 할 수도 있고, RStudio New Project 기능을 활용하거나 ProjectTemplate 같은 팩키지를 사용한다. 꿀팁:...">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.3.1/transition.js"></script><script src="libs/bs3compat-0.3.1/tabs.js"></script><script src="libs/bs3compat-0.3.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
+    
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  </style>
+<style type="text/css">
+    /* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+    div.csl-bib-body { }
+    div.csl-entry {
+      clear: both;
+        }
+    .hanging div.csl-entry {
+      margin-left:2em;
+      text-indent:-2em;
+    }
+    div.csl-left-margin {
+      min-width:2em;
+      float:left;
+    }
+    div.csl-right-inline {
+      margin-left:2em;
+      padding-left:1em;
+    }
+    div.csl-indent {
+      margin-left: 2em;
+    }
+  </style>
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">데이터 과학을 지탱하는 기본기</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html">데이터 과학을 지탱하는 기본기</a></li>
+<li class="book-part">자동화</li>
+<li><a class="" href="shell-intro.html"><span class="header-section-number">1</span> 쉘(Shell) 소개</a></li>
+<li><a class="" href="shell-filedir.html"><span class="header-section-number">2</span> 파일과 폴더 넘나들기</a></li>
+<li><a class="" href="shell-create.html"><span class="header-section-number">3</span> 파일과 디렉토리 작업</a></li>
+<li><a class="" href="pipe-filter.html"><span class="header-section-number">4</span> 파이프와 필터</a></li>
+<li><a class="" href="shell-loop.html"><span class="header-section-number">5</span> 루프(Loops)</a></li>
+<li><a class="" href="shell-script.html"><span class="header-section-number">6</span> 쉘 스크립트</a></li>
+<li><a class="" href="shell-find.html"><span class="header-section-number">7</span> 파일, 문자, 디렉토리 등 찾기</a></li>
+<li class="book-part">버전제어와 협업</li>
+<li><a class="" href="git.html"><span class="header-section-number">8</span> 자동화된 버젼제어</a></li>
+<li><a class="" href="git-setup.html"><span class="header-section-number">9</span> Git 구축 및 설정</a></li>
+<li><a class="" href="git-create.html"><span class="header-section-number">10</span> 저장소 생성</a></li>
+<li><a class="" href="git-change.html"><span class="header-section-number">11</span> 변경사항 추적</a></li>
+<li><a class="" href="git-history.html"><span class="header-section-number">12</span> 이력 탐색</a></li>
+<li><a class="" href="git-ignore.html"><span class="header-section-number">13</span> 추적대상에서 제외</a></li>
+<li><a class="" href="git-github.html"><span class="header-section-number">14</span> GitHub 원격작업</a></li>
+<li><a class="" href="git-collab.html"><span class="header-section-number">15</span> 협업 (Collaborating)</a></li>
+<li><a class="" href="git-conflict.html"><span class="header-section-number">16</span> 충돌 (Conflicts)</a></li>
+<li><a class="" href="git-open.html"><span class="header-section-number">17</span> 공개 과학 (Open Science)</a></li>
+<li><a class="" href="git-licensing.html"><span class="header-section-number">18</span> 라이선싱 (Licensing)</a></li>
+<li><a class="" href="git-hosting.html"><span class="header-section-number">19</span> 호스팅 (Hosting)</a></li>
+<li><a class="" href="git-korean.html"><span class="header-section-number">20</span> Git 추가설정</a></li>
+<li class="book-part">프로그래밍</li>
+<li><a class="" href="r-intro.html"><span class="header-section-number">21</span> R과 RStudio 소개</a></li>
+<li><a class="" href="r-project.html"><span class="header-section-number">22</span> RStudio 프로젝트 관리</a></li>
+<li><a class="" href="r-help.html"><span class="header-section-number">23</span> 도움 청하기</a></li>
+<li><a class="" href="r-data-structure.html"><span class="header-section-number">24</span> 자료구조</a></li>
+<li><a class="" href="r-dataframe.html"><span class="header-section-number">25</span> 데이터프레임 탐색</a></li>
+<li><a class="" href="r-subset.html"><span class="header-section-number">26</span> 부분집합 추출</a></li>
+<li><a class="" href="r-control-flow.html"><span class="header-section-number">27</span> 제어 흐름</a></li>
+<li><a class="" href="r-ggplot.html"><span class="header-section-number">28</span> 논문 품질 그래프 생성</a></li>
+<li><a class="" href="r-vectorization.html"><span class="header-section-number">29</span> 벡터화(Vectorization)</a></li>
+<li><a class="" href="r-function.html"><span class="header-section-number">30</span> 함수 설명</a></li>
+<li><a class="" href="r-writing.html"><span class="header-section-number">31</span> 데이터 저장</a></li>
+<li><a class="" href="r-plyr-split.html"><span class="header-section-number">32</span> plyr로 데이터프레임을 쪼개고 합치기</a></li>
+<li><a class="" href="r-dplyr.html"><span class="header-section-number">33</span> dplyr 솜씨있게 조작</a></li>
+<li><a class="" href="r-tidyr.html"><span class="header-section-number">34</span> tidyr 솜씨있게 조작</a></li>
+<li><a class="" href="r-knitr.html"><span class="header-section-number">35</span> knitr 보고서 생성</a></li>
+<li><a class="active" href="r-wrapup.html"><span class="header-section-number">36</span> 좋은 소프트웨어 작성법</a></li>
+<li class="book-part">데이터베이스</li>
+<li><a class="" href="database-sql.html"><span class="header-section-number">37</span> 데이터베이스와 SQL 사용하기</a></li>
+<li><a class="" href="database-sqlite.html"><span class="header-section-number">38</span> SQLite 설치</a></li>
+<li><a class="" href="database-select.html"><span class="header-section-number">39</span> 변수/칼럼 선택하기</a></li>
+<li><a class="" href="database-sort.html"><span class="header-section-number">40</span> 정렬, 중복 제거</a></li>
+<li><a class="" href="database-filter.html"><span class="header-section-number">41</span> 필터링 (Filtering)</a></li>
+<li><a class="" href="database-calc.html"><span class="header-section-number">42</span> 새로운 값 계산하기</a></li>
+<li><a class="" href="database-null.html"><span class="header-section-number">43</span> 결측 데이터 (Missing Data)</a></li>
+<li><a class="" href="database-agg.html"><span class="header-section-number">44</span> 집합(Aggregation)</a></li>
+<li><a class="" href="database-table-join.html"><span class="header-section-number">45</span> 데이터 결합하기</a></li>
+<li><a class="" href="database-data-create.html"><span class="header-section-number">46</span> 데이터 생성과 변형</a></li>
+<li><a class="" href="%EC%B0%B8%EA%B3%A0%EB%AC%B8%ED%97%8C.html">참고문헌</a></li>
+</ul>
+
+        <div class="book-extra">
+          
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="r-wrapup" class="section level1" number="36">
+<h1>
+<span class="header-section-number">36 . </span> 좋은 소프트웨어 작성법<a class="anchor" aria-label="anchor" href="#r-wrapup"><i class="fas fa-link"></i></a>
+</h1>
+<div id="r-project" class="section level2" number="36.1">
+<h2>
+<span class="header-section-number">36.1</span> 프로젝트 폴더 구조화<a class="anchor" aria-label="anchor" href="#r-project"><i class="fas fa-link"></i></a>
+</h2>
+<p>작업 프로젝트 폴더를 구조</p>
+<p>하위 폴더를 코드, 매뉴얼, 데이터, 바이너리, 출력 그래프 등으로 구분하여 프로젝트 폴더를 구조화 시키고, 잘 조직화하고, 깔끔하게 한다.
+완전 수작업으로 할 수도 있고, RStudio <code>New Project</code> 기능을 활용하거나 <code>ProjectTemplate</code> 같은 팩키지를 사용한다.</p>
+<div id="r-projecttemplate" class="rmdcaution">
+<p><strong>꿀팁: ProjectTemplate - 가능한 해결책</strong></p>
+<p>프로젝트 관리를 자동화하는 한 방식은 제3자 팩키지, <code>ProjectTemplate</code>을 설치하는 것이다.
+해당 팩키지는 프로젝트 관리에 대한 이상적인 디렉토리 구조를 설정해 놓는다.
+팩키지가 자동으로 분석 파이브라인/작업흐름을 구성해서 구조화해 놓는다.
+RStudio 기본설정된 프로젝트 관리 기능과 Git을 섞어 사용하면, 작업을 기록할 뿐만 아니라,
+동료 연구원과 작업산출물 공유를 가능케 한다.</p>
+<ol style="list-style-type: decimal">
+<li>
+<code>ProjectTemplate</code>을 설치한다.</li>
+<li>라이브러리를 불러 적재한다.</li>
+<li>프로젝트를 초기화한다.</li>
+</ol>
+<div class="sourceCode" id="cb1089"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"ProjectTemplate"</span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://projecttemplate.net">ProjectTemplate</a></span><span class="op">)</span>
+<span class="fu">create.project</span><span class="op">(</span><span class="st">"../my_project"</span>, merge.strategy <span class="op">=</span> <span class="st">"allow.non.conflict"</span><span class="op">)</span></code></pre></div>
+<p><code>ProjectTemplate</code>과 기능에 대한 자세한 사항은
+<a href="http://projecttemplate.net/index.html">ProjectTemplate</a> 홈페이지를 방문한다.</p>
+</div>
+</div>
+<div id="r-project-code" class="section level2" number="36.2">
+<h2>
+<span class="header-section-number">36.2</span> 가독성 높은 코드 생성<a class="anchor" aria-label="anchor" href="#r-project-code"><i class="fas fa-link"></i></a>
+</h2>
+<p>코드 작성에 있어 가장 중요한 부분이 코드를 가독성 있고 이해가능하게 작성하는 것이다.
+누군가 여러분이 작성한 코드를 골라 무슨 작업을 수행하는지 이해할 수 있어야 한다:
+흔히 누군가는 6개월 후에 <strong>바로 당신</strong>이 될 수 있고, 만약 그렇게 작성하지 않았다면
+과거 자기 자신 본인을 분명히 저주할 것이다.</p>
+</div>
+<div id="r-project-document" class="section level2" number="36.3">
+<h2>
+<span class="header-section-number">36.3</span> 문서화<a class="anchor" aria-label="anchor" href="#r-project-document"><i class="fas fa-link"></i></a>
+</h2>
+<p>문서화에서 왜(why) 그리고 무엇(what)은 OK, 어떻게(how)는 No.</p>
+<p>처음 코드를 작성할 때, 주석은 명령어가 무엇을 수행하는지 기술한다.
+왜냐하면, 여전히 학습중으로 개념을 명확히 하고, 나중에 다시 상기하는데 도움이 된다.
+하지만, 이러한 주석은 나중에 작성한 코드가 어떤 문제를 해결하고자 하는지
+기억을 하지 못하면 그다지 도움이 되지 못한다.
+<em>왜(why)</em> 문제를 해결하려고 하는지, 그리고 <em>어떤(what)</em> 문제인지 전달하는
+주석을 달려고 노력한다.
+<em>어떻게(how)</em>는 그 다음에 온다: 정말 걱정하지 말하야 되는 사항은 구체적인 구현이다.</p>
+</div>
+<div id="r-project-module" class="section level2" number="36.4">
+<h2>
+<span class="header-section-number">36.4</span> 코드를 모듈화<a class="anchor" aria-label="anchor" href="#r-project-module"><i class="fas fa-link"></i></a>
+</h2>
+<p>소프트웨어 카펜트리에서 추천하는 것은 작성한 함수를 분석 스크립트와
+구별해서 별도 파일에 저장시키는 것이다. 프로젝트 R세션을 열 때,
+<code>source</code> 함수로 불러올 수 있게 별도 파일로 저장한다.</p>
+<p>분석 스크립트를 너저분하지 않게 하고, 유용한 함수 저장소를
+프로젝트 분석 스크립트에 적재할 수 있게 함으로써 이러한 접근법이 깔끔하다.
+또한 관련된 함수를 쉽게 무리지어 묶는다.</p>
+</div>
+<div id="r-project-split" class="section level2" number="36.5">
+<h2>
+<span class="header-section-number">36.5</span> 문제를 잘게 쪼갠다<a class="anchor" aria-label="anchor" href="#r-project-split"><i class="fas fa-link"></i></a>
+</h2>
+<p>문제를 한입크기 조각으로 쪼갠다.</p>
+<p>처음 시작할 때, 문제 해결과 함수 작성은 어마어마한 작업이고,
+코드를 쪼개는 것도 힘들다.
+문제를 소화가능한 덩어리로 쪼개고,
+나중에 구현에 관한 구체적인 사항을 걱정한다:
+해결책을 코드로 작성할 수 있는 지점까지
+문제를 더 작게 그리고 더 작은 함수로 계속 쪼개 나간다.
+그리고 나서 다시 거꾸로 빌드해서 만들어 낸다.</p>
+</div>
+<div id="r-project-run" class="section level2" number="36.6">
+<h2>
+<span class="header-section-number">36.6</span> 작성 코드 정상 수행<a class="anchor" aria-label="anchor" href="#r-project-run"><i class="fas fa-link"></i></a>
+</h2>
+<p>작성한 코드가 올바른 작업을 수행하도록 만든다.
+즉, 작성한 함수를 테스트해서 확실히 동작하게 만든다.</p>
+</div>
+<div id="r-project-dry" class="section level2" number="36.7">
+<h2>
+<span class="header-section-number">36.7</span> 사람은 반복 금지<a class="anchor" aria-label="anchor" href="#r-project-dry"><i class="fas fa-link"></i></a>
+</h2>
+<p>함수는 프로젝트 내부에서 재사용을 쉽게 한다.
+프로젝트를 통해서 유사한 코드 라인 덩어리를 보게 되면,
+대체로 함수로 옮겨져야 되는 대상을 찾은 것이다.</p>
+<p>연산작업이 연속된 함수를 통해 실행되면,
+프로젝트는 모듈로 만들기 쉽고, 변경하기 쉽다.
+항상 특정한 입력값을 넣으면 특정한 출력값이 나오는 경우에 특히 그렇다.</p>
+</div>
+<div id="r-project-style" class="section level2" number="36.8">
+<h2>
+<span class="header-section-number">36.8</span> 스타일 고집<a class="anchor" aria-label="anchor" href="#r-project-style"><i class="fas fa-link"></i></a>
+</h2>
+<p>코드에 일관된 스타일을 지킨다.</p>
+
+</div>
+</div>
+
+
+
+  <div class="chapter-nav">
+<div class="prev"><a href="r-knitr.html"><span class="header-section-number">35</span> knitr 보고서 생성</a></div>
+<div class="next"><a href="database-sql.html"><span class="header-section-number">37</span> 데이터베이스와 SQL 사용하기</a></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#r-wrapup"><span class="header-section-number">36</span> 좋은 소프트웨어 작성법</a></li>
+<li><a class="nav-link" href="#r-project"><span class="header-section-number">36.1</span> 프로젝트 폴더 구조화</a></li>
+<li><a class="nav-link" href="#r-project-code"><span class="header-section-number">36.2</span> 가독성 높은 코드 생성</a></li>
+<li><a class="nav-link" href="#r-project-document"><span class="header-section-number">36.3</span> 문서화</a></li>
+<li><a class="nav-link" href="#r-project-module"><span class="header-section-number">36.4</span> 코드를 모듈화</a></li>
+<li><a class="nav-link" href="#r-project-split"><span class="header-section-number">36.5</span> 문제를 잘게 쪼갠다</a></li>
+<li><a class="nav-link" href="#r-project-run"><span class="header-section-number">36.6</span> 작성 코드 정상 수행</a></li>
+<li><a class="nav-link" href="#r-project-dry"><span class="header-section-number">36.7</span> 사람은 반복 금지</a></li>
+<li><a class="nav-link" href="#r-project-style"><span class="header-section-number">36.8</span> 스타일 고집</a></li>
+</ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+          
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>데이터 과학을 지탱하는 기본기</strong>" was written by 한국 알 사용자회. It was last built on 2022-05-13.</p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer><!-- dynamically load mathjax for compatibility with self-contained --><script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script><script type="text/x-mathjax-config">const popovers = document.querySelectorAll('a.footnote-ref[data-toggle="popover"]');
+for (let popover of popovers) {
+  const div = document.createElement('div');
+  div.setAttribute('style', 'position: absolute; top: 0, left:0; width:0, height:0, overflow: hidden; visibility: hidden;');
+  div.innerHTML = popover.getAttribute('data-content');
+
+  var has_math = div.querySelector("span.math");
+  if (has_math) {
+    document.body.appendChild(div);
+    MathJax.Hub.Queue(["Typeset", MathJax.Hub, div]);
+    MathJax.Hub.Queue(function() {
+      popover.setAttribute('data-content', div.innerHTML);
+      document.body.removeChild(div);
+    })
+  }
+}
+</script>
+</body>
+</html>

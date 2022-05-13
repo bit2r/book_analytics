@@ -92,17 +92,29 @@
 <li><a class="" href="r-project.html"><span class="header-section-number">22</span> RStudio 프로젝트 관리</a></li>
 <li><a class="" href="r-help.html"><span class="header-section-number">23</span> 도움 청하기</a></li>
 <li><a class="" href="r-data-structure.html"><span class="header-section-number">24</span> 자료구조</a></li>
+<li><a class="" href="r-dataframe.html"><span class="header-section-number">25</span> 데이터프레임 탐색</a></li>
+<li><a class="" href="r-subset.html"><span class="header-section-number">26</span> 부분집합 추출</a></li>
+<li><a class="" href="r-control-flow.html"><span class="header-section-number">27</span> 제어 흐름</a></li>
+<li><a class="" href="r-ggplot.html"><span class="header-section-number">28</span> 논문 품질 그래프 생성</a></li>
+<li><a class="" href="r-vectorization.html"><span class="header-section-number">29</span> 벡터화(Vectorization)</a></li>
+<li><a class="" href="r-function.html"><span class="header-section-number">30</span> 함수 설명</a></li>
+<li><a class="" href="r-writing.html"><span class="header-section-number">31</span> 데이터 저장</a></li>
+<li><a class="" href="r-plyr-split.html"><span class="header-section-number">32</span> plyr로 데이터프레임을 쪼개고 합치기</a></li>
+<li><a class="" href="r-dplyr.html"><span class="header-section-number">33</span> dplyr 솜씨있게 조작</a></li>
+<li><a class="" href="r-tidyr.html"><span class="header-section-number">34</span> tidyr 솜씨있게 조작</a></li>
+<li><a class="" href="r-knitr.html"><span class="header-section-number">35</span> knitr 보고서 생성</a></li>
+<li><a class="" href="r-wrapup.html"><span class="header-section-number">36</span> 좋은 소프트웨어 작성법</a></li>
 <li class="book-part">데이터베이스</li>
-<li><a class="" href="database-sql.html"><span class="header-section-number">25</span> 데이터베이스와 SQL 사용하기</a></li>
-<li><a class="" href="database-sqlite.html"><span class="header-section-number">26</span> SQLite 설치</a></li>
-<li><a class="" href="database-select.html"><span class="header-section-number">27</span> 변수/칼럼 선택하기</a></li>
-<li><a class="" href="database-sort.html"><span class="header-section-number">28</span> 정렬, 중복 제거</a></li>
-<li><a class="" href="database-filter.html"><span class="header-section-number">29</span> 필터링 (Filtering)</a></li>
-<li><a class="" href="database-calc.html"><span class="header-section-number">30</span> 새로운 값 계산하기</a></li>
-<li><a class="" href="database-null.html"><span class="header-section-number">31</span> 결측 데이터 (Missing Data)</a></li>
-<li><a class="" href="database-agg.html"><span class="header-section-number">32</span> 집합(Aggregation)</a></li>
-<li><a class="" href="database-table-join.html"><span class="header-section-number">33</span> 데이터 결합하기</a></li>
-<li><a class="" href="database-data-create.html"><span class="header-section-number">34</span> 데이터 생성과 변형</a></li>
+<li><a class="" href="database-sql.html"><span class="header-section-number">37</span> 데이터베이스와 SQL 사용하기</a></li>
+<li><a class="" href="database-sqlite.html"><span class="header-section-number">38</span> SQLite 설치</a></li>
+<li><a class="" href="database-select.html"><span class="header-section-number">39</span> 변수/칼럼 선택하기</a></li>
+<li><a class="" href="database-sort.html"><span class="header-section-number">40</span> 정렬, 중복 제거</a></li>
+<li><a class="" href="database-filter.html"><span class="header-section-number">41</span> 필터링 (Filtering)</a></li>
+<li><a class="" href="database-calc.html"><span class="header-section-number">42</span> 새로운 값 계산하기</a></li>
+<li><a class="" href="database-null.html"><span class="header-section-number">43</span> 결측 데이터 (Missing Data)</a></li>
+<li><a class="" href="database-agg.html"><span class="header-section-number">44</span> 집합(Aggregation)</a></li>
+<li><a class="" href="database-table-join.html"><span class="header-section-number">45</span> 데이터 결합하기</a></li>
+<li><a class="" href="database-data-create.html"><span class="header-section-number">46</span> 데이터 생성과 변형</a></li>
 <li><a class="" href="%EC%B0%B8%EA%B3%A0%EB%AC%B8%ED%97%8C.html">참고문헌</a></li>
 </ul>
 
@@ -334,7 +346,7 @@ GUI는 선택지를 보여주고, 사용자가 선택지중에서 선택하는 �
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>데이터 과학을 지탱하는 기본기</strong>" was written by 한국 알 사용자회. It was last built on 2022-05-12.</p>
+    <p>"<strong>데이터 과학을 지탱하는 기본기</strong>" was written by 한국 알 사용자회. It was last built on 2022-05-13.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">
@@ -342,6 +354,34 @@ GUI는 선택지를 보여주고, 사용자가 선택지중에서 선택하는 �
   </div>
 
 </div></div>
-</footer>
+</footer><!-- dynamically load mathjax for compatibility with self-contained --><script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script><script type="text/x-mathjax-config">const popovers = document.querySelectorAll('a.footnote-ref[data-toggle="popover"]');
+for (let popover of popovers) {
+  const div = document.createElement('div');
+  div.setAttribute('style', 'position: absolute; top: 0, left:0; width:0, height:0, overflow: hidden; visibility: hidden;');
+  div.innerHTML = popover.getAttribute('data-content');
+
+  var has_math = div.querySelector("span.math");
+  if (has_math) {
+    document.body.appendChild(div);
+    MathJax.Hub.Queue(["Typeset", MathJax.Hub, div]);
+    MathJax.Hub.Queue(function() {
+      popover.setAttribute('data-content', div.innerHTML);
+      document.body.removeChild(div);
+    })
+  }
+}
+</script>
 </body>
 </html>

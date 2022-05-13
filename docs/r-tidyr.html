@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>34 . tidyr 솜씨있게 조작 | 데이터 과학을 지탱하는 기본기</title>
+<meta name="author" content="한국 알 사용자회">
+<meta name="description" content="과학연구원들은 흔히 ‘wide’ 형식에서 ‘long’ 형식으로 혹은 역으로 데이터를 솜씨있게 조작해야 한다. ‘long’ 형식은 다음과 같이 정의된다: 각 칼럼이 변수. 각 행이 관측점 ‘long’ 형식에서, 일반적으로 관측된 변수에 대해서 칼럼이 하나만 있고, 다른 칼럼은 ID 변수다. ‘wide’ 형식에서, 각 행은 흔히...">
+<meta name="generator" content="bookdown 0.26 with bs4_book()">
+<meta property="og:title" content="34 . tidyr 솜씨있게 조작 | 데이터 과학을 지탱하는 기본기">
+<meta property="og:type" content="book">
+<meta property="og:description" content="과학연구원들은 흔히 ‘wide’ 형식에서 ‘long’ 형식으로 혹은 역으로 데이터를 솜씨있게 조작해야 한다. ‘long’ 형식은 다음과 같이 정의된다: 각 칼럼이 변수. 각 행이 관측점 ‘long’ 형식에서, 일반적으로 관측된 변수에 대해서 칼럼이 하나만 있고, 다른 칼럼은 ID 변수다. ‘wide’ 형식에서, 각 행은 흔히...">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="34 . tidyr 솜씨있게 조작 | 데이터 과학을 지탱하는 기본기">
+<meta name="twitter:description" content="과학연구원들은 흔히 ‘wide’ 형식에서 ‘long’ 형식으로 혹은 역으로 데이터를 솜씨있게 조작해야 한다. ‘long’ 형식은 다음과 같이 정의된다: 각 칼럼이 변수. 각 행이 관측점 ‘long’ 형식에서, 일반적으로 관측된 변수에 대해서 칼럼이 하나만 있고, 다른 칼럼은 ID 변수다. ‘wide’ 형식에서, 각 행은 흔히...">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.3.1/transition.js"></script><script src="libs/bs3compat-0.3.1/tabs.js"></script><script src="libs/bs3compat-0.3.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
+    
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  </style>
+<style type="text/css">
+    /* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+    div.csl-bib-body { }
+    div.csl-entry {
+      clear: both;
+        }
+    .hanging div.csl-entry {
+      margin-left:2em;
+      text-indent:-2em;
+    }
+    div.csl-left-margin {
+      min-width:2em;
+      float:left;
+    }
+    div.csl-right-inline {
+      margin-left:2em;
+      padding-left:1em;
+    }
+    div.csl-indent {
+      margin-left: 2em;
+    }
+  </style>
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">데이터 과학을 지탱하는 기본기</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html">데이터 과학을 지탱하는 기본기</a></li>
+<li class="book-part">자동화</li>
+<li><a class="" href="shell-intro.html"><span class="header-section-number">1</span> 쉘(Shell) 소개</a></li>
+<li><a class="" href="shell-filedir.html"><span class="header-section-number">2</span> 파일과 폴더 넘나들기</a></li>
+<li><a class="" href="shell-create.html"><span class="header-section-number">3</span> 파일과 디렉토리 작업</a></li>
+<li><a class="" href="pipe-filter.html"><span class="header-section-number">4</span> 파이프와 필터</a></li>
+<li><a class="" href="shell-loop.html"><span class="header-section-number">5</span> 루프(Loops)</a></li>
+<li><a class="" href="shell-script.html"><span class="header-section-number">6</span> 쉘 스크립트</a></li>
+<li><a class="" href="shell-find.html"><span class="header-section-number">7</span> 파일, 문자, 디렉토리 등 찾기</a></li>
+<li class="book-part">버전제어와 협업</li>
+<li><a class="" href="git.html"><span class="header-section-number">8</span> 자동화된 버젼제어</a></li>
+<li><a class="" href="git-setup.html"><span class="header-section-number">9</span> Git 구축 및 설정</a></li>
+<li><a class="" href="git-create.html"><span class="header-section-number">10</span> 저장소 생성</a></li>
+<li><a class="" href="git-change.html"><span class="header-section-number">11</span> 변경사항 추적</a></li>
+<li><a class="" href="git-history.html"><span class="header-section-number">12</span> 이력 탐색</a></li>
+<li><a class="" href="git-ignore.html"><span class="header-section-number">13</span> 추적대상에서 제외</a></li>
+<li><a class="" href="git-github.html"><span class="header-section-number">14</span> GitHub 원격작업</a></li>
+<li><a class="" href="git-collab.html"><span class="header-section-number">15</span> 협업 (Collaborating)</a></li>
+<li><a class="" href="git-conflict.html"><span class="header-section-number">16</span> 충돌 (Conflicts)</a></li>
+<li><a class="" href="git-open.html"><span class="header-section-number">17</span> 공개 과학 (Open Science)</a></li>
+<li><a class="" href="git-licensing.html"><span class="header-section-number">18</span> 라이선싱 (Licensing)</a></li>
+<li><a class="" href="git-hosting.html"><span class="header-section-number">19</span> 호스팅 (Hosting)</a></li>
+<li><a class="" href="git-korean.html"><span class="header-section-number">20</span> Git 추가설정</a></li>
+<li class="book-part">프로그래밍</li>
+<li><a class="" href="r-intro.html"><span class="header-section-number">21</span> R과 RStudio 소개</a></li>
+<li><a class="" href="r-project.html"><span class="header-section-number">22</span> RStudio 프로젝트 관리</a></li>
+<li><a class="" href="r-help.html"><span class="header-section-number">23</span> 도움 청하기</a></li>
+<li><a class="" href="r-data-structure.html"><span class="header-section-number">24</span> 자료구조</a></li>
+<li><a class="" href="r-dataframe.html"><span class="header-section-number">25</span> 데이터프레임 탐색</a></li>
+<li><a class="" href="r-subset.html"><span class="header-section-number">26</span> 부분집합 추출</a></li>
+<li><a class="" href="r-control-flow.html"><span class="header-section-number">27</span> 제어 흐름</a></li>
+<li><a class="" href="r-ggplot.html"><span class="header-section-number">28</span> 논문 품질 그래프 생성</a></li>
+<li><a class="" href="r-vectorization.html"><span class="header-section-number">29</span> 벡터화(Vectorization)</a></li>
+<li><a class="" href="r-function.html"><span class="header-section-number">30</span> 함수 설명</a></li>
+<li><a class="" href="r-writing.html"><span class="header-section-number">31</span> 데이터 저장</a></li>
+<li><a class="" href="r-plyr-split.html"><span class="header-section-number">32</span> plyr로 데이터프레임을 쪼개고 합치기</a></li>
+<li><a class="" href="r-dplyr.html"><span class="header-section-number">33</span> dplyr 솜씨있게 조작</a></li>
+<li><a class="active" href="r-tidyr.html"><span class="header-section-number">34</span> tidyr 솜씨있게 조작</a></li>
+<li><a class="" href="r-knitr.html"><span class="header-section-number">35</span> knitr 보고서 생성</a></li>
+<li><a class="" href="r-wrapup.html"><span class="header-section-number">36</span> 좋은 소프트웨어 작성법</a></li>
+<li class="book-part">데이터베이스</li>
+<li><a class="" href="database-sql.html"><span class="header-section-number">37</span> 데이터베이스와 SQL 사용하기</a></li>
+<li><a class="" href="database-sqlite.html"><span class="header-section-number">38</span> SQLite 설치</a></li>
+<li><a class="" href="database-select.html"><span class="header-section-number">39</span> 변수/칼럼 선택하기</a></li>
+<li><a class="" href="database-sort.html"><span class="header-section-number">40</span> 정렬, 중복 제거</a></li>
+<li><a class="" href="database-filter.html"><span class="header-section-number">41</span> 필터링 (Filtering)</a></li>
+<li><a class="" href="database-calc.html"><span class="header-section-number">42</span> 새로운 값 계산하기</a></li>
+<li><a class="" href="database-null.html"><span class="header-section-number">43</span> 결측 데이터 (Missing Data)</a></li>
+<li><a class="" href="database-agg.html"><span class="header-section-number">44</span> 집합(Aggregation)</a></li>
+<li><a class="" href="database-table-join.html"><span class="header-section-number">45</span> 데이터 결합하기</a></li>
+<li><a class="" href="database-data-create.html"><span class="header-section-number">46</span> 데이터 생성과 변형</a></li>
+<li><a class="" href="%EC%B0%B8%EA%B3%A0%EB%AC%B8%ED%97%8C.html">참고문헌</a></li>
+</ul>
+
+        <div class="book-extra">
+          
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="r-tidyr" class="section level1" number="34">
+<h1>
+<span class="header-section-number">34 . </span> <code>tidyr</code> 솜씨있게 조작<a class="anchor" aria-label="anchor" href="#r-tidyr"><i class="fas fa-link"></i></a>
+</h1>
+<p>과학연구원들은 흔히 ‘wide’ 형식에서 ‘long’ 형식으로 혹은 역으로 데이터를 솜씨있게 조작해야 한다.
+‘long’ 형식은 다음과 같이 정의된다:</p>
+<ul>
+<li>각 칼럼이 변수.</li>
+<li>각 행이 관측점</li>
+</ul>
+<p>‘long’ 형식에서, 일반적으로 관측된 변수에 대해서 칼럼이 하나만 있고,
+다른 칼럼은 ID 변수다.</p>
+<p>‘wide’ 형식에서, 각 행은 흔히 관측점(site/subject/patient)이며,
+동일한 자료형을 담고 있는 다수 관측변수를 갖게 된다.
+시간이 경과함에 따라 반복되는 관측점이거나, 다수 변수의 관측점(혹은 둘이 혼합된 사례)일 수 있다.
+데이터 입력이 더 단순하거나 일부 다른 응용사례에서 ‘wide’ 형식을 선호할 수 있다.
+하지만, <code>R</code> 함수 다수는 ’long’형식을 가정하고 설계되었다.
+이번 학습을 통해서 원래 데이터 형식에 관계없이 데이터를 효율적으로 변환하는 방식을 학습한다.</p>
+<div class="inline-figure"><img src="assets/images/r/14-tidyr-fig1.png" style="width:100.0%"></div>
+<p>데이터 형식은 주로 가독성에 영향을 준다.
+사람에게, ‘wide’ 형식이 좀더 직관적인데, 이유는 데이터 형상으로 인해 화면에 더 많은 데이터를 볼 수 있기 때문이다.
+하지만, 컴퓨터에게 ‘long’ 형식이 더 가독성이 높고, 데이터베이스 형식에 훨씬 더 가깝다.
+데이터프레임에 ID 변수는 데이터베이스 필드(Field)와 유사하고, 관측변수는 데이터베이스 값(Value)와 유사하다.</p>
+<div id="r-tidyr-start" class="section level2" number="34.1">
+<h2>
+<span class="header-section-number">34.1</span> 시작하기<a class="anchor" aria-label="anchor" href="#r-tidyr-start"><i class="fas fa-link"></i></a>
+</h2>
+<p>(아마도 이전 학습에서 <code>dplyr</code>팩키지는 설치했을 것이다)
+먼저 설치하지 않았다면, 팩키지를 설치한다:</p>
+<div class="sourceCode" id="cb1038"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co">#install.packages("tidyr")</span>
+<span class="co">#install.packages("dplyr")</span></code></pre></div>
+<p>팩키지를 불러와서 적재한다.</p>
+<div class="sourceCode" id="cb1039"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://tidyr.tidyverse.org">"tidyr"</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://dplyr.tidyverse.org">"dplyr"</a></span><span class="op">)</span></code></pre></div>
+<p>먼저, <code>gapminder</code> 데이터프레임 자료구조를 살펴보자:</p>
+<div class="sourceCode" id="cb1040"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">gapminder</span><span class="op">)</span></code></pre></div>
+<pre><code>## 'data.frame':    1704 obs. of  6 variables:
+##  $ country  : chr  "Afghanistan" "Afghanistan" "Afghanistan" "Afghanistan" ...
+##  $ year     : int  1952 1957 1962 1967 1972 1977 1982 1987 1992 1997 ...
+##  $ pop      : num  8425333 9240934 10267083 11537966 13079460 ...
+##  $ continent: chr  "Asia" "Asia" "Asia" "Asia" ...
+##  $ lifeExp  : num  28.8 30.3 32 34 36.1 ...
+##  $ gdpPercap: num  779 821 853 836 740 ...</code></pre>
+</div>
+<div id="r-tidyr-challenge-one" class="section level2" number="34.2">
+<h2>
+<span class="header-section-number">34.2</span> 도전과제 1<a class="anchor" aria-label="anchor" href="#r-tidyr-challenge-one"><i class="fas fa-link"></i></a>
+</h2>
+<p><code>gapminder</code>는 순수하게 ‘long’ 형식인가, ‘wide’ 형식인가, 혹은 두가지 특징을 갖는 중간형식인가?</p>
+<blockquote>
+<p><strong>도전과제 1 에 대한 해답</strong></p>
+<p>원 gapminder 데이터프레임은 두가지 특징을 갖는 중간 형식이다.
+데이터프레임에 다수 관측변수 (<code>pop</code>,<code>lifeExp</code>,<code>gdpPercap</code>)가 있다는 점에서,
+순수한 긴형식은 아니라고 볼 수 있다.</p>
+</blockquote>
+<p><code>gapminder</code> 데이터셋처럼, 관측된 데이터에 대한 다양한 자료형이 있다.
+대부분 순도 100% ‘long’ 혹은 순도 100% ‘wide’ 자료형식 사이 어딘가에 위치하게 된다.
+<code>gapminder</code> 데이터셋에는 “ID” 변수가 3개(<code>continent</code>, <code>country</code>, <code>year</code>), “관측변수”가 3개(<code>pop</code>,<code>lifeExp</code>,<code>gdpPercap</code>) 있다.
+저자는 일반적으로 대부분의 경우에 중간단계 형식 데이터를 선호한다.
+칼럼 1곳에 모든 관측점이 3가지 서로 다른 단위를 갖지 않음에도 불구하고 그렇다.
+데이터프레임을 좀더 늘리는 연산은 거의 없다(예를 들어, ID변수 4개, 관측변수 1개).</p>
+<p>흔히 벡터기반인 다수 R 함수를 사용할 때, 흔히 다른 단위를 갖는 값에 수학적 연산작업을 수행하지는 않느다.
+예를 들어, 순수 ‘long’ 형식을 사용할 때,
+인구, 기대수명, GDP의 모든 값에 대한 평균은 의미가 없는데,
+이유는 상호 호환되지 않는 3가지 단위를 갖는 평균값을 계산하여 반환하기 때문이다.
+해법은 먼저 집단으로 그룹지어서 데이터를 솜씨있게 다루거나 (<code>dplyr</code> 학습교재 참조),
+데이터프레임 구조를 변경시키는 것이다.
+<strong>주의:</strong> R에서 일부 도식화 함수는 ‘wide’ 형식 데이터에 더 잘 작동한다.</p>
+</div>
+<div id="r-tidyr-gather" class="section level2" number="34.3">
+<h2>
+<span class="header-section-number">34.3</span> <code>gather()</code>로 <code>wide</code> → <code>long</code> 전환<a class="anchor" aria-label="anchor" href="#r-tidyr-gather"><i class="fas fa-link"></i></a>
+</h2>
+<p>지금까지, 깔끔한 형식을 갖는 원본 <code>gapminder</code> 데이터셋으로 작업을 했다.
+하지만, ‘실제’ 데이터(즉, 자체 연구 데이터)는 절대로 잘 구성되어 있지 못하다.
+<code>gapminder</code> 데이터셋에 대한 <code>wide</code> 형식 버젼을 갖고 시작해본다.</p>
+<blockquote>
+<p><a href="https://raw.githubusercontent.com/swcarpentry/r-novice-gapminder/gh-pages/_episodes_rmd/data/gapminder_wide.csv">이곳에서</a> ‘wide’ 형태를 갖는
+<code>gapminder</code> 데이터를 다운로드 받아서, 로컬 <code>data</code> 폴더에 저장시킨다.</p>
+</blockquote>
+<p>데이터 파일을 불러와서 살펴보자.
+주의: <code>continent</code>, <code>country</code> 칼럼이 요인형 자료형이 될 필요가 없다.
+따라서 <code><a href="https://rdrr.io/r/utils/read.table.html">read.csv()</a></code> 함수 인자로 <code>stringsAsFactors</code>을 거짓(FALSE)으로 설정한다.</p>
+<div class="sourceCode" id="cb1042"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">gap_wide</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html">read.csv</a></span><span class="op">(</span><span class="st">"data/gapminder_wide.csv"</span>, stringsAsFactors <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">gap_wide</span><span class="op">)</span></code></pre></div>
+<pre><code>## 'data.frame':    142 obs. of  38 variables:
+##  $ continent     : chr  "Africa" "Africa" "Africa" "Africa" ...
+##  $ country       : chr  "Algeria" "Angola" "Benin" "Botswana" ...
+##  $ gdpPercap_1952: num  2449 3521 1063 851 543 ...
+##  $ gdpPercap_1957: num  3014 3828 960 918 617 ...
+##  $ gdpPercap_1962: num  2551 4269 949 984 723 ...
+##  $ gdpPercap_1967: num  3247 5523 1036 1215 795 ...
+##  $ gdpPercap_1972: num  4183 5473 1086 2264 855 ...
+##  $ gdpPercap_1977: num  4910 3009 1029 3215 743 ...
+##  $ gdpPercap_1982: num  5745 2757 1278 4551 807 ...
+##  $ gdpPercap_1987: num  5681 2430 1226 6206 912 ...
+##  $ gdpPercap_1992: num  5023 2628 1191 7954 932 ...
+##  $ gdpPercap_1997: num  4797 2277 1233 8647 946 ...
+##  $ gdpPercap_2002: num  5288 2773 1373 11004 1038 ...
+##  $ gdpPercap_2007: num  6223 4797 1441 12570 1217 ...
+##  $ lifeExp_1952  : num  43.1 30 38.2 47.6 32 ...
+##  $ lifeExp_1957  : num  45.7 32 40.4 49.6 34.9 ...
+##  $ lifeExp_1962  : num  48.3 34 42.6 51.5 37.8 ...
+##  $ lifeExp_1967  : num  51.4 36 44.9 53.3 40.7 ...
+##  $ lifeExp_1972  : num  54.5 37.9 47 56 43.6 ...
+##  $ lifeExp_1977  : num  58 39.5 49.2 59.3 46.1 ...
+##  $ lifeExp_1982  : num  61.4 39.9 50.9 61.5 48.1 ...
+##  $ lifeExp_1987  : num  65.8 39.9 52.3 63.6 49.6 ...
+##  $ lifeExp_1992  : num  67.7 40.6 53.9 62.7 50.3 ...
+##  $ lifeExp_1997  : num  69.2 41 54.8 52.6 50.3 ...
+##  $ lifeExp_2002  : num  71 41 54.4 46.6 50.6 ...
+##  $ lifeExp_2007  : num  72.3 42.7 56.7 50.7 52.3 ...
+##  $ pop_1952      : num  9279525 4232095 1738315 442308 4469979 ...
+##  $ pop_1957      : num  10270856 4561361 1925173 474639 4713416 ...
+##  $ pop_1962      : num  11000948 4826015 2151895 512764 4919632 ...
+##  $ pop_1967      : num  12760499 5247469 2427334 553541 5127935 ...
+##  $ pop_1972      : num  14760787 5894858 2761407 619351 5433886 ...
+##  $ pop_1977      : num  17152804 6162675 3168267 781472 5889574 ...
+##  $ pop_1982      : num  20033753 7016384 3641603 970347 6634596 ...
+##  $ pop_1987      : num  23254956 7874230 4243788 1151184 7586551 ...
+##  $ pop_1992      : num  26298373 8735988 4981671 1342614 8878303 ...
+##  $ pop_1997      : num  29072015 9875024 6066080 1536536 10352843 ...
+##  $ pop_2002      : int  31287142 10866106 7026113 1630347 12251209 7021078 15929988 4048013 8835739 614382 ...
+##  $ pop_2007      : int  33333216 12420476 8078314 1639131 14326203 8390505 17696293 4369038 10238807 710960 ...</code></pre>
+<div class="inline-figure"><img src="assets/images/r/14-tidyr-fig2.png" style="width:100.0%"></div>
+<p>깔끔한 중간 데이터 형식을 얻는 첫단추는 먼저 ‘wide’ 형식에서 ‘long’ 형식으로 변환하는 것이다.
+<code>tidyr</code> 팩키지 <code><a href="https://tidyr.tidyverse.org/reference/gather.html">gather()</a></code> 함수는 관측 변수를 모아서(gather) 단일 변수로 변환한다.</p>
+<div class="inline-figure"><img src="assets/images/r/14-tidyr-fig3.png" style="width:100.0%"></div>
+<div class="sourceCode" id="cb1044"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">gap_long</span> <span class="op">&lt;-</span> <span class="va">gap_wide</span> <span class="op"><a href="https://tidyr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+    <span class="fu"><a href="https://tidyr.tidyverse.org/reference/gather.html">gather</a></span><span class="op">(</span><span class="va">obstype_year</span>, <span class="va">obs_values</span>, <span class="fu"><a href="https://tidyselect.r-lib.org/reference/starts_with.html">starts_with</a></span><span class="op">(</span><span class="st">'pop'</span><span class="op">)</span>,
+           <span class="fu"><a href="https://tidyselect.r-lib.org/reference/starts_with.html">starts_with</a></span><span class="op">(</span><span class="st">'lifeExp'</span><span class="op">)</span>, <span class="fu"><a href="https://tidyselect.r-lib.org/reference/starts_with.html">starts_with</a></span><span class="op">(</span><span class="st">'gdpPercap'</span><span class="op">)</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">gap_long</span><span class="op">)</span></code></pre></div>
+<pre><code>## 'data.frame':    5112 obs. of  4 variables:
+##  $ continent   : chr  "Africa" "Africa" "Africa" "Africa" ...
+##  $ country     : chr  "Algeria" "Angola" "Benin" "Botswana" ...
+##  $ obstype_year: chr  "pop_1952" "pop_1952" "pop_1952" "pop_1952" ...
+##  $ obs_values  : num  9279525 4232095 1738315 442308 4469979 ...</code></pre>
+<p>위에서 파이프 구문을 사용했는데, 이전 수업에서 <code>dplyr</code>로 작업한 것과 유사하다.
+사실, <code>dplyr</code>과 <code>tidyr</code>은 상호 호환되어, 파이프 구문으로 <code>dplyr</code>과 <code>tidyr</code> 팩키지 함수를 섞어 사용한다.</p>
+<p><code><a href="https://tidyr.tidyverse.org/reference/gather.html">gather()</a></code> 함수 내부에, 먼저 신규 ID 변수(<code>obstype_year</code>)에 대한 명칭,
+병합된 관측변수(<code>obs_value</code>)에 대한 명칭, 그리고 나서 이전 관측변수에 대한 명칭을 신규 칼럼명으로 부여한다.
+모든 관측변수를 타이핑했지만, <code><a href="https://dplyr.tidyverse.org/reference/select.html">select()</a></code> 함수처럼(<code>dplyr</code> 수업 참조),
+<code><a href="https://tidyselect.r-lib.org/reference/starts_with.html">starts_with()</a></code> 함수에 인자로 넣어, 원하는 문자열로 시작되는 모든 변수를 선택할 수도 있다.
+<code><a href="https://tidyr.tidyverse.org/reference/gather.html">gather()</a></code> 모을 필요없는 변수(예를 들어, ID 변수)를 식별하는데,
+<code>-</code> 기호를 사용하는 구문도 지원한다.</p>
+<div class="inline-figure"><img src="assets/images/r/14-tidyr-fig4.png" style="width:100.0%"></div>
+<div class="sourceCode" id="cb1046"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">gap_long</span> <span class="op">&lt;-</span> <span class="va">gap_wide</span> <span class="op"><a href="https://tidyr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://tidyr.tidyverse.org/reference/gather.html">gather</a></span><span class="op">(</span><span class="va">obstype_year</span>,<span class="va">obs_values</span>,<span class="op">-</span><span class="va">continent</span>,<span class="op">-</span><span class="va">country</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">gap_long</span><span class="op">)</span></code></pre></div>
+<pre><code>## 'data.frame':    5112 obs. of  4 variables:
+##  $ continent   : chr  "Africa" "Africa" "Africa" "Africa" ...
+##  $ country     : chr  "Algeria" "Angola" "Benin" "Botswana" ...
+##  $ obstype_year: chr  "gdpPercap_1952" "gdpPercap_1952" "gdpPercap_1952" "gdpPercap_1952" ...
+##  $ obs_values  : num  2449 3521 1063 851 543 ...</code></pre>
+<p>이런 특수한 데이터프레임에는 별거 없어 보일 수도 있다.
+하지만, ID 변수 하나, 규칙없는 변수명 관측변수 40개를 갖는 경우가 있을 수 있다.
+이런 유연성은 시간을 상당히 절약해 준다!</p>
+<p>이제 <code>obstype_year</code>은 정보가 두조각으로 나뉜다: 관측 유형(<code>pop</code>,<code>lifeExp</code>, <code>gdpPercap</code>)과 연도(<code>year</code>).
+<code><a href="https://tidyr.tidyverse.org/reference/separate.html">separate()</a></code> 함수를 사용해서 문자열을 다수 변수로 쪼갠다.</p>
+<div class="sourceCode" id="cb1048"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">gap_long</span> <span class="op">&lt;-</span> <span class="va">gap_long</span> <span class="op"><a href="https://tidyr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://tidyr.tidyverse.org/reference/separate.html">separate</a></span><span class="op">(</span><span class="va">obstype_year</span>,into<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">'obs_type'</span>,<span class="st">'year'</span><span class="op">)</span>,sep<span class="op">=</span><span class="st">"_"</span><span class="op">)</span>
+<span class="va">gap_long</span><span class="op">$</span><span class="va">year</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/integer.html">as.integer</a></span><span class="op">(</span><span class="va">gap_long</span><span class="op">$</span><span class="va">year</span><span class="op">)</span></code></pre></div>
+</div>
+<div id="r-tidyr-challenge-two" class="section level2" number="34.4">
+<h2>
+<span class="header-section-number">34.4</span> 도전 과제 2<a class="anchor" aria-label="anchor" href="#r-tidyr-challenge-two"><i class="fas fa-link"></i></a>
+</h2>
+<p><code>gap_long</code>을 사용해서, 각 대륙별로 평균 기대수명, 인구, 1인당 GDP를 계산한다.
+<strong>힌트:</strong> <code>dplyr</code> 수업에서 학습한 <code><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by()</a></code> 와 <code><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarize()</a></code> 함수를 사용한다.</p>
+<blockquote>
+<p><strong>도전과제 2 에 대한 해답</strong></p>
+<div class="sourceCode" id="cb1049"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">gap_long</span> <span class="op"><a href="https://tidyr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">continent</span>,<span class="va">obs_type</span><span class="op">)</span> <span class="op"><a href="https://tidyr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarize</a></span><span class="op">(</span>means<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">obs_values</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<pre><code>## # A tibble: 15 × 3
+## # Groups:   continent [5]
+##   continent obs_type       means
+##   &lt;chr&gt;     &lt;chr&gt;          &lt;dbl&gt;
+## 1 Africa    gdpPercap     2194. 
+## 2 Africa    lifeExp         48.9
+## 3 Africa    pop        9916003. 
+## 4 Americas  gdpPercap     7136. 
+## 5 Americas  lifeExp         64.7
+## 6 Americas  pop       24504795. 
+## # … with 9 more rows</code></pre>
+</blockquote>
+</div>
+<div id="r-tidyr-wide" class="section level2" number="34.5">
+<h2>
+<span class="header-section-number">34.5</span> <code>spread()</code>로 ‘long’ 형식 변환<a class="anchor" aria-label="anchor" href="#r-tidyr-wide"><i class="fas fa-link"></i></a>
+</h2>
+<p>이제 작업을 이중점검 하도록,
+<code><a href="https://tidyr.tidyverse.org/reference/gather.html">gather()</a></code> 역함수(적절히 작명된 <code><a href="https://tidyr.tidyverse.org/reference/spread.html">spread()</a></code>)를 사용해서 관측변수를 다시 되돌린다.
+그리고 나면 <code>gap_long</code>을 원래 중간 형식 혹은 ‘wide’ 형식으로 퍼뜨린다.
+중간 형식에서부터 시작해보자.</p>
+<div class="sourceCode" id="cb1051"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">gap_normal</span> <span class="op">&lt;-</span> <span class="va">gap_long</span> <span class="op"><a href="https://tidyr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://tidyr.tidyverse.org/reference/spread.html">spread</a></span><span class="op">(</span><span class="va">obs_type</span>,<span class="va">obs_values</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/dim.html">dim</a></span><span class="op">(</span><span class="va">gap_normal</span><span class="op">)</span></code></pre></div>
+<pre><code>## [1] 1704    6</code></pre>
+<div class="sourceCode" id="cb1053"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/dim.html">dim</a></span><span class="op">(</span><span class="va">gapminder</span><span class="op">)</span></code></pre></div>
+<pre><code>## [1] 1704    6</code></pre>
+<div class="sourceCode" id="cb1055"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">gap_normal</span><span class="op">)</span></code></pre></div>
+<pre><code>## [1] "continent" "country"   "year"      "gdpPercap" "lifeExp"   "pop"</code></pre>
+<div class="sourceCode" id="cb1057"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">gapminder</span><span class="op">)</span></code></pre></div>
+<pre><code>## [1] "country"   "year"      "pop"       "continent" "lifeExp"   "gdpPercap"</code></pre>
+<p>이제, 최초 데이터프레임 <code>gapminder</code>와 동일한 차원을 갖는 중간 데이터프레임 <code>gap_normal</code>이 있다.
+하지만, 변수 순서가 다르다. 순서를 수정하기 전에, <code><a href="https://rdrr.io/r/base/all.equal.html">all.equal()</a></code> 함수를 사용해서 동일한지 확인한다.</p>
+<div class="sourceCode" id="cb1059"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">gap_normal</span> <span class="op">&lt;-</span> <span class="va">gap_normal</span><span class="op">[</span>,<span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">gapminder</span><span class="op">)</span><span class="op">]</span>
+<span class="fu"><a href="https://rdrr.io/r/base/all.equal.html">all.equal</a></span><span class="op">(</span><span class="va">gap_normal</span>,<span class="va">gapminder</span><span class="op">)</span></code></pre></div>
+<pre><code>## [1] "Component \"country\": 1704 string mismatches"          
+## [2] "Component \"pop\": Mean relative difference: 1.63"      
+## [3] "Component \"continent\": 1212 string mismatches"        
+## [4] "Component \"lifeExp\": Mean relative difference: 0.204" 
+## [5] "Component \"gdpPercap\": Mean relative difference: 1.16"</code></pre>
+<div class="sourceCode" id="cb1061"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">gap_normal</span><span class="op">)</span></code></pre></div>
+<pre><code>##   country year      pop continent lifeExp gdpPercap
+## 1 Algeria 1952  9279525    Africa    43.1      2449
+## 2 Algeria 1957 10270856    Africa    45.7      3014
+## 3 Algeria 1962 11000948    Africa    48.3      2551
+## 4 Algeria 1967 12760499    Africa    51.4      3247
+## 5 Algeria 1972 14760787    Africa    54.5      4183
+## 6 Algeria 1977 17152804    Africa    58.0      4910</code></pre>
+<div class="sourceCode" id="cb1063"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">gapminder</span><span class="op">)</span></code></pre></div>
+<pre><code>##       country year      pop continent lifeExp gdpPercap
+## 1 Afghanistan 1952  8425333      Asia    28.8       779
+## 2 Afghanistan 1957  9240934      Asia    30.3       821
+## 3 Afghanistan 1962 10267083      Asia    32.0       853
+## 4 Afghanistan 1967 11537966      Asia    34.0       836
+## 5 Afghanistan 1972 13079460      Asia    36.1       740
+## 6 Afghanistan 1977 14880372      Asia    38.4       786</code></pre>
+<p>거의 다 왔다. 최초 데이터프레임은 <code>country</code>, <code>continent</code>, <code>year</code> 순으로 정렬되었다.</p>
+<div class="sourceCode" id="cb1065"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">gap_normal</span> <span class="op">&lt;-</span> <span class="va">gap_normal</span> <span class="op"><a href="https://tidyr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span><span class="op">(</span><span class="va">country</span>,<span class="va">continent</span>,<span class="va">year</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/all.equal.html">all.equal</a></span><span class="op">(</span><span class="va">gap_normal</span>,<span class="va">gapminder</span><span class="op">)</span></code></pre></div>
+<pre><code>## [1] TRUE</code></pre>
+<p>훌륭하다! ‘long’ 형식에서 다시 중간 형식으로 돌아갔지만, 코드에 어떤 오류도 스며들지 않았다.</p>
+<p>이제, ‘long’ 형식을 ‘wide’ 형식으로 변환하자.
+‘wide’ 형식에서, <code>country</code> 국가와 <code>contienet</code> 대륙을 ID 변수로 두고,
+관츠점을 3가지 측정값(<code>pop</code>,<code>lifeExp</code>,<code>gdpPercap</code>)과 시간(<code>year</code>)으로 쭉 뿌렸다.
+먼저, 모든 신규 변수(측정값 * 시간)에 대한 적절한 라벨을 생성할 필요가 있다.
+또한, ID변수를 합쳐서 <code>gap_wide</code>를 정의하는 과정을 단순화할 필요가 있다.</p>
+<div class="sourceCode" id="cb1067"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">gap_temp</span> <span class="op">&lt;-</span> <span class="va">gap_long</span> <span class="op"><a href="https://tidyr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://tidyr.tidyverse.org/reference/unite.html">unite</a></span><span class="op">(</span><span class="va">var_ID</span>,<span class="va">continent</span>,<span class="va">country</span>,sep<span class="op">=</span><span class="st">"_"</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">gap_temp</span><span class="op">)</span></code></pre></div>
+<pre><code>## 'data.frame':    5112 obs. of  4 variables:
+##  $ var_ID    : chr  "Africa_Algeria" "Africa_Angola" "Africa_Benin" "Africa_Botswana" ...
+##  $ obs_type  : chr  "gdpPercap" "gdpPercap" "gdpPercap" "gdpPercap" ...
+##  $ year      : int  1952 1952 1952 1952 1952 1952 1952 1952 1952 1952 ...
+##  $ obs_values: num  2449 3521 1063 851 543 ...</code></pre>
+<div class="sourceCode" id="cb1069"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">gap_temp</span> <span class="op">&lt;-</span> <span class="va">gap_long</span> <span class="op"><a href="https://tidyr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+    <span class="fu"><a href="https://tidyr.tidyverse.org/reference/unite.html">unite</a></span><span class="op">(</span><span class="va">ID_var</span>,<span class="va">continent</span>,<span class="va">country</span>,sep<span class="op">=</span><span class="st">"_"</span><span class="op">)</span> <span class="op"><a href="https://tidyr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+    <span class="fu"><a href="https://tidyr.tidyverse.org/reference/unite.html">unite</a></span><span class="op">(</span><span class="va">var_names</span>,<span class="va">obs_type</span>,<span class="va">year</span>,sep<span class="op">=</span><span class="st">"_"</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">gap_temp</span><span class="op">)</span></code></pre></div>
+<pre><code>## 'data.frame':    5112 obs. of  3 variables:
+##  $ ID_var    : chr  "Africa_Algeria" "Africa_Angola" "Africa_Benin" "Africa_Botswana" ...
+##  $ var_names : chr  "gdpPercap_1952" "gdpPercap_1952" "gdpPercap_1952" "gdpPercap_1952" ...
+##  $ obs_values: num  2449 3521 1063 851 543 ...</code></pre>
+<p><code><a href="https://tidyr.tidyverse.org/reference/unite.html">unite()</a></code>를 사용해서, <code>continent</code>,<code>country</code>를 묶는 ID변수가 하나 생겼고, 변수명을 정의했다.
+이제 파이프를 통해서 <code><a href="https://tidyr.tidyverse.org/reference/spread.html">spread()</a></code> 뿌린 준비를 마쳤다.</p>
+<div class="sourceCode" id="cb1071"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">gap_wide_new</span> <span class="op">&lt;-</span> <span class="va">gap_long</span> <span class="op"><a href="https://tidyr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+    <span class="fu"><a href="https://tidyr.tidyverse.org/reference/unite.html">unite</a></span><span class="op">(</span><span class="va">ID_var</span>,<span class="va">continent</span>,<span class="va">country</span>,sep<span class="op">=</span><span class="st">"_"</span><span class="op">)</span> <span class="op"><a href="https://tidyr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+    <span class="fu"><a href="https://tidyr.tidyverse.org/reference/unite.html">unite</a></span><span class="op">(</span><span class="va">var_names</span>,<span class="va">obs_type</span>,<span class="va">year</span>,sep<span class="op">=</span><span class="st">"_"</span><span class="op">)</span> <span class="op"><a href="https://tidyr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+    <span class="fu"><a href="https://tidyr.tidyverse.org/reference/spread.html">spread</a></span><span class="op">(</span><span class="va">var_names</span>,<span class="va">obs_values</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">gap_wide_new</span><span class="op">)</span></code></pre></div>
+<pre><code>## 'data.frame':    142 obs. of  37 variables:
+##  $ ID_var        : chr  "Africa_Algeria" "Africa_Angola" "Africa_Benin" "Africa_Botswana" ...
+##  $ gdpPercap_1952: num  2449 3521 1063 851 543 ...
+##  $ gdpPercap_1957: num  3014 3828 960 918 617 ...
+##  $ gdpPercap_1962: num  2551 4269 949 984 723 ...
+##  $ gdpPercap_1967: num  3247 5523 1036 1215 795 ...
+##  $ gdpPercap_1972: num  4183 5473 1086 2264 855 ...
+##  $ gdpPercap_1977: num  4910 3009 1029 3215 743 ...
+##  $ gdpPercap_1982: num  5745 2757 1278 4551 807 ...
+##  $ gdpPercap_1987: num  5681 2430 1226 6206 912 ...
+##  $ gdpPercap_1992: num  5023 2628 1191 7954 932 ...
+##  $ gdpPercap_1997: num  4797 2277 1233 8647 946 ...
+##  $ gdpPercap_2002: num  5288 2773 1373 11004 1038 ...
+##  $ gdpPercap_2007: num  6223 4797 1441 12570 1217 ...
+##  $ lifeExp_1952  : num  43.1 30 38.2 47.6 32 ...
+##  $ lifeExp_1957  : num  45.7 32 40.4 49.6 34.9 ...
+##  $ lifeExp_1962  : num  48.3 34 42.6 51.5 37.8 ...
+##  $ lifeExp_1967  : num  51.4 36 44.9 53.3 40.7 ...
+##  $ lifeExp_1972  : num  54.5 37.9 47 56 43.6 ...
+##  $ lifeExp_1977  : num  58 39.5 49.2 59.3 46.1 ...
+##  $ lifeExp_1982  : num  61.4 39.9 50.9 61.5 48.1 ...
+##  $ lifeExp_1987  : num  65.8 39.9 52.3 63.6 49.6 ...
+##  $ lifeExp_1992  : num  67.7 40.6 53.9 62.7 50.3 ...
+##  $ lifeExp_1997  : num  69.2 41 54.8 52.6 50.3 ...
+##  $ lifeExp_2002  : num  71 41 54.4 46.6 50.6 ...
+##  $ lifeExp_2007  : num  72.3 42.7 56.7 50.7 52.3 ...
+##  $ pop_1952      : num  9279525 4232095 1738315 442308 4469979 ...
+##  $ pop_1957      : num  10270856 4561361 1925173 474639 4713416 ...
+##  $ pop_1962      : num  11000948 4826015 2151895 512764 4919632 ...
+##  $ pop_1967      : num  12760499 5247469 2427334 553541 5127935 ...
+##  $ pop_1972      : num  14760787 5894858 2761407 619351 5433886 ...
+##  $ pop_1977      : num  17152804 6162675 3168267 781472 5889574 ...
+##  $ pop_1982      : num  20033753 7016384 3641603 970347 6634596 ...
+##  $ pop_1987      : num  23254956 7874230 4243788 1151184 7586551 ...
+##  $ pop_1992      : num  26298373 8735988 4981671 1342614 8878303 ...
+##  $ pop_1997      : num  29072015 9875024 6066080 1536536 10352843 ...
+##  $ pop_2002      : num  31287142 10866106 7026113 1630347 12251209 ...
+##  $ pop_2007      : num  33333216 12420476 8078314 1639131 14326203 ...</code></pre>
+</div>
+<div id="r-tidyr-challenge-three" class="section level2" number="34.6">
+<h2>
+<span class="header-section-number">34.6</span> 도전과제 3<a class="anchor" aria-label="anchor" href="#r-tidyr-challenge-three"><i class="fas fa-link"></i></a>
+</h2>
+<p>한 걸음 더 나아가, 국가, 연도, 측정값 3개를 쭉 뿌려 터무니 없는 <code>gap_ludicrously_wide</code> 형식 데이터를 생성한다.
+<strong>힌트:</strong> 신규 데이터프레임은 단지 행이 5개만 있다.</p>
+<blockquote>
+<p><strong>도전과제 3 에 대한 해답</strong></p>
+<div class="sourceCode" id="cb1073"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">gap_ludicrously_wide</span> <span class="op">&lt;-</span> <span class="va">gap_long</span> <span class="op"><a href="https://tidyr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+   <span class="fu"><a href="https://tidyr.tidyverse.org/reference/unite.html">unite</a></span><span class="op">(</span><span class="va">var_names</span>,<span class="va">obs_type</span>,<span class="va">year</span>,<span class="va">country</span>,sep<span class="op">=</span><span class="st">"_"</span><span class="op">)</span> <span class="op"><a href="https://tidyr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+   <span class="fu"><a href="https://tidyr.tidyverse.org/reference/spread.html">spread</a></span><span class="op">(</span><span class="va">var_names</span>,<span class="va">obs_values</span><span class="op">)</span></code></pre></div>
+</blockquote>
+<p>이제, 엄청 ‘wide’ 형식 데이터프레임이 생겼다.
+하지만, <code>ID_var</code> 변수는 더 유용할 수 있다. <code><a href="https://tidyr.tidyverse.org/reference/separate.html">separate()</a></code> 함수로 변수 2개로 구분하자.</p>
+<div class="sourceCode" id="cb1074"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">gap_wide_betterID</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tidyr.tidyverse.org/reference/separate.html">separate</a></span><span class="op">(</span><span class="va">gap_wide_new</span>,<span class="va">ID_var</span>,<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"continent"</span>,<span class="st">"country"</span><span class="op">)</span>,sep<span class="op">=</span><span class="st">"_"</span><span class="op">)</span>
+<span class="va">gap_wide_betterID</span> <span class="op">&lt;-</span> <span class="va">gap_long</span> <span class="op"><a href="https://tidyr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+    <span class="fu"><a href="https://tidyr.tidyverse.org/reference/unite.html">unite</a></span><span class="op">(</span><span class="va">ID_var</span>, <span class="va">continent</span>,<span class="va">country</span>,sep<span class="op">=</span><span class="st">"_"</span><span class="op">)</span> <span class="op"><a href="https://tidyr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+    <span class="fu"><a href="https://tidyr.tidyverse.org/reference/unite.html">unite</a></span><span class="op">(</span><span class="va">var_names</span>, <span class="va">obs_type</span>,<span class="va">year</span>,sep<span class="op">=</span><span class="st">"_"</span><span class="op">)</span> <span class="op"><a href="https://tidyr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+    <span class="fu"><a href="https://tidyr.tidyverse.org/reference/spread.html">spread</a></span><span class="op">(</span><span class="va">var_names</span>, <span class="va">obs_values</span><span class="op">)</span> <span class="op"><a href="https://tidyr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+    <span class="fu"><a href="https://tidyr.tidyverse.org/reference/separate.html">separate</a></span><span class="op">(</span><span class="va">ID_var</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"continent"</span>,<span class="st">"country"</span><span class="op">)</span>,sep<span class="op">=</span><span class="st">"_"</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">gap_wide_betterID</span><span class="op">)</span></code></pre></div>
+<pre><code>## 'data.frame':    142 obs. of  38 variables:
+##  $ continent     : chr  "Africa" "Africa" "Africa" "Africa" ...
+##  $ country       : chr  "Algeria" "Angola" "Benin" "Botswana" ...
+##  $ gdpPercap_1952: num  2449 3521 1063 851 543 ...
+##  $ gdpPercap_1957: num  3014 3828 960 918 617 ...
+##  $ gdpPercap_1962: num  2551 4269 949 984 723 ...
+##  $ gdpPercap_1967: num  3247 5523 1036 1215 795 ...
+##  $ gdpPercap_1972: num  4183 5473 1086 2264 855 ...
+##  $ gdpPercap_1977: num  4910 3009 1029 3215 743 ...
+##  $ gdpPercap_1982: num  5745 2757 1278 4551 807 ...
+##  $ gdpPercap_1987: num  5681 2430 1226 6206 912 ...
+##  $ gdpPercap_1992: num  5023 2628 1191 7954 932 ...
+##  $ gdpPercap_1997: num  4797 2277 1233 8647 946 ...
+##  $ gdpPercap_2002: num  5288 2773 1373 11004 1038 ...
+##  $ gdpPercap_2007: num  6223 4797 1441 12570 1217 ...
+##  $ lifeExp_1952  : num  43.1 30 38.2 47.6 32 ...
+##  $ lifeExp_1957  : num  45.7 32 40.4 49.6 34.9 ...
+##  $ lifeExp_1962  : num  48.3 34 42.6 51.5 37.8 ...
+##  $ lifeExp_1967  : num  51.4 36 44.9 53.3 40.7 ...
+##  $ lifeExp_1972  : num  54.5 37.9 47 56 43.6 ...
+##  $ lifeExp_1977  : num  58 39.5 49.2 59.3 46.1 ...
+##  $ lifeExp_1982  : num  61.4 39.9 50.9 61.5 48.1 ...
+##  $ lifeExp_1987  : num  65.8 39.9 52.3 63.6 49.6 ...
+##  $ lifeExp_1992  : num  67.7 40.6 53.9 62.7 50.3 ...
+##  $ lifeExp_1997  : num  69.2 41 54.8 52.6 50.3 ...
+##  $ lifeExp_2002  : num  71 41 54.4 46.6 50.6 ...
+##  $ lifeExp_2007  : num  72.3 42.7 56.7 50.7 52.3 ...
+##  $ pop_1952      : num  9279525 4232095 1738315 442308 4469979 ...
+##  $ pop_1957      : num  10270856 4561361 1925173 474639 4713416 ...
+##  $ pop_1962      : num  11000948 4826015 2151895 512764 4919632 ...
+##  $ pop_1967      : num  12760499 5247469 2427334 553541 5127935 ...
+##  $ pop_1972      : num  14760787 5894858 2761407 619351 5433886 ...
+##  $ pop_1977      : num  17152804 6162675 3168267 781472 5889574 ...
+##  $ pop_1982      : num  20033753 7016384 3641603 970347 6634596 ...
+##  $ pop_1987      : num  23254956 7874230 4243788 1151184 7586551 ...
+##  $ pop_1992      : num  26298373 8735988 4981671 1342614 8878303 ...
+##  $ pop_1997      : num  29072015 9875024 6066080 1536536 10352843 ...
+##  $ pop_2002      : num  31287142 10866106 7026113 1630347 12251209 ...
+##  $ pop_2007      : num  33333216 12420476 8078314 1639131 14326203 ...</code></pre>
+<div class="sourceCode" id="cb1076"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/all.equal.html">all.equal</a></span><span class="op">(</span><span class="va">gap_wide</span>, <span class="va">gap_wide_betterID</span><span class="op">)</span></code></pre></div>
+<pre><code>## [1] TRUE</code></pre>
+<p>다시 되돌아 왔다!</p>
+</div>
+<div id="r-tidyr-points" class="section level2" number="34.7">
+<h2>
+<span class="header-section-number">34.7</span> 추가 학습<a class="anchor" aria-label="anchor" href="#r-tidyr-points"><i class="fas fa-link"></i></a>
+</h2>
+<ul>
+<li><a href="http://r4ds.had.co.nz/index.html">R for Data Science</a></li>
+<li><a href="https://www.rstudio.com/wp-content/uploads/2015/02/data-wrangling-cheatsheet.pdf">Data Wrangling Cheat sheet</a></li>
+<li><a href="https://cran.r-project.org/web/packages/tidyr/vignettes/tidy-data.html">Introduction to tidyr</a></li>
+<li><a href="https://www.rstudio.com/resources/webinars/data-wrangling-with-r-and-rstudio/">Data wrangling with R and RStudio</a></li>
+</ul>
+</div>
+</div>
+  <div class="chapter-nav">
+<div class="prev"><a href="r-dplyr.html"><span class="header-section-number">33</span> dplyr 솜씨있게 조작</a></div>
+<div class="next"><a href="r-knitr.html"><span class="header-section-number">35</span> knitr 보고서 생성</a></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#r-tidyr"><span class="header-section-number">34</span> tidyr 솜씨있게 조작</a></li>
+<li><a class="nav-link" href="#r-tidyr-start"><span class="header-section-number">34.1</span> 시작하기</a></li>
+<li><a class="nav-link" href="#r-tidyr-challenge-one"><span class="header-section-number">34.2</span> 도전과제 1</a></li>
+<li><a class="nav-link" href="#r-tidyr-gather"><span class="header-section-number">34.3</span> gather()로 wide → long 전환</a></li>
+<li><a class="nav-link" href="#r-tidyr-challenge-two"><span class="header-section-number">34.4</span> 도전 과제 2</a></li>
+<li><a class="nav-link" href="#r-tidyr-wide"><span class="header-section-number">34.5</span> spread()로 ‘long’ 형식 변환</a></li>
+<li><a class="nav-link" href="#r-tidyr-challenge-three"><span class="header-section-number">34.6</span> 도전과제 3</a></li>
+<li><a class="nav-link" href="#r-tidyr-points"><span class="header-section-number">34.7</span> 추가 학습</a></li>
+</ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+          
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>데이터 과학을 지탱하는 기본기</strong>" was written by 한국 알 사용자회. It was last built on 2022-05-13.</p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer><!-- dynamically load mathjax for compatibility with self-contained --><script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script><script type="text/x-mathjax-config">const popovers = document.querySelectorAll('a.footnote-ref[data-toggle="popover"]');
+for (let popover of popovers) {
+  const div = document.createElement('div');
+  div.setAttribute('style', 'position: absolute; top: 0, left:0; width:0, height:0, overflow: hidden; visibility: hidden;');
+  div.innerHTML = popover.getAttribute('data-content');
+
+  var has_math = div.querySelector("span.math");
+  if (has_math) {
+    document.body.appendChild(div);
+    MathJax.Hub.Queue(["Typeset", MathJax.Hub, div]);
+    MathJax.Hub.Queue(function() {
+      popover.setAttribute('data-content', div.innerHTML);
+      document.body.removeChild(div);
+    })
+  }
+}
+</script>
+</body>
+</html>

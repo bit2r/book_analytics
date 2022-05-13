@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>29 . 벡터화(Vectorization) | 데이터 과학을 지탱하는 기본기</title>
+<meta name="author" content="한국 알 사용자회">
+<meta name="description" content="R 함수 대부분은 벡터화되었다. 즉, 한번에 각 요소에 대해 연산을 수행하도록 루프를 돌릴 필요없이 함수가 벡터 모든 요소에 대해 연산작업을 수행한다. 이렇게 되면 코드는 더욱 간결해지고, 가독성이 높아지고, 오류에 덜 노출된다. x &lt;- 1:4 x * 2 ## [1] 2 4 6 8 곱하기는 벡터 모든 요소에 일어난다. 두 벡터를 더할 수도 있다:...">
+<meta name="generator" content="bookdown 0.26 with bs4_book()">
+<meta property="og:title" content="29 . 벡터화(Vectorization) | 데이터 과학을 지탱하는 기본기">
+<meta property="og:type" content="book">
+<meta property="og:description" content="R 함수 대부분은 벡터화되었다. 즉, 한번에 각 요소에 대해 연산을 수행하도록 루프를 돌릴 필요없이 함수가 벡터 모든 요소에 대해 연산작업을 수행한다. 이렇게 되면 코드는 더욱 간결해지고, 가독성이 높아지고, 오류에 덜 노출된다. x &lt;- 1:4 x * 2 ## [1] 2 4 6 8 곱하기는 벡터 모든 요소에 일어난다. 두 벡터를 더할 수도 있다:...">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="29 . 벡터화(Vectorization) | 데이터 과학을 지탱하는 기본기">
+<meta name="twitter:description" content="R 함수 대부분은 벡터화되었다. 즉, 한번에 각 요소에 대해 연산을 수행하도록 루프를 돌릴 필요없이 함수가 벡터 모든 요소에 대해 연산작업을 수행한다. 이렇게 되면 코드는 더욱 간결해지고, 가독성이 높아지고, 오류에 덜 노출된다. x &lt;- 1:4 x * 2 ## [1] 2 4 6 8 곱하기는 벡터 모든 요소에 일어난다. 두 벡터를 더할 수도 있다:...">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.3.1/transition.js"></script><script src="libs/bs3compat-0.3.1/tabs.js"></script><script src="libs/bs3compat-0.3.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
+    
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  </style>
+<style type="text/css">
+    /* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+    div.csl-bib-body { }
+    div.csl-entry {
+      clear: both;
+        }
+    .hanging div.csl-entry {
+      margin-left:2em;
+      text-indent:-2em;
+    }
+    div.csl-left-margin {
+      min-width:2em;
+      float:left;
+    }
+    div.csl-right-inline {
+      margin-left:2em;
+      padding-left:1em;
+    }
+    div.csl-indent {
+      margin-left: 2em;
+    }
+  </style>
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">데이터 과학을 지탱하는 기본기</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html">데이터 과학을 지탱하는 기본기</a></li>
+<li class="book-part">자동화</li>
+<li><a class="" href="shell-intro.html"><span class="header-section-number">1</span> 쉘(Shell) 소개</a></li>
+<li><a class="" href="shell-filedir.html"><span class="header-section-number">2</span> 파일과 폴더 넘나들기</a></li>
+<li><a class="" href="shell-create.html"><span class="header-section-number">3</span> 파일과 디렉토리 작업</a></li>
+<li><a class="" href="pipe-filter.html"><span class="header-section-number">4</span> 파이프와 필터</a></li>
+<li><a class="" href="shell-loop.html"><span class="header-section-number">5</span> 루프(Loops)</a></li>
+<li><a class="" href="shell-script.html"><span class="header-section-number">6</span> 쉘 스크립트</a></li>
+<li><a class="" href="shell-find.html"><span class="header-section-number">7</span> 파일, 문자, 디렉토리 등 찾기</a></li>
+<li class="book-part">버전제어와 협업</li>
+<li><a class="" href="git.html"><span class="header-section-number">8</span> 자동화된 버젼제어</a></li>
+<li><a class="" href="git-setup.html"><span class="header-section-number">9</span> Git 구축 및 설정</a></li>
+<li><a class="" href="git-create.html"><span class="header-section-number">10</span> 저장소 생성</a></li>
+<li><a class="" href="git-change.html"><span class="header-section-number">11</span> 변경사항 추적</a></li>
+<li><a class="" href="git-history.html"><span class="header-section-number">12</span> 이력 탐색</a></li>
+<li><a class="" href="git-ignore.html"><span class="header-section-number">13</span> 추적대상에서 제외</a></li>
+<li><a class="" href="git-github.html"><span class="header-section-number">14</span> GitHub 원격작업</a></li>
+<li><a class="" href="git-collab.html"><span class="header-section-number">15</span> 협업 (Collaborating)</a></li>
+<li><a class="" href="git-conflict.html"><span class="header-section-number">16</span> 충돌 (Conflicts)</a></li>
+<li><a class="" href="git-open.html"><span class="header-section-number">17</span> 공개 과학 (Open Science)</a></li>
+<li><a class="" href="git-licensing.html"><span class="header-section-number">18</span> 라이선싱 (Licensing)</a></li>
+<li><a class="" href="git-hosting.html"><span class="header-section-number">19</span> 호스팅 (Hosting)</a></li>
+<li><a class="" href="git-korean.html"><span class="header-section-number">20</span> Git 추가설정</a></li>
+<li class="book-part">프로그래밍</li>
+<li><a class="" href="r-intro.html"><span class="header-section-number">21</span> R과 RStudio 소개</a></li>
+<li><a class="" href="r-project.html"><span class="header-section-number">22</span> RStudio 프로젝트 관리</a></li>
+<li><a class="" href="r-help.html"><span class="header-section-number">23</span> 도움 청하기</a></li>
+<li><a class="" href="r-data-structure.html"><span class="header-section-number">24</span> 자료구조</a></li>
+<li><a class="" href="r-dataframe.html"><span class="header-section-number">25</span> 데이터프레임 탐색</a></li>
+<li><a class="" href="r-subset.html"><span class="header-section-number">26</span> 부분집합 추출</a></li>
+<li><a class="" href="r-control-flow.html"><span class="header-section-number">27</span> 제어 흐름</a></li>
+<li><a class="" href="r-ggplot.html"><span class="header-section-number">28</span> 논문 품질 그래프 생성</a></li>
+<li><a class="active" href="r-vectorization.html"><span class="header-section-number">29</span> 벡터화(Vectorization)</a></li>
+<li><a class="" href="r-function.html"><span class="header-section-number">30</span> 함수 설명</a></li>
+<li><a class="" href="r-writing.html"><span class="header-section-number">31</span> 데이터 저장</a></li>
+<li><a class="" href="r-plyr-split.html"><span class="header-section-number">32</span> plyr로 데이터프레임을 쪼개고 합치기</a></li>
+<li><a class="" href="r-dplyr.html"><span class="header-section-number">33</span> dplyr 솜씨있게 조작</a></li>
+<li><a class="" href="r-tidyr.html"><span class="header-section-number">34</span> tidyr 솜씨있게 조작</a></li>
+<li><a class="" href="r-knitr.html"><span class="header-section-number">35</span> knitr 보고서 생성</a></li>
+<li><a class="" href="r-wrapup.html"><span class="header-section-number">36</span> 좋은 소프트웨어 작성법</a></li>
+<li class="book-part">데이터베이스</li>
+<li><a class="" href="database-sql.html"><span class="header-section-number">37</span> 데이터베이스와 SQL 사용하기</a></li>
+<li><a class="" href="database-sqlite.html"><span class="header-section-number">38</span> SQLite 설치</a></li>
+<li><a class="" href="database-select.html"><span class="header-section-number">39</span> 변수/칼럼 선택하기</a></li>
+<li><a class="" href="database-sort.html"><span class="header-section-number">40</span> 정렬, 중복 제거</a></li>
+<li><a class="" href="database-filter.html"><span class="header-section-number">41</span> 필터링 (Filtering)</a></li>
+<li><a class="" href="database-calc.html"><span class="header-section-number">42</span> 새로운 값 계산하기</a></li>
+<li><a class="" href="database-null.html"><span class="header-section-number">43</span> 결측 데이터 (Missing Data)</a></li>
+<li><a class="" href="database-agg.html"><span class="header-section-number">44</span> 집합(Aggregation)</a></li>
+<li><a class="" href="database-table-join.html"><span class="header-section-number">45</span> 데이터 결합하기</a></li>
+<li><a class="" href="database-data-create.html"><span class="header-section-number">46</span> 데이터 생성과 변형</a></li>
+<li><a class="" href="%EC%B0%B8%EA%B3%A0%EB%AC%B8%ED%97%8C.html">참고문헌</a></li>
+</ul>
+
+        <div class="book-extra">
+          
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="r-vectorization" class="section level1" number="29">
+<h1>
+<span class="header-section-number">29 . </span> 벡터화(Vectorization)<a class="anchor" aria-label="anchor" href="#r-vectorization"><i class="fas fa-link"></i></a>
+</h1>
+<p>R 함수 대부분은 벡터화되었다.
+즉, 한번에 각 요소에 대해 연산을 수행하도록 루프를 돌릴 필요없이
+함수가 벡터 모든 요소에 대해 연산작업을 수행한다.
+이렇게 되면 코드는 더욱 간결해지고, 가독성이 높아지고, 오류에 덜 노출된다.</p>
+<div class="sourceCode" id="cb884"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fl">1</span><span class="op">:</span><span class="fl">4</span>
+<span class="va">x</span> <span class="op">*</span> <span class="fl">2</span></code></pre></div>
+<pre><code>## [1] 2 4 6 8</code></pre>
+<p>곱하기는 벡터 모든 요소에 일어난다.</p>
+<p>두 벡터를 더할 수도 있다:</p>
+<div class="sourceCode" id="cb886"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">y</span> <span class="op">&lt;-</span> <span class="fl">6</span><span class="op">:</span><span class="fl">9</span>
+<span class="va">x</span> <span class="op">+</span> <span class="va">y</span></code></pre></div>
+<pre><code>## [1]  7  9 11 13</code></pre>
+<p><code>x</code> 벡터 각 요소가 <code>y</code> 벡터 대응되는 요소에 더해진다:</p>
+<div class="sourceCode" id="cb888"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb888-1"><a href="r-vectorization.html#cb888-1" aria-hidden="true" tabindex="-1"></a>x<span class="sc">:</span>  <span class="dv">1</span>  <span class="dv">2</span>  <span class="dv">3</span>  <span class="dv">4</span></span>
+<span id="cb888-2"><a href="r-vectorization.html#cb888-2" aria-hidden="true" tabindex="-1"></a>    <span class="sc">+</span>  <span class="sc">+</span>  <span class="sc">+</span>  <span class="sc">+</span></span>
+<span id="cb888-3"><a href="r-vectorization.html#cb888-3" aria-hidden="true" tabindex="-1"></a>y<span class="sc">:</span>  <span class="dv">6</span>  <span class="dv">7</span>  <span class="dv">8</span>  <span class="dv">9</span></span>
+<span id="cb888-4"><a href="r-vectorization.html#cb888-4" aria-hidden="true" tabindex="-1"></a><span class="sc">---------------</span></span>
+<span id="cb888-5"><a href="r-vectorization.html#cb888-5" aria-hidden="true" tabindex="-1"></a>    <span class="dv">7</span>  <span class="dv">9</span> <span class="dv">11</span> <span class="dv">13</span></span></code></pre></div>
+<div id="r-vectorization-one" class="section level2" number="29.1">
+<h2>
+<span class="header-section-number">29.1</span> 도전과제 1<a class="anchor" aria-label="anchor" href="#r-vectorization-one"><i class="fas fa-link"></i></a>
+</h2>
+<p><code>gapminder</code> 데이터셋 <code>pop</code> 칼럼에 벡터 연산을 시도해 본다.
+<code>gapminder</code> 데이터프레임에 신규 칼럼을 생성하는데, 백만명 단위로
+인구정보를 표현한다.
+데이터프레임에 <code>head</code> 혹은 <code>tail</code> 명령어를 적용해서
+실제로 제대로 동작하는지 확인한다.</p>
+<blockquote>
+<p><strong>도전과제 1에 대한 해답</strong></p>
+<p><code>gapminder</code> 데이터셋 <code>pop</code> 칼럼에 벡터 연산을 시도해 본다.
+<code>gapminder</code> 데이터프레임에 신규 칼럼을 생성하는데, 백만명 단위로
+인구정보를 표현한다.
+데이터프레임에 <code>head</code> 혹은 <code>tail</code> 명령어를 적용해서
+실제로 제대로 동작하는지 확인한다.</p>
+<div class="sourceCode" id="cb889"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">gapminder</span><span class="op">$</span><span class="va">pop_millions</span> <span class="op">&lt;-</span> <span class="va">gapminder</span><span class="op">$</span><span class="va">pop</span> <span class="op">/</span> <span class="fl">1e6</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">gapminder</span><span class="op">)</span></code></pre></div>
+<pre><code>##       country year      pop continent lifeExp gdpPercap pop_millions
+## 1 Afghanistan 1952  8425333      Asia    28.8       779         8.43
+## 2 Afghanistan 1957  9240934      Asia    30.3       821         9.24
+## 3 Afghanistan 1962 10267083      Asia    32.0       853        10.27
+## 4 Afghanistan 1967 11537966      Asia    34.0       836        11.54
+## 5 Afghanistan 1972 13079460      Asia    36.1       740        13.08
+## 6 Afghanistan 1977 14880372      Asia    38.4       786        14.88</code></pre>
+</blockquote>
+</div>
+<div id="r-vectorization-two" class="section level2" number="29.2">
+<h2>
+<span class="header-section-number">29.2</span> 도전과제 2<a class="anchor" aria-label="anchor" href="#r-vectorization-two"><i class="fas fa-link"></i></a>
+</h2>
+<p>그래프 하나에, 모든 국가에 대해 백만 단위로 인구를 연도별로 도식화한다.
+어느 국가인지 식별하는 것은 신경쓰지 말자.
+상기 연습문제를 반복하면서, 중국(China), 인도(India), 인도네시아(Indonesia)에
+대해서만 도식화한다. 마찬가지로, 어는 국가인지 식별하는 것은
+신경쓰지 말자.</p>
+<blockquote>
+<p><strong>도전과제 2에 대한 해답</strong></p>
+<p>연도별 백만단위로 인구수를 그래프로 표현한느데 앞서 학습한 내용을 상기한다.</p>
+<div class="sourceCode" id="cb891"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">gapminder</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">year</span>, y <span class="op">=</span> <span class="va">pop_millions</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+ <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span>
+<span class="va">countryset</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"China"</span>,<span class="st">"India"</span>,<span class="st">"Indonesia"</span><span class="op">)</span>
+<span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">gapminder</span><span class="op">[</span><span class="va">gapminder</span><span class="op">$</span><span class="va">country</span> <span class="op"><a href="https://rdrr.io/r/base/match.html">%in%</a></span> <span class="va">countryset</span>,<span class="op">]</span>,
+       <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">year</span>, y <span class="op">=</span> <span class="va">pop_millions</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<p><img src="09-vectorization_files/figure-html/ch2-sol-1.png" width="576" style="display: block; margin: auto;"><img src="09-vectorization_files/figure-html/ch2-sol-2.png" width="576" style="display: block; margin: auto;"></p>
+</blockquote>
+<p>비교 연산자, 논리 연산자, 그리고 많은 함수도 벡터화를 지원한다:</p>
+<p><strong>비교 연산자</strong></p>
+<div class="sourceCode" id="cb892"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">x</span> <span class="op">&gt;</span> <span class="fl">2</span></code></pre></div>
+<pre><code>## [1] FALSE FALSE  TRUE  TRUE</code></pre>
+<p><strong>논리 연산자</strong></p>
+<div class="sourceCode" id="cb894"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">a</span> <span class="op">&lt;-</span> <span class="va">x</span> <span class="op">&gt;</span> <span class="fl">3</span>  <span class="co"># or, for clarity, a &lt;- (x &gt; 3)</span>
+<span class="va">a</span></code></pre></div>
+<pre><code>## [1] FALSE FALSE FALSE  TRUE</code></pre>
+<div id="r-vectorization-tips" class="rmdcaution">
+<p><strong>꿀팁: 논리 벡터에 대한 유용한 일부 함수</strong></p>
+<p><code><a href="https://rdrr.io/r/base/any.html">any()</a></code> 함수는 벡터 요소 <em>어떤 것</em>이든 <code>TRUE</code> 참이면, <code>TRUE</code>를 반환한다.
+<code><a href="https://rdrr.io/r/base/all.html">all()</a></code>함수는 벡터 요소 <em>모두</em>가 <code>TRUE</code> 참이면, <code>TRUE</code>를 반환한다.</p>
+</div>
+<p>함수 대부분은 또한 벡터에 요소별(element-wise)로 연산작업을 수행한다:</p>
+<p><strong>함수(Functions)</strong></p>
+<div class="sourceCode" id="cb896"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fl">1</span><span class="op">:</span><span class="fl">4</span>
+<span class="fu"><a href="https://rdrr.io/r/base/Log.html">log</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></code></pre></div>
+<pre><code>## [1] 0.000 0.693 1.099 1.386</code></pre>
+<p>벡터화 연산은 행렬(<code>matrix</code>)에 원소별로 연산작업을 수행한다:</p>
+<div class="sourceCode" id="cb898"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">m</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">12</span>, nrow<span class="op">=</span><span class="fl">3</span>, ncol<span class="op">=</span><span class="fl">4</span><span class="op">)</span>
+<span class="va">m</span> <span class="op">*</span> <span class="op">-</span><span class="fl">1</span></code></pre></div>
+<pre><code>##      [,1] [,2] [,3] [,4]
+## [1,]   -1   -4   -7  -10
+## [2,]   -2   -5   -8  -11
+## [3,]   -3   -6   -9  -12</code></pre>
+<div id="r-vectorization-operation" class="rmdcaution">
+<p><strong>꿀팁: 원소별(element-wise) 곱셈 vs. 행렬 곱셈</strong></p>
+<p>매우 중요: <code>*</code> 곱하기 연산은 요소별 곱셈 결과를 전달한다!
+행렬 곱셈을 하려면, <code>%*%</code> 연산자를 사용한다:</p>
+<div class="sourceCode" id="cb900"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">m</span> <span class="op"><a href="https://rdrr.io/r/base/matmult.html">%*%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span><span class="fl">1</span>, nrow<span class="op">=</span><span class="fl">4</span>, ncol<span class="op">=</span><span class="fl">1</span><span class="op">)</span></code></pre></div>
+<pre><code>##      [,1]
+## [1,]   22
+## [2,]   26
+## [3,]   30</code></pre>
+<div class="sourceCode" id="cb902"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">4</span>, nrow<span class="op">=</span><span class="fl">1</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/r/base/matmult.html">%*%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">4</span>, ncol<span class="op">=</span><span class="fl">1</span><span class="op">)</span></code></pre></div>
+<pre><code>##      [,1]
+## [1,]   30</code></pre>
+<p>행렬 대수에 관한 더 많은 정보는 <a href="http://www.statmethods.net/advstats/matrix.html">Quick-R reference
+guide</a>을 참조한다.</p>
+</div>
+</div>
+<div id="r-vectorization-three" class="section level2" number="29.3">
+<h2>
+<span class="header-section-number">29.3</span> 도전과제 3<a class="anchor" aria-label="anchor" href="#r-vectorization-three"><i class="fas fa-link"></i></a>
+</h2>
+<p>다음과 같은 행렬이 주어졌다:</p>
+<div class="sourceCode" id="cb904"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">m</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">12</span>, nrow<span class="op">=</span><span class="fl">3</span>, ncol<span class="op">=</span><span class="fl">4</span><span class="op">)</span>
+<span class="va">m</span></code></pre></div>
+<pre><code>##      [,1] [,2] [,3] [,4]
+## [1,]    1    4    7   10
+## [2,]    2    5    8   11
+## [3,]    3    6    9   12</code></pre>
+<p>다음 명령어를 실행하면, 연산작업 결과가 어떻게 될지 생각한 것을 적어본다:</p>
+<ol style="list-style-type: decimal">
+<li><code>m ^ -1</code></li>
+<li><code>m * c(1, 0, -1)</code></li>
+<li><code>m &gt; c(0, 20)</code></li>
+<li><code>m * c(1, 0, -1, 2)</code></li>
+</ol>
+<p>예상한 출력결과가 나왔나요? 만약 그렇지 않다면, 조교(helper)를 부르세요!</p>
+<blockquote>
+<p><strong>도전과제 3에 대한 해답</strong></p>
+<p>다음과 같은 행렬이 주어졌다:</p>
+<div class="sourceCode" id="cb906"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">m</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">12</span>, nrow<span class="op">=</span><span class="fl">3</span>, ncol<span class="op">=</span><span class="fl">4</span><span class="op">)</span>
+<span class="va">m</span></code></pre></div>
+<pre><code>##      [,1] [,2] [,3] [,4]
+## [1,]    1    4    7   10
+## [2,]    2    5    8   11
+## [3,]    3    6    9   12</code></pre>
+<p>다음 명령어를 실행하면, 연산작업 결과가 어떻게 될지 생각한 것을 적어본다:</p>
+<ol style="list-style-type: decimal">
+<li><code>m ^ -1</code></li>
+</ol>
+<pre><code>##       [,1]  [,2]  [,3]   [,4]
+## [1,] 1.000 0.250 0.143 0.1000
+## [2,] 0.500 0.200 0.125 0.0909
+## [3,] 0.333 0.167 0.111 0.0833</code></pre>
+<ol start="2" style="list-style-type: decimal">
+<li><code>m * c(1, 0, -1)</code></li>
+</ol>
+<pre><code>##      [,1] [,2] [,3] [,4]
+## [1,]    1    4    7   10
+## [2,]    0    0    0    0
+## [3,]   -3   -6   -9  -12</code></pre>
+<ol start="3" style="list-style-type: decimal">
+<li><code>m &gt; c(0, 20)</code></li>
+</ol>
+<pre><code>##       [,1]  [,2]  [,3]  [,4]
+## [1,]  TRUE FALSE  TRUE FALSE
+## [2,] FALSE  TRUE FALSE  TRUE
+## [3,]  TRUE FALSE  TRUE FALSE</code></pre>
+</blockquote>
+</div>
+<div id="r-vectorization-four" class="section level2" number="29.4">
+<h2>
+<span class="header-section-number">29.4</span> 도전과제 4<a class="anchor" aria-label="anchor" href="#r-vectorization-four"><i class="fas fa-link"></i></a>
+</h2>
+<p>다음 연속된 분수 순열 합계를 구하는데 관심이 있다:</p>
+<div class="sourceCode" id="cb911"><pre class="downlit sourceCode r">
+<code class="sourceCode R"> <span class="va">x</span> <span class="op">=</span> <span class="fl">1</span><span class="op">/</span><span class="op">(</span><span class="fl">1</span><span class="op">^</span><span class="fl">2</span><span class="op">)</span> <span class="op">+</span> <span class="fl">1</span><span class="op">/</span><span class="op">(</span><span class="fl">2</span><span class="op">^</span><span class="fl">2</span><span class="op">)</span> <span class="op">+</span> <span class="fl">1</span><span class="op">/</span><span class="op">(</span><span class="fl">3</span><span class="op">^</span><span class="fl">2</span><span class="op">)</span> <span class="op">+</span> <span class="va">...</span> <span class="op">+</span> <span class="fl">1</span><span class="op">/</span><span class="op">(</span><span class="va">n</span><span class="op">^</span><span class="fl">2</span><span class="op">)</span></code></pre></div>
+<p>이 모두를 타이핑하는 것은 지루하고, <code>n</code> 값이 매우 큰 경우 불가능하다.
+벡터화를 사용해서 <code>n</code>=100 일 때 <code>x</code>를 계산한다.
+<code>n</code>=10,000 일 때, 합은 얼마나 될까?</p>
+<blockquote>
+<p><strong>도전과제 4에 대한 해답</strong></p>
+<p>다음 연속된 분수 순열 합계를 구하는데 관심이 있다:</p>
+<div class="sourceCode" id="cb912"><pre class="downlit sourceCode r">
+<code class="sourceCode R"> <span class="va">x</span> <span class="op">=</span> <span class="fl">1</span><span class="op">/</span><span class="op">(</span><span class="fl">1</span><span class="op">^</span><span class="fl">2</span><span class="op">)</span> <span class="op">+</span> <span class="fl">1</span><span class="op">/</span><span class="op">(</span><span class="fl">2</span><span class="op">^</span><span class="fl">2</span><span class="op">)</span> <span class="op">+</span> <span class="fl">1</span><span class="op">/</span><span class="op">(</span><span class="fl">3</span><span class="op">^</span><span class="fl">2</span><span class="op">)</span> <span class="op">+</span> <span class="va">...</span> <span class="op">+</span> <span class="fl">1</span><span class="op">/</span><span class="op">(</span><span class="va">n</span><span class="op">^</span><span class="fl">2</span><span class="op">)</span></code></pre></div>
+<p>이 모두를 타이핑하는 것은 지루하고, <code>n</code> 값이 매우 큰 경우 불가능하다.
+벡터화를 사용해서 <code>n</code>=100 일 때 <code>x</code>를 계산한다.
+<code>n</code>=10,000 일 때, 합은 얼마나 될까?</p>
+<div class="sourceCode" id="cb913"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="fl">1</span><span class="op">/</span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">100</span><span class="op">)</span><span class="op">^</span><span class="fl">2</span><span class="op">)</span></code></pre></div>
+<pre><code>## [1] 1.63</code></pre>
+<div class="sourceCode" id="cb915"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="fl">1</span><span class="op">/</span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">1e04</span><span class="op">)</span><span class="op">^</span><span class="fl">2</span><span class="op">)</span></code></pre></div>
+<pre><code>## [1] 1.64</code></pre>
+<div class="sourceCode" id="cb917"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">n</span> <span class="op">&lt;-</span> <span class="fl">10000</span>
+<span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="fl">1</span><span class="op">/</span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="va">n</span><span class="op">)</span><span class="op">^</span><span class="fl">2</span><span class="op">)</span></code></pre></div>
+<pre><code>## [1] 1.64</code></pre>
+<p>함수를 사용해서 동일한 결과를 얻을 수도 있다:</p>
+<div class="sourceCode" id="cb919"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">inverse_sum_of_squares</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">n</span><span class="op">)</span> <span class="op">{</span>
+  <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="fl">1</span><span class="op">/</span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="va">n</span><span class="op">)</span><span class="op">^</span><span class="fl">2</span><span class="op">)</span>
+<span class="op">}</span>
+<span class="fu">inverse_sum_of_squares</span><span class="op">(</span><span class="fl">100</span><span class="op">)</span></code></pre></div>
+<pre><code>## [1] 1.63</code></pre>
+<div class="sourceCode" id="cb921"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">inverse_sum_of_squares</span><span class="op">(</span><span class="fl">10000</span><span class="op">)</span></code></pre></div>
+<pre><code>## [1] 1.64</code></pre>
+<div class="sourceCode" id="cb923"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">n</span> <span class="op">&lt;-</span> <span class="fl">10000</span>
+<span class="fu">inverse_sum_of_squares</span><span class="op">(</span><span class="va">n</span><span class="op">)</span></code></pre></div>
+<pre><code>## [1] 1.64</code></pre>
+</blockquote>
+
+</div>
+</div>
+  <div class="chapter-nav">
+<div class="prev"><a href="r-ggplot.html"><span class="header-section-number">28</span> 논문 품질 그래프 생성</a></div>
+<div class="next"><a href="r-function.html"><span class="header-section-number">30</span> 함수 설명</a></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#r-vectorization"><span class="header-section-number">29</span> 벡터화(Vectorization)</a></li>
+<li><a class="nav-link" href="#r-vectorization-one"><span class="header-section-number">29.1</span> 도전과제 1</a></li>
+<li><a class="nav-link" href="#r-vectorization-two"><span class="header-section-number">29.2</span> 도전과제 2</a></li>
+<li><a class="nav-link" href="#r-vectorization-three"><span class="header-section-number">29.3</span> 도전과제 3</a></li>
+<li><a class="nav-link" href="#r-vectorization-four"><span class="header-section-number">29.4</span> 도전과제 4</a></li>
+</ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+          
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>데이터 과학을 지탱하는 기본기</strong>" was written by 한국 알 사용자회. It was last built on 2022-05-13.</p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer><!-- dynamically load mathjax for compatibility with self-contained --><script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script><script type="text/x-mathjax-config">const popovers = document.querySelectorAll('a.footnote-ref[data-toggle="popover"]');
+for (let popover of popovers) {
+  const div = document.createElement('div');
+  div.setAttribute('style', 'position: absolute; top: 0, left:0; width:0, height:0, overflow: hidden; visibility: hidden;');
+  div.innerHTML = popover.getAttribute('data-content');
+
+  var has_math = div.querySelector("span.math");
+  if (has_math) {
+    document.body.appendChild(div);
+    MathJax.Hub.Queue(["Typeset", MathJax.Hub, div]);
+    MathJax.Hub.Queue(function() {
+      popover.setAttribute('data-content', div.innerHTML);
+      document.body.removeChild(div);
+    })
+  }
+}
+</script>
+</body>
+</html>

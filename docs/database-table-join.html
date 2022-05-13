@@ -4,15 +4,15 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>33 . 데이터 결합하기 | 데이터 과학을 지탱하는 기본기</title>
+<title>45 . 데이터 결합하기 | 데이터 과학을 지탱하는 기본기</title>
 <meta name="author" content="한국 알 사용자회">
 <meta name="description" content="과거 기상 자료를 집계하는 웹사이트에 데이터를 제출해야 되어서, Gina는 위도, 경도, 날짜, 수량, 측정값 형식으로 자료를 체계적으로 만들 필요가 있다. 하지만, 위도와 경도 정보는 Site 테이블에 있는 반면에 측정 날짜 정보는 Visited 테이블에 있고, 측정값 자체는 Survey 테이블에 있다. 어떤 방식이든지 상기 테이블을 조합할 필요가...">
 <meta name="generator" content="bookdown 0.26 with bs4_book()">
-<meta property="og:title" content="33 . 데이터 결합하기 | 데이터 과학을 지탱하는 기본기">
+<meta property="og:title" content="45 . 데이터 결합하기 | 데이터 과학을 지탱하는 기본기">
 <meta property="og:type" content="book">
 <meta property="og:description" content="과거 기상 자료를 집계하는 웹사이트에 데이터를 제출해야 되어서, Gina는 위도, 경도, 날짜, 수량, 측정값 형식으로 자료를 체계적으로 만들 필요가 있다. 하지만, 위도와 경도 정보는 Site 테이블에 있는 반면에 측정 날짜 정보는 Visited 테이블에 있고, 측정값 자체는 Survey 테이블에 있다. 어떤 방식이든지 상기 테이블을 조합할 필요가...">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="33 . 데이터 결합하기 | 데이터 과학을 지탱하는 기본기">
+<meta name="twitter:title" content="45 . 데이터 결합하기 | 데이터 과학을 지탱하는 기본기">
 <meta name="twitter:description" content="과거 기상 자료를 집계하는 웹사이트에 데이터를 제출해야 되어서, Gina는 위도, 경도, 날짜, 수량, 측정값 형식으로 자료를 체계적으로 만들 필요가 있다. 하지만, 위도와 경도 정보는 Site 테이블에 있는 반면에 측정 날짜 정보는 Visited 테이블에 있고, 측정값 자체는 Survey 테이블에 있다. 어떤 방식이든지 상기 테이블을 조합할 필요가...">
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
@@ -92,17 +92,29 @@
 <li><a class="" href="r-project.html"><span class="header-section-number">22</span> RStudio 프로젝트 관리</a></li>
 <li><a class="" href="r-help.html"><span class="header-section-number">23</span> 도움 청하기</a></li>
 <li><a class="" href="r-data-structure.html"><span class="header-section-number">24</span> 자료구조</a></li>
+<li><a class="" href="r-dataframe.html"><span class="header-section-number">25</span> 데이터프레임 탐색</a></li>
+<li><a class="" href="r-subset.html"><span class="header-section-number">26</span> 부분집합 추출</a></li>
+<li><a class="" href="r-control-flow.html"><span class="header-section-number">27</span> 제어 흐름</a></li>
+<li><a class="" href="r-ggplot.html"><span class="header-section-number">28</span> 논문 품질 그래프 생성</a></li>
+<li><a class="" href="r-vectorization.html"><span class="header-section-number">29</span> 벡터화(Vectorization)</a></li>
+<li><a class="" href="r-function.html"><span class="header-section-number">30</span> 함수 설명</a></li>
+<li><a class="" href="r-writing.html"><span class="header-section-number">31</span> 데이터 저장</a></li>
+<li><a class="" href="r-plyr-split.html"><span class="header-section-number">32</span> plyr로 데이터프레임을 쪼개고 합치기</a></li>
+<li><a class="" href="r-dplyr.html"><span class="header-section-number">33</span> dplyr 솜씨있게 조작</a></li>
+<li><a class="" href="r-tidyr.html"><span class="header-section-number">34</span> tidyr 솜씨있게 조작</a></li>
+<li><a class="" href="r-knitr.html"><span class="header-section-number">35</span> knitr 보고서 생성</a></li>
+<li><a class="" href="r-wrapup.html"><span class="header-section-number">36</span> 좋은 소프트웨어 작성법</a></li>
 <li class="book-part">데이터베이스</li>
-<li><a class="" href="database-sql.html"><span class="header-section-number">25</span> 데이터베이스와 SQL 사용하기</a></li>
-<li><a class="" href="database-sqlite.html"><span class="header-section-number">26</span> SQLite 설치</a></li>
-<li><a class="" href="database-select.html"><span class="header-section-number">27</span> 변수/칼럼 선택하기</a></li>
-<li><a class="" href="database-sort.html"><span class="header-section-number">28</span> 정렬, 중복 제거</a></li>
-<li><a class="" href="database-filter.html"><span class="header-section-number">29</span> 필터링 (Filtering)</a></li>
-<li><a class="" href="database-calc.html"><span class="header-section-number">30</span> 새로운 값 계산하기</a></li>
-<li><a class="" href="database-null.html"><span class="header-section-number">31</span> 결측 데이터 (Missing Data)</a></li>
-<li><a class="" href="database-agg.html"><span class="header-section-number">32</span> 집합(Aggregation)</a></li>
-<li><a class="active" href="database-table-join.html"><span class="header-section-number">33</span> 데이터 결합하기</a></li>
-<li><a class="" href="database-data-create.html"><span class="header-section-number">34</span> 데이터 생성과 변형</a></li>
+<li><a class="" href="database-sql.html"><span class="header-section-number">37</span> 데이터베이스와 SQL 사용하기</a></li>
+<li><a class="" href="database-sqlite.html"><span class="header-section-number">38</span> SQLite 설치</a></li>
+<li><a class="" href="database-select.html"><span class="header-section-number">39</span> 변수/칼럼 선택하기</a></li>
+<li><a class="" href="database-sort.html"><span class="header-section-number">40</span> 정렬, 중복 제거</a></li>
+<li><a class="" href="database-filter.html"><span class="header-section-number">41</span> 필터링 (Filtering)</a></li>
+<li><a class="" href="database-calc.html"><span class="header-section-number">42</span> 새로운 값 계산하기</a></li>
+<li><a class="" href="database-null.html"><span class="header-section-number">43</span> 결측 데이터 (Missing Data)</a></li>
+<li><a class="" href="database-agg.html"><span class="header-section-number">44</span> 집합(Aggregation)</a></li>
+<li><a class="active" href="database-table-join.html"><span class="header-section-number">45</span> 데이터 결합하기</a></li>
+<li><a class="" href="database-data-create.html"><span class="header-section-number">46</span> 데이터 생성과 변형</a></li>
 <li><a class="" href="%EC%B0%B8%EA%B3%A0%EB%AC%B8%ED%97%8C.html">참고문헌</a></li>
 </ul>
 
@@ -111,9 +123,9 @@
         </div>
       </nav>
 </div>
-  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="database-table-join" class="section level1" number="33">
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="database-table-join" class="section level1" number="45">
 <h1>
-<span class="header-section-number">33 . </span> 데이터 결합하기<a class="anchor" aria-label="anchor" href="#database-table-join"><i class="fas fa-link"></i></a>
+<span class="header-section-number">45 . </span> 데이터 결합하기<a class="anchor" aria-label="anchor" href="#database-table-join"><i class="fas fa-link"></i></a>
 </h1>
 <p>과거 기상 자료를 집계하는 웹사이트에 데이터를 제출해야 되어서,
 Gina는 위도, 경도, 날짜, 수량, 측정값 형식으로 자료를 체계적으로 만들 필요가 있다.
@@ -126,11 +138,11 @@ Gina는 위도, 경도, 날짜, 수량, 측정값 형식으로 자료를 체계�
 SQLite version 3.35.4 2021-04-02 15:20:15
 Enter ".help" for usage hints.
 sqlite&gt;</code></pre>
-<div class="sourceCode" id="cb686"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb686-1"><a href="database-table-join.html#cb686-1" aria-hidden="true" tabindex="-1"></a><span class="kw">select</span> <span class="op">*</span> <span class="kw">from</span> Site <span class="kw">join</span> Visited;</span></code></pre></div>
+<div class="sourceCode" id="cb1163"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb1163-1"><a href="database-table-join.html#cb1163-1" aria-hidden="true" tabindex="-1"></a><span class="kw">select</span> <span class="op">*</span> <span class="kw">from</span> Site <span class="kw">join</span> Visited;</span></code></pre></div>
 <div class="knitsql-table">
 <div class="inline-table"><table class="table table-sm">
 <caption>
-<span id="tab:sqlite-sql-join">표 33.1: </span>SQL join 쿼리문</caption>
+<span id="tab:sqlite-sql-join">표 45.1: </span>SQL join 쿼리문</caption>
 <thead><tr class="header">
 <th align="left">name</th>
 <th align="right">lat</th>
@@ -230,11 +242,11 @@ sqlite&gt;</code></pre>
 <p>조인이 수행하지 <em>않은</em> 것은 조인되는 레코드가 서로 관계가 있는지를 파악하는 것이다.
 어떻게 조인할지 명시할 때까지 레코드가 서로 관계가 있는지 없는지 알 수 있는 방법은 없다.
 이를 위해서 동일한 사이트 이름을 가진 조합에만 관심있다는 것을 명시하는 절(clause)을 추가한다.</p>
-<div class="sourceCode" id="cb687"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb687-1"><a href="database-table-join.html#cb687-1" aria-hidden="true" tabindex="-1"></a><span class="kw">select</span> <span class="op">*</span> <span class="kw">from</span> Site <span class="kw">join</span> Visited <span class="kw">on</span> Site.name <span class="op">=</span> Visited.site;</span></code></pre></div>
+<div class="sourceCode" id="cb1164"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb1164-1"><a href="database-table-join.html#cb1164-1" aria-hidden="true" tabindex="-1"></a><span class="kw">select</span> <span class="op">*</span> <span class="kw">from</span> Site <span class="kw">join</span> Visited <span class="kw">on</span> Site.name <span class="op">=</span> Visited.site;</span></code></pre></div>
 <div class="knitsql-table">
 <div class="inline-table"><table class="table table-sm">
 <caption>
-<span id="tab:sqlite-sql-join-key">표 33.2: </span>키값을 명시한 SQL join 쿼리문</caption>
+<span id="tab:sqlite-sql-join-key">표 45.2: </span>키값을 명시한 SQL join 쿼리문</caption>
 <thead><tr class="header">
 <th align="left">name</th>
 <th align="right">lat</th>
@@ -318,13 +330,13 @@ sqlite&gt;</code></pre>
 이렇게 하는 이유는 테이블이 동일한 이름을 가질 수 있고 어느 필드를 언급하는지 좀더 구체성을 띌 필요가 있다.
 예를 들어, <code>person</code>과 <code>visited</code> 테이블을 조인한다면, 결과는 각각의 원래 테이블에서 <code>ident</code>로 불리는 필드를 상속한다.</p>
 <p>이제는 조인에서 원하는 3개의 칼럼을 선택하려고 점 표기법(dotted notation)을 사용할 수 있다.</p>
-<div class="sourceCode" id="cb688"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb688-1"><a href="database-table-join.html#cb688-1" aria-hidden="true" tabindex="-1"></a><span class="kw">select</span> Site.lat, Site.<span class="dt">long</span>, Visited.dated</span>
-<span id="cb688-2"><a href="database-table-join.html#cb688-2" aria-hidden="true" tabindex="-1"></a><span class="kw">from</span>   Site <span class="kw">join</span> Visited</span>
-<span id="cb688-3"><a href="database-table-join.html#cb688-3" aria-hidden="true" tabindex="-1"></a><span class="kw">on</span>     Site.name<span class="op">=</span>Visited.site;</span></code></pre></div>
+<div class="sourceCode" id="cb1165"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb1165-1"><a href="database-table-join.html#cb1165-1" aria-hidden="true" tabindex="-1"></a><span class="kw">select</span> Site.lat, Site.<span class="dt">long</span>, Visited.dated</span>
+<span id="cb1165-2"><a href="database-table-join.html#cb1165-2" aria-hidden="true" tabindex="-1"></a><span class="kw">from</span>   Site <span class="kw">join</span> Visited</span>
+<span id="cb1165-3"><a href="database-table-join.html#cb1165-3" aria-hidden="true" tabindex="-1"></a><span class="kw">on</span>     Site.name<span class="op">=</span>Visited.site;</span></code></pre></div>
 <div class="knitsql-table">
 <div class="inline-table"><table class="table table-sm">
 <caption>
-<span id="tab:sqlite-sql-join-key-notation">표 33.3: </span>점표기법을 적용한 SQL join 쿼리문</caption>
+<span id="tab:sqlite-sql-join-key-notation">표 45.3: </span>점표기법을 적용한 SQL join 쿼리문</caption>
 <thead><tr class="header">
 <th align="right">lat</th>
 <th align="right">long</th>
@@ -376,15 +388,15 @@ sqlite&gt;</code></pre>
 </div>
 <p>만약 두개의 테이블을 조인하는 것이 좋은 경우에, 많은 데이블을 조인하는 것은 더 좋아야한다.
 더 많은 <code>join</code> 절과 의미없는 레코드 조합을 필터링해서 제거하는 더 많은 <code>on</code> 테스트를 단순히 추가해서 사실 쿼리에 임의 갯수의 테이블을 조인할 수 있다.</p>
-<div class="sourceCode" id="cb689"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb689-1"><a href="database-table-join.html#cb689-1" aria-hidden="true" tabindex="-1"></a><span class="kw">select</span> Site.lat, Site.<span class="dt">long</span>, Visited.dated, Survey.quant, Survey.reading</span>
-<span id="cb689-2"><a href="database-table-join.html#cb689-2" aria-hidden="true" tabindex="-1"></a><span class="kw">from</span>   Site <span class="kw">join</span> Visited <span class="kw">join</span> Survey</span>
-<span id="cb689-3"><a href="database-table-join.html#cb689-3" aria-hidden="true" tabindex="-1"></a><span class="kw">on</span>     Site.name<span class="op">=</span>Visited.site</span>
-<span id="cb689-4"><a href="database-table-join.html#cb689-4" aria-hidden="true" tabindex="-1"></a><span class="kw">and</span>    Visited.ident<span class="op">=</span>Survey.taken</span>
-<span id="cb689-5"><a href="database-table-join.html#cb689-5" aria-hidden="true" tabindex="-1"></a><span class="kw">and</span>    Visited.dated <span class="kw">is</span> <span class="kw">not</span> <span class="kw">null</span>;</span></code></pre></div>
+<div class="sourceCode" id="cb1166"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb1166-1"><a href="database-table-join.html#cb1166-1" aria-hidden="true" tabindex="-1"></a><span class="kw">select</span> Site.lat, Site.<span class="dt">long</span>, Visited.dated, Survey.quant, Survey.reading</span>
+<span id="cb1166-2"><a href="database-table-join.html#cb1166-2" aria-hidden="true" tabindex="-1"></a><span class="kw">from</span>   Site <span class="kw">join</span> Visited <span class="kw">join</span> Survey</span>
+<span id="cb1166-3"><a href="database-table-join.html#cb1166-3" aria-hidden="true" tabindex="-1"></a><span class="kw">on</span>     Site.name<span class="op">=</span>Visited.site</span>
+<span id="cb1166-4"><a href="database-table-join.html#cb1166-4" aria-hidden="true" tabindex="-1"></a><span class="kw">and</span>    Visited.ident<span class="op">=</span>Survey.taken</span>
+<span id="cb1166-5"><a href="database-table-join.html#cb1166-5" aria-hidden="true" tabindex="-1"></a><span class="kw">and</span>    Visited.dated <span class="kw">is</span> <span class="kw">not</span> <span class="kw">null</span>;</span></code></pre></div>
 <div class="knitsql-table">
 <div class="inline-table"><table class="table table-sm">
 <caption>
-<span id="tab:sqlite-sql-join-key-more">표 33.4: </span>다수 테이블을 확장하여 결합한 SQL join 쿼리문</caption>
+<span id="tab:sqlite-sql-join-key-more">표 45.4: </span>다수 테이블을 확장하여 결합한 SQL join 쿼리문</caption>
 <thead><tr class="header">
 <th align="right">lat</th>
 <th align="right">long</th>
@@ -479,11 +491,11 @@ sqlite&gt;</code></pre>
 실제로 이방법은 매우 흔하게 사용된다. “student numbers”, “patient numbers” 같은 이름을 ID로 사용하고,
 몇몇 데이터베이스 시스템 혹은 다른 곳에서 원래 고유 레코드 식별자로 거의 항상 판명된다.
 다음 쿼리가 시범으로 보여주듯이, 테이블에 레코드가 추가됨에 따라 SQLite는 자동으로 레코드에 숫자를 붙이고, 쿼리에서 이렇게 붙여진 레코드 숫자를 사용한다.</p>
-<div class="sourceCode" id="cb690"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb690-1"><a href="database-table-join.html#cb690-1" aria-hidden="true" tabindex="-1"></a><span class="kw">select</span> <span class="dt">rowid</span>, <span class="op">*</span> <span class="kw">from</span> Person;</span></code></pre></div>
+<div class="sourceCode" id="cb1167"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb1167-1"><a href="database-table-join.html#cb1167-1" aria-hidden="true" tabindex="-1"></a><span class="kw">select</span> <span class="dt">rowid</span>, <span class="op">*</span> <span class="kw">from</span> Person;</span></code></pre></div>
 <div class="knitsql-table">
 <div class="inline-table"><table class="table table-sm">
 <caption>
-<span id="tab:sqlite-sql-join-rowid">표 33.5: </span>행ID(rowid) 쿼리문</caption>
+<span id="tab:sqlite-sql-join-rowid">표 45.5: </span>행ID(rowid) 쿼리문</caption>
 <thead><tr class="header">
 <th align="left">rowid</th>
 <th align="left">ident</th>
@@ -524,9 +536,9 @@ sqlite&gt;</code></pre>
 </tbody>
 </table></div>
 </div>
-<div id="db-join-hygiene" class="section level2" number="33.1">
+<div id="db-join-hygiene" class="section level2" number="45.1">
 <h2>
-<span class="header-section-number">33.1</span> 데이터 위생 (Data Hygiene)<a class="anchor" aria-label="anchor" href="#db-join-hygiene"><i class="fas fa-link"></i></a>
+<span class="header-section-number">45.1</span> 데이터 위생 (Data Hygiene)<a class="anchor" aria-label="anchor" href="#db-join-hygiene"><i class="fas fa-link"></i></a>
 </h2>
 <p>지금까지 조인이 어떻게 동작하는지 살펴봤으니, 왜 관계형 모델이 그렇게 유용한지 그리고 어떻게 가장 잘 사용할 수 있는지 살펴보자.
 첫번째 규칙은 모든 값은 독립 요소로 분해될 수 없는 <a href="../../gloss.html#atomic-value">원자(atomic)</a>적 속성을 지녀야 한다.
@@ -662,9 +674,9 @@ null
 하지만, 만약 특정 형태로 되어 있다면 효과적으로 다룰 수 있는 도구가 있기 때문에 데이터를 그와 같은 방식으로 조직하기도 한다.
 인류학자가 말했듯이, 도구는 도구를 만드는 손을 만든다. (the tool shapes the hand that shapes the tool)</p>
 </div>
-<div id="db-table-join-chellenge" class="section level2" number="33.2">
+<div id="db-table-join-chellenge" class="section level2" number="45.2">
 <h2>
-<span class="header-section-number">33.2</span> 도전 과제<a class="anchor" aria-label="anchor" href="#db-table-join-chellenge"><i class="fas fa-link"></i></a>
+<span class="header-section-number">45.2</span> 도전 과제<a class="anchor" aria-label="anchor" href="#db-table-join-chellenge"><i class="fas fa-link"></i></a>
 </h2>
 <ol style="list-style-type: decimal">
 <li><p>DR-1 사이트의 모든 방사선 측정치를 출력하는 쿼리를 작성하세요.</p></li>
@@ -676,9 +688,9 @@ on Site.lat&lt;-49.0 and Site.name=Visited.site and Visited.dated&gt;='1932-00-0
 </li>
 </ol>
 </div>
-<div id="db-table-join-points" class="section level2" number="33.3">
+<div id="db-table-join-points" class="section level2" number="45.3">
 <h2>
-<span class="header-section-number">33.3</span> 주요점<a class="anchor" aria-label="anchor" href="#db-table-join-points"><i class="fas fa-link"></i></a>
+<span class="header-section-number">45.3</span> 주요점<a class="anchor" aria-label="anchor" href="#db-table-join-points"><i class="fas fa-link"></i></a>
 </h2>
 <ul>
 <li>모든 사실은 데이터베이스에서 정확하게 한번만 표현되어야 한다.</li>
@@ -691,15 +703,15 @@ on Site.lat&lt;-49.0 and Site.name=Visited.site and Visited.dated&gt;='1932-00-0
 </div>
 </div>
   <div class="chapter-nav">
-<div class="prev"><a href="database-agg.html"><span class="header-section-number">32</span> 집합(Aggregation)</a></div>
-<div class="next"><a href="database-data-create.html"><span class="header-section-number">34</span> 데이터 생성과 변형</a></div>
+<div class="prev"><a href="database-agg.html"><span class="header-section-number">44</span> 집합(Aggregation)</a></div>
+<div class="next"><a href="database-data-create.html"><span class="header-section-number">46</span> 데이터 생성과 변형</a></div>
 </div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
     <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
       <ul class="nav navbar-nav">
-<li><a class="nav-link" href="#database-table-join"><span class="header-section-number">33</span> 데이터 결합하기</a></li>
-<li><a class="nav-link" href="#db-join-hygiene"><span class="header-section-number">33.1</span> 데이터 위생 (Data Hygiene)</a></li>
-<li><a class="nav-link" href="#db-table-join-chellenge"><span class="header-section-number">33.2</span> 도전 과제</a></li>
-<li><a class="nav-link" href="#db-table-join-points"><span class="header-section-number">33.3</span> 주요점</a></li>
+<li><a class="nav-link" href="#database-table-join"><span class="header-section-number">45</span> 데이터 결합하기</a></li>
+<li><a class="nav-link" href="#db-join-hygiene"><span class="header-section-number">45.1</span> 데이터 위생 (Data Hygiene)</a></li>
+<li><a class="nav-link" href="#db-table-join-chellenge"><span class="header-section-number">45.2</span> 도전 과제</a></li>
+<li><a class="nav-link" href="#db-table-join-points"><span class="header-section-number">45.3</span> 주요점</a></li>
 </ul>
 
       <div class="book-extra">
@@ -716,7 +728,7 @@ on Site.lat&lt;-49.0 and Site.name=Visited.site and Visited.dated&gt;='1932-00-0
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>데이터 과학을 지탱하는 기본기</strong>" was written by 한국 알 사용자회. It was last built on 2022-05-12.</p>
+    <p>"<strong>데이터 과학을 지탱하는 기본기</strong>" was written by 한국 알 사용자회. It was last built on 2022-05-13.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">
@@ -724,6 +736,34 @@ on Site.lat&lt;-49.0 and Site.name=Visited.site and Visited.dated&gt;='1932-00-0
   </div>
 
 </div></div>
-</footer>
+</footer><!-- dynamically load mathjax for compatibility with self-contained --><script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script><script type="text/x-mathjax-config">const popovers = document.querySelectorAll('a.footnote-ref[data-toggle="popover"]');
+for (let popover of popovers) {
+  const div = document.createElement('div');
+  div.setAttribute('style', 'position: absolute; top: 0, left:0; width:0, height:0, overflow: hidden; visibility: hidden;');
+  div.innerHTML = popover.getAttribute('data-content');
+
+  var has_math = div.querySelector("span.math");
+  if (has_math) {
+    document.body.appendChild(div);
+    MathJax.Hub.Queue(["Typeset", MathJax.Hub, div]);
+    MathJax.Hub.Queue(function() {
+      popover.setAttribute('data-content', div.innerHTML);
+      document.body.removeChild(div);
+    })
+  }
+}
+</script>
 </body>
 </html>

@@ -1,0 +1,931 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>26 . 부분집합 추출 | 데이터 과학을 지탱하는 기본기</title>
+<meta name="author" content="한국 알 사용자회">
+<meta name="description" content="R에는 강력한 부분집합 연산자가 다수 구비되어 있다. 이를 완전히 익히게 되면 어떤 유형의 데이터셋에 대해서도 복잡한 연산을 수월하게 수행할 수 있게 된다. 어떤 유형의 객체에서 부분집합을 뽑아낼 수 있는 방식은 6가지가 있다. 다른 자료구조에 대한 부분집합을 뽑아내는 연산자는 3가지가 있다. R의 핵심으로 가장 많은 일은 하는 것부터 시작해본다:...">
+<meta name="generator" content="bookdown 0.26 with bs4_book()">
+<meta property="og:title" content="26 . 부분집합 추출 | 데이터 과학을 지탱하는 기본기">
+<meta property="og:type" content="book">
+<meta property="og:description" content="R에는 강력한 부분집합 연산자가 다수 구비되어 있다. 이를 완전히 익히게 되면 어떤 유형의 데이터셋에 대해서도 복잡한 연산을 수월하게 수행할 수 있게 된다. 어떤 유형의 객체에서 부분집합을 뽑아낼 수 있는 방식은 6가지가 있다. 다른 자료구조에 대한 부분집합을 뽑아내는 연산자는 3가지가 있다. R의 핵심으로 가장 많은 일은 하는 것부터 시작해본다:...">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="26 . 부분집합 추출 | 데이터 과학을 지탱하는 기본기">
+<meta name="twitter:description" content="R에는 강력한 부분집합 연산자가 다수 구비되어 있다. 이를 완전히 익히게 되면 어떤 유형의 데이터셋에 대해서도 복잡한 연산을 수월하게 수행할 수 있게 된다. 어떤 유형의 객체에서 부분집합을 뽑아낼 수 있는 방식은 6가지가 있다. 다른 자료구조에 대한 부분집합을 뽑아내는 연산자는 3가지가 있다. R의 핵심으로 가장 많은 일은 하는 것부터 시작해본다:...">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.3.1/transition.js"></script><script src="libs/bs3compat-0.3.1/tabs.js"></script><script src="libs/bs3compat-0.3.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
+    
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  </style>
+<style type="text/css">
+    /* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+    div.csl-bib-body { }
+    div.csl-entry {
+      clear: both;
+        }
+    .hanging div.csl-entry {
+      margin-left:2em;
+      text-indent:-2em;
+    }
+    div.csl-left-margin {
+      min-width:2em;
+      float:left;
+    }
+    div.csl-right-inline {
+      margin-left:2em;
+      padding-left:1em;
+    }
+    div.csl-indent {
+      margin-left: 2em;
+    }
+  </style>
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">데이터 과학을 지탱하는 기본기</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html">데이터 과학을 지탱하는 기본기</a></li>
+<li class="book-part">자동화</li>
+<li><a class="" href="shell-intro.html"><span class="header-section-number">1</span> 쉘(Shell) 소개</a></li>
+<li><a class="" href="shell-filedir.html"><span class="header-section-number">2</span> 파일과 폴더 넘나들기</a></li>
+<li><a class="" href="shell-create.html"><span class="header-section-number">3</span> 파일과 디렉토리 작업</a></li>
+<li><a class="" href="pipe-filter.html"><span class="header-section-number">4</span> 파이프와 필터</a></li>
+<li><a class="" href="shell-loop.html"><span class="header-section-number">5</span> 루프(Loops)</a></li>
+<li><a class="" href="shell-script.html"><span class="header-section-number">6</span> 쉘 스크립트</a></li>
+<li><a class="" href="shell-find.html"><span class="header-section-number">7</span> 파일, 문자, 디렉토리 등 찾기</a></li>
+<li class="book-part">버전제어와 협업</li>
+<li><a class="" href="git.html"><span class="header-section-number">8</span> 자동화된 버젼제어</a></li>
+<li><a class="" href="git-setup.html"><span class="header-section-number">9</span> Git 구축 및 설정</a></li>
+<li><a class="" href="git-create.html"><span class="header-section-number">10</span> 저장소 생성</a></li>
+<li><a class="" href="git-change.html"><span class="header-section-number">11</span> 변경사항 추적</a></li>
+<li><a class="" href="git-history.html"><span class="header-section-number">12</span> 이력 탐색</a></li>
+<li><a class="" href="git-ignore.html"><span class="header-section-number">13</span> 추적대상에서 제외</a></li>
+<li><a class="" href="git-github.html"><span class="header-section-number">14</span> GitHub 원격작업</a></li>
+<li><a class="" href="git-collab.html"><span class="header-section-number">15</span> 협업 (Collaborating)</a></li>
+<li><a class="" href="git-conflict.html"><span class="header-section-number">16</span> 충돌 (Conflicts)</a></li>
+<li><a class="" href="git-open.html"><span class="header-section-number">17</span> 공개 과학 (Open Science)</a></li>
+<li><a class="" href="git-licensing.html"><span class="header-section-number">18</span> 라이선싱 (Licensing)</a></li>
+<li><a class="" href="git-hosting.html"><span class="header-section-number">19</span> 호스팅 (Hosting)</a></li>
+<li><a class="" href="git-korean.html"><span class="header-section-number">20</span> Git 추가설정</a></li>
+<li class="book-part">프로그래밍</li>
+<li><a class="" href="r-intro.html"><span class="header-section-number">21</span> R과 RStudio 소개</a></li>
+<li><a class="" href="r-project.html"><span class="header-section-number">22</span> RStudio 프로젝트 관리</a></li>
+<li><a class="" href="r-help.html"><span class="header-section-number">23</span> 도움 청하기</a></li>
+<li><a class="" href="r-data-structure.html"><span class="header-section-number">24</span> 자료구조</a></li>
+<li><a class="" href="r-dataframe.html"><span class="header-section-number">25</span> 데이터프레임 탐색</a></li>
+<li><a class="active" href="r-subset.html"><span class="header-section-number">26</span> 부분집합 추출</a></li>
+<li><a class="" href="r-control-flow.html"><span class="header-section-number">27</span> 제어 흐름</a></li>
+<li><a class="" href="r-ggplot.html"><span class="header-section-number">28</span> 논문 품질 그래프 생성</a></li>
+<li><a class="" href="r-vectorization.html"><span class="header-section-number">29</span> 벡터화(Vectorization)</a></li>
+<li><a class="" href="r-function.html"><span class="header-section-number">30</span> 함수 설명</a></li>
+<li><a class="" href="r-writing.html"><span class="header-section-number">31</span> 데이터 저장</a></li>
+<li><a class="" href="r-plyr-split.html"><span class="header-section-number">32</span> plyr로 데이터프레임을 쪼개고 합치기</a></li>
+<li><a class="" href="r-dplyr.html"><span class="header-section-number">33</span> dplyr 솜씨있게 조작</a></li>
+<li><a class="" href="r-tidyr.html"><span class="header-section-number">34</span> tidyr 솜씨있게 조작</a></li>
+<li><a class="" href="r-knitr.html"><span class="header-section-number">35</span> knitr 보고서 생성</a></li>
+<li><a class="" href="r-wrapup.html"><span class="header-section-number">36</span> 좋은 소프트웨어 작성법</a></li>
+<li class="book-part">데이터베이스</li>
+<li><a class="" href="database-sql.html"><span class="header-section-number">37</span> 데이터베이스와 SQL 사용하기</a></li>
+<li><a class="" href="database-sqlite.html"><span class="header-section-number">38</span> SQLite 설치</a></li>
+<li><a class="" href="database-select.html"><span class="header-section-number">39</span> 변수/칼럼 선택하기</a></li>
+<li><a class="" href="database-sort.html"><span class="header-section-number">40</span> 정렬, 중복 제거</a></li>
+<li><a class="" href="database-filter.html"><span class="header-section-number">41</span> 필터링 (Filtering)</a></li>
+<li><a class="" href="database-calc.html"><span class="header-section-number">42</span> 새로운 값 계산하기</a></li>
+<li><a class="" href="database-null.html"><span class="header-section-number">43</span> 결측 데이터 (Missing Data)</a></li>
+<li><a class="" href="database-agg.html"><span class="header-section-number">44</span> 집합(Aggregation)</a></li>
+<li><a class="" href="database-table-join.html"><span class="header-section-number">45</span> 데이터 결합하기</a></li>
+<li><a class="" href="database-data-create.html"><span class="header-section-number">46</span> 데이터 생성과 변형</a></li>
+<li><a class="" href="%EC%B0%B8%EA%B3%A0%EB%AC%B8%ED%97%8C.html">참고문헌</a></li>
+</ul>
+
+        <div class="book-extra">
+          
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="r-subset" class="section level1" number="26">
+<h1>
+<span class="header-section-number">26 . </span> 부분집합 추출<a class="anchor" aria-label="anchor" href="#r-subset"><i class="fas fa-link"></i></a>
+</h1>
+<p>R에는 강력한 부분집합 연산자가 다수 구비되어 있다.
+이를 완전히 익히게 되면 어떤 유형의 데이터셋에 대해서도 복잡한 연산을 수월하게 수행할 수 있게 된다.</p>
+<p>어떤 유형의 객체에서 부분집합을 뽑아낼 수 있는 방식은 6가지가 있다.
+다른 자료구조에 대한 부분집합을 뽑아내는 연산자는 3가지가 있다.</p>
+<p>R의 핵심으로 가장 많은 일은 하는 것부터 시작해본다: 원자 숫자형 벡터(atomic vector)</p>
+<div class="sourceCode" id="cb680"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">5.4</span>, <span class="fl">6.2</span>, <span class="fl">7.1</span>, <span class="fl">4.8</span>, <span class="fl">7.5</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">'a'</span>, <span class="st">'b'</span>, <span class="st">'c'</span>, <span class="st">'d'</span>, <span class="st">'e'</span><span class="op">)</span>
+<span class="va">x</span></code></pre></div>
+<pre><code>##   a   b   c   d   e 
+## 5.4 6.2 7.1 4.8 7.5</code></pre>
+<div id="r-subsetting" class="rmdcaution">
+<p><strong>원자 벡터(Atomic vectors)</strong></p>
+<p>R에서 문자열, 숫자, 논리 값을 갖는 간단한 벡터를 <em>원자(atomic)</em> 벡터라고 부르는데 이유는 더 이상 단순화할 수 없기 때문이다.</p>
+</div>
+<p>이제 가지고 놀 마루타 벡터를 생성하자. 해당 벡터 내용물을 손에 넣는 방식은 무엇인가?</p>
+<div id="subset-index" class="section level2" number="26.1">
+<h2>
+<span class="header-section-number">26.1</span> 색인 사용 요소 접근<a class="anchor" aria-label="anchor" href="#subset-index"><i class="fas fa-link"></i></a>
+</h2>
+<p>벡터 요소를 추출하는데, 대응되는 색인을 부여하는데, 1부터 시작된다:</p>
+<div class="sourceCode" id="cb682"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">x</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span></code></pre></div>
+<pre><code>##   a 
+## 5.4</code></pre>
+<div class="sourceCode" id="cb684"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">x</span><span class="op">[</span><span class="fl">4</span><span class="op">]</span></code></pre></div>
+<pre><code>##   d 
+## 4.8</code></pre>
+<p>꺾쇠 괄호 연산자는 다른 어떤 함수와 비슷한다.
+원자 벡터(행렬)에 대해, “n번째 요소를 뽑아낸다”라는 의미다.</p>
+<p>한번에 다수 요소를 뽑아낼 수도 있다:</p>
+<div class="sourceCode" id="cb686"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">x</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">3</span><span class="op">)</span><span class="op">]</span></code></pre></div>
+<pre><code>##   a   c 
+## 5.4 7.1</code></pre>
+<p>혹은, 벡터 슬라이스로 뽑아낼 수도 있다:</p>
+<div class="sourceCode" id="cb688"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">x</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span></code></pre></div>
+<pre><code>##   a   b   c   d 
+## 5.4 6.2 7.1 4.8</code></pre>
+<p><code>:</code> 연산자는 왼쪽 요소부터 우측 요소까지 연속된 숫자를 생성한다.
+예를 들어, <code>x[1:4]</code> 은 <code>x[c(1,2,3,4)]</code>와 동등하다:</p>
+<div class="sourceCode" id="cb690"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fl">1</span><span class="op">:</span><span class="fl">4</span></code></pre></div>
+<pre><code>## [1] 1 2 3 4</code></pre>
+<div class="sourceCode" id="cb692"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">3</span>, <span class="fl">4</span><span class="op">)</span></code></pre></div>
+<pre><code>## [1] 1 2 3 4</code></pre>
+<p>동일한 원소를 여러번 추출하는 것도 가능하다:</p>
+<div class="sourceCode" id="cb694"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">x</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">3</span><span class="op">)</span><span class="op">]</span></code></pre></div>
+<pre><code>##   a   a   c 
+## 5.4 5.4 7.1</code></pre>
+<p>벡터를 벗어난 숫자를 뽑아내려고 하면, R은 결측값을 반환한다:</p>
+<div class="sourceCode" id="cb696"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">x</span><span class="op">[</span><span class="fl">6</span><span class="op">]</span></code></pre></div>
+<pre><code>## &lt;NA&gt; 
+##   NA</code></pre>
+<p>길이 1을 갖는 벡터로 <code>NA</code>가 담겨있고, 명칭도 <code>NA</code>다.</p>
+<p>0번째 요소를 뽑아내려고 하면, 공벡터가 반환된다:</p>
+<div class="sourceCode" id="cb698"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">x</span><span class="op">[</span><span class="fl">0</span><span class="op">]</span></code></pre></div>
+<pre><code>## named numeric(0)</code></pre>
+<div id="subset-starting" class="rmdcaution">
+<p><strong>R에서 벡터 번호매기는 것은 1에서 시작</strong></p>
+<p>대다수 프로그래밍 언어(C와 파이썬)에서, 벡터 첫번째 요소는 색인 0을 갖는다.
+R에서, 첫번째 요소는 1 이다.</p>
+</div>
+</div>
+<div id="subset-skip-remove" class="section level2" number="26.2">
+<h2>
+<span class="header-section-number">26.2</span> 요소 건너뛰고 제거<a class="anchor" aria-label="anchor" href="#subset-skip-remove"><i class="fas fa-link"></i></a>
+</h2>
+<p>벡터 색인으로 음수를 사용하면, R은 명세된 숫자를 <em>제외</em>한 모든 요소를 반환한다:</p>
+<div class="sourceCode" id="cb700"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">x</span><span class="op">[</span><span class="op">-</span><span class="fl">2</span><span class="op">]</span></code></pre></div>
+<pre><code>##   a   c   d   e 
+## 5.4 7.1 4.8 7.5</code></pre>
+<p>다수 요소를 건너뛸 수도 있다:</p>
+<div class="sourceCode" id="cb702"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">x</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">1</span>, <span class="op">-</span><span class="fl">5</span><span class="op">)</span><span class="op">]</span>  <span class="co"># or x[-c(1,5)]</span></code></pre></div>
+<pre><code>##   b   c   d 
+## 6.2 7.1 4.8</code></pre>
+<div id="subset-operation-order" class="rmdcaution">
+<p><strong>꿀팁: 연산작업 순서</strong></p>
+<p>초보자가 범하는 일반적인 실수는 벡터 슬라이스 건너뛰기 연산을 시도할 때 일어나다.
+먼저 사람 대부분은 순열을 다음과 같이 부정연산을 통해 변경하려 한다:</p>
+<div class="sourceCode" id="cb704"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">x</span><span class="op">[</span><span class="op">-</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">]</span></code></pre></div>
+<p>다소 암호스런 오류가 제시된다:</p>
+<pre><code>## Error in x[-1:3]: only 0's may be mixed with negative subscripts</code></pre>
+<p>하지만, 연산작업 우선수위를 기억해보자.
+<code>:</code> 연산자는 사실 함수다.
+그래서, 일어난 상황은 -1을 첫번째 인자로 받고, 두번째 인자로 3을 받아서,
+연속된 숫자를 생성해낸다: <code>c(-1, 0, 1, 2, 3)</code>.
+올바른 해법은 함수 호출을 괄호로 감싸는 것이다.
+<code>-</code> 연산자가 결과를 도출한다:</p>
+<div class="sourceCode" id="cb706"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">x</span><span class="op">[</span><span class="op">-</span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">)</span><span class="op">]</span></code></pre></div>
+<pre><code>##   d   e 
+## 4.8 7.5</code></pre>
+</div>
+<p>벡터에서 요소를 제거하려면, 결과를 다시 벡터에 대입할 필요가 있다:</p>
+<div class="sourceCode" id="cb708"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">x</span> <span class="op">&lt;-</span> <span class="va">x</span><span class="op">[</span><span class="op">-</span><span class="fl">4</span><span class="op">]</span>
+<span class="va">x</span></code></pre></div>
+<pre><code>##   a   b   c   e 
+## 5.4 6.2 7.1 7.5</code></pre>
+</div>
+<div id="r-subset-challenge-one" class="section level2" number="26.3">
+<h2>
+<span class="header-section-number">26.3</span> 도전과제 1<a class="anchor" aria-label="anchor" href="#r-subset-challenge-one"><i class="fas fa-link"></i></a>
+</h2>
+<p>다음과 같이 코드가 주어졌다:</p>
+<div class="sourceCode" id="cb710"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">5.4</span>, <span class="fl">6.2</span>, <span class="fl">7.1</span>, <span class="fl">4.8</span>, <span class="fl">7.5</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">'a'</span>, <span class="st">'b'</span>, <span class="st">'c'</span>, <span class="st">'d'</span>, <span class="st">'e'</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></code></pre></div>
+<pre><code>##   a   b   c   d   e 
+## 5.4 6.2 7.1 4.8 7.5</code></pre>
+<p>다음 출력결과를 산출하는 적어도 서로 다른 명령어 2개 제시해보자:</p>
+<pre><code>##   b   c   d 
+## 6.2 7.1 4.8</code></pre>
+<p>서로 다른 정답을 찾은 후에, 작업결과를 옆 사람과 비교한다. 서로 다른 전략을 취했나요?</p>
+<blockquote>
+<p><strong>도전과제 1에 대한 해답</strong></p>
+<div class="sourceCode" id="cb713"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">x</span><span class="op">[</span><span class="fl">2</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span></code></pre></div>
+<pre><code>##   b   c   d 
+## 6.2 7.1 4.8</code></pre>
+<div class="sourceCode" id="cb715"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">x</span><span class="op">[</span><span class="op">-</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">5</span><span class="op">)</span><span class="op">]</span></code></pre></div>
+<pre><code>##   b   c   d 
+## 6.2 7.1 4.8</code></pre>
+<div class="sourceCode" id="cb717"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">x</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2</span>,<span class="fl">3</span>,<span class="fl">4</span><span class="op">)</span><span class="op">]</span></code></pre></div>
+<pre><code>##   b   c   d 
+## 6.2 7.1 4.8</code></pre>
+</blockquote>
+</div>
+<div id="r-subset-by-name" class="section level2" number="26.4">
+<h2>
+<span class="header-section-number">26.4</span> 명칭으로 부분집합 추출<a class="anchor" aria-label="anchor" href="#r-subset-by-name"><i class="fas fa-link"></i></a>
+</h2>
+<p>색인 대신에 명칭을 사용해서, 요소를 뽑아낼 수 있다:</p>
+<div class="sourceCode" id="cb719"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>a<span class="op">=</span><span class="fl">5.4</span>, b<span class="op">=</span><span class="fl">6.2</span>, c<span class="op">=</span><span class="fl">7.1</span>, d<span class="op">=</span><span class="fl">4.8</span>, e<span class="op">=</span><span class="fl">7.5</span><span class="op">)</span> <span class="co"># we can name a vector 'on the fly'</span>
+<span class="va">x</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"a"</span>, <span class="st">"c"</span><span class="op">)</span><span class="op">]</span></code></pre></div>
+<pre><code>##   a   c 
+## 5.4 7.1</code></pre>
+<p>명칭을 사용한 것이 객체에 대한 부분집합을 뽑아내는 훨씬 더 신뢰성 있는 방식이다:
+다양한 요소 위치는 부분집합을 뽑아내는 연산자를 연결해서 적용할 때 종종 변경되지만,
+명칭은 항상 동일하게 남게 마련이다!</p>
+</div>
+<div id="r-subset-by-logical" class="section level2" number="26.5">
+<h2>
+<span class="header-section-number">26.5</span> 논리 연산자 부분집합 추출<a class="anchor" aria-label="anchor" href="#r-subset-by-logical"><i class="fas fa-link"></i></a>
+</h2>
+<p>부분집합을 뽑아내는데 논리 벡터를 사용할 수도 있다:</p>
+<div class="sourceCode" id="cb721"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">x</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="cn">FALSE</span>, <span class="cn">FALSE</span>, <span class="cn">TRUE</span>, <span class="cn">FALSE</span>, <span class="cn">TRUE</span><span class="op">)</span><span class="op">]</span></code></pre></div>
+<pre><code>##   c   e 
+## 7.1 7.5</code></pre>
+<p>비교연산자(예를 들어, <code>&gt;</code>, <code>&lt;</code>, <code>==</code>)로 논리 벡터가 생성되기 때문에,
+이를 사용해서 간결하게 벡터 부분집합을 추출할 수 있다: 다음 문장은
+앞선 문장과 동일한 결과를 출력한다.</p>
+<div class="sourceCode" id="cb723"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">x</span><span class="op">[</span><span class="va">x</span> <span class="op">&gt;</span> <span class="fl">7</span><span class="op">]</span></code></pre></div>
+<pre><code>##   c   e 
+## 7.1 7.5</code></pre>
+<p>상기 문장을 분해하면, 첫째로 <code>x&gt;7</code>을 평가해서, 논리벡터
+<code>c(FALSE, FALSE, TRUE, FALSE, TRUE)</code>을 만들어내고,
+<code>TRUE</code> 값에 대응되는 벡터 <code>x</code> 원소를 추출하게 된다:</p>
+<p><code>==</code>을 사용해서 명칭으로 색인을 두어 추출하는 방식을 모사할 수 있다
+(비교로 <code>=</code> 대신에 <code>==</code>을 사용함을 기억한다):</p>
+<div class="sourceCode" id="cb725"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">x</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">==</span> <span class="st">"a"</span><span class="op">]</span></code></pre></div>
+<pre><code>##   a 
+## 5.4</code></pre>
+<blockquote>
+<p><strong>꿀팁: 논리 조건 조합</strong></p>
+<p>We often want to combine multiple logical
+criteria. For example, we might want to find all the countries that are
+located in Asia <strong>or</strong> Europe <strong>and</strong> have life expectancies within a certain
+range. Several operations for combining logical vectors exist in R:</p>
+<ul>
+<li>
+<code>&amp;</code>, the “logical AND” operator: returns <code>TRUE</code> if both the left and right
+are <code>TRUE</code>.</li>
+<li>
+<code>|</code>, the “logical OR” operator: returns <code>TRUE</code>, if either the left or right
+(or both) are <code>TRUE</code>.</li>
+</ul>
+<p>You may sometimes see <code>&amp;&amp;</code> and <code>||</code> instead of <code>&amp;</code> and <code>|</code>. These two-character operators
+only look at the first element of each vector and ignore the
+remaining elements. In general you should not use the two-character
+operators in data analysis; save them
+for programming, i.e. deciding whether to execute a statement.</p>
+<ul>
+<li>
+<code>!</code>, the “logical NOT” operator: converts <code>TRUE</code> to <code>FALSE</code> and <code>FALSE</code> to
+<code>TRUE</code>. It can negate a single logical condition (eg <code>!TRUE</code> becomes
+<code>FALSE</code>), or a whole vector of conditions(eg <code>!c(TRUE, FALSE)</code> becomes
+<code>c(FALSE, TRUE)</code>).</li>
+</ul>
+<p>Additionally, you can compare the elements within a single vector using the
+<code>all</code> function (which returns <code>TRUE</code> if every element of the vector is <code>TRUE</code>)
+and the <code>any</code> function (which returns <code>TRUE</code> if one or more elements of the
+vector are <code>TRUE</code>).
+{: .callout}</p>
+</blockquote>
+</div>
+<div id="r-subset-challenge-two" class="section level2" number="26.6">
+<h2>
+<span class="header-section-number">26.6</span> 도전과제 2<a class="anchor" aria-label="anchor" href="#r-subset-challenge-two"><i class="fas fa-link"></i></a>
+</h2>
+<p>코드가 다음과 같이 주어져 있다:</p>
+<div class="sourceCode" id="cb727"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">5.4</span>, <span class="fl">6.2</span>, <span class="fl">7.1</span>, <span class="fl">4.8</span>, <span class="fl">7.5</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">'a'</span>, <span class="st">'b'</span>, <span class="st">'c'</span>, <span class="st">'d'</span>, <span class="st">'e'</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></code></pre></div>
+<pre><code>##   a   b   c   d   e 
+## 5.4 6.2 7.1 4.8 7.5</code></pre>
+<p><code>x</code> 값에서 4보다 크고, 7보다 작은 것을 추출하는 코드를 작성해보자.</p>
+<blockquote>
+<p><strong>도전과제 2에 대한 해답</strong></p>
+<div class="sourceCode" id="cb729"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">x_subset</span> <span class="op">&lt;-</span> <span class="va">x</span><span class="op">[</span><span class="va">x</span><span class="op">&lt;</span><span class="fl">7</span> <span class="op">&amp;</span> <span class="va">x</span><span class="op">&gt;</span><span class="fl">4</span><span class="op">]</span>
+<span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">x_subset</span><span class="op">)</span></code></pre></div>
+<pre><code>##   a   b   d 
+## 5.4 6.2 4.8</code></pre>
+</blockquote>
+<div id="subset-nonunique" class="rmdcaution">
+<p><strong>꿀팁: 유일무이하지 않은 명칭(Non-unique names)</strong></p>
+<p>벡터에 원소 다수가 동일 명칭을 갖을 수 있음에 유의해야만 된다.
+(데이터프레임에서, 칼럼이 동일한 명칭을 갖을 수 있다 —
+R에서 이런 점을 회피하려고 하지만 — 하지만, 행 명칭은 유일무이해야 된다.)
+다음 예제를 고려해보자:</p>
+<div class="sourceCode" id="cb731"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fl">1</span><span class="op">:</span><span class="fl">3</span>
+<span class="va">x</span></code></pre></div>
+<pre><code>## [1] 1 2 3</code></pre>
+<div class="sourceCode" id="cb733"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">'a'</span>, <span class="st">'a'</span>, <span class="st">'a'</span><span class="op">)</span>
+<span class="va">x</span></code></pre></div>
+<pre><code>## a a a 
+## 1 2 3</code></pre>
+<div class="sourceCode" id="cb735"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">x</span><span class="op">[</span><span class="st">'a'</span><span class="op">]</span>  <span class="co"># only returns first value</span></code></pre></div>
+<pre><code>## a 
+## 1</code></pre>
+<div class="sourceCode" id="cb737"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">x</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">==</span> <span class="st">'a'</span><span class="op">]</span>  <span class="co"># returns all three values</span></code></pre></div>
+<pre><code>## a a a 
+## 1 2 3</code></pre>
+</div>
+<div id="subset-operator-help" class="rmdcaution">
+<p><strong>꿀팁: 연산자에 대한 도움말 얻기</strong></p>
+<p>인용부호 내부에 찾고자 하는 연산자를 감싸서 도움말을 검색할 수 있다:
+<code><a href="https://rdrr.io/r/base/match.html">help("%in%")</a></code> 혹은 <code><a href="https://rdrr.io/r/base/match.html">?"%in%"</a></code>.</p>
+</div>
+</div>
+<div id="subset-skip-with-names" class="section level2" number="26.7">
+<h2>
+<span class="header-section-number">26.7</span> 이름 갖는 원소 건너뛰기<a class="anchor" aria-label="anchor" href="#subset-skip-with-names"><i class="fas fa-link"></i></a>
+</h2>
+<p>이름을 갖는 원소를 건너뛰거나 제거하는 것은 다소 더 어렵다.
+문자열에 마이너스를 붙여 이름이 붙은 원소를 건너뛰기 하고자 한다면,
+R이 불평을 하는데, 이유는 문자열에 마이너스를 어떻게 처리할지 모르기 때문이다:</p>
+<div class="sourceCode" id="cb739"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>a<span class="op">=</span><span class="fl">5.4</span>, b<span class="op">=</span><span class="fl">6.2</span>, c<span class="op">=</span><span class="fl">7.1</span>, d<span class="op">=</span><span class="fl">4.8</span>, e<span class="op">=</span><span class="fl">7.5</span><span class="op">)</span> <span class="co"># we start again by naming a vector 'on the fly'</span>
+<span class="va">x</span><span class="op">[</span><span class="op">-</span><span class="st">"a"</span><span class="op">]</span></code></pre></div>
+<pre><code>## Error in -"a": invalid argument to unary operator</code></pre>
+<p>하지만, <code>!=</code> 연산자를 사용하면 논리 벡터를 생성해서 원하는 바를 쟁취할 수 있다:</p>
+<div class="sourceCode" id="cb741"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">x</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">!=</span> <span class="st">"a"</span><span class="op">]</span></code></pre></div>
+<pre><code>##   b   c   d   e 
+## 6.2 7.1 4.8 7.5</code></pre>
+<p>다수 명칭을 갖는 인덱스로 건너뛰는 것도 그리 녹록하지 않다. <code>"a"</code>, <code>"c"</code> 원소를 누락시키고자 한다고 가정하고, 다음과 같이 시도해 보자:</p>
+<div class="sourceCode" id="cb743"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">x</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">!=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"a"</span>,<span class="st">"c"</span><span class="op">)</span><span class="op">]</span></code></pre></div>
+<pre><code>##   b   c   d   e 
+## 6.2 7.1 4.8 7.5</code></pre>
+<p>R이 뭔가 작업을 수행하는데, 주의가 필요하다는 경고를 보내고, 명확히 잘못된 답을 준다(벡터에 <code>"c"</code> 원소가 여전히 포함되어 있다)!</p>
+<p>이 경우에 <code>!=</code>이 실제로 하는 작업은 무엇일까? 정말 좋은 질문이다.</p>
+<div id="subset-recycle" class="section level3" number="26.7.1">
+<h3>
+<span class="header-section-number">26.7.1</span> 재사용(Recycling)<a class="anchor" aria-label="anchor" href="#subset-recycle"><i class="fas fa-link"></i></a>
+</h3>
+<p>다음 코드에 대해서 비교연산 구성요소에 대해서 살펴보자:</p>
+<div class="sourceCode" id="cb745"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">!=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"a"</span>, <span class="st">"c"</span><span class="op">)</span></code></pre></div>
+<pre><code>## [1] FALSE  TRUE  TRUE  TRUE  TRUE</code></pre>
+<p><code>names(x)[3] != "c"</code>이 명백히 <code>false</code>일때, 왜 R은 벡터의 세번째 원소에 <code>FALSE</code>를 던질까?
+<code>!=</code>을 사용할 때, R은 왼쪽편의 각 원자와 우측편의 대응 원자와 비교를 한다.
+다른 길이를 갖는 벡털르 비교할 때 무슨 일이 일어날까?</p>
+<div class="figure">
+<img src="assets/images/r/06-rmd-inequality.1.png" alt=""><p class="caption">동치성 테스트</p>
+</div>
+<p>한 벡터가 다른 벡터보다 길이가 짧을 때, <em>재사용(recycle)</em>이 발생된다:</p>
+<div class="figure">
+<img src="assets/images/r/06-rmd-inequality.2.png" alt=""><p class="caption">동치성 테스트: 재사용 결과</p>
+</div>
+<p>이번 사례의 경우, R은 <code>names(x)</code>과 매칭이 되도록 필요한만큼 <code>c("a", "c")</code>을 <strong>반복</strong>한다.
+즉, <code>c("a","c","a","c","a")</code>이 된다.
+재사용된 <code>"a"</code>이 <code>names(x)</code>의 세번째 원소와 매칭이 되지 않기 때문에 <code>!=</code> 값은 <code>TRUE</code>가 된다.
+이번 경우에, 더 긴 벡터 길이가 5라서 짧은 벡터 길이 2의 배수가 되지 않기 때문에,
+R에서 경고 메시지를 띄운다.
+운이 나빠서 <code>names(x)</code>에 여섯번째 원소가 포함된다면, R은 <em>조용하게</em> 잘못된 작업을 수행하다.
+즉, 코드를 작성했던 분이 의도하지 않는 작업을 수행한다.
+이러한 재활용 규칙은 참 발견하기 어렵고 미묘한 버그를 만들어 낼 수 있다!
+R로 하여금 정말 원하는 바(우측편의 모든 원소와 매칭되는 왼쪽의 원소를 찾아내는 바)를 수행하도록 하는 방법은 <code>%in%</code> 연산자를 사용하는 것이다.
+<code>%in%</code> 연산자는 좌측편의 각 원소를 탐색하는데 이번 경우 <code>x</code>의 명칭을 찾아보고 “해당 원소가 두번째 인자에도 존재하는가?”라고 묻는다.
+여기서는 값을 제외하고자 하기 때문에 <code>!</code>연산자를 사용해서 “in”을 부정하는 “not in”이 되도록 한다:</p>
+<div class="sourceCode" id="cb747"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">x</span><span class="op">[</span><span class="op">!</span> <span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/r/base/match.html">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"a"</span>,<span class="st">"c"</span><span class="op">)</span> <span class="op">]</span></code></pre></div>
+<pre><code>##   b   d   e 
+## 6.2 4.8 7.5</code></pre>
+</div>
+</div>
+<div id="r-subset-challenge-three" class="section level2" number="26.8">
+<h2>
+<span class="header-section-number">26.8</span> 도전과제 3<a class="anchor" aria-label="anchor" href="#r-subset-challenge-three"><i class="fas fa-link"></i></a>
+</h2>
+<p>리스트 특정 원소와 매칭되는 원소를 뽑아내는 작업은 데이터 분석 작업에서
+매우 흔한 일이다. 예를 들어, gapminder 데이터셋에 <code>country</code>와 <code>continent</code>
+변수가 포함되어 있다. 두 척도 간에는 어떤 공통 정보도 없다.
+동남아시아에서 정보를 추출한다고 가정해보자:
+동남아시아에 속한 모든 국가에는 <code>TRUE</code>가 되고, 그렇지 않는 경우는 <code>FALSE</code>가 되는
+논리 벡터를 생성하는 연산을 어떻게 구성할 수 있을까?
+다음 데이터를 가지고 있다고 가정하자:</p>
+<div class="sourceCode" id="cb749"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">seAsia</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Myanmar"</span>,<span class="st">"Thailand"</span>,<span class="st">"Cambodia"</span>,<span class="st">"Vietnam"</span>,<span class="st">"Laos"</span><span class="op">)</span>
+<span class="co">## read in the gapminder data that we downloaded in episode 2</span>
+<span class="va">gapminder</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html">read.csv</a></span><span class="op">(</span><span class="st">"data/gapminder_data.csv"</span>, header<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span>
+<span class="co">## extract the `country` column from a data frame (we'll see this later);</span>
+<span class="co">## convert from a factor to a character;</span>
+<span class="co">## and get just the non-repeated elements</span>
+<span class="va">countries</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/unique.html">unique</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/character.html">as.character</a></span><span class="op">(</span><span class="va">gapminder</span><span class="op">$</span><span class="va">country</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<p><code>==</code>만 사용하는 경우 잘못된 방식으로 경고가 뜰 것이다;
+<code>==</code>와 <code>|</code>을 사용하는 경우 투박한 방식이 된다;
+<code>%in%</code>을 사용하는 방법이 훨씬 깔끔하다.
+세가지 방식을 적용해서 원하는 바를 얻을 수 있는지 살펴보고,
+동작하는 방식(동작하지 않는 방식)을 설명해 보라.</p>
+<blockquote>
+<p><strong>도전과제 3에 대한 해법</strong></p>
+<ul>
+<li>
+<code>countries==seAsia</code>을 사용하는 것은 문제에 대한 <em>틀린</em> 방식이다.</li>
+</ul>
+<p>이유는 <code>"In countries == seAsia : longer object length is not a multiple of shorter object length"</code> 경고를 주는 것은 물론이고,
+잘못된 오답을 주는데 이유는 <code>seAsia</code> 벡터의 재사용 값이 <code>country</code>에 매칭되는 값과 제대로 대응되지 않기 때문이다.</p>
+<ul>
+<li>문제에 대한 <strong>투박한</strong> (하지만, 기술적으로 맞는) 방식은 다음과 같다.</li>
+</ul>
+<div class="sourceCode" id="cb750"><pre class="downlit sourceCode r">
+<code class="sourceCode R"> <span class="op">(</span><span class="va">countries</span><span class="op">==</span><span class="st">"Myanmar"</span> <span class="op">|</span> <span class="va">countries</span><span class="op">==</span><span class="st">"Thailand"</span> <span class="op">|</span>
+ <span class="va">countries</span><span class="op">==</span><span class="st">"Cambodia"</span> <span class="op">|</span> <span class="va">countries</span> <span class="op">==</span> <span class="st">"Vietnam"</span> <span class="op">|</span> <span class="va">countries</span><span class="op">==</span><span class="st">"Laos"</span><span class="op">)</span></code></pre></div>
+<p>(혹은 <code>countries==seAsia[1] | countries==seAsia[2] | ...</code>).
+이런 코딩방식은 올바른 정답을 주지만, 얼마나 어색한지 바로 알 수 있다.
+(만약 좀더 긴 목록에서 국가를 선택하게 되면 어떨까?)</p>
+<ul>
+<li>이번 문제에 대한 최선의 방식은 <code>countries %in% seAsia</code>와 같이 코드를 작성하는 것이다.
+정답이기도 하고 타이핑하기 쉽고 가독성도 높다.</li>
+</ul>
+</blockquote>
+</div>
+<div id="subset-special-values" class="section level2" number="26.9">
+<h2>
+<span class="header-section-number">26.9</span> 특수값 처리하기<a class="anchor" aria-label="anchor" href="#subset-special-values"><i class="fas fa-link"></i></a>
+</h2>
+<p>어느 지점에 다다르면, R 함수에 처리할 수 없는 결측값, 무한값, 정의되지 않는 값을 갖는 데이터와 마주하게 된다.</p>
+<p>이런 유형의 데이터를 필터링하는데 사용되는 특수 함수가 있다:</p>
+<ul>
+<li>
+<code>is.na</code>는 벡터, 행렬, 데이터프레임에 포함된 <code>NA</code> 위치를 반환한다.</li>
+<li>마찬가지로, <code>is.nan</code> 와 <code>is.infinite</code> 함수도 <code>NaN</code> 와 <code>Inf</code> 값에 대한 동일한 작업을 수행한다.</li>
+<li>
+<code>is.finite</code> 함수는 <code>NA</code>, <code>NaN</code>, <code>Inf</code> 값을 포함하지 않는 벡터, 행렬, 데이터프레임에 대한 모든 위치정보를 반환한다.</li>
+<li>
+<code>na.omit</code>는 벡터에서 모든 결측값을 필터링해서 제외시키다.</li>
+</ul>
+</div>
+<div id="subset-factor-extraction" class="section level2" number="26.10">
+<h2>
+<span class="header-section-number">26.10</span> 요인 부분집합 추출<a class="anchor" aria-label="anchor" href="#subset-factor-extraction"><i class="fas fa-link"></i></a>
+</h2>
+<p>지금까지 벡터 부분집합을 뽑아내는 다양한 방식을 탐색했다.
+다른 자료구조에 대한 부분집합은 어떻게 뽑아낼 수 있을까?</p>
+<p>요인 부분집합 뽑아내기는 벡터 부분집합 뽑아내기와 동일한 방식으로 동작한다.</p>
+<div class="sourceCode" id="cb751"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">f</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"a"</span>, <span class="st">"a"</span>, <span class="st">"b"</span>, <span class="st">"c"</span>, <span class="st">"c"</span>, <span class="st">"d"</span><span class="op">)</span><span class="op">)</span>
+<span class="va">f</span><span class="op">[</span><span class="va">f</span> <span class="op">==</span> <span class="st">"a"</span><span class="op">]</span></code></pre></div>
+<pre><code>## [1] a a
+## Levels: a b c d</code></pre>
+<div class="sourceCode" id="cb753"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">f</span><span class="op">[</span><span class="va">f</span> <span class="op"><a href="https://rdrr.io/r/base/match.html">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"b"</span>, <span class="st">"c"</span><span class="op">)</span><span class="op">]</span></code></pre></div>
+<pre><code>## [1] b c c
+## Levels: a b c d</code></pre>
+<div class="sourceCode" id="cb755"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">f</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">]</span></code></pre></div>
+<pre><code>## [1] a a b
+## Levels: a b c d</code></pre>
+<p>중요한 주의점 하나는 건너뛰는 요소가 설사 해당 범주가 요인으로 존재하지 않더라도,
+수준(level)을 제거하지 않는다는 점이다:</p>
+<div class="sourceCode" id="cb757"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">f</span><span class="op">[</span><span class="op">-</span><span class="fl">3</span><span class="op">]</span></code></pre></div>
+<pre><code>## [1] a a c c d
+## Levels: a b c d</code></pre>
+</div>
+<div id="subset-matrix" class="section level2" number="26.11">
+<h2>
+<span class="header-section-number">26.11</span> 행렬 부분집합 추출<a class="anchor" aria-label="anchor" href="#subset-matrix"><i class="fas fa-link"></i></a>
+</h2>
+<p>행렬의 경우도 <code>[</code> 함수를 사용해서 부분집합을 뽑아낸다.
+이번 경우에는 인자를 두개 사용한다: 첫번째 인자는 행에 적용되고, 두번째 인자는 칼럼에 적용된다:</p>
+<div class="sourceCode" id="cb759"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span>
+<span class="va">m</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span><span class="fl">6</span><span class="op">*</span><span class="fl">4</span><span class="op">)</span>, ncol<span class="op">=</span><span class="fl">4</span>, nrow<span class="op">=</span><span class="fl">6</span><span class="op">)</span>
+<span class="va">m</span><span class="op">[</span><span class="fl">3</span><span class="op">:</span><span class="fl">4</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">3</span>,<span class="fl">1</span><span class="op">)</span><span class="op">]</span></code></pre></div>
+<pre><code>##         [,1]   [,2]
+## [1,]  1.1249 -0.836
+## [2,] -0.0449  1.595</code></pre>
+<p>첫번째 혹은 두번째 인자를 공백으로 남겨놓을 수도 있는데, 모든 행 혹은 칼럼을 각각 불러올 경우 사용한다:</p>
+<div class="sourceCode" id="cb761"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">m</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">3</span>,<span class="fl">4</span><span class="op">)</span><span class="op">]</span></code></pre></div>
+<pre><code>##         [,1]    [,2]
+## [1,] -0.6212  0.8212
+## [2,] -2.2147  0.5939
+## [3,]  1.1249  0.9190
+## [4,] -0.0449  0.7821
+## [5,] -0.0162  0.0746
+## [6,]  0.9438 -1.9894</code></pre>
+<p>행 혹은 칼럼 하나만 접근하고자 하면, R이 자동으로 결과값을 벡터로 전환시킨다:</p>
+<div class="sourceCode" id="cb763"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">m</span><span class="op">[</span><span class="fl">3</span>,<span class="op">]</span></code></pre></div>
+<pre><code>## [1] -0.836  0.576  1.125  0.919</code></pre>
+<p>결과값을 행렬로 그대로 유지하고자 한다면, <em>세번째</em> 인자를 명세할 필요가 있다;
+<code>drop = FALSE</code>:</p>
+<div class="sourceCode" id="cb765"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">m</span><span class="op">[</span><span class="fl">3</span>, , drop<span class="op">=</span><span class="cn">FALSE</span><span class="op">]</span></code></pre></div>
+<pre><code>##        [,1]  [,2] [,3]  [,4]
+## [1,] -0.836 0.576 1.12 0.919</code></pre>
+<p>벡터와 달리, 행렬 외부 행과 칼럼을 접근하고자 하면, R이 오류를 던진다:</p>
+<div class="sourceCode" id="cb767"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">m</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">3</span>,<span class="fl">6</span><span class="op">)</span><span class="op">]</span></code></pre></div>
+<pre><code>## Error in m[, c(3, 6)]: subscript out of bounds</code></pre>
+<div id="subset-high-dimension" class="rmdcaution">
+<p><strong>꿀팁: 고차원 배열</strong></p>
+<p>다차원 배열을 다룰 때, <code>[</code>에 넘겨지는 각 인자가 차원에 대응된다.
+예를 들어, 3D 배열에서 첫세개 인자는 각각 행, 열, 깊이 차원에 대응된다.</p>
+</div>
+<p>행렬을 까면 정말 자료형이 벡터라서, 단지 인자 하나로만 부분집합을 추출할 수도 있다:</p>
+<div class="sourceCode" id="cb769"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">m</span><span class="op">[</span><span class="fl">5</span><span class="op">]</span></code></pre></div>
+<pre><code>## [1] 0.33</code></pre>
+<p>보통 유용하지는 않다. 하지만, 행렬이 <em>열우선형식(column-major format)</em>으로 기본디폴트 설정으로 되어있음에 주목한다.
+즉, 벡터 요소가 칼럼방향으로 배열된다는 것을 의미한다:</p>
+<div class="sourceCode" id="cb771"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">6</span>, nrow<span class="op">=</span><span class="fl">2</span>, ncol<span class="op">=</span><span class="fl">3</span><span class="op">)</span></code></pre></div>
+<pre><code>##      [,1] [,2] [,3]
+## [1,]    1    3    5
+## [2,]    2    4    6</code></pre>
+<p>행렬을 행우선으로 쭉 펼치고자 한다면, <code>byrow=TRUE</code>를 사용한다:</p>
+<div class="sourceCode" id="cb773"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">6</span>, nrow<span class="op">=</span><span class="fl">2</span>, ncol<span class="op">=</span><span class="fl">3</span>, byrow<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
+<pre><code>##      [,1] [,2] [,3]
+## [1,]    1    2    3
+## [2,]    4    5    6</code></pre>
+<p>행과 칼럼 색인 대신에 행명칭(rownames)과 열명칭(column names)을 사용해서 배열 부분집합을 뽑아낼 수 있다.</p>
+</div>
+<div id="subset-challenge-four" class="section level2" number="26.12">
+<h2>
+<span class="header-section-number">26.12</span> 도전과제 4<a class="anchor" aria-label="anchor" href="#subset-challenge-four"><i class="fas fa-link"></i></a>
+</h2>
+<p>코드가 다음과 같이 주어져 있다:</p>
+<div class="sourceCode" id="cb775"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">m</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">18</span>, nrow<span class="op">=</span><span class="fl">3</span>, ncol<span class="op">=</span><span class="fl">6</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">m</span><span class="op">)</span></code></pre></div>
+<pre><code>##      [,1] [,2] [,3] [,4] [,5] [,6]
+## [1,]    1    4    7   10   13   16
+## [2,]    2    5    8   11   14   17
+## [3,]    3    6    9   12   15   18</code></pre>
+<ol style="list-style-type: decimal">
+<li>다음 중 어떤 명령어가 값 11과 14를 추출하는 하는가?</li>
+</ol>
+<p>A. <code>m[2,4,2,5]</code>
+B. <code>m[2:5]</code>
+C. <code>m[4:5,2]</code>
+D. <code>m[2,c(4,5)]</code></p>
+<blockquote>
+<p><strong>도전과제 4 해답</strong></p>
+<p>D</p>
+</blockquote>
+</div>
+<div id="subset-list" class="section level2" number="26.13">
+<h2>
+<span class="header-section-number">26.13</span> 리스트 부분집합 추출<a class="anchor" aria-label="anchor" href="#subset-list"><i class="fas fa-link"></i></a>
+</h2>
+<p>이제 몇가지 새로운 부분집합을 뽑아내는 연산자를 소개한다.
+리스트 부분집합을 뽑아내는데 사용되는 함수가 세가지 있다;
+원자벡터와 행렬에서 살펴본 <code>[</code>, 그리고 <code>[[</code>, <code>$</code>이 있다.</p>
+<p><code>[</code>을 사용하면, 항상 리스트만 반환한다.
+리스트 <em>부분집합을 뽑아내고자</em> 하지만, 원소는 뽑아내고 <em>싶지 않다면</em>, 아마도 <code>[</code> 연산자를 사용할 것이다.</p>
+<div class="sourceCode" id="cb777"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">xlist</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>a <span class="op">=</span> <span class="st">"Software Carpentry"</span>, b <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">10</span>, data <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">iris</span><span class="op">)</span><span class="op">)</span>
+<span class="va">xlist</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span></code></pre></div>
+<pre><code>## $a
+## [1] "Software Carpentry"</code></pre>
+<p>상기 명령어는 <em>원소 하나만 갖는 리스트</em>를 반환한다.</p>
+<p><code>[</code> 연산자를 사용해서 원자벡터에 적용한 그대로 리스트 원소를 부분집합으로 뽑아낼 수 있다.
+하지만, 리스트가 재귀적으로 되어 있지 않다면, 비교 연산자는 동작하지 않는다.
+이유는 비교 연산자가 데이터 구조 내부 개별 요소가 아닌, 리스트 각 요소에 내재한 자료구조로 되어있기 때문이다.</p>
+<div class="sourceCode" id="cb779"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">xlist</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">]</span></code></pre></div>
+<pre><code>## $a
+## [1] "Software Carpentry"
+## 
+## $b
+##  [1]  1  2  3  4  5  6  7  8  9 10</code></pre>
+<p>리스트 개별 원소를 추출하려면, 이중 꺾쇠 함수를 사용한다: <code>[[</code>.</p>
+<div class="sourceCode" id="cb781"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">xlist</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span></code></pre></div>
+<pre><code>## [1] "Software Carpentry"</code></pre>
+<p>이제 결과값이 리스트가 아닌 벡터에 주목한다.</p>
+<p>한번에 요소 하나이상을 추출할 수는 없다:</p>
+<div class="sourceCode" id="cb783"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">xlist</span><span class="op">[[</span><span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span></code></pre></div>
+<pre><code>## Error in xlist[[1:2]]: subscript out of bounds</code></pre>
+<p>요소를 건너뛰는 것도 사용할 수 없다:</p>
+<div class="sourceCode" id="cb785"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">xlist</span><span class="op">[[</span><span class="op">-</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span></code></pre></div>
+<pre><code>## Error in xlist[[-1]]: invalid negative subscript in get1index &lt;real&gt;</code></pre>
+<p>하지만, 명칭을 사용해서 요소에 대한 부분집합으로 뽑아내거나, 요소를 추출할 때 사용할 수 있다:</p>
+<div class="sourceCode" id="cb787"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">xlist</span><span class="op">[[</span><span class="st">"a"</span><span class="op">]</span><span class="op">]</span></code></pre></div>
+<pre><code>## [1] "Software Carpentry"</code></pre>
+<p><code>$</code> 함수는 명칭으로 요소를 뽑아내는데 사용되는 초간편 방법이다:</p>
+<div class="sourceCode" id="cb789"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">xlist</span><span class="op">$</span><span class="va">data</span></code></pre></div>
+<pre><code>##   Sepal.Length Sepal.Width Petal.Length Petal.Width Species
+## 1          5.1         3.5          1.4         0.2  setosa
+## 2          4.9         3.0          1.4         0.2  setosa
+## 3          4.7         3.2          1.3         0.2  setosa
+## 4          4.6         3.1          1.5         0.2  setosa
+## 5          5.0         3.6          1.4         0.2  setosa
+## 6          5.4         3.9          1.7         0.4  setosa</code></pre>
+</div>
+<div id="subset-challenge-five" class="section level2" number="26.14">
+<h2>
+<span class="header-section-number">26.14</span> 도전과제 5<a class="anchor" aria-label="anchor" href="#subset-challenge-five"><i class="fas fa-link"></i></a>
+</h2>
+<p>리스트가 다음과 같이 주어져 있다:</p>
+<div class="sourceCode" id="cb791"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">xlist</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>a <span class="op">=</span> <span class="st">"Software Carpentry"</span>, b <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">10</span>, data <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">iris</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<p>리스트와 벡터 부분집합을 추출하는 지식을 활용해서, <code>xlist</code>에서 숫자 2를 추출한다.
+<strong>힌트:</strong> 숫자 2는 리스트 “b” 항목 내부에 담겨있다.</p>
+<blockquote>
+<p><strong>도전과제 5 해답</strong></p>
+<div class="sourceCode" id="cb792"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">xlist</span><span class="op">$</span><span class="va">b</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span></code></pre></div>
+<pre><code>## [1] 2</code></pre>
+<div class="sourceCode" id="cb794"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">xlist</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span></code></pre></div>
+<pre><code>## [1] 2</code></pre>
+<div class="sourceCode" id="cb796"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">xlist</span><span class="op">[[</span><span class="st">"b"</span><span class="op">]</span><span class="op">]</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span></code></pre></div>
+<pre><code>## [1] 2</code></pre>
+</blockquote>
+</div>
+<div id="subset-challenge-six" class="section level2" number="26.15">
+<h2>
+<span class="header-section-number">26.15</span> 도전과제 6<a class="anchor" aria-label="anchor" href="#subset-challenge-six"><i class="fas fa-link"></i></a>
+</h2>
+<p>선형 모형이 다음과 같이 주어져 있다:</p>
+<div class="sourceCode" id="cb798"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">mod</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/aov.html">aov</a></span><span class="op">(</span><span class="va">pop</span> <span class="op">~</span> <span class="va">lifeExp</span>, data<span class="op">=</span><span class="va">gapminder</span><span class="op">)</span></code></pre></div>
+<p>잔차 자유도를 추출하라.
+<strong>힌트:</strong> <code><a href="https://rdrr.io/r/base/attributes.html">attributes()</a></code> 함수가 도움을 줄 것이다.</p>
+<blockquote>
+<p><strong>도전과제 6에 대한 해법</strong></p>
+<div class="sourceCode" id="cb799"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/attributes.html">attributes</a></span><span class="op">(</span><span class="va">mod</span><span class="op">)</span> <span class="co">## `df.residual` is one of the names of `mod`</span></code></pre></div>
+<div class="sourceCode" id="cb800"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">mod</span><span class="op">$</span><span class="va">df.residual</span></code></pre></div>
+</blockquote>
+</div>
+<div id="subset-dataframe" class="section level2" number="26.16">
+<h2>
+<span class="header-section-number">26.16</span> 데이터프레임<a class="anchor" aria-label="anchor" href="#subset-dataframe"><i class="fas fa-link"></i></a>
+</h2>
+<p>데이터프레임을 까면 내부는 리스트로 구성된 것이라는 점을 기억한다.
+그래서 유사한 규칙이 적용된다. 하지만, 데이터프레임도 2차원 객체다:</p>
+<p><code>[</code>함수에 인자를 하나만 넣으면 리스트와 동일하게 동작한다.
+즉, 각 리스트 요소는 칼럼에 대응된다.
+작업결과 나오는 객체는 데이터프레임이다:</p>
+<div class="sourceCode" id="cb801"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">gapminder</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span><span class="op">)</span></code></pre></div>
+<pre><code>##        pop
+## 1  8425333
+## 2  9240934
+## 3 10267083
+## 4 11537966
+## 5 13079460
+## 6 14880372</code></pre>
+<p>유사하게, <code>[[</code> 함수는 <em>칼럼 한개</em>만 추출하는데 동작된다:</p>
+<div class="sourceCode" id="cb803"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">gapminder</span><span class="op">[[</span><span class="st">"lifeExp"</span><span class="op">]</span><span class="op">]</span><span class="op">)</span></code></pre></div>
+<pre><code>## [1] 28.8 30.3 32.0 34.0 36.1 38.4</code></pre>
+<p>명칭으로 칼럼을 추출하는데 사용되는 편리한 단축어가 <code>$</code>이다:</p>
+<div class="sourceCode" id="cb805"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">gapminder</span><span class="op">$</span><span class="va">year</span><span class="op">)</span></code></pre></div>
+<pre><code>## [1] 1952 1957 1962 1967 1972 1977</code></pre>
+<p>인자가 두개 있는 경우, <code>[</code> 함수는 행렬에 대해서와 마찬가지로 동작한다:</p>
+<div class="sourceCode" id="cb807"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">gapminder</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span>,<span class="op">]</span></code></pre></div>
+<pre><code>##       country year      pop continent lifeExp gdpPercap
+## 1 Afghanistan 1952  8425333      Asia    28.8       779
+## 2 Afghanistan 1957  9240934      Asia    30.3       821
+## 3 Afghanistan 1962 10267083      Asia    32.0       853</code></pre>
+<p>행 하나만 부분집합으로 뽑아내면, 결과는 데이터프레임이 되는데 이유는 각 요소가 혼합된 자료형으로 구성되었기 때문이다:</p>
+<div class="sourceCode" id="cb809"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">gapminder</span><span class="op">[</span><span class="fl">3</span>,<span class="op">]</span></code></pre></div>
+<pre><code>##       country year      pop continent lifeExp gdpPercap
+## 3 Afghanistan 1962 10267083      Asia      32       853</code></pre>
+<p>하지만, 단일 칼럼에 대해서 결과는 벡터다. <code>drop = FALSE</code>를 세번째 인자로 넣으면 바꿀 수 있다.</p>
+</div>
+<div id="subset-challenge-seven" class="section level2" number="26.17">
+<h2>
+<span class="header-section-number">26.17</span> 도전과제 7<a class="anchor" aria-label="anchor" href="#subset-challenge-seven"><i class="fas fa-link"></i></a>
+</h2>
+<p>데이터프레임 부분집합을 뽑아내는 오류가 다음에 나와 있는데 이를 버그없이 수정하라:</p>
+<ol style="list-style-type: decimal">
+<li>1957년에 수집된 관측점을 뽑아내라.</li>
+</ol>
+<div class="sourceCode" id="cb811"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb811-1"><a href="r-subset.html#cb811-1" aria-hidden="true" tabindex="-1"></a>gapminder[gapminder<span class="sc">$</span>year <span class="ot">=</span> <span class="dv">1957</span>,]</span></code></pre></div>
+<ol start="2" style="list-style-type: decimal">
+<li>1에서 4를 제외한 모든 칼럼을 뽑아내라.</li>
+</ol>
+<div class="sourceCode" id="cb812"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">gapminder</span><span class="op">[</span>,<span class="op">-</span><span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span></code></pre></div>
+<ol start="3" style="list-style-type: decimal">
+<li>기대수명이 80세 이상 되는 행을 추출하라.</li>
+</ol>
+<div class="sourceCode" id="cb813"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">gapminder</span><span class="op">[</span><span class="va">gapminder</span><span class="op">$</span><span class="va">lifeExp</span> <span class="op">&gt;</span> <span class="fl">80</span><span class="op">]</span></code></pre></div>
+<ol start="4" style="list-style-type: decimal">
+<li>첫번째 행과 4번째 5번째 칼럼(<code>lifeExp</code>, <code>gdpPercap</code>)을 뽑아내라.</li>
+</ol>
+<div class="sourceCode" id="cb814"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">gapminder</span><span class="op">[</span><span class="fl">1</span>, <span class="fl">4</span>, <span class="fl">5</span><span class="op">]</span></code></pre></div>
+<ol start="5" style="list-style-type: decimal">
+<li>고급: 2002년과 2007년에 대한 정보를 담고 있는 행을 추출하라.</li>
+</ol>
+<div class="sourceCode" id="cb815"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">gapminder</span><span class="op">[</span><span class="va">gapminder</span><span class="op">$</span><span class="va">year</span> <span class="op">==</span> <span class="fl">2002</span> <span class="op">|</span> <span class="fl">2007</span>,<span class="op">]</span></code></pre></div>
+<blockquote>
+<p><strong>도전과제 7에 대한 해법</strong></p>
+<p>데이터프레임 부분집합을 뽑아내는 오류가 다음에 나와 있는데 이를 버그없이 수정하라:</p>
+<ol style="list-style-type: decimal">
+<li>
+<p>1957년에 수집된 관측점을 뽑아내라.</p>
+<div class="sourceCode" id="cb816"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># gapminder[gapminder$year = 1957,]</span>
+<span class="va">gapminder</span><span class="op">[</span><span class="va">gapminder</span><span class="op">$</span><span class="va">year</span> <span class="op">==</span> <span class="fl">1957</span>,<span class="op">]</span></code></pre></div>
+</li>
+<li>
+<p>1에서 4를 제외한 모든 칼럼을 뽑아내라.</p>
+<div class="sourceCode" id="cb817"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># gapminder[,-1:4]</span>
+<span class="va">gapminder</span><span class="op">[</span>,<span class="op">-</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">)</span><span class="op">]</span></code></pre></div>
+</li>
+<li>
+<p>기대수명이 80세 이상 되는 행을 추출하라.</p>
+<div class="sourceCode" id="cb818"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># gapminder[gapminder$lifeExp &gt; 80]</span>
+<span class="va">gapminder</span><span class="op">[</span><span class="va">gapminder</span><span class="op">$</span><span class="va">lifeExp</span> <span class="op">&gt;</span> <span class="fl">80</span>,<span class="op">]</span></code></pre></div>
+</li>
+<li>
+<p>첫번째 행과 4번째 5번째 칼럼(<code>lifeExp</code>, <code>gdpPercap</code>)을 뽑아내라.
+(<code>continent</code> and <code>lifeExp</code>).</p>
+<div class="sourceCode" id="cb819"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># gapminder[1, 4, 5]</span>
+<span class="va">gapminder</span><span class="op">[</span><span class="fl">1</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">4</span>, <span class="fl">5</span><span class="op">)</span><span class="op">]</span></code></pre></div>
+</li>
+<li>
+<p>고급: 2002년과 2007년에 대한 정보를 담고 있는 행을 추출하라.</p>
+<div class="sourceCode" id="cb820"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># gapminder[gapminder$year == 2002 | 2007,]</span>
+<span class="va">gapminder</span><span class="op">[</span><span class="va">gapminder</span><span class="op">$</span><span class="va">year</span> <span class="op">==</span> <span class="fl">2002</span> <span class="op">|</span> <span class="va">gapminder</span><span class="op">$</span><span class="va">year</span> <span class="op">==</span> <span class="fl">2007</span>,<span class="op">]</span>
+<span class="va">gapminder</span><span class="op">[</span><span class="va">gapminder</span><span class="op">$</span><span class="va">year</span> <span class="op"><a href="https://rdrr.io/r/base/match.html">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2002</span>, <span class="fl">2007</span><span class="op">)</span>,<span class="op">]</span></code></pre></div>
+</li>
+</ol>
+</blockquote>
+</div>
+<div id="subset-challenge-eight" class="section level2" number="26.18">
+<h2>
+<span class="header-section-number">26.18</span> 도전과제 8<a class="anchor" aria-label="anchor" href="#subset-challenge-eight"><i class="fas fa-link"></i></a>
+</h2>
+<ol style="list-style-type: decimal">
+<li>
+<code>gapminder[1:20]</code> 명령어는 왜 오류를 반환하는가?
+<code>gapminder[1:20,]</code>와 어떻게 다른가?</li>
+<li>
+<code>gapminder_small</code>이라는 데이터프레임을 생성하는데 1에서 9까지 행과 19에서 23까지 행만 포함한다.
+이 작업을 하나 혹은 두 단계로 작성한다.</li>
+</ol>
+<blockquote>
+<p><strong>도전과제 8에 대한 해답</strong></p>
+<ol style="list-style-type: decimal">
+<li><p><code>gapminder</code>는 데이터프레임이라, 이차원에서 부분집합을 추출할 필요가 있다. <code>gapminder[1:20, ]</code> 명령어는 첫 20행과 모든 칼럼을 추출한다.</p></li>
+<li>
+</ol>
+<div class="sourceCode" id="cb821"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">gapminder_small</span> <span class="op">&lt;-</span> <span class="va">gapminder</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">9</span>, <span class="fl">19</span><span class="op">:</span><span class="fl">23</span><span class="op">)</span>,<span class="op">]</span></code></pre></div>
+</blockquote>
+
+</div>
+</div>
+  <div class="chapter-nav">
+<div class="prev"><a href="r-dataframe.html"><span class="header-section-number">25</span> 데이터프레임 탐색</a></div>
+<div class="next"><a href="r-control-flow.html"><span class="header-section-number">27</span> 제어 흐름</a></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#r-subset"><span class="header-section-number">26</span> 부분집합 추출</a></li>
+<li><a class="nav-link" href="#subset-index"><span class="header-section-number">26.1</span> 색인 사용 요소 접근</a></li>
+<li><a class="nav-link" href="#subset-skip-remove"><span class="header-section-number">26.2</span> 요소 건너뛰고 제거</a></li>
+<li><a class="nav-link" href="#r-subset-challenge-one"><span class="header-section-number">26.3</span> 도전과제 1</a></li>
+<li><a class="nav-link" href="#r-subset-by-name"><span class="header-section-number">26.4</span> 명칭으로 부분집합 추출</a></li>
+<li><a class="nav-link" href="#r-subset-by-logical"><span class="header-section-number">26.5</span> 논리 연산자 부분집합 추출</a></li>
+<li><a class="nav-link" href="#r-subset-challenge-two"><span class="header-section-number">26.6</span> 도전과제 2</a></li>
+<li>
+<a class="nav-link" href="#subset-skip-with-names"><span class="header-section-number">26.7</span> 이름 갖는 원소 건너뛰기</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#subset-recycle"><span class="header-section-number">26.7.1</span> 재사용(Recycling)</a></li></ul>
+</li>
+<li><a class="nav-link" href="#r-subset-challenge-three"><span class="header-section-number">26.8</span> 도전과제 3</a></li>
+<li><a class="nav-link" href="#subset-special-values"><span class="header-section-number">26.9</span> 특수값 처리하기</a></li>
+<li><a class="nav-link" href="#subset-factor-extraction"><span class="header-section-number">26.10</span> 요인 부분집합 추출</a></li>
+<li><a class="nav-link" href="#subset-matrix"><span class="header-section-number">26.11</span> 행렬 부분집합 추출</a></li>
+<li><a class="nav-link" href="#subset-challenge-four"><span class="header-section-number">26.12</span> 도전과제 4</a></li>
+<li><a class="nav-link" href="#subset-list"><span class="header-section-number">26.13</span> 리스트 부분집합 추출</a></li>
+<li><a class="nav-link" href="#subset-challenge-five"><span class="header-section-number">26.14</span> 도전과제 5</a></li>
+<li><a class="nav-link" href="#subset-challenge-six"><span class="header-section-number">26.15</span> 도전과제 6</a></li>
+<li><a class="nav-link" href="#subset-dataframe"><span class="header-section-number">26.16</span> 데이터프레임</a></li>
+<li><a class="nav-link" href="#subset-challenge-seven"><span class="header-section-number">26.17</span> 도전과제 7</a></li>
+<li><a class="nav-link" href="#subset-challenge-eight"><span class="header-section-number">26.18</span> 도전과제 8</a></li>
+</ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+          
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>데이터 과학을 지탱하는 기본기</strong>" was written by 한국 알 사용자회. It was last built on 2022-05-13.</p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer><!-- dynamically load mathjax for compatibility with self-contained --><script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script><script type="text/x-mathjax-config">const popovers = document.querySelectorAll('a.footnote-ref[data-toggle="popover"]');
+for (let popover of popovers) {
+  const div = document.createElement('div');
+  div.setAttribute('style', 'position: absolute; top: 0, left:0; width:0, height:0, overflow: hidden; visibility: hidden;');
+  div.innerHTML = popover.getAttribute('data-content');
+
+  var has_math = div.querySelector("span.math");
+  if (has_math) {
+    document.body.appendChild(div);
+    MathJax.Hub.Queue(["Typeset", MathJax.Hub, div]);
+    MathJax.Hub.Queue(function() {
+      popover.setAttribute('data-content', div.innerHTML);
+      document.body.removeChild(div);
+    })
+  }
+}
+</script>
+</body>
+</html>

@@ -1,7 +1,7 @@
 --- 
 title: "데이터 과학을 지탱하는 기본기"
 author: "한국 알 사용자회"
-date: "2022-05-12"
+date: "2022-05-13"
 site: bookdown::bookdown_site
 output: bookdown::gitbook
 documentclass: book

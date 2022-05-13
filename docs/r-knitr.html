@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>35 . knitr 보고서 생성 | 데이터 과학을 지탱하는 기본기</title>
+<meta name="author" content="한국 알 사용자회">
+<meta name="description" content="35.1 데이터 분석 보고서 데이터 분석가는 동료 혹은 향후 참고자료로 자신의 작업결과를 문서화하는데 상당량의 보고서를 작성해서 분석과정과 출력결과를 기술한다. 처음 작업을 시작할 때, 온전히 본인 작업을 위해서 R 스크립트를 작성한다. 그리고 나서, 다양한 그래프가 첨부된 분석결과를 기술해서 동료에게 전자우편을 발송한다. 분석결과를 논의하는...">
+<meta name="generator" content="bookdown 0.26 with bs4_book()">
+<meta property="og:title" content="35 . knitr 보고서 생성 | 데이터 과학을 지탱하는 기본기">
+<meta property="og:type" content="book">
+<meta property="og:description" content="35.1 데이터 분석 보고서 데이터 분석가는 동료 혹은 향후 참고자료로 자신의 작업결과를 문서화하는데 상당량의 보고서를 작성해서 분석과정과 출력결과를 기술한다. 처음 작업을 시작할 때, 온전히 본인 작업을 위해서 R 스크립트를 작성한다. 그리고 나서, 다양한 그래프가 첨부된 분석결과를 기술해서 동료에게 전자우편을 발송한다. 분석결과를 논의하는...">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="35 . knitr 보고서 생성 | 데이터 과학을 지탱하는 기본기">
+<meta name="twitter:description" content="35.1 데이터 분석 보고서 데이터 분석가는 동료 혹은 향후 참고자료로 자신의 작업결과를 문서화하는데 상당량의 보고서를 작성해서 분석과정과 출력결과를 기술한다. 처음 작업을 시작할 때, 온전히 본인 작업을 위해서 R 스크립트를 작성한다. 그리고 나서, 다양한 그래프가 첨부된 분석결과를 기술해서 동료에게 전자우편을 발송한다. 분석결과를 논의하는...">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.3.1/transition.js"></script><script src="libs/bs3compat-0.3.1/tabs.js"></script><script src="libs/bs3compat-0.3.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
+    
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  </style>
+<style type="text/css">
+    /* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+    div.csl-bib-body { }
+    div.csl-entry {
+      clear: both;
+        }
+    .hanging div.csl-entry {
+      margin-left:2em;
+      text-indent:-2em;
+    }
+    div.csl-left-margin {
+      min-width:2em;
+      float:left;
+    }
+    div.csl-right-inline {
+      margin-left:2em;
+      padding-left:1em;
+    }
+    div.csl-indent {
+      margin-left: 2em;
+    }
+  </style>
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">데이터 과학을 지탱하는 기본기</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html">데이터 과학을 지탱하는 기본기</a></li>
+<li class="book-part">자동화</li>
+<li><a class="" href="shell-intro.html"><span class="header-section-number">1</span> 쉘(Shell) 소개</a></li>
+<li><a class="" href="shell-filedir.html"><span class="header-section-number">2</span> 파일과 폴더 넘나들기</a></li>
+<li><a class="" href="shell-create.html"><span class="header-section-number">3</span> 파일과 디렉토리 작업</a></li>
+<li><a class="" href="pipe-filter.html"><span class="header-section-number">4</span> 파이프와 필터</a></li>
+<li><a class="" href="shell-loop.html"><span class="header-section-number">5</span> 루프(Loops)</a></li>
+<li><a class="" href="shell-script.html"><span class="header-section-number">6</span> 쉘 스크립트</a></li>
+<li><a class="" href="shell-find.html"><span class="header-section-number">7</span> 파일, 문자, 디렉토리 등 찾기</a></li>
+<li class="book-part">버전제어와 협업</li>
+<li><a class="" href="git.html"><span class="header-section-number">8</span> 자동화된 버젼제어</a></li>
+<li><a class="" href="git-setup.html"><span class="header-section-number">9</span> Git 구축 및 설정</a></li>
+<li><a class="" href="git-create.html"><span class="header-section-number">10</span> 저장소 생성</a></li>
+<li><a class="" href="git-change.html"><span class="header-section-number">11</span> 변경사항 추적</a></li>
+<li><a class="" href="git-history.html"><span class="header-section-number">12</span> 이력 탐색</a></li>
+<li><a class="" href="git-ignore.html"><span class="header-section-number">13</span> 추적대상에서 제외</a></li>
+<li><a class="" href="git-github.html"><span class="header-section-number">14</span> GitHub 원격작업</a></li>
+<li><a class="" href="git-collab.html"><span class="header-section-number">15</span> 협업 (Collaborating)</a></li>
+<li><a class="" href="git-conflict.html"><span class="header-section-number">16</span> 충돌 (Conflicts)</a></li>
+<li><a class="" href="git-open.html"><span class="header-section-number">17</span> 공개 과학 (Open Science)</a></li>
+<li><a class="" href="git-licensing.html"><span class="header-section-number">18</span> 라이선싱 (Licensing)</a></li>
+<li><a class="" href="git-hosting.html"><span class="header-section-number">19</span> 호스팅 (Hosting)</a></li>
+<li><a class="" href="git-korean.html"><span class="header-section-number">20</span> Git 추가설정</a></li>
+<li class="book-part">프로그래밍</li>
+<li><a class="" href="r-intro.html"><span class="header-section-number">21</span> R과 RStudio 소개</a></li>
+<li><a class="" href="r-project.html"><span class="header-section-number">22</span> RStudio 프로젝트 관리</a></li>
+<li><a class="" href="r-help.html"><span class="header-section-number">23</span> 도움 청하기</a></li>
+<li><a class="" href="r-data-structure.html"><span class="header-section-number">24</span> 자료구조</a></li>
+<li><a class="" href="r-dataframe.html"><span class="header-section-number">25</span> 데이터프레임 탐색</a></li>
+<li><a class="" href="r-subset.html"><span class="header-section-number">26</span> 부분집합 추출</a></li>
+<li><a class="" href="r-control-flow.html"><span class="header-section-number">27</span> 제어 흐름</a></li>
+<li><a class="" href="r-ggplot.html"><span class="header-section-number">28</span> 논문 품질 그래프 생성</a></li>
+<li><a class="" href="r-vectorization.html"><span class="header-section-number">29</span> 벡터화(Vectorization)</a></li>
+<li><a class="" href="r-function.html"><span class="header-section-number">30</span> 함수 설명</a></li>
+<li><a class="" href="r-writing.html"><span class="header-section-number">31</span> 데이터 저장</a></li>
+<li><a class="" href="r-plyr-split.html"><span class="header-section-number">32</span> plyr로 데이터프레임을 쪼개고 합치기</a></li>
+<li><a class="" href="r-dplyr.html"><span class="header-section-number">33</span> dplyr 솜씨있게 조작</a></li>
+<li><a class="" href="r-tidyr.html"><span class="header-section-number">34</span> tidyr 솜씨있게 조작</a></li>
+<li><a class="active" href="r-knitr.html"><span class="header-section-number">35</span> knitr 보고서 생성</a></li>
+<li><a class="" href="r-wrapup.html"><span class="header-section-number">36</span> 좋은 소프트웨어 작성법</a></li>
+<li class="book-part">데이터베이스</li>
+<li><a class="" href="database-sql.html"><span class="header-section-number">37</span> 데이터베이스와 SQL 사용하기</a></li>
+<li><a class="" href="database-sqlite.html"><span class="header-section-number">38</span> SQLite 설치</a></li>
+<li><a class="" href="database-select.html"><span class="header-section-number">39</span> 변수/칼럼 선택하기</a></li>
+<li><a class="" href="database-sort.html"><span class="header-section-number">40</span> 정렬, 중복 제거</a></li>
+<li><a class="" href="database-filter.html"><span class="header-section-number">41</span> 필터링 (Filtering)</a></li>
+<li><a class="" href="database-calc.html"><span class="header-section-number">42</span> 새로운 값 계산하기</a></li>
+<li><a class="" href="database-null.html"><span class="header-section-number">43</span> 결측 데이터 (Missing Data)</a></li>
+<li><a class="" href="database-agg.html"><span class="header-section-number">44</span> 집합(Aggregation)</a></li>
+<li><a class="" href="database-table-join.html"><span class="header-section-number">45</span> 데이터 결합하기</a></li>
+<li><a class="" href="database-data-create.html"><span class="header-section-number">46</span> 데이터 생성과 변형</a></li>
+<li><a class="" href="%EC%B0%B8%EA%B3%A0%EB%AC%B8%ED%97%8C.html">참고문헌</a></li>
+</ul>
+
+        <div class="book-extra">
+          
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="r-knitr" class="section level1" number="35">
+<h1>
+<span class="header-section-number">35 . </span> <code>knitr</code> 보고서 생성<a class="anchor" aria-label="anchor" href="#r-knitr"><i class="fas fa-link"></i></a>
+</h1>
+<div id="r-knitr-report" class="section level2" number="35.1">
+<h2>
+<span class="header-section-number">35.1</span> 데이터 분석 보고서<a class="anchor" aria-label="anchor" href="#r-knitr-report"><i class="fas fa-link"></i></a>
+</h2>
+<p>데이터 분석가는 동료 혹은 향후 참고자료로 자신의 작업결과를 문서화하는데
+상당량의 보고서를 작성해서 분석과정과 출력결과를 기술한다.</p>
+<p>처음 작업을 시작할 때, 온전히 본인 작업을 위해서 R 스크립트를 작성한다.
+그리고 나서, 다양한 그래프가 첨부된 분석결과를 기술해서 동료에게 전자우편을 발송한다.
+분석결과를 논의하는 과정에서 어느 그래프를 지칭하지에 대해 혼란이 종종 수반된다.</p>
+<p>워드나 <span class="math inline">\(\LaTeX\)</span>으로 좀더 정형화된 보고서로 옮겨가도, 그림이 올바르게
+보이도록 만드는데 상당한 시간을 소비한다. 대부분 페이지 나누기가 문제가 된다.</p>
+<p>웹페이지(html 파일)를 생성하게 되면 모든 것이 훨씬 수월해진다.
+이유는 하나의 긴 흐름이 되기 때문이다. 따라서,
+한 페이지에 맞지 않는 긴 그림도 사용할 수 있게 된다.
+스크롤링이 딱맞는 친구다.</p>
+</div>
+<div id="r-knitr-literate-programming" class="section level2" number="35.2">
+<h2>
+<span class="header-section-number">35.2</span> 문학적 프로그래밍<a class="anchor" aria-label="anchor" href="#r-knitr-literate-programming"><i class="fas fa-link"></i></a>
+</h2>
+<p>이상적으로 그런 분석 보고서가 <em>재현가능한</em> 문서가 된다:
+만약 오류가 발견되거나, 추가적인 분석주제가 데이터에 추가되면,
+다시 재컴파일 하게 되면, 신규 혹은 수정된 결과를 얻게 된다.
+(반대로, 워드나 한글 등 오피스로 작업하게 되면
+그림을 다시 생성하고나서 문서에 붙여넣고 수작업으로 상세결과를 편집해야 한다.)</p>
+<p>R에서 문학적 프로그래밍(literate programming)을 구현하는 주된 도구가 <a href="http://yihui.name/knitr/">knitr</a>다.
+<a href="http://yihui.name/knitr/">knitr</a>는 텍스트와 R 코드가 뒤썩인 문서를 생성할 수 있게 하는 역할을 수행한다.
+문서가 <code>knitr</code>로 처리되면, R 코드가 실행되어 그래프와 분석결과가 문서에 삽입된다.</p>
+<p>이런 유형의 아이디어를 <strong>문학적 프로그래밍(literate programming)</strong>이라고 부른다.</p>
+<p><code>knitr</code>는 R코드 뿐만 아니라 다양한 프로그래밍 언어를 텍스트와 뒤섞을 수 있도록 하지만,
+기본적으로 R 마크다운을 추천한다. R 마크다운은 마크다운과 R코드를 섞어 쓸 수 있도록 한다.
+마크다운은 가벼운 마크업 언어로 웹페이지를 생성하는데 사용된다.</p>
+</div>
+<div id="r-knitr-markdown" class="section level2" number="35.3">
+<h2>
+<span class="header-section-number">35.3</span> R 마크다운 파일 생성<a class="anchor" aria-label="anchor" href="#r-knitr-markdown"><i class="fas fa-link"></i></a>
+</h2>
+<p>RStudio 에서 File → New File → R Markdown 을 클릭하면 다음과 같은 대화상자가 열린다:</p>
+<div class="inline-figure"><img src="assets/images/r/New_R_Markdown.png"></div>
+<p>기본설정(HTML 출력)된 대로 사용할 수도 있지만, 제목을 줄 수도 있다.</p>
+</div>
+<div id="r-knitr-markdown-components" class="section level2" number="35.4">
+<h2>
+<span class="header-section-number">35.4</span> R 마크다운 구성요소<a class="anchor" aria-label="anchor" href="#r-knitr-markdown-components"><i class="fas fa-link"></i></a>
+</h2>
+<p>초기 설정된 텍스트 덩어리에 R에 대한 지시사항이 담겨있다:
+제목, 저자명, 날짜, <code>html</code> 출력물(다른 말로, 웹페이지)을 생성할지가 포함된다.</p>
+<pre><code>---
+title: "Initial R Markdown document"
+author: "Karl Broman"
+date: "April 23, 2015"
+output: html_document
+---</code></pre>
+<p>원하지 않는 경우, 상기 필드를 임의로 삭제할 수 있다.
+엄밀히 말해서 인용부호는 상기 경우에 <em>꼭</em> 필요한 것은 아니다.
+제목에 콜론(:)이 포함되는 경우 대체로 인용부호가 필요하다.</p>
+<p>RStudio에 시작을 도와주도록 예제가 문서에 포함되어 있다.
+다음과 같은 R 코드 덩어리가 포함되어 있는 점을 주목한다:</p>
+<pre>
+```{r}
+summary(cars)
+```
+</pre>
+<p><code>knitr</code>로 실행되는 R 코드 덩어리로 R 코드 실행결과로 치환된다.
+뒤에서 더 다루게 된다.</p>
+<p>또한, 웹주소는 <code>&lt; &gt;</code> 꺾쇠 기호로 담아내고, <code>**Knit**</code>처럼 별표 두개를 사용하기도 한다.
+이것이 전형적인 <a href="http://daringfireball.net/projects/markdown/syntax">Markdown</a> 구문의 한 사례가 된다.</p>
+</div>
+<div id="r-knitr-markdown-language" class="section level2" number="35.5">
+<h2>
+<span class="header-section-number">35.5</span> 마크다운(Markdown)<a class="anchor" aria-label="anchor" href="#r-knitr-markdown-language"><i class="fas fa-link"></i></a>
+</h2>
+<p>HTML 코드로 작성하는 대신에 전자우편에서 문서를 작성하는 것처럼
+텍스트에 마크업(markup)을 적용해서 웹페이지를 저작하는 시스템이 마크다운이다.
+마크업 텍스트는 적절한 HTML코드로 치환되는 과정을 거쳐서 최종 HTML로 <em>변환</em>된다.</p>
+<p>지금은 자동생성된 모든 코드를 삭제하고, 마크다운으로 저작을 시작해보자.</p>
+<p>별표 두개를 사용해서 <strong>굵게(bold)</strong>할 수 있는데 <code>**굵게(bold)**</code> 텍스트를 타이핑하면 된다.
+밑줄 혹은 별표 한개를 사용해서 <em>이탤릭</em> 도 구현가능한데, <code>_이탤릭_</code> 텍스트를 타이핑하면 된다.</p>
+<p>다음과 같이 하이픈 혹은 별표를 적용해서 블릿 기호가 붙은 항목을 생성할 수 있다:</p>
+<pre><code>* bold with double-asterisks
+* italics with underscores
+* code-type font with backticks</code></pre>
+<p>혹은 다음과 같이도 가능하다:</p>
+<pre><code>- bold with double-asterisks
+- italics with underscores
+- code-type font with backticks</code></pre>
+<p>다음과 같이 웹페이지로 보여지게 된다:</p>
+<ul>
+<li>bold with double-asterisks</li>
+<li>italics with underscores</li>
+<li>code-type font with backticks</li>
+</ul>
+<p>숫자를 사용하면 숫자가 붙은 항목도 생성이 가능하다.
+원하는만큼 동일한 숫자를 반복해서 적용하면 된다:</p>
+<pre><code>1. bold with double-asterisks
+1. italics with underscores
+1. code-type font with backticks</code></pre>
+<p>다음과 같이 보이게 된다.</p>
+<ol style="list-style-type: decimal">
+<li>bold with double-asterisks</li>
+<li>italics with underscores</li>
+<li>code-type font with backticks</li>
+</ol>
+<p><code>#</code> 기호를 각 라인 첫번째 적용하게 되면 다른 크기를 갖는
+섹션 제목을 만들 수 있다:</p>
+<pre><code># 아주 큰 제목(Title)
+## 큰 제목(Main section)
+### 작은 제목(Sub-section)
+#### 아주 작은 제목(Sub-sub section)</code></pre>
+<p>좌측 상단에 “Knit HTML” 버튼을 클릭하면 R 마크다운 문서를 HTML 웹페이지로
+_컴파일_하게 된다. 바로 옆에 작은 물음표가 있음에 주목한다;
+클릭하게 되면 “Markdown Quick Reference” (마크다운 구문) 뿐만 아니라 RStudio IDE에서
+R 마크다운 문서도 참고할 수 있다.</p>
+</div>
+<div id="r-knitr-challenge" class="section level2" number="35.6">
+<h2>
+<span class="header-section-number">35.6</span> 도전과제<a class="anchor" aria-label="anchor" href="#r-knitr-challenge"><i class="fas fa-link"></i></a>
+</h2>
+<p>R 마크다운 문서를 생성한다.
+모든 R 코드 덩어리를 삭제하고 마크다운 문서를 작성한다.
+(제목, 이탤릭 텍스트, 블릿 기호가 붙은 항목 등)
+문서를 웹페이지로 변환시킨다.</p>
+<blockquote>
+<p><strong>도전과제에 대한 해답</strong></p>
+<p><code>RStudio</code>에서 <code>File &gt; New file &gt; R Markdown...</code>을 선택한다.
+누름틀(Placeholder) 텍스트를 삭제하고 다음과 같이 작성한다.</p>
+<pre><code># Introduction
+
+## Background on Data
+
+This report uses the *gapminder* dataset, which has columns that include:
+
+* country
+* continent
+* year
+* lifeExp
+* pop
+* gdpPercap
+
+## Background on Methods</code></pre>
+</blockquote>
+</div>
+<div id="r-knitr-markdown-more" class="section level2" number="35.7">
+<h2>
+<span class="header-section-number">35.7</span> 마크다운 추가기능<a class="anchor" aria-label="anchor" href="#r-knitr-markdown-more"><i class="fas fa-link"></i></a>
+</h2>
+<p><code>[text to show](http://the-web-page.com)</code>처럼 하이퍼링크를 걸 수도 있다.</p>
+<p><code>![caption](http://url/for/file)</code> 처럼 이미지를 삽입할 수도 있다.</p>
+<p>F<sub>2</sub> 처럼 아래 첨자를 <code>F~2</code>와 같이 넣을 수도 있도, F<sup>2</sup> 처럼
+윗첨자를 <code>F^2^</code>와 같이 넣을 수도 있다.</p>
+<p>수식 작성법은 <a href="http://www.latex-project.org/">LaTeX</a>을 참조해서 작성할 수 있는데,
+<code>$ $</code>와 <code>$$ $$</code>을 사용해서 수식을 넣을 수 있다: <code>$E = mc^2$</code>.</p>
+<pre><code>$$y = \mu + \sum_{i=1}^p \beta_i x_i + \epsilon$$</code></pre>
+</div>
+<div id="r-knitr-markdown-code-chunk" class="section level2" number="35.8">
+<h2>
+<span class="header-section-number">35.8</span> R 코드 덩어리<a class="anchor" aria-label="anchor" href="#r-knitr-markdown-code-chunk"><i class="fas fa-link"></i></a>
+</h2>
+<p>마크다운은 흥미롭고 유용하기도 하지만, 실제 진정한 힘은
+마크다운을 R 코드 덩어리와 뒤섞어 사용할 때 나온다. R 마크다운으로 말이다.
+R 마크다운이 처리되면서 R 코드도 실행된다;
+그림이 생성되는 경우, 최종 문서에 자동으로 그림이 삽입되어 들어간다.</p>
+<p>데이터를 불러오는 R 코드는 다음과 같이 생겼다:</p>
+<pre>
+```{r load_data}
+gapminder 
+<p>즉, <code>```{r chunk_name}</code>와 <code>```</code> 사이에
+R 코드 덩어리를 위치한다.
+R 코드 덩어리에 명칭을 부여하는 것이 좋은데 이유는 오류 수정을 유용하게 하고,
+그래프가 생성되는 경우 파일명이 R 코드 덩어리에 지정한 명칭이 따라 붙기 때문이다.</p>
+</pre>
+</div>
+<div id="r-knitr-challenge-two" class="section level2" number="35.9">
+<h2>
+<span class="header-section-number">35.9</span> 도전과제<a class="anchor" aria-label="anchor" href="#r-knitr-challenge-two"><i class="fas fa-link"></i></a>
+</h2>
+<p>다음 R 코드를 추가한다.</p>
+<ul>
+<li>
+<code>ggplot2</code> 팩키지 불러오는 코드</li>
+<li>
+<code>gapminder</code> 데이터를 불러오는 코드</li>
+<li>그래프를 생성하는 코드</li>
+</ul>
+<blockquote>
+<p><strong>도전과제 해답</strong></p>
+<div class="sourceCode" id="cb1085"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb1085-1"><a href="r-knitr.html#cb1085-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r load-ggplot2}</span></span>
+<span id="cb1085-2"><a href="r-knitr.html#cb1085-2" aria-hidden="true" tabindex="-1"></a><span class="in">library("ggplot2")</span></span>
+<span id="cb1085-3"><a href="r-knitr.html#cb1085-3" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code></pre></div>
+<div class="sourceCode" id="cb1086"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb1086-1"><a href="r-knitr.html#cb1086-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r read-gapminder-data}</span></span>
+<span id="cb1086-2"><a href="r-knitr.html#cb1086-2" aria-hidden="true" tabindex="-1"></a><span class="in">gapminder &lt;- read.csv("gapminder.csv")</span></span>
+<span id="cb1086-3"><a href="r-knitr.html#cb1086-3" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code></pre></div>
+<div class="sourceCode" id="cb1087"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb1087-1"><a href="r-knitr.html#cb1087-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r make-plot}</span></span>
+<span id="cb1087-2"><a href="r-knitr.html#cb1087-2" aria-hidden="true" tabindex="-1"></a><span class="in">plot(lifeExp ~ year, data = gapminder)</span></span>
+<span id="cb1087-3"><a href="r-knitr.html#cb1087-3" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code></pre></div>
+</blockquote>
+</div>
+<div id="r-knitr-compile" class="section level2" number="35.10">
+<h2>
+<span class="header-section-number">35.10</span> 컴파일 작동방식<a class="anchor" aria-label="anchor" href="#r-knitr-compile"><i class="fas fa-link"></i></a>
+</h2>
+<p>“Knit HTML” 버튼을 생성하게 되면, <a href="http://yihui.name/knitr">knitr</a> 프로그램이
+R 마크다운 문서를 처리해서, 일반 마크다운 문서가 생성된다(그림도 포함된다.):
+R 코드가 실행되면서 입력과 출력 모두에 대해 치환된다; 그림이 생성되는 경우,
+그림에 대한 링크도 포함된다.</p>
+<p>마크다운과 그림 문서는 <a href="http://pandoc.org/">pandoc</a> 도구로 처리되어서,
+마크다운 파일을 그림이 내장된 HTML 파일로 탈바꿈하게 된다.</p>
+<div class="inline-figure"><img src="15-knitr-markdown_files/figure-html/rmd_to_html_fig-1.png" width="768" style="display: block; margin: auto auto auto 0;"></div>
+</div>
+<div id="r-knitr-chunk-options" class="section level2" number="35.11">
+<h2>
+<span class="header-section-number">35.11</span> 덩어리 선택옵션<a class="anchor" aria-label="anchor" href="#r-knitr-chunk-options"><i class="fas fa-link"></i></a>
+</h2>
+<p>코드 덩어리(Chunk)가 어떻게 처리되는 방법에 대한 선택옵션이 다수 지원된다.</p>
+<ul>
+<li>
+<code>echo=FALSE</code>: R 코드가 출력되는 것을 방지</li>
+<li>
+<code>results="hide"</code>: 출력결과물이 문서에 뿌려지지 않도록 방지.</li>
+<li>
+<code>eval=FALSE</code>: 코드는 출력되지만, 평가되어 실행되는 것은 방지.</li>
+<li>
+<code>warning=FALSE</code>, <code>message=FALSE</code>: 경고와 메시지 출력을 숨김.</li>
+<li>
+<code>fig.height</code>, <code>fig.width</code>: 인치 단위로 그림 크기 높이와 폭을 지정.</li>
+</ul>
+<p>다음과 같이 작성할 수도 있다:</p>
+<pre>
+```{r load_libraries, echo=FALSE, message=FALSE}
+library("dplyr")
+library("ggplot2")
+```
+</pre>
+<p>전역 덩어리(chunk) 선택옵션을 사용하여 반복적으로 사용할 R마크다운 선택옵션을
+다음과 같이 지정하는 것도 가능하다:</p>
+<pre>
+```{r global_options, echo=FALSE}
+knitr::opts_chunk$set(fig.path="Figs/", message=FALSE, warning=FALSE,
+                      echo=FALSE, results="hide", fig.width=11)
+```
+</pre>
+<p><code>fig.path</code> 선택옵션은 그림이 저장되는 장소를 지정하는데 사용한다.
+<code>/</code>이 중요한데 이유는 <code>/</code>을 지정하지 않으면 그림이 <code>Figs</code>으로 시작하는
+파일명으로 표준 저장소에 저장된다.</p>
+<p>작업 디렉토리에 R 마크다운 파일이 다수 존재하는 경우,
+<code>fig.path</code>를 사용해서 <code>fig.path="Figs/cleaning-"</code>, <code>fig.path="Figs/analysis-"</code>처럼
+그림 파일명에 접두어를 달리 지정할 수도 있다.</p>
+</div>
+<div id="r-knitr-challenge-three" class="section level2" number="35.12">
+<h2>
+<span class="header-section-number">35.12</span> 도전과제<a class="anchor" aria-label="anchor" href="#r-knitr-challenge-three"><i class="fas fa-link"></i></a>
+</h2>
+<p>그림 크기를 변경하고, 코드를 출력에서 감추도록, R 코드 덩어리 선택옵션을 설정해 본다.</p>
+<blockquote>
+<p><strong>도전과제 해답</strong></p>
+<div class="sourceCode" id="cb1088"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb1088-1"><a href="r-knitr.html#cb1088-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r echo = FALSE, fig.width = 3}</span></span>
+<span id="cb1088-2"><a href="r-knitr.html#cb1088-2" aria-hidden="true" tabindex="-1"></a><span class="in">plot(faithful)</span></span>
+<span id="cb1088-3"><a href="r-knitr.html#cb1088-3" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code></pre></div>
+</blockquote>
+</div>
+<div id="인라인-r-코드" class="section level2" number="35.13">
+<h2>
+<span class="header-section-number">35.13</span> 인라인 R 코드<a class="anchor" aria-label="anchor" href="#%EC%9D%B8%EB%9D%BC%EC%9D%B8-r-%EC%BD%94%EB%93%9C"><i class="fas fa-link"></i></a>
+</h2>
+<p>보고서의 <em>모든</em> 숫자를 재현가능하게 만들 수 있다.
+인라인 코드를 작성할 때 <code>`r</code>와 <code>`</code>을 사용한다.
+예를 들어, <code>`r round(some_value, 2)`</code>.
+R 코드가 실행되어 코드가 결과 값으로 치환된다.</p>
+<p>두줄이상에 걸처 인라인 코드 덩어리가 나눠지도록 작성하지는 말자.</p>
+<p>아마도, 조금 큰 코드 덩어리의 경우 <code>include=FALSE</code>(<code>echo=FALSE</code>와 <code>results="hide"</code> 두가지 기능을 함께 보유)를 사용해서
+연산과 정의를 처리하는 것도 가능하다.</p>
+<p>이런 경우에 소수점 자리수에 대해서 <code>2.0</code>을 원하지만, <code>round(2.03, 1)</code>코드는 <code>2</code>가 된다.</p>
+<p><a href="https://github.com/kbroman">R/broman</a> 팩키지에서
+<a href="https://github.com/kbroman/broman/blob/master/R/myround.R"><code>myround</code></a> 함수가
+도움이 될 수 있다.</p>
+</div>
+<div id="r-knitr-challenge-five" class="section level2" number="35.14">
+<h2>
+<span class="header-section-number">35.14</span> 도전과제<a class="anchor" aria-label="anchor" href="#r-knitr-challenge-five"><i class="fas fa-link"></i></a>
+</h2>
+<p>인라인 R 코드를 작성해 보자.</p>
+<blockquote>
+<p><strong>도전과제 해답</strong></p>
+<p>2 + 2 를 계산하는 인라인 R 코드: 2 + 2 = <code>`r 2+2`</code>.</p>
+</blockquote>
+</div>
+<div id="r-knitr-others" class="section level2" number="35.15">
+<h2>
+<span class="header-section-number">35.15</span> 기타 출력 선택옵션<a class="anchor" aria-label="anchor" href="#r-knitr-others"><i class="fas fa-link"></i></a>
+</h2>
+<p>R 마크다운 문서를 PDF나 워드 문서로 변환할 수도 있다.
+“Knit HTML” 버튼 옆에 작은 삼각형을 클릭하면
+드롭다운 메뉴가 나타난다.
+혹은 R 마크다운 <code>.Rmd</code> 파일의 헤더부분에 <code>pdf_document</code>, <code>word_document</code>으로 설정하면 된다.</p>
+<div id="r-knitr-PDF" class="rmdcaution">
+<p><strong>꿀팁: PDF 문서 생성하기</strong></p>
+<p><code>.pdf</code> 문서를 생성하려면 추가로 소프트웨어를 설치해야 한다.
+소프트웨어 설치 없이 <code>.pdf</code> 문서를 생성하게 되면 오류 메시지에 자세한 사항이 기술되어 있다.</p>
+<ul>
+<li>
+<a href="https://miktex.org/2.9/setup">TeX installers for Windows</a>.</li>
+<li>
+<a href="https://tug.org/mactex">TeX installers for macOS</a>.</li>
+</ul>
+</div>
+</div>
+<div id="r-knitr-references" class="section level2" number="35.16">
+<h2>
+<span class="header-section-number">35.16</span> 관련 자료<a class="anchor" aria-label="anchor" href="#r-knitr-references"><i class="fas fa-link"></i></a>
+</h2>
+<ul>
+<li><a href="http://kbroman.org/knitr_knutshell">Knitr in a knutshell tutorial</a></li>
+<li>
+<a href="http://www.amazon.com/exec/obidos/ASIN/1482203537/7210-20">Dynamic Documents with R and knitr</a> (book)</li>
+<li><a href="http://rmarkdown.rstudio.com">R Markdown documentation</a></li>
+<li><a href="http://www.rstudio.com/wp-content/uploads/2015/02/rmarkdown-cheatsheet.pdf">R Markdown cheat sheet</a></li>
+<li><a href="https://www.rstudio.com/resources/webinars/getting-started-with-r-markdown/">Getting started with R Markdown</a></li>
+<li><a href="https://www.rstudio.com/resources/webinars/reproducible-reporting/">Reproducible Reporting</a></li>
+<li><a href="https://www.rstudio.com/resources/webinars/the-ecosystem-of-r-markdown/">The Ecosystem of R Markdown</a></li>
+<li><a href="https://www.rstudio.com/resources/webinars/introducing-bookdown/">Introducing Bookdown</a></li>
+</ul>
+</div>
+</div>
+  <div class="chapter-nav">
+<div class="prev"><a href="r-tidyr.html"><span class="header-section-number">34</span> tidyr 솜씨있게 조작</a></div>
+<div class="next"><a href="r-wrapup.html"><span class="header-section-number">36</span> 좋은 소프트웨어 작성법</a></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#r-knitr"><span class="header-section-number">35</span> knitr 보고서 생성</a></li>
+<li><a class="nav-link" href="#r-knitr-report"><span class="header-section-number">35.1</span> 데이터 분석 보고서</a></li>
+<li><a class="nav-link" href="#r-knitr-literate-programming"><span class="header-section-number">35.2</span> 문학적 프로그래밍</a></li>
+<li><a class="nav-link" href="#r-knitr-markdown"><span class="header-section-number">35.3</span> R 마크다운 파일 생성</a></li>
+<li><a class="nav-link" href="#r-knitr-markdown-components"><span class="header-section-number">35.4</span> R 마크다운 구성요소</a></li>
+<li><a class="nav-link" href="#r-knitr-markdown-language"><span class="header-section-number">35.5</span> 마크다운(Markdown)</a></li>
+<li><a class="nav-link" href="#r-knitr-challenge"><span class="header-section-number">35.6</span> 도전과제</a></li>
+<li><a class="nav-link" href="#r-knitr-markdown-more"><span class="header-section-number">35.7</span> 마크다운 추가기능</a></li>
+<li><a class="nav-link" href="#r-knitr-markdown-code-chunk"><span class="header-section-number">35.8</span> R 코드 덩어리</a></li>
+<li><a class="nav-link" href="#r-knitr-challenge-two"><span class="header-section-number">35.9</span> 도전과제</a></li>
+<li><a class="nav-link" href="#r-knitr-compile"><span class="header-section-number">35.10</span> 컴파일 작동방식</a></li>
+<li><a class="nav-link" href="#r-knitr-chunk-options"><span class="header-section-number">35.11</span> 덩어리 선택옵션</a></li>
+<li><a class="nav-link" href="#r-knitr-challenge-three"><span class="header-section-number">35.12</span> 도전과제</a></li>
+<li><a class="nav-link" href="#%EC%9D%B8%EB%9D%BC%EC%9D%B8-r-%EC%BD%94%EB%93%9C"><span class="header-section-number">35.13</span> 인라인 R 코드</a></li>
+<li><a class="nav-link" href="#r-knitr-challenge-five"><span class="header-section-number">35.14</span> 도전과제</a></li>
+<li><a class="nav-link" href="#r-knitr-others"><span class="header-section-number">35.15</span> 기타 출력 선택옵션</a></li>
+<li><a class="nav-link" href="#r-knitr-references"><span class="header-section-number">35.16</span> 관련 자료</a></li>
+</ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+          
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>데이터 과학을 지탱하는 기본기</strong>" was written by 한국 알 사용자회. It was last built on 2022-05-13.</p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer><!-- dynamically load mathjax for compatibility with self-contained --><script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script><script type="text/x-mathjax-config">const popovers = document.querySelectorAll('a.footnote-ref[data-toggle="popover"]');
+for (let popover of popovers) {
+  const div = document.createElement('div');
+  div.setAttribute('style', 'position: absolute; top: 0, left:0; width:0, height:0, overflow: hidden; visibility: hidden;');
+  div.innerHTML = popover.getAttribute('data-content');
+
+  var has_math = div.querySelector("span.math");
+  if (has_math) {
+    document.body.appendChild(div);
+    MathJax.Hub.Queue(["Typeset", MathJax.Hub, div]);
+    MathJax.Hub.Queue(function() {
+      popover.setAttribute('data-content', div.innerHTML);
+      document.body.removeChild(div);
+    })
+  }
+}
+</script>
+</body>
+</html>

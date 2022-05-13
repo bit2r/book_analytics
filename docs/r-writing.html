@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>31 . 데이터 저장 | 데이터 과학을 지탱하는 기본기</title>
+<meta name="author" content="한국 알 사용자회">
+<meta name="description" content='31.1 그래프 저장하기 ggsave 명령어를 사용해서, ggplot2에서 생성한 가장 최신 도식화 결과물을 저장하는 방법을 이미 살펴봤다. 다시금 상기시키기 위해 명령어를 적어보면 다음과 같다: ggsave("My_most_recent_plot.pdf") RStudio 내부에서 그래프로 저장할 경우, ‘Plot’ 윈도우에서 ‘Export’ 내보내기...'>
+<meta name="generator" content="bookdown 0.26 with bs4_book()">
+<meta property="og:title" content="31 . 데이터 저장 | 데이터 과학을 지탱하는 기본기">
+<meta property="og:type" content="book">
+<meta property="og:description" content='31.1 그래프 저장하기 ggsave 명령어를 사용해서, ggplot2에서 생성한 가장 최신 도식화 결과물을 저장하는 방법을 이미 살펴봤다. 다시금 상기시키기 위해 명령어를 적어보면 다음과 같다: ggsave("My_most_recent_plot.pdf") RStudio 내부에서 그래프로 저장할 경우, ‘Plot’ 윈도우에서 ‘Export’ 내보내기...'>
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="31 . 데이터 저장 | 데이터 과학을 지탱하는 기본기">
+<meta name="twitter:description" content='31.1 그래프 저장하기 ggsave 명령어를 사용해서, ggplot2에서 생성한 가장 최신 도식화 결과물을 저장하는 방법을 이미 살펴봤다. 다시금 상기시키기 위해 명령어를 적어보면 다음과 같다: ggsave("My_most_recent_plot.pdf") RStudio 내부에서 그래프로 저장할 경우, ‘Plot’ 윈도우에서 ‘Export’ 내보내기...'>
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.3.1/transition.js"></script><script src="libs/bs3compat-0.3.1/tabs.js"></script><script src="libs/bs3compat-0.3.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
+    
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  </style>
+<style type="text/css">
+    /* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+    div.csl-bib-body { }
+    div.csl-entry {
+      clear: both;
+        }
+    .hanging div.csl-entry {
+      margin-left:2em;
+      text-indent:-2em;
+    }
+    div.csl-left-margin {
+      min-width:2em;
+      float:left;
+    }
+    div.csl-right-inline {
+      margin-left:2em;
+      padding-left:1em;
+    }
+    div.csl-indent {
+      margin-left: 2em;
+    }
+  </style>
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">데이터 과학을 지탱하는 기본기</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html">데이터 과학을 지탱하는 기본기</a></li>
+<li class="book-part">자동화</li>
+<li><a class="" href="shell-intro.html"><span class="header-section-number">1</span> 쉘(Shell) 소개</a></li>
+<li><a class="" href="shell-filedir.html"><span class="header-section-number">2</span> 파일과 폴더 넘나들기</a></li>
+<li><a class="" href="shell-create.html"><span class="header-section-number">3</span> 파일과 디렉토리 작업</a></li>
+<li><a class="" href="pipe-filter.html"><span class="header-section-number">4</span> 파이프와 필터</a></li>
+<li><a class="" href="shell-loop.html"><span class="header-section-number">5</span> 루프(Loops)</a></li>
+<li><a class="" href="shell-script.html"><span class="header-section-number">6</span> 쉘 스크립트</a></li>
+<li><a class="" href="shell-find.html"><span class="header-section-number">7</span> 파일, 문자, 디렉토리 등 찾기</a></li>
+<li class="book-part">버전제어와 협업</li>
+<li><a class="" href="git.html"><span class="header-section-number">8</span> 자동화된 버젼제어</a></li>
+<li><a class="" href="git-setup.html"><span class="header-section-number">9</span> Git 구축 및 설정</a></li>
+<li><a class="" href="git-create.html"><span class="header-section-number">10</span> 저장소 생성</a></li>
+<li><a class="" href="git-change.html"><span class="header-section-number">11</span> 변경사항 추적</a></li>
+<li><a class="" href="git-history.html"><span class="header-section-number">12</span> 이력 탐색</a></li>
+<li><a class="" href="git-ignore.html"><span class="header-section-number">13</span> 추적대상에서 제외</a></li>
+<li><a class="" href="git-github.html"><span class="header-section-number">14</span> GitHub 원격작업</a></li>
+<li><a class="" href="git-collab.html"><span class="header-section-number">15</span> 협업 (Collaborating)</a></li>
+<li><a class="" href="git-conflict.html"><span class="header-section-number">16</span> 충돌 (Conflicts)</a></li>
+<li><a class="" href="git-open.html"><span class="header-section-number">17</span> 공개 과학 (Open Science)</a></li>
+<li><a class="" href="git-licensing.html"><span class="header-section-number">18</span> 라이선싱 (Licensing)</a></li>
+<li><a class="" href="git-hosting.html"><span class="header-section-number">19</span> 호스팅 (Hosting)</a></li>
+<li><a class="" href="git-korean.html"><span class="header-section-number">20</span> Git 추가설정</a></li>
+<li class="book-part">프로그래밍</li>
+<li><a class="" href="r-intro.html"><span class="header-section-number">21</span> R과 RStudio 소개</a></li>
+<li><a class="" href="r-project.html"><span class="header-section-number">22</span> RStudio 프로젝트 관리</a></li>
+<li><a class="" href="r-help.html"><span class="header-section-number">23</span> 도움 청하기</a></li>
+<li><a class="" href="r-data-structure.html"><span class="header-section-number">24</span> 자료구조</a></li>
+<li><a class="" href="r-dataframe.html"><span class="header-section-number">25</span> 데이터프레임 탐색</a></li>
+<li><a class="" href="r-subset.html"><span class="header-section-number">26</span> 부분집합 추출</a></li>
+<li><a class="" href="r-control-flow.html"><span class="header-section-number">27</span> 제어 흐름</a></li>
+<li><a class="" href="r-ggplot.html"><span class="header-section-number">28</span> 논문 품질 그래프 생성</a></li>
+<li><a class="" href="r-vectorization.html"><span class="header-section-number">29</span> 벡터화(Vectorization)</a></li>
+<li><a class="" href="r-function.html"><span class="header-section-number">30</span> 함수 설명</a></li>
+<li><a class="active" href="r-writing.html"><span class="header-section-number">31</span> 데이터 저장</a></li>
+<li><a class="" href="r-plyr-split.html"><span class="header-section-number">32</span> plyr로 데이터프레임을 쪼개고 합치기</a></li>
+<li><a class="" href="r-dplyr.html"><span class="header-section-number">33</span> dplyr 솜씨있게 조작</a></li>
+<li><a class="" href="r-tidyr.html"><span class="header-section-number">34</span> tidyr 솜씨있게 조작</a></li>
+<li><a class="" href="r-knitr.html"><span class="header-section-number">35</span> knitr 보고서 생성</a></li>
+<li><a class="" href="r-wrapup.html"><span class="header-section-number">36</span> 좋은 소프트웨어 작성법</a></li>
+<li class="book-part">데이터베이스</li>
+<li><a class="" href="database-sql.html"><span class="header-section-number">37</span> 데이터베이스와 SQL 사용하기</a></li>
+<li><a class="" href="database-sqlite.html"><span class="header-section-number">38</span> SQLite 설치</a></li>
+<li><a class="" href="database-select.html"><span class="header-section-number">39</span> 변수/칼럼 선택하기</a></li>
+<li><a class="" href="database-sort.html"><span class="header-section-number">40</span> 정렬, 중복 제거</a></li>
+<li><a class="" href="database-filter.html"><span class="header-section-number">41</span> 필터링 (Filtering)</a></li>
+<li><a class="" href="database-calc.html"><span class="header-section-number">42</span> 새로운 값 계산하기</a></li>
+<li><a class="" href="database-null.html"><span class="header-section-number">43</span> 결측 데이터 (Missing Data)</a></li>
+<li><a class="" href="database-agg.html"><span class="header-section-number">44</span> 집합(Aggregation)</a></li>
+<li><a class="" href="database-table-join.html"><span class="header-section-number">45</span> 데이터 결합하기</a></li>
+<li><a class="" href="database-data-create.html"><span class="header-section-number">46</span> 데이터 생성과 변형</a></li>
+<li><a class="" href="%EC%B0%B8%EA%B3%A0%EB%AC%B8%ED%97%8C.html">참고문헌</a></li>
+</ul>
+
+        <div class="book-extra">
+          
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="r-writing" class="section level1" number="31">
+<h1>
+<span class="header-section-number">31 . </span> 데이터 저장<a class="anchor" aria-label="anchor" href="#r-writing"><i class="fas fa-link"></i></a>
+</h1>
+<div id="r-saving-image" class="section level2" number="31.1">
+<h2>
+<span class="header-section-number">31.1</span> 그래프 저장하기<a class="anchor" aria-label="anchor" href="#r-saving-image"><i class="fas fa-link"></i></a>
+</h2>
+<p><code>ggsave</code> 명령어를 사용해서,
+<code>ggplot2</code>에서 생성한 가장 최신 도식화 결과물을 저장하는 방법을 이미 살펴봤다.
+다시금 상기시키기 위해 명령어를 적어보면 다음과 같다:</p>
+<div class="sourceCode" id="cb962"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggsave.html">ggsave</a></span><span class="op">(</span><span class="st">"My_most_recent_plot.pdf"</span><span class="op">)</span></code></pre></div>
+<p>RStudio 내부에서 그래프로 저장할 경우,
+‘Plot’ 윈도우에서 ‘Export’ 내보내기 버튼을 사용한다.
+버튼을 클릭하면, <code>.pdf</code>, <code>.png</code>, <code>.jpg</code> 혹은 다른 이미지 형식으로 저장할지
+선택옵션을 제시된다.</p>
+<p>종종, ‘Plot’ 윈도우에 먼저 찍어보지 말고, 도표를 저장하고 싶을 때도 있다.
+아마도 여러 페이지에 걸친 pdf 문서를 생성하고 싶을 것이다:
+예를 들어, 각각은 다른 도표로 말이다.
+혹은, 다수 파일에서 부분집합으로 데이터를 뽑아내고,
+각 하위 데이터에 대해 도식화를 하고, 결과물을 도표로 저장하고자 한다.
+하지만, 각각에 대해 ‘Export’ 내보내기 버튼을 클릭하려고 루프를
+중단할 수는 없는 노릇이다.</p>
+<p>이런 경우, 더 유연한 접근법을 사용할 수 있다.
+<code>pdf</code> 함수는 신류 pdf 장치를 생성한다.
+<code>pdf</code> 함수에 여러 인자를 사용해서, 크기와 해상도를 조절할 수 있다.</p>
+<div class="sourceCode" id="cb963"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/grDevices/pdf.html">pdf</a></span><span class="op">(</span><span class="st">"Life_Exp_vs_time.pdf"</span>, width<span class="op">=</span><span class="fl">12</span>, height<span class="op">=</span><span class="fl">4</span><span class="op">)</span>
+<span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data<span class="op">=</span><span class="va">gapminder</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x<span class="op">=</span><span class="va">year</span>, y<span class="op">=</span><span class="va">lifeExp</span>, colour<span class="op">=</span><span class="va">country</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span>legend.position <span class="op">=</span> <span class="st">"none"</span><span class="op">)</span>
+
+<span class="co"># You then have to make sure to turn off the pdf device!</span>
+
+<span class="fu"><a href="https://rdrr.io/r/grDevices/dev.html">dev.off</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<p>저장한 문서를 열어서 살펴본다.</p>
+</div>
+<div id="r-writing-challenge-one" class="section level2" number="31.2">
+<h2>
+<span class="header-section-number">31.2</span> 도전과제 1<a class="anchor" aria-label="anchor" href="#r-writing-challenge-one"><i class="fas fa-link"></i></a>
+</h2>
+<p><code>pdf</code> 명령어를 다시 작성해서 pdf 파일에 두번째 페이지를 찍는다.
+각 창 패널에 대륙별로 데이터를 패싯 도표(힌트: <code>facet_grid</code> 사용)로 출력한다.</p>
+<blockquote>
+<p><strong>도전과제 1에 대한 해답</strong></p>
+<div class="sourceCode" id="cb964"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/grDevices/pdf.html">pdf</a></span><span class="op">(</span><span class="st">"Life_Exp_vs_time.pdf"</span>, width <span class="op">=</span> <span class="fl">12</span>, height <span class="op">=</span> <span class="fl">4</span><span class="op">)</span>
+<span class="va">p</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">gapminder</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">year</span>, y <span class="op">=</span> <span class="va">lifeExp</span>, colour <span class="op">=</span> <span class="va">country</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span>legend.position <span class="op">=</span> <span class="st">"none"</span><span class="op">)</span>
+<span class="va">p</span>
+<span class="va">p</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/facet_grid.html">facet_grid</a></span><span class="op">(</span><span class="va">.</span> <span class="op">~</span><span class="va">continent</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/grDevices/dev.html">dev.off</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+</blockquote>
+<p><code>jpeg</code>, <code>png</code> 등등 명령어도 다양한 형식으로 문서를 저장하는데,
+유사하게 사용하면 된다.</p>
+</div>
+<div id="r-writing-file" class="section level2" number="31.3">
+<h2>
+<span class="header-section-number">31.3</span> 데이터를 파일 저장<a class="anchor" aria-label="anchor" href="#r-writing-file"><i class="fas fa-link"></i></a>
+</h2>
+<p>어느 시점이 되면, R에서 데이터를 내보내서 파일에 저장하기도 한다.</p>
+<p>이런 목적으로 <code>write.table</code> 함수를 사용하는데,
+앞서 살펴본 <code>read.table</code> 함수와 매우 유사하다.</p>
+<p>데이터 정제 스크립트를 생성하자.
+<code>gapminder</code> 데이터에서 Australia 호주만 집중한다:</p>
+<div class="sourceCode" id="cb965"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">aust_subset</span> <span class="op">&lt;-</span> <span class="va">gapminder</span><span class="op">[</span><span class="va">gapminder</span><span class="op">$</span><span class="va">country</span> <span class="op">==</span> <span class="st">"Australia"</span>,<span class="op">]</span>
+
+<span class="fu"><a href="https://rdrr.io/r/utils/write.table.html">write.table</a></span><span class="op">(</span><span class="va">aust_subset</span>,
+  file<span class="op">=</span><span class="st">"data/gapminder-aus.csv"</span>,
+  sep<span class="op">=</span><span class="st">","</span>
+<span class="op">)</span></code></pre></div>
+<p>쉘로 다시 전환해서, 모든 것이 정상인지 데이터를 살펴본다:</p>
+<div class="sourceCode" id="cb966"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb966-1"><a href="r-writing.html#cb966-1" aria-hidden="true" tabindex="-1"></a>head data<span class="sc">/</span>gapminder<span class="sc">-</span>aus.csv</span>
+<span id="cb966-2"><a href="r-writing.html#cb966-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb966-3"><a href="r-writing.html#cb966-3" aria-hidden="true" tabindex="-1"></a><span class="st">"country"</span>,<span class="st">"year"</span>,<span class="st">"pop"</span>,<span class="st">"continent"</span>,<span class="st">"lifeExp"</span>,<span class="st">"gdpPercap"</span></span>
+<span id="cb966-4"><a href="r-writing.html#cb966-4" aria-hidden="true" tabindex="-1"></a><span class="st">"61"</span>,<span class="st">"Australia"</span>,<span class="dv">1952</span>,<span class="dv">8691212</span>,<span class="st">"Oceania"</span>,<span class="fl">69.12</span>,<span class="fl">10039.59564</span></span>
+<span id="cb966-5"><a href="r-writing.html#cb966-5" aria-hidden="true" tabindex="-1"></a><span class="st">"62"</span>,<span class="st">"Australia"</span>,<span class="dv">1957</span>,<span class="dv">9712569</span>,<span class="st">"Oceania"</span>,<span class="fl">70.33</span>,<span class="fl">10949.64959</span></span>
+<span id="cb966-6"><a href="r-writing.html#cb966-6" aria-hidden="true" tabindex="-1"></a><span class="st">"63"</span>,<span class="st">"Australia"</span>,<span class="dv">1962</span>,<span class="dv">10794968</span>,<span class="st">"Oceania"</span>,<span class="fl">70.93</span>,<span class="fl">12217.22686</span></span>
+<span id="cb966-7"><a href="r-writing.html#cb966-7" aria-hidden="true" tabindex="-1"></a><span class="st">"64"</span>,<span class="st">"Australia"</span>,<span class="dv">1967</span>,<span class="dv">11872264</span>,<span class="st">"Oceania"</span>,<span class="fl">71.1</span>,<span class="fl">14526.12465</span></span>
+<span id="cb966-8"><a href="r-writing.html#cb966-8" aria-hidden="true" tabindex="-1"></a><span class="st">"65"</span>,<span class="st">"Australia"</span>,<span class="dv">1972</span>,<span class="dv">13177000</span>,<span class="st">"Oceania"</span>,<span class="fl">71.93</span>,<span class="fl">16788.62948</span></span>
+<span id="cb966-9"><a href="r-writing.html#cb966-9" aria-hidden="true" tabindex="-1"></a><span class="st">"66"</span>,<span class="st">"Australia"</span>,<span class="dv">1977</span>,<span class="dv">14074100</span>,<span class="st">"Oceania"</span>,<span class="fl">73.49</span>,<span class="fl">18334.19751</span></span>
+<span id="cb966-10"><a href="r-writing.html#cb966-10" aria-hidden="true" tabindex="-1"></a><span class="st">"67"</span>,<span class="st">"Australia"</span>,<span class="dv">1982</span>,<span class="dv">15184200</span>,<span class="st">"Oceania"</span>,<span class="fl">74.74</span>,<span class="fl">19477.00928</span></span>
+<span id="cb966-11"><a href="r-writing.html#cb966-11" aria-hidden="true" tabindex="-1"></a><span class="st">"68"</span>,<span class="st">"Australia"</span>,<span class="dv">1987</span>,<span class="dv">16257249</span>,<span class="st">"Oceania"</span>,<span class="fl">76.32</span>,<span class="fl">21888.88903</span></span>
+<span id="cb966-12"><a href="r-writing.html#cb966-12" aria-hidden="true" tabindex="-1"></a><span class="st">"69"</span>,<span class="st">"Australia"</span>,<span class="dv">1992</span>,<span class="dv">17481977</span>,<span class="st">"Oceania"</span>,<span class="fl">77.56</span>,<span class="fl">23424.76683</span></span></code></pre></div>
+<p>음… 엄밀하게 보면 원하는 바는 아니다.
+이 모든 인용부호는 어디서 왔을까?
+또한 행번호도 보이는데 무의미하다.</p>
+<p>도움말 파일을 살펴보고, 파일에 저장하는 방식을 변경해 본다.</p>
+<div class="sourceCode" id="cb967"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="op">?</span><span class="va">write.table</span></code></pre></div>
+<p>기본디폴트 설정으로 데이터를 파일에 저장할 때,
+R은 자동으로 인용부호로 문자벡터를 감싼다.
+행과 칼럼 명칭도 파일에 저장한다.</p>
+<p>다음과 같이 고쳐본다:</p>
+<div class="sourceCode" id="cb968"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/write.table.html">write.table</a></span><span class="op">(</span>
+  <span class="va">gapminder</span><span class="op">[</span><span class="va">gapminder</span><span class="op">$</span><span class="va">country</span> <span class="op">==</span> <span class="st">"Australia"</span>,<span class="op">]</span>,
+  file<span class="op">=</span><span class="st">"data/gapminder-aus.csv"</span>,
+  sep<span class="op">=</span><span class="st">","</span>, quote<span class="op">=</span><span class="cn">FALSE</span>, row.names<span class="op">=</span><span class="cn">FALSE</span>
+<span class="op">)</span></code></pre></div>
+<p>쉘 기술을 사용해서 다시 데이터를 살펴본다:</p>
+<div class="sourceCode" id="cb969"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb969-1"><a href="r-writing.html#cb969-1" aria-hidden="true" tabindex="-1"></a>head data<span class="sc">/</span>gapminder<span class="sc">-</span>aus.csv</span></code></pre></div>
+<p>훨씬 좋아보인다!</p>
+</div>
+<div id="r-writing-challenge-two" class="section level2" number="31.4">
+<h2>
+<span class="header-section-number">31.4</span> 도전과제 2<a class="anchor" aria-label="anchor" href="#r-writing-challenge-two"><i class="fas fa-link"></i></a>
+</h2>
+<p>1990 년 이후 수집된 데이터를 <code>gapminder</code> 데이터에서
+부분집합으로 구성하는 데이터-정제 스크립트를 작성하라.
+상기 스크립트를 사용해서, 작업한 신규 부분집합 데이터를
+<code>data/</code> 디렉토리에 파일로 저장한다.</p>
+<blockquote>
+<p><strong>도전과제 2에 대한 해답</strong></p>
+<div class="sourceCode" id="cb970"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/write.table.html">write.table</a></span><span class="op">(</span>
+  <span class="va">gapminder</span><span class="op">[</span><span class="va">gapminder</span><span class="op">$</span><span class="va">year</span> <span class="op">&gt;</span> <span class="fl">1990</span>, <span class="op">]</span>,
+  file <span class="op">=</span> <span class="st">"data/gapminder-after1990.csv"</span>,
+  sep <span class="op">=</span> <span class="st">","</span>, quote <span class="op">=</span> <span class="cn">FALSE</span>, row.names <span class="op">=</span> <span class="cn">FALSE</span>
+<span class="op">)</span></code></pre></div>
+</blockquote>
+
+</div>
+</div>
+  <div class="chapter-nav">
+<div class="prev"><a href="r-function.html"><span class="header-section-number">30</span> 함수 설명</a></div>
+<div class="next"><a href="r-plyr-split.html"><span class="header-section-number">32</span> plyr로 데이터프레임을 쪼개고 합치기</a></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#r-writing"><span class="header-section-number">31</span> 데이터 저장</a></li>
+<li><a class="nav-link" href="#r-saving-image"><span class="header-section-number">31.1</span> 그래프 저장하기</a></li>
+<li><a class="nav-link" href="#r-writing-challenge-one"><span class="header-section-number">31.2</span> 도전과제 1</a></li>
+<li><a class="nav-link" href="#r-writing-file"><span class="header-section-number">31.3</span> 데이터를 파일 저장</a></li>
+<li><a class="nav-link" href="#r-writing-challenge-two"><span class="header-section-number">31.4</span> 도전과제 2</a></li>
+</ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+          
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>데이터 과학을 지탱하는 기본기</strong>" was written by 한국 알 사용자회. It was last built on 2022-05-13.</p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer><!-- dynamically load mathjax for compatibility with self-contained --><script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script><script type="text/x-mathjax-config">const popovers = document.querySelectorAll('a.footnote-ref[data-toggle="popover"]');
+for (let popover of popovers) {
+  const div = document.createElement('div');
+  div.setAttribute('style', 'position: absolute; top: 0, left:0; width:0, height:0, overflow: hidden; visibility: hidden;');
+  div.innerHTML = popover.getAttribute('data-content');
+
+  var has_math = div.querySelector("span.math");
+  if (has_math) {
+    document.body.appendChild(div);
+    MathJax.Hub.Queue(["Typeset", MathJax.Hub, div]);
+    MathJax.Hub.Queue(function() {
+      popover.setAttribute('data-content', div.innerHTML);
+      document.body.removeChild(div);
+    })
+  }
+}
+</script>
+</body>
+</html>

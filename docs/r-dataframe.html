@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>25 . 데이터프레임 탐색 | 데이터 과학을 지탱하는 기본기</title>
+<meta name="author" content="한국 알 사용자회">
+<meta name="description" content="현 시점에서 모든 것을 살펴봤다: 마지막 수업에서, R의 모든 기본 자료형과 자료구조에 대한 여행을 마쳤다. 여러분이 수행하는 모든 작업은 이러한 도구를 조작하는 것이 된다. 하지만, 거의 대부분 쇼의 진정한 스타는 데이터프레임이다 - csv 파일에 정보를 불러와서 생성시킨 테이블. 이번 수업에서 데이터프레임으로 작업하는 방법에 대해 좀더 학습할...">
+<meta name="generator" content="bookdown 0.26 with bs4_book()">
+<meta property="og:title" content="25 . 데이터프레임 탐색 | 데이터 과학을 지탱하는 기본기">
+<meta property="og:type" content="book">
+<meta property="og:description" content="현 시점에서 모든 것을 살펴봤다: 마지막 수업에서, R의 모든 기본 자료형과 자료구조에 대한 여행을 마쳤다. 여러분이 수행하는 모든 작업은 이러한 도구를 조작하는 것이 된다. 하지만, 거의 대부분 쇼의 진정한 스타는 데이터프레임이다 - csv 파일에 정보를 불러와서 생성시킨 테이블. 이번 수업에서 데이터프레임으로 작업하는 방법에 대해 좀더 학습할...">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="25 . 데이터프레임 탐색 | 데이터 과학을 지탱하는 기본기">
+<meta name="twitter:description" content="현 시점에서 모든 것을 살펴봤다: 마지막 수업에서, R의 모든 기본 자료형과 자료구조에 대한 여행을 마쳤다. 여러분이 수행하는 모든 작업은 이러한 도구를 조작하는 것이 된다. 하지만, 거의 대부분 쇼의 진정한 스타는 데이터프레임이다 - csv 파일에 정보를 불러와서 생성시킨 테이블. 이번 수업에서 데이터프레임으로 작업하는 방법에 대해 좀더 학습할...">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.3.1/transition.js"></script><script src="libs/bs3compat-0.3.1/tabs.js"></script><script src="libs/bs3compat-0.3.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
+    
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  </style>
+<style type="text/css">
+    /* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+    div.csl-bib-body { }
+    div.csl-entry {
+      clear: both;
+        }
+    .hanging div.csl-entry {
+      margin-left:2em;
+      text-indent:-2em;
+    }
+    div.csl-left-margin {
+      min-width:2em;
+      float:left;
+    }
+    div.csl-right-inline {
+      margin-left:2em;
+      padding-left:1em;
+    }
+    div.csl-indent {
+      margin-left: 2em;
+    }
+  </style>
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">데이터 과학을 지탱하는 기본기</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html">데이터 과학을 지탱하는 기본기</a></li>
+<li class="book-part">자동화</li>
+<li><a class="" href="shell-intro.html"><span class="header-section-number">1</span> 쉘(Shell) 소개</a></li>
+<li><a class="" href="shell-filedir.html"><span class="header-section-number">2</span> 파일과 폴더 넘나들기</a></li>
+<li><a class="" href="shell-create.html"><span class="header-section-number">3</span> 파일과 디렉토리 작업</a></li>
+<li><a class="" href="pipe-filter.html"><span class="header-section-number">4</span> 파이프와 필터</a></li>
+<li><a class="" href="shell-loop.html"><span class="header-section-number">5</span> 루프(Loops)</a></li>
+<li><a class="" href="shell-script.html"><span class="header-section-number">6</span> 쉘 스크립트</a></li>
+<li><a class="" href="shell-find.html"><span class="header-section-number">7</span> 파일, 문자, 디렉토리 등 찾기</a></li>
+<li class="book-part">버전제어와 협업</li>
+<li><a class="" href="git.html"><span class="header-section-number">8</span> 자동화된 버젼제어</a></li>
+<li><a class="" href="git-setup.html"><span class="header-section-number">9</span> Git 구축 및 설정</a></li>
+<li><a class="" href="git-create.html"><span class="header-section-number">10</span> 저장소 생성</a></li>
+<li><a class="" href="git-change.html"><span class="header-section-number">11</span> 변경사항 추적</a></li>
+<li><a class="" href="git-history.html"><span class="header-section-number">12</span> 이력 탐색</a></li>
+<li><a class="" href="git-ignore.html"><span class="header-section-number">13</span> 추적대상에서 제외</a></li>
+<li><a class="" href="git-github.html"><span class="header-section-number">14</span> GitHub 원격작업</a></li>
+<li><a class="" href="git-collab.html"><span class="header-section-number">15</span> 협업 (Collaborating)</a></li>
+<li><a class="" href="git-conflict.html"><span class="header-section-number">16</span> 충돌 (Conflicts)</a></li>
+<li><a class="" href="git-open.html"><span class="header-section-number">17</span> 공개 과학 (Open Science)</a></li>
+<li><a class="" href="git-licensing.html"><span class="header-section-number">18</span> 라이선싱 (Licensing)</a></li>
+<li><a class="" href="git-hosting.html"><span class="header-section-number">19</span> 호스팅 (Hosting)</a></li>
+<li><a class="" href="git-korean.html"><span class="header-section-number">20</span> Git 추가설정</a></li>
+<li class="book-part">프로그래밍</li>
+<li><a class="" href="r-intro.html"><span class="header-section-number">21</span> R과 RStudio 소개</a></li>
+<li><a class="" href="r-project.html"><span class="header-section-number">22</span> RStudio 프로젝트 관리</a></li>
+<li><a class="" href="r-help.html"><span class="header-section-number">23</span> 도움 청하기</a></li>
+<li><a class="" href="r-data-structure.html"><span class="header-section-number">24</span> 자료구조</a></li>
+<li><a class="active" href="r-dataframe.html"><span class="header-section-number">25</span> 데이터프레임 탐색</a></li>
+<li><a class="" href="r-subset.html"><span class="header-section-number">26</span> 부분집합 추출</a></li>
+<li><a class="" href="r-control-flow.html"><span class="header-section-number">27</span> 제어 흐름</a></li>
+<li><a class="" href="r-ggplot.html"><span class="header-section-number">28</span> 논문 품질 그래프 생성</a></li>
+<li><a class="" href="r-vectorization.html"><span class="header-section-number">29</span> 벡터화(Vectorization)</a></li>
+<li><a class="" href="r-function.html"><span class="header-section-number">30</span> 함수 설명</a></li>
+<li><a class="" href="r-writing.html"><span class="header-section-number">31</span> 데이터 저장</a></li>
+<li><a class="" href="r-plyr-split.html"><span class="header-section-number">32</span> plyr로 데이터프레임을 쪼개고 합치기</a></li>
+<li><a class="" href="r-dplyr.html"><span class="header-section-number">33</span> dplyr 솜씨있게 조작</a></li>
+<li><a class="" href="r-tidyr.html"><span class="header-section-number">34</span> tidyr 솜씨있게 조작</a></li>
+<li><a class="" href="r-knitr.html"><span class="header-section-number">35</span> knitr 보고서 생성</a></li>
+<li><a class="" href="r-wrapup.html"><span class="header-section-number">36</span> 좋은 소프트웨어 작성법</a></li>
+<li class="book-part">데이터베이스</li>
+<li><a class="" href="database-sql.html"><span class="header-section-number">37</span> 데이터베이스와 SQL 사용하기</a></li>
+<li><a class="" href="database-sqlite.html"><span class="header-section-number">38</span> SQLite 설치</a></li>
+<li><a class="" href="database-select.html"><span class="header-section-number">39</span> 변수/칼럼 선택하기</a></li>
+<li><a class="" href="database-sort.html"><span class="header-section-number">40</span> 정렬, 중복 제거</a></li>
+<li><a class="" href="database-filter.html"><span class="header-section-number">41</span> 필터링 (Filtering)</a></li>
+<li><a class="" href="database-calc.html"><span class="header-section-number">42</span> 새로운 값 계산하기</a></li>
+<li><a class="" href="database-null.html"><span class="header-section-number">43</span> 결측 데이터 (Missing Data)</a></li>
+<li><a class="" href="database-agg.html"><span class="header-section-number">44</span> 집합(Aggregation)</a></li>
+<li><a class="" href="database-table-join.html"><span class="header-section-number">45</span> 데이터 결합하기</a></li>
+<li><a class="" href="database-data-create.html"><span class="header-section-number">46</span> 데이터 생성과 변형</a></li>
+<li><a class="" href="%EC%B0%B8%EA%B3%A0%EB%AC%B8%ED%97%8C.html">참고문헌</a></li>
+</ul>
+
+        <div class="book-extra">
+          
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="r-dataframe" class="section level1" number="25">
+<h1>
+<span class="header-section-number">25 . </span> 데이터프레임 탐색<a class="anchor" aria-label="anchor" href="#r-dataframe"><i class="fas fa-link"></i></a>
+</h1>
+<p>현 시점에서 모든 것을 살펴봤다: 마지막 수업에서, R의 모든 기본 자료형과 자료구조에 대한 여행을 마쳤다.
+여러분이 수행하는 모든 작업은 이러한 도구를 조작하는 것이 된다.
+하지만, 거의 대부분 쇼의 진정한 스타는 데이터프레임이다 - csv 파일에 정보를 불러와서 생성시킨 테이블.
+이번 수업에서 데이터프레임으로 작업하는 방법에 대해 좀더 학습할 것이다.</p>
+<div id="r-dataframe-add" class="section level2" number="25.1">
+<h2>
+<span class="header-section-number">25.1</span> 행과 열을 추가<a class="anchor" aria-label="anchor" href="#r-dataframe-add"><i class="fas fa-link"></i></a>
+</h2>
+<p>데이터프레임의 칼럼은 벡터라는 것을 배웠다.
+따라서, 데이터는 칼럼에서 자료형의 일관성을 유지해야 한다.
+이를테면, 칼럼을 새로 추가하려면 벡터를 새로 만들어서 시작한다:</p>
+<div class="sourceCode" id="cb613"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span>
+
+<span class="va">cats</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="st">"data/feline-data.csv"</span><span class="op">)</span>
+<span class="va">age</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">3</span>, <span class="fl">5</span><span class="op">)</span>
+<span class="va">cats</span></code></pre></div>
+<pre><code>## # A tibble: 3 × 3
+##   coat   weight likes_string
+##   &lt;chr&gt;   &lt;dbl&gt;        &lt;dbl&gt;
+## 1 calico    2.1            1
+## 2 black     5              0
+## 3 tabby     3.2            1</code></pre>
+<p><code>age</code>를 칼럼으로 다음과 같이 추가한다:</p>
+<div class="sourceCode" id="cb615"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/cbind.html">cbind</a></span><span class="op">(</span><span class="va">cats</span>, <span class="va">age</span><span class="op">)</span></code></pre></div>
+<pre><code>##     coat weight likes_string age
+## 1 calico    2.1            1   2
+## 2  black    5.0            0   3
+## 3  tabby    3.2            1   5</code></pre>
+<p>데이터프레임의 행의 갯수와 다른 갯수를 갖는 <code>age</code> 벡터를 추가하게되면 추가되지 않고 오류가 발생됨에 주의한다:</p>
+<div class="sourceCode" id="cb617"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">age</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">3</span>, <span class="fl">5</span>, <span class="fl">12</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/cbind.html">cbind</a></span><span class="op">(</span><span class="va">cats</span>, <span class="va">age</span><span class="op">)</span></code></pre></div>
+<pre><code>## Error in data.frame(..., check.names = FALSE): arguments imply differing number of rows: 3, 4</code></pre>
+<div class="sourceCode" id="cb619"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">age</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">3</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/cbind.html">cbind</a></span><span class="op">(</span><span class="va">cats</span>, <span class="va">age</span><span class="op">)</span></code></pre></div>
+<pre><code>## Error in data.frame(..., check.names = FALSE): arguments imply differing number of rows: 3, 2</code></pre>
+<p>왜 정상동작이 되지 않을까?
+R은 테이블의 모든 행마다, 신규 칼럼에서도 원소 하나가 있길 원한다:</p>
+<div class="sourceCode" id="cb621"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">cats</span><span class="op">)</span></code></pre></div>
+<pre><code>## [1] 3</code></pre>
+<div class="sourceCode" id="cb623"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">age</span><span class="op">)</span></code></pre></div>
+<pre><code>## [1] 2</code></pre>
+<p>그래서, 정상 동작하려면 <code>nrow(cats)</code> = <code>length(age)</code>이 되어야 한다.
+<code>cats</code> 콘텐츠를 새로운 데이터프레임으로 덮어써보자.</p>
+<div class="sourceCode" id="cb625"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">age</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">3</span>, <span class="fl">5</span><span class="op">)</span>
+<span class="va">cats</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html">cbind</a></span><span class="op">(</span><span class="va">cats</span>, <span class="va">age</span><span class="op">)</span></code></pre></div>
+<p>이제 행을 추가하면 어떻게 될까?
+이미 데이터프레임의 행이 리스트라는 사실을 알고 있다:</p>
+<div class="sourceCode" id="cb626"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">newRow</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="st">"tortoiseshell"</span>, <span class="fl">3.3</span>, <span class="cn">TRUE</span>, <span class="fl">9</span><span class="op">)</span>
+<span class="va">cats</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html">rbind</a></span><span class="op">(</span><span class="va">cats</span>, <span class="va">newRow</span><span class="op">)</span></code></pre></div>
+</div>
+<div id="r-dataframe-factor" class="section level2" number="25.2">
+<h2>
+<span class="header-section-number">25.2</span> 요인 (Factors)<a class="anchor" aria-label="anchor" href="#r-dataframe-factor"><i class="fas fa-link"></i></a>
+</h2>
+<p>살펴볼 것이 하나더 있다: <code>요인(factor)</code>에서 각기 다른 값을 <code>수준(level)</code>이라고 한다.
+요인형 “coat” 변수는 수준이 3으로 구성된다: “black”, “calico”, “tabby”.
+R은 세가지 수준 중 하나와 매칭되는 값만 받아들인다.
+완전 새로운 값을 추가하게 되면, 추가되는 신규 값은 <code>NA</code>가 된다.</p>
+<p>경고 메시지를 통해서 <em>coat</em> 요인변수에 “tortoiseshell” 값을 추가하는데 성공하지 못했다고 알려준다.
+하지만, 3.3 (숫자형), TRUE (논리형), and 9 (숫자형) 모두 <em>weight</em>, <em>likes_string</em>, <em>age</em> 변수에
+성공적으로 추가된다. 왜냐하면 변수가 요인형이 아니라서 그렇다.
+“tortoiseshell”을 <em>coat</em> 요인변수에 성공적으로 추가하려면, 요인의 수준(level)로 “tortoiseshell”을 추가하면 된다:</p>
+<div class="sourceCode" id="cb627"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/levels.html">levels</a></span><span class="op">(</span><span class="va">cats</span><span class="op">$</span><span class="va">coat</span><span class="op">)</span></code></pre></div>
+<pre><code>## NULL</code></pre>
+<div class="sourceCode" id="cb629"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/levels.html">levels</a></span><span class="op">(</span><span class="va">cats</span><span class="op">$</span><span class="va">coat</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/levels.html">levels</a></span><span class="op">(</span><span class="va">cats</span><span class="op">$</span><span class="va">coat</span><span class="op">)</span>, <span class="st">"tortoiseshell"</span><span class="op">)</span>
+<span class="va">cats</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html">rbind</a></span><span class="op">(</span><span class="va">cats</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="st">"tortoiseshell"</span>, <span class="fl">3.3</span>, <span class="cn">TRUE</span>, <span class="fl">9</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<p>대안으로, 요인형 벡터를 문자형 벡터로 변환시키면 된다;
+요인변수의 범주를 잃게 되지만, 요인 수준을 조심스럽게 다룰 필요없이,
+칼럼에 추가하고자 하는 임의 단어를 추가하면 된다:</p>
+<div class="sourceCode" id="cb630"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">cats</span><span class="op">)</span></code></pre></div>
+<pre><code>## 'data.frame':    5 obs. of  4 variables:
+##  $ coat        : Factor w/ 1 level "tortoiseshell": NA NA NA 1 1
+##  $ weight      : num  2.1 5 3.2 3.3 3.3
+##  $ likes_string: num  1 0 1 1 1
+##  $ age         : num  2 3 5 9 9</code></pre>
+<div class="sourceCode" id="cb632"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">cats</span><span class="op">$</span><span class="va">coat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html">as.character</a></span><span class="op">(</span><span class="va">cats</span><span class="op">$</span><span class="va">coat</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">cats</span><span class="op">)</span></code></pre></div>
+<pre><code>## 'data.frame':    5 obs. of  4 variables:
+##  $ coat        : chr  NA NA NA "tortoiseshell" ...
+##  $ weight      : num  2.1 5 3.2 3.3 3.3
+##  $ likes_string: num  1 0 1 1 1
+##  $ age         : num  2 3 5 9 9</code></pre>
+</div>
+<div id="r-dataframe-challenge-one" class="section level2" number="25.3">
+<h2>
+<span class="header-section-number">25.3</span> 도전과제 1<a class="anchor" aria-label="anchor" href="#r-dataframe-challenge-one"><i class="fas fa-link"></i></a>
+</h2>
+<ol style="list-style-type: decimal">
+<li>
+<code>cats$age</code> 벡터에 7을 곱해서 <code>human_age</code> 벡터를 생성하자.</li>
+<li>
+<code>human_age</code>를 요인형으로 변환시키자.</li>
+<li>
+<code><a href="https://rdrr.io/r/base/numeric.html">as.numeric()</a></code> 함수를 사용해서 <code>human_age</code> 벡털르 다시 숫자형 벡터로 변환시킨다.
+이제 7로 나눠서 원래 고양이 나이로 되돌리자. 무슨 일이 생겼는지 설명하자.</li>
+</ol>
+<blockquote>
+<p><strong>도전과제 1에 대한 해답</strong></p>
+<ol style="list-style-type: decimal">
+<li><code>human_age &lt;- cats$age * 7</code></li>
+<li>
+<code>human_age &lt;- factor(human_age)</code>. <code>as.factor(human_age)</code> works just as well.</li>
+<li>
+<code>as.numeric(human_age)</code>을 실행하면 <code>1 2 3 4 4</code>이 된다.</li>
+</ol>
+<p>왜냐하면 요인형 변수는 정수형(여기서 1:4)으로 자료를 저장하기 때문이다.
+정수 라벨과 연관된 값은 여기서 28, 35, 56, 63이다.
+요인형 변수를 숫자형 벡터로 변환시키면 라벨이 아니라 그 밑단의 정수를 반환시킨다.
+원래 숫자를 원하는 경우, <code>human_age</code>를 문자형 벡터로 변환시키고 나서 숫자형 벡터로 변환시키면 된다.(왜 이방식은 정장 동작할까?)
+실수로 숫자만 담긴 칼럼 어딘가 문자가 포함된 csv 파일로 작업할 때 이런 일이 실제로 종종 일어난다.
+데이터를 불러 읽어올 때 <code>stringsAsFactors=FALSE</code> 설정을 잊지말자.</p>
+</blockquote>
+</div>
+<div id="r-dataframe-remove" class="section level2" number="25.4">
+<h2>
+<span class="header-section-number">25.4</span> 행 제거<a class="anchor" aria-label="anchor" href="#r-dataframe-remove"><i class="fas fa-link"></i></a>
+</h2>
+<p>이제 데이터프레임에 행과 열을 추가하는 방법을 알게 되었다 - 하지만,
+데이터프레임에 “tortoiseshell” 고양이를 처음으로 추가하면서, 우연히
+쓰레기 행을 추가시켰다:</p>
+<div class="sourceCode" id="cb634"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">cats</span></code></pre></div>
+<pre><code>##            coat weight likes_string age
+## 1          &lt;NA&gt;    2.1            1   2
+## 2          &lt;NA&gt;    5.0            0   3
+## 3          &lt;NA&gt;    3.2            1   5
+## 4 tortoiseshell    3.3            1   9
+## 5 tortoiseshell    3.3            1   9</code></pre>
+<p>데이터프레임에 문제가 되는 행을 마이너스해서 빼자:</p>
+<div class="sourceCode" id="cb636"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">cats</span><span class="op">[</span><span class="op">-</span><span class="fl">4</span>, <span class="op">]</span></code></pre></div>
+<pre><code>##            coat weight likes_string age
+## 1          &lt;NA&gt;    2.1            1   2
+## 2          &lt;NA&gt;    5.0            0   3
+## 3          &lt;NA&gt;    3.2            1   5
+## 5 tortoiseshell    3.3            1   9</code></pre>
+<p><code>-4,</code> 다음에 아무것도 적시하지 않아서 4번째 행 전체를 제거함에 주목한다.</p>
+<p>주목: 벡터 내부에 행 다수를 넣어 한번에 행을 제거할 수도 있다: <code>cats[c(-4,-5), ]</code></p>
+<p>대안으로, <code>NA</code> 값을 갖는 모든 행을 제거시킨다:</p>
+<div class="sourceCode" id="cb638"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/stats/na.fail.html">na.omit</a></span><span class="op">(</span><span class="va">cats</span><span class="op">)</span></code></pre></div>
+<pre><code>##            coat weight likes_string age
+## 4 tortoiseshell    3.3            1   9
+## 5 tortoiseshell    3.3            1   9</code></pre>
+<p>출력결과를 <code>cats</code>에 다시 대입하여 변경사항이 데이터프레임이 영구히 남도록 조치한다:</p>
+<div class="sourceCode" id="cb640"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">cats</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/na.fail.html">na.omit</a></span><span class="op">(</span><span class="va">cats</span><span class="op">)</span></code></pre></div>
+</div>
+<div id="r-dataframe-column-remove" class="section level2" number="25.5">
+<h2>
+<span class="header-section-number">25.5</span> 칼럼 제거<a class="anchor" aria-label="anchor" href="#r-dataframe-column-remove"><i class="fas fa-link"></i></a>
+</h2>
+<p>데이터프레임의 칼럼도 제거할 수 있다.
+“age” 칼럼을 제거하고자 한다면 어떨까?
+변수명과 변수 인덱스, 두가지 방식으로 칼럼을 제거할 수 있다.</p>
+<div class="sourceCode" id="cb641"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">cats</span><span class="op">[</span>,<span class="op">-</span><span class="fl">4</span><span class="op">]</span></code></pre></div>
+<pre><code>##            coat weight likes_string
+## 4 tortoiseshell    3.3            1
+## 5 tortoiseshell    3.3            1</code></pre>
+<p><code>,-4</code> 앞에 아무것도 없는 것에 주목한다. 모든 행을 간직한다는 의미를 갖는다.</p>
+<p>대안으로, 색인명을 사용해서 컬럼을 제거할 수도 있다.</p>
+<div class="sourceCode" id="cb643"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">drop</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">cats</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/r/base/match.html">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"age"</span><span class="op">)</span>
+<span class="va">cats</span><span class="op">[</span>,<span class="op">!</span><span class="va">drop</span><span class="op">]</span></code></pre></div>
+<pre><code>##            coat weight likes_string
+## 4 tortoiseshell    3.3            1
+## 5 tortoiseshell    3.3            1</code></pre>
+</div>
+<div id="r-dataframe-rbind" class="section level2" number="25.6">
+<h2>
+<span class="header-section-number">25.6</span> dataframe 덧붙이기<a class="anchor" aria-label="anchor" href="#r-dataframe-rbind"><i class="fas fa-link"></i></a>
+</h2>
+<p>데이터프레임(dataframe)에 데이터를 추가시킬 때 기억할 것은 <strong>칼럼은 벡터, 행은 리스트</strong>라는 사실이다.
+<code><a href="https://rdrr.io/r/base/cbind.html">rbind()</a></code> 함수를 사용해서 데이터프레임 두개를 본드로 붙이듯이 결합시킬 수 있다:</p>
+<div class="sourceCode" id="cb645"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">cats</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html">rbind</a></span><span class="op">(</span><span class="va">cats</span>, <span class="va">cats</span><span class="op">)</span>
+<span class="va">cats</span></code></pre></div>
+<pre><code>##             coat weight likes_string age
+## 4  tortoiseshell    3.3            1   9
+## 5  tortoiseshell    3.3            1   9
+## 41 tortoiseshell    3.3            1   9
+## 51 tortoiseshell    3.3            1   9</code></pre>
+<p>행명칭(rownames)이 불필요하게 복잡해져, 행명칭을 제거하면,
+자동적으로 R이 순차적으로 행명칭을 부여시킨다.</p>
+<div class="sourceCode" id="cb647"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://tibble.tidyverse.org/reference/rownames.html">rownames</a></span><span class="op">(</span><span class="va">cats</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="cn">NULL</span>
+<span class="va">cats</span></code></pre></div>
+<pre><code>##            coat weight likes_string age
+## 1 tortoiseshell    3.3            1   9
+## 2 tortoiseshell    3.3            1   9
+## 3 tortoiseshell    3.3            1   9
+## 4 tortoiseshell    3.3            1   9</code></pre>
+</div>
+<div id="r-dataframe-challenge-two" class="section level2" number="25.7">
+<h2>
+<span class="header-section-number">25.7</span> 도전과제 2<a class="anchor" aria-label="anchor" href="#r-dataframe-challenge-two"><i class="fas fa-link"></i></a>
+</h2>
+<p>다음 구문을 사용해서 R 내부에서 직접 데이터프레임을 새로 만들 수 있다:</p>
+<div class="sourceCode" id="cb649"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>id <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"a"</span>, <span class="st">"b"</span>, <span class="st">"c"</span><span class="op">)</span>,
+                 x <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">3</span>,
+                 y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="cn">TRUE</span>, <span class="cn">TRUE</span>, <span class="cn">FALSE</span><span class="op">)</span>,
+                 stringsAsFactors <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre></div>
+<p>다음 정보를 갖는 데이터프레임을 직접 제작해 보자:</p>
+<ul>
+<li>이름(first name)</li>
+<li>성(last name)</li>
+<li>좋아하는 숫자</li>
+</ul>
+<p><code>rbind</code>를 사용해서 옆사람을 항목에 추가한다.
+마지막으로 <code><a href="https://rdrr.io/r/base/cbind.html">cbind()</a></code>함수를 사용해서 “지금이 커피시간인가요?”라는 질문의 답을 칼럼으로 추가한다.</p>
+<blockquote>
+<p><strong>도전과제 2에 대한 해답</strong></p>
+<div class="sourceCode" id="cb650"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>first <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Grace"</span><span class="op">)</span>,
+                 last <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Hopper"</span><span class="op">)</span>,
+                 lucky_number <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span><span class="op">)</span>,
+                 stringsAsFactors <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
+<span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html">rbind</a></span><span class="op">(</span><span class="va">df</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="st">"Marie"</span>, <span class="st">"Curie"</span>, <span class="fl">238</span><span class="op">)</span> <span class="op">)</span>
+<span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html">cbind</a></span><span class="op">(</span><span class="va">df</span>, coffeetime <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="cn">TRUE</span>,<span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+</blockquote>
+</div>
+<div id="r-dataframe-practice" class="section level2" number="25.8">
+<h2>
+<span class="header-section-number">25.8</span> 현실적인 예제<a class="anchor" aria-label="anchor" href="#r-dataframe-practice"><i class="fas fa-link"></i></a>
+</h2>
+<p>지금까지 고양이 데이털르 가지고 데이터프레임 조작에 대한 기본적인 사항을 살펴봤다.
+이제 학습한 기술을 사용해서 좀더 현실적인 데이터셋을 다뤄보자.
+앞에서 다운로드 받은 <code>gapminder</code> 데이터셋을 불러오자:</p>
+<div class="sourceCode" id="cb651"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">gapminder</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html">read.csv</a></span><span class="op">(</span><span class="st">"data/gapminder_data.csv"</span><span class="op">)</span></code></pre></div>
+<div id="r-dataframe-tips" class="rmdcaution">
+<p><strong>기타 팁</strong></p>
+<ul>
+<li>흔히 맞닥드리는 또다른 유형의 파일이 탭구분자를 갖는 파일(.tsv)이다. 탭을 구분자로 명세하는데, <code>"\\t"</code>을 사용하고, <code><a href="https://rdrr.io/r/utils/read.table.html">read.delim()</a></code> 함수로 불러 읽어온다.</li>
+<li>파일을 <code><a href="https://rdrr.io/r/utils/download.file.html">download.file()</a></code> 함수를 사용해서 인터넷으로부터 직접 본인 컴퓨터 폴더로 다운로드할 수 있다.
+<code><a href="https://rdrr.io/r/utils/read.table.html">read.csv()</a></code> 함수를 실행해서 다운로드 받은 파일을 읽어온다. 예를 들어,</li>
+</ul>
+<div class="sourceCode" id="cb652"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/download.file.html">download.file</a></span><span class="op">(</span><span class="st">"https://raw.githubusercontent.com/swcarpentry/r-novice-gapminder/gh-pages/_episodes_rmd/data/gapminder_data.csv"</span>, 
+               destfile <span class="op">=</span> <span class="st">"data/gapminder_data.csv"</span><span class="op">)</span>
+<span class="va">gapminder</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html">read.csv</a></span><span class="op">(</span><span class="st">"data/gapminder_data.csv"</span><span class="op">)</span></code></pre></div>
+<ul>
+<li>대안으로, <code><a href="https://rdrr.io/r/utils/read.table.html">read.csv()</a></code> 함수 내부에 파일 경로를 웹주소를 치환해서 인터넷에서 직접 파일을 불러올 수도 있다.
+이런 경우 로컬 컴퓨터에 csv 파일이 전혀 저장되지 않았다는 점을 주의한다. 예를 들어,</li>
+</ul>
+<div class="sourceCode" id="cb653"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">gapminder</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html">read.csv</a></span><span class="op">(</span><span class="st">"https://raw.githubusercontent.com/swcarpentry/r-novice-gapminder/gh-pages/_episodes_rmd/data/gapminder_data.csv"</span><span class="op">)</span></code></pre></div>
+<ul>
+<li>
+<a href="https://cran.r-project.org/web/packages/readxl/index.html">readxl</a> 팩키지를 사용해서,
+엑셀 스프레드쉬트를 평범한 텍스트로 변환하지 않고 직접 불러올 수도 있다.</li>
+</ul>
+</div>
+<p><code>gapminder</code> 데이터셋을 좀더 살펴보자; 항상 가장 먼저 해야되는 작업은
+<code>str</code> 명령어로 데이터가 어떻게 생겼는지 확인하는 것이다:</p>
+<div class="sourceCode" id="cb654"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">gapminder</span><span class="op">)</span></code></pre></div>
+<pre><code>## 'data.frame':    1704 obs. of  6 variables:
+##  $ country  : chr  "Afghanistan" "Afghanistan" "Afghanistan" "Afghanistan" ...
+##  $ year     : int  1952 1957 1962 1967 1972 1977 1982 1987 1992 1997 ...
+##  $ pop      : num  8425333 9240934 10267083 11537966 13079460 ...
+##  $ continent: chr  "Asia" "Asia" "Asia" "Asia" ...
+##  $ lifeExp  : num  28.8 30.3 32 34 36.1 ...
+##  $ gdpPercap: num  779 821 853 836 740 ...</code></pre>
+<p><code><a href="https://rdrr.io/r/base/typeof.html">typeof()</a></code> 함수로 데이터프레임 칼럼 각각을 면밀히 조사할 수도 있다:</p>
+<div class="sourceCode" id="cb656"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/typeof.html">typeof</a></span><span class="op">(</span><span class="va">gapminder</span><span class="op">$</span><span class="va">year</span><span class="op">)</span></code></pre></div>
+<pre><code>## [1] "integer"</code></pre>
+<div class="sourceCode" id="cb658"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/typeof.html">typeof</a></span><span class="op">(</span><span class="va">gapminder</span><span class="op">$</span><span class="va">country</span><span class="op">)</span></code></pre></div>
+<pre><code>## [1] "character"</code></pre>
+<div class="sourceCode" id="cb660"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">gapminder</span><span class="op">$</span><span class="va">country</span><span class="op">)</span></code></pre></div>
+<pre><code>##  chr [1:1704] "Afghanistan" "Afghanistan" "Afghanistan" "Afghanistan" ...</code></pre>
+<p>데이터프레임 차원에 정보를 얻어낼 수도 있다;
+<code>str(gapminder)</code> 실행결과 <code>gapminder</code> 데이터프레임에 관측점 1704, 변수 6개가 있음을 상기한다.
+다음 코드 실행결과는 무엇일까? 그리고 왜 그렇게 되는가?</p>
+<div class="sourceCode" id="cb662"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">gapminder</span><span class="op">)</span></code></pre></div>
+<pre><code>## [1] 6</code></pre>
+<p>공정한 추측은 아마도 데이터프레임 길이가 행의 길이(1704)라고 보는 것이다.
+하지만, 이번에는 다르다; 데이터프레임은 <strong>벡터와 요인으로 구성된 리스트</strong>라는 사실이다:</p>
+<div class="sourceCode" id="cb664"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/typeof.html">typeof</a></span><span class="op">(</span><span class="va">gapminder</span><span class="op">)</span></code></pre></div>
+<pre><code>## [1] "list"</code></pre>
+<p><code><a href="https://rdrr.io/r/base/length.html">length()</a></code> 함수는 6을 제시하는데, 이유는 <code>gapminder</code>가 6개 칼럼을 갖는 리스트로 만들어졌기 때문이다.
+데이터셋에서 행과 열 숫자를 얻는데 다음 함수를 던져보자:</p>
+<div class="sourceCode" id="cb666"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">gapminder</span><span class="op">)</span></code></pre></div>
+<pre><code>## [1] 1704</code></pre>
+<div class="sourceCode" id="cb668"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">ncol</a></span><span class="op">(</span><span class="va">gapminder</span><span class="op">)</span></code></pre></div>
+<pre><code>## [1] 6</code></pre>
+<p>혹은 한번에 보려면:</p>
+<div class="sourceCode" id="cb670"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/dim.html">dim</a></span><span class="op">(</span><span class="va">gapminder</span><span class="op">)</span></code></pre></div>
+<pre><code>## [1] 1704    6</code></pre>
+<p>또한, 모든 칼럼의 칼럼명이 무엇인지 파악하고자 하면 다음과 같이 질문을 던진다:</p>
+<div class="sourceCode" id="cb672"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span><span class="op">(</span><span class="va">gapminder</span><span class="op">)</span></code></pre></div>
+<pre><code>## [1] "country"   "year"      "pop"       "continent" "lifeExp"   "gdpPercap"</code></pre>
+<p>현 단계에서, R이 제시하는 구조가 우리의 직관 혹은 예상과 부합되는지 묻어보는 것이 중요하다;
+각 칼럼에 대한 기본 자료형은 이해가 되는가?
+만약 납득이 가지 않는다면, 후속 작업에서 나쁜 놀라운 사실로 전환되기 전에 문제를 해결해야 한다.
+문제를 해결하는데, R이 데이터를 이해하는 방법과 데이터를 기록할 때 <em>엄격한 일관성(strict consistency)</em>의
+중요성에 관해 학습한 것을 동원한다.</p>
+<p>자료형과 자료구조가 타당해 보이게 되면, 데이터를 제대로 파고들어갈 시간이 되었다.
+<code>gapminder</code> 데이터 처음 몇줄을 살펴보자:</p>
+<div class="sourceCode" id="cb674"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">gapminder</span><span class="op">)</span></code></pre></div>
+<pre><code>##       country year      pop continent lifeExp gdpPercap
+## 1 Afghanistan 1952  8425333      Asia    28.8       779
+## 2 Afghanistan 1957  9240934      Asia    30.3       821
+## 3 Afghanistan 1962 10267083      Asia    32.0       853
+## 4 Afghanistan 1967 11537966      Asia    34.0       836
+## 5 Afghanistan 1972 13079460      Asia    36.1       740
+## 6 Afghanistan 1977 14880372      Asia    38.4       786</code></pre>
+</div>
+<div id="r-dataframe-challenge-three" class="section level2" number="25.9">
+<h2>
+<span class="header-section-number">25.9</span> 도전과제 3<a class="anchor" aria-label="anchor" href="#r-dataframe-challenge-three"><i class="fas fa-link"></i></a>
+</h2>
+<p>데이터 마지막 몇줄, 중간 몇줄을 점검하는 것도 좋은 습관이다. 그런데 어떻게 점검할 수 있을까?
+중간 몇줄을 찾아보는 것이 너무 어렵지는 않지만, 임의로 몇줄을 추출할 수도 있다. 어떻게 할 수 있을까요?</p>
+<blockquote>
+<p>** 도전과제 3에 대한 해답
+마지막 몇줄을 점검하려면, R에 내장된 함수가 있어서 상대적으로 간단하다:</p>
+<pre><code>tail(gapminder)
+tail(gapminder, n = 15)</code></pre>
+<p>데이터가 온전한지(혹은 관점에 따라 데이터가 온전하지 않은지)를 점검하는데 몇줄을 추출할 수 있을까요?</p>
+<p><strong>꿀팁: 몇가지 방법이 존재한다.</strong></p>
+<p>중첩함수(또다른 함수에 인자로 전달되는 함수)를 사용한 해법도 있다.
+새로운 개념처럼 들리지만, 사실 이미 사용하고 있다.
+my_dataframe[rows, cols] 명령어는 데이터프레임을 화면에 뿌려준다.
+데이터프레임에 행이 얼마나 많은지 알지 못하는데 어떻게 마지막 행을 뽑아낼 수 있을까?
+R에 내장된 함수가 있다.
+(의사) 난수를 얻어보는 것은 어떨가? R은 난수추출 함수도 갖추고 있다.</p>
+<pre><code>gapminder[sample(nrow(gapminder), 5), ]</code></pre>
+</blockquote>
+<p>분석결과를 재현가능하게 확실하게 만들려면,
+코드를 스크립트 파일에 저장해서 나중에 다시 볼 수 있어야 한다.</p>
+</div>
+<div id="r-dataframe-challenge-four" class="section level2" number="25.10">
+<h2>
+<span class="header-section-number">25.10</span> 도전과제 4<a class="anchor" aria-label="anchor" href="#r-dataframe-challenge-four"><i class="fas fa-link"></i></a>
+</h2>
+<p><code>file -&gt; new file -&gt; R script</code>로 가서,
+<code>gapminder</code> 데이터셋을 불러오는 R 스크립틀르 작성한다.
+<code>scripts/</code> 디렉토리에 저장하고 버전제어 시스템에도 추가한다.
+인자로 파일 경로명을 사용해서 <code><a href="https://rdrr.io/r/base/source.html">source()</a></code> 함수를 사용해서 스크립트를 실행하라.
+(혹은 RStudio “source” 버튼을 누른다)</p>
+<blockquote>
+<p><strong>도전과제 4에 대한 해답</strong>
+<code>scripts/load-gapminder.R</code> 파일에 담긴 내용물은 다음과 같다:</p>
+<div class="sourceCode" id="cb678"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/download.file.html">download.file</a></span><span class="op">(</span><span class="st">"https://raw.githubusercontent.com/swcarpentry/r-novice-gapminder/gh-pages/_episodes_rmd/data/gapminder_data.csv"</span>,
+               destfile <span class="op">=</span> <span class="st">"data/gapminder_data.csv"</span><span class="op">)</span>
+<span class="va">gapminder</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html">read.csv</a></span><span class="op">(</span>file <span class="op">=</span> <span class="st">"data/gapminder_data.csv"</span><span class="op">)</span></code></pre></div>
+<p>스크립트를 실행시키면 데이터를 <code>gapminder</code> 변수에 적재시킨다:</p>
+<div class="sourceCode" id="cb679"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/source.html">source</a></span><span class="op">(</span>file <span class="op">=</span> <span class="st">"scripts/load-gapminder.R"</span><span class="op">)</span></code></pre></div>
+</blockquote>
+</div>
+<div id="r-dataframe-challenge-five" class="section level2" number="25.11">
+<h2>
+<span class="header-section-number">25.11</span> 도전과제 5<a class="anchor" aria-label="anchor" href="#r-dataframe-challenge-five"><i class="fas fa-link"></i></a>
+</h2>
+<p><code>str(gapminder)</code> 출력결과를 다시 불러오자;
+이번에는 <code>gapminder</code> 데이터에 대해 <code><a href="https://rdrr.io/r/utils/str.html">str()</a></code> 함수가 출력하는 모든 것이 의미하는 바를 설명한다.
+지금까지 학습한 요인, 리스트와 벡터 뿐만 아니라, <code><a href="https://rdrr.io/r/base/colnames.html">colnames()</a></code>, <code><a href="https://rdrr.io/r/base/dim.html">dim()</a></code>와 같은 함수도 동원한다.
+이해하지 못한 부분이 있다면, 주면 동료와 상의한다!</p>
+<blockquote>
+<p><strong>도전과제 5에 대한 해답</strong></p>
+<p><code>gapminder</code> 객체는 다음 칼럼을 갖는 데이터프레임이다.
+- <code>country</code> <code>continent</code> 변수는 요인형 벡터
+- <code>year</code> 변수는 정수형 벡터
+- <code>pop</code>, <code>lifeExp</code>, <code>gdpPercap</code> 변수는 숫자형 벡터</p>
+</blockquote>
+
+</div>
+</div>
+  <div class="chapter-nav">
+<div class="prev"><a href="r-data-structure.html"><span class="header-section-number">24</span> 자료구조</a></div>
+<div class="next"><a href="r-subset.html"><span class="header-section-number">26</span> 부분집합 추출</a></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#r-dataframe"><span class="header-section-number">25</span> 데이터프레임 탐색</a></li>
+<li><a class="nav-link" href="#r-dataframe-add"><span class="header-section-number">25.1</span> 행과 열을 추가</a></li>
+<li><a class="nav-link" href="#r-dataframe-factor"><span class="header-section-number">25.2</span> 요인 (Factors)</a></li>
+<li><a class="nav-link" href="#r-dataframe-challenge-one"><span class="header-section-number">25.3</span> 도전과제 1</a></li>
+<li><a class="nav-link" href="#r-dataframe-remove"><span class="header-section-number">25.4</span> 행 제거</a></li>
+<li><a class="nav-link" href="#r-dataframe-column-remove"><span class="header-section-number">25.5</span> 칼럼 제거</a></li>
+<li><a class="nav-link" href="#r-dataframe-rbind"><span class="header-section-number">25.6</span> dataframe 덧붙이기</a></li>
+<li><a class="nav-link" href="#r-dataframe-challenge-two"><span class="header-section-number">25.7</span> 도전과제 2</a></li>
+<li><a class="nav-link" href="#r-dataframe-practice"><span class="header-section-number">25.8</span> 현실적인 예제</a></li>
+<li><a class="nav-link" href="#r-dataframe-challenge-three"><span class="header-section-number">25.9</span> 도전과제 3</a></li>
+<li><a class="nav-link" href="#r-dataframe-challenge-four"><span class="header-section-number">25.10</span> 도전과제 4</a></li>
+<li><a class="nav-link" href="#r-dataframe-challenge-five"><span class="header-section-number">25.11</span> 도전과제 5</a></li>
+</ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+          
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>데이터 과학을 지탱하는 기본기</strong>" was written by 한국 알 사용자회. It was last built on 2022-05-13.</p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer><!-- dynamically load mathjax for compatibility with self-contained --><script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script><script type="text/x-mathjax-config">const popovers = document.querySelectorAll('a.footnote-ref[data-toggle="popover"]');
+for (let popover of popovers) {
+  const div = document.createElement('div');
+  div.setAttribute('style', 'position: absolute; top: 0, left:0; width:0, height:0, overflow: hidden; visibility: hidden;');
+  div.innerHTML = popover.getAttribute('data-content');
+
+  var has_math = div.querySelector("span.math");
+  if (has_math) {
+    document.body.appendChild(div);
+    MathJax.Hub.Queue(["Typeset", MathJax.Hub, div]);
+    MathJax.Hub.Queue(function() {
+      popover.setAttribute('data-content', div.innerHTML);
+      document.body.removeChild(div);
+    })
+  }
+}
+</script>
+</body>
+</html>
