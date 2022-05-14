@@ -12,10 +12,6 @@ new_session: yes
 rmd_files: [
   "index.Rmd",
 
-  # # 들어가며
-  # "viz-motivation.Rmd",
-  # "hello-world.Rmd",
-  #
   # 자동화
   "shell-intro.Rmd",
   "shell-filedir.Rmd",
@@ -71,7 +67,19 @@ rmd_files: [
   "database-create.Rmd",
 
   # 참고문헌
-  "references.Rmd"
+  "references.Rmd",
+
+  # Make
+  "make-index.Rmd",
+  "make-intro.Rmd",
+  "make-makefiles.Rmd",
+  "make-variables.Rmd",
+  "make-dependencies.Rmd",
+  "make-patterns.Rmd",
+  "make-variable.Rmd",
+  "make-functions.Rmd",
+  "make-self-doc.Rmd",
+  "make-conclusion.Rmd",
 
 ]
 

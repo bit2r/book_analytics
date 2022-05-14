@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>52 . 패턴 규칙 | 데이터 과학을 지탱하는 기본기</title>
+<meta name="author" content="한국 알 사용자회">
+<meta name="description" content="Makefile에는 여전히 반복되는 콘텐츠가 있다. 텍스트 파일과 데이터 파일 명칭을 제외하고 각 .dat 파일에 대한 규칙은 동일한다. 이러한 규칙을 단일 패턴 규칙(pattern rule)으로 교체할 수 있는데, 패턴 규칙을 사용해서 books/ 디렉토리에 .txt 파일을 임의 .dat 파일로 빌드한다: %.dat : books/%.txt...">
+<meta name="generator" content="bookdown 0.26 with bs4_book()">
+<meta property="og:title" content="52 . 패턴 규칙 | 데이터 과학을 지탱하는 기본기">
+<meta property="og:type" content="book">
+<meta property="og:description" content="Makefile에는 여전히 반복되는 콘텐츠가 있다. 텍스트 파일과 데이터 파일 명칭을 제외하고 각 .dat 파일에 대한 규칙은 동일한다. 이러한 규칙을 단일 패턴 규칙(pattern rule)으로 교체할 수 있는데, 패턴 규칙을 사용해서 books/ 디렉토리에 .txt 파일을 임의 .dat 파일로 빌드한다: %.dat : books/%.txt...">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="52 . 패턴 규칙 | 데이터 과학을 지탱하는 기본기">
+<meta name="twitter:description" content="Makefile에는 여전히 반복되는 콘텐츠가 있다. 텍스트 파일과 데이터 파일 명칭을 제외하고 각 .dat 파일에 대한 규칙은 동일한다. 이러한 규칙을 단일 패턴 규칙(pattern rule)으로 교체할 수 있는데, 패턴 규칙을 사용해서 books/ 디렉토리에 .txt 파일을 임의 .dat 파일로 빌드한다: %.dat : books/%.txt...">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.3.1/transition.js"></script><script src="libs/bs3compat-0.3.1/tabs.js"></script><script src="libs/bs3compat-0.3.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
+    
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  </style>
+<style type="text/css">
+    /* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+    div.csl-bib-body { }
+    div.csl-entry {
+      clear: both;
+        }
+    .hanging div.csl-entry {
+      margin-left:2em;
+      text-indent:-2em;
+    }
+    div.csl-left-margin {
+      min-width:2em;
+      float:left;
+    }
+    div.csl-right-inline {
+      margin-left:2em;
+      padding-left:1em;
+    }
+    div.csl-indent {
+      margin-left: 2em;
+    }
+  </style>
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">데이터 과학을 지탱하는 기본기</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html">데이터 과학을 지탱하는 기본기</a></li>
+<li class="book-part">자동화</li>
+<li><a class="" href="shell-intro.html"><span class="header-section-number">1</span> 쉘(Shell) 소개</a></li>
+<li><a class="" href="shell-filedir.html"><span class="header-section-number">2</span> 파일과 폴더 넘나들기</a></li>
+<li><a class="" href="shell-create.html"><span class="header-section-number">3</span> 파일과 디렉토리 작업</a></li>
+<li><a class="" href="pipe-filter.html"><span class="header-section-number">4</span> 파이프와 필터</a></li>
+<li><a class="" href="shell-loop.html"><span class="header-section-number">5</span> 루프(Loops)</a></li>
+<li><a class="" href="shell-script.html"><span class="header-section-number">6</span> 쉘 스크립트</a></li>
+<li><a class="" href="shell-find.html"><span class="header-section-number">7</span> 파일, 문자, 디렉토리 등 찾기</a></li>
+<li class="book-part">버전제어와 협업</li>
+<li><a class="" href="git.html"><span class="header-section-number">8</span> 자동화된 버젼제어</a></li>
+<li><a class="" href="git-setup.html"><span class="header-section-number">9</span> Git 구축 및 설정</a></li>
+<li><a class="" href="git-create.html"><span class="header-section-number">10</span> 저장소 생성</a></li>
+<li><a class="" href="git-change.html"><span class="header-section-number">11</span> 변경사항 추적</a></li>
+<li><a class="" href="git-history.html"><span class="header-section-number">12</span> 이력 탐색</a></li>
+<li><a class="" href="git-ignore.html"><span class="header-section-number">13</span> 추적대상에서 제외</a></li>
+<li><a class="" href="git-github.html"><span class="header-section-number">14</span> GitHub 원격작업</a></li>
+<li><a class="" href="git-collab.html"><span class="header-section-number">15</span> 협업 (Collaborating)</a></li>
+<li><a class="" href="git-conflict.html"><span class="header-section-number">16</span> 충돌 (Conflicts)</a></li>
+<li><a class="" href="git-open.html"><span class="header-section-number">17</span> 공개 과학 (Open Science)</a></li>
+<li><a class="" href="git-licensing.html"><span class="header-section-number">18</span> 라이선싱 (Licensing)</a></li>
+<li><a class="" href="git-hosting.html"><span class="header-section-number">19</span> 호스팅 (Hosting)</a></li>
+<li><a class="" href="git-korean.html"><span class="header-section-number">20</span> Git 추가설정</a></li>
+<li class="book-part">프로그래밍</li>
+<li><a class="" href="r-intro.html"><span class="header-section-number">21</span> R과 RStudio 소개</a></li>
+<li><a class="" href="r-project.html"><span class="header-section-number">22</span> RStudio 프로젝트 관리</a></li>
+<li><a class="" href="r-help.html"><span class="header-section-number">23</span> 도움 청하기</a></li>
+<li><a class="" href="r-data-structure.html"><span class="header-section-number">24</span> 자료구조</a></li>
+<li><a class="" href="r-dataframe.html"><span class="header-section-number">25</span> 데이터프레임 탐색</a></li>
+<li><a class="" href="r-subset.html"><span class="header-section-number">26</span> 부분집합 추출</a></li>
+<li><a class="" href="r-control-flow.html"><span class="header-section-number">27</span> 제어 흐름</a></li>
+<li><a class="" href="r-ggplot.html"><span class="header-section-number">28</span> 논문 품질 그래프 생성</a></li>
+<li><a class="" href="r-vectorization.html"><span class="header-section-number">29</span> 벡터화(Vectorization)</a></li>
+<li><a class="" href="r-function.html"><span class="header-section-number">30</span> 함수 설명</a></li>
+<li><a class="" href="r-writing.html"><span class="header-section-number">31</span> 데이터 저장</a></li>
+<li><a class="" href="r-plyr-split.html"><span class="header-section-number">32</span> plyr로 데이터프레임을 쪼개고 합치기</a></li>
+<li><a class="" href="r-dplyr.html"><span class="header-section-number">33</span> dplyr 솜씨있게 조작</a></li>
+<li><a class="" href="r-tidyr.html"><span class="header-section-number">34</span> tidyr 솜씨있게 조작</a></li>
+<li><a class="" href="r-knitr.html"><span class="header-section-number">35</span> knitr 보고서 생성</a></li>
+<li><a class="" href="r-wrapup.html"><span class="header-section-number">36</span> 좋은 소프트웨어 작성법</a></li>
+<li class="book-part">데이터베이스</li>
+<li><a class="" href="database-sql.html"><span class="header-section-number">37</span> 데이터베이스와 SQL 사용하기</a></li>
+<li><a class="" href="database-sqlite.html"><span class="header-section-number">38</span> SQLite 설치</a></li>
+<li><a class="" href="database-select.html"><span class="header-section-number">39</span> 변수/칼럼 선택하기</a></li>
+<li><a class="" href="database-sort.html"><span class="header-section-number">40</span> 정렬, 중복 제거</a></li>
+<li><a class="" href="database-filter.html"><span class="header-section-number">41</span> 필터링 (Filtering)</a></li>
+<li><a class="" href="database-calc.html"><span class="header-section-number">42</span> 새로운 값 계산하기</a></li>
+<li><a class="" href="database-null.html"><span class="header-section-number">43</span> 결측 데이터 (Missing Data)</a></li>
+<li><a class="" href="database-agg.html"><span class="header-section-number">44</span> 집합(Aggregation)</a></li>
+<li><a class="" href="database-table-join.html"><span class="header-section-number">45</span> 데이터 결합하기</a></li>
+<li><a class="" href="database-data-create.html"><span class="header-section-number">46</span> 데이터 생성과 변형</a></li>
+<li><a class="" href="%EC%B0%B8%EA%B3%A0%EB%AC%B8%ED%97%8C.html">참고문헌</a></li>
+<li class="book-part">작업흐름 관리도구</li>
+<li><a class="" href="make-automation-intro.html"><span class="header-section-number">47</span> 자동화와 Make</a></li>
+<li><a class="" href="make-automation.html"><span class="header-section-number">48</span> 들어가며</a></li>
+<li><a class="" href="make-makefiles-chapter.html"><span class="header-section-number">49</span> Makefiles</a></li>
+<li><a class="" href="make-makefiles.html"><span class="header-section-number">50</span> 자동 변수</a></li>
+<li><a class="" href="make-dependencies.html"><span class="header-section-number">51</span> 데이터와 코드 의존성</a></li>
+<li><a class="active" href="make-patterns.html"><span class="header-section-number">52</span> 패턴 규칙</a></li>
+<li><a class="" href="make-variable.html"><span class="header-section-number">53</span> 변수</a></li>
+<li><a class="" href="make-function.html"><span class="header-section-number">54</span> 함수</a></li>
+<li><a class="" href="make-self-doc.html"><span class="header-section-number">55</span> 문서화 Makefile</a></li>
+<li><a class="" href="make-conclusion.html"><span class="header-section-number">56</span> 결론</a></li>
+</ul>
+
+        <div class="book-extra">
+          
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="make-patterns" class="section level1" number="52">
+<h1>
+<span class="header-section-number">52 . </span> 패턴 규칙<a class="anchor" aria-label="anchor" href="#make-patterns"><i class="fas fa-link"></i></a>
+</h1>
+<p><code>Makefile</code>에는 여전히 반복되는 콘텐츠가 있다.
+텍스트 파일과 데이터 파일 명칭을 제외하고 각 <code>.dat</code> 파일에 대한 규칙은 동일한다.
+이러한 규칙을 단일 <strong>패턴 규칙(pattern rule)</strong>으로
+교체할 수 있는데, 패턴 규칙을 사용해서 <code>books/</code> 디렉토리에 <code>.txt</code> 파일을 임의 <code>.dat</code> 파일로
+빌드한다:</p>
+<pre><code>%.dat : books/%.txt countwords.py
+    python countwords.py $&lt; $*.dat</code></pre>
+<p><code>%</code>는 Make <strong>와일드-카드(wild-card)</strong>다.
+<code>$*</code>은 특수 변수로, 특수변수가 <strong>스템(stem)</strong><a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;스템은 패턴규칙으로 매칭되는 타겟의 일부. 만약 &lt;code&gt;file.dat&lt;/code&gt;가 타겟이고
+패턴 규칙이 &lt;code&gt;%.dat&lt;/code&gt;인 경우 &lt;code&gt;$*&lt;/code&gt; 스템은 &lt;code&gt;file&lt;/code&gt; 이 된다.&lt;/p&gt;"><sup>4</sup></a>을 규칙이 매칭하는 것으로 치환한다.</p>
+<p>상기 규칙은 다음과 같이 해석할 수 있다: <code>[something].dat</code> 타켓을 갖는 파일을
+빌드하는데 <code>books/[that same something].txt</code> 의존성을 갖는 파일을 찾아
+<code>countwords.py [the dependency] [the target]</code> 명령을 실행한다.</p>
+<p>만약 Make를 다시 실행하면,</p>
+<pre><code>$ make clean
+$ make dats</code></pre>
+<p>다음 결과를 얻게 된다:</p>
+<pre><code>python wordcount.py books/isles.txt isles.dat
+python wordcount.py books/abyss.txt abyss.dat
+python wordcount.py books/last.txt last.dat</code></pre>
+<p>이전과 마찬가지로 개별 <code>.dat</code> 타겟을 빌드하는데 <code>Make</code>를 여전히 사용할 수 있다.
+어떤 스템이 매칭되더라도 신규 규칙은 여전히 정상동작한다.</p>
+<div id="make-wildcard" class="rmdcaution">
+<p><strong>Make 와일드-카드 사용하기</strong></p>
+<p>Make <code>%</code> 와일드-카드는 대상과 해당 의존성에만 사용될 수 있다.
+동작에는 사용될 수가 없다.</p>
+<p>하지만, 동작에서 <code>$*</code>을 사용할 수 있는데, 스템이 규칙이 매칭하는 것으로 치환한다.</p>
+</div>
+<p>Makefile은 이제 훨씬 더 짧아졌고, 깨끗해졌다:</p>
+<pre><code># Generate summary table.
+results.txt : testzipf.py isles.dat abyss.dat last.dat
+    python $&lt; *.dat &gt; $@
+
+# Count words.
+.PHONY : dats
+dats : isles.dat abyss.dat last.dat
+
+%.dat : books/%.txt countwords.py
+    python countwords.py $&lt; $*.dat
+
+.PHONY : clean
+clean :
+    rm -f *.dat
+    rm -f results.txt</code></pre>
+<div id="make-so-far-pattern" class="rmdcaution">
+<p><strong>현재까지 다룬 <code>Makefile</code></strong></p>
+<pre><code># Generate summary table.
+results.txt : testzipf.py isles.dat abyss.dat last.dat
+    python $&lt; *.dat &gt; $@
+
+# Count words.
+.PHONY : dats
+dats : isles.dat abyss.dat last.dat
+
+%.dat : books/%.txt countwords.py
+    python countwords.py $&lt; $*.dat
+
+.PHONY : clean
+clean :
+    rm -f *.dat
+    rm -f results.txt
+</code></pre>
+</div>
+<p>패턴 규칙을 소개했고 <code>dat</code> 규칙에 <code>$*</code>을 사용해서 사용법을 설명했다.
+좀더 깔끔한 해법은 <code>$@</code>을 사용해서 현재 규칙의 타겟을 명세하는 것이지만
+그러면 <code>$*</code>을 학습할 이유는 없을 것이다.</p>
+<pre><code>%.dat : books/%.txt countwords.py
+    python countwords.py $&lt; $@</code></pre>
+<div id="make-patterns-points" class="section level2" number="52.1">
+<h2>
+<span class="header-section-number">52.1</span> 패턴 규칙 주요점<a class="anchor" aria-label="anchor" href="#make-patterns-points"><i class="fas fa-link"></i></a>
+</h2>
+<ul>
+<li>Make 와일드-카드 <code>%</code>를 대상과 의존성에 사용한다.</li>
+<li>Make 특수 변수 <code>$*</code>을 동작에 사용한다.</li>
+<li>규칙에는 Make 와일드-카드 사용을 회피한다.</li>
+</ul>
+</div>
+</div>
+
+  <div class="chapter-nav">
+<div class="prev"><a href="make-dependencies.html"><span class="header-section-number">51</span> 데이터와 코드 의존성</a></div>
+<div class="next"><a href="make-variable.html"><span class="header-section-number">53</span> 변수</a></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#make-patterns"><span class="header-section-number">52</span> 패턴 규칙</a></li>
+<li><a class="nav-link" href="#make-patterns-points"><span class="header-section-number">52.1</span> 패턴 규칙 주요점</a></li>
+</ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+          
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>데이터 과학을 지탱하는 기본기</strong>" was written by 한국 알 사용자회. It was last built on 2022-05-14.</p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer><!-- dynamically load mathjax for compatibility with self-contained --><script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script><script type="text/x-mathjax-config">const popovers = document.querySelectorAll('a.footnote-ref[data-toggle="popover"]');
+for (let popover of popovers) {
+  const div = document.createElement('div');
+  div.setAttribute('style', 'position: absolute; top: 0, left:0; width:0, height:0, overflow: hidden; visibility: hidden;');
+  div.innerHTML = popover.getAttribute('data-content');
+
+  var has_math = div.querySelector("span.math");
+  if (has_math) {
+    document.body.appendChild(div);
+    MathJax.Hub.Queue(["Typeset", MathJax.Hub, div]);
+    MathJax.Hub.Queue(function() {
+      popover.setAttribute('data-content', div.innerHTML);
+      document.body.removeChild(div);
+    })
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>53 . 변수 | 데이터 과학을 지탱하는 기본기</title>
+<meta name="author" content="한국 알 사용자회">
+<meta name="description" content="지금까지의 노력에도 불구하고, Makefile에는 여전히 중복된 콘텐트, 즉 countwords.py 스크립트 명칭과 스크립트를 실행하는데 동원된 프로그램 python이 존재한다. 해당 스크립트의 이름을 바꾸면, 여러 곳에서 Makefile을 갱신해야만 된다. 스크립트 명칭을 보관하는 Make 변수(variable) (Make 일부 버젼에서는...">
+<meta name="generator" content="bookdown 0.26 with bs4_book()">
+<meta property="og:title" content="53 . 변수 | 데이터 과학을 지탱하는 기본기">
+<meta property="og:type" content="book">
+<meta property="og:description" content="지금까지의 노력에도 불구하고, Makefile에는 여전히 중복된 콘텐트, 즉 countwords.py 스크립트 명칭과 스크립트를 실행하는데 동원된 프로그램 python이 존재한다. 해당 스크립트의 이름을 바꾸면, 여러 곳에서 Makefile을 갱신해야만 된다. 스크립트 명칭을 보관하는 Make 변수(variable) (Make 일부 버젼에서는...">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="53 . 변수 | 데이터 과학을 지탱하는 기본기">
+<meta name="twitter:description" content="지금까지의 노력에도 불구하고, Makefile에는 여전히 중복된 콘텐트, 즉 countwords.py 스크립트 명칭과 스크립트를 실행하는데 동원된 프로그램 python이 존재한다. 해당 스크립트의 이름을 바꾸면, 여러 곳에서 Makefile을 갱신해야만 된다. 스크립트 명칭을 보관하는 Make 변수(variable) (Make 일부 버젼에서는...">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.3.1/transition.js"></script><script src="libs/bs3compat-0.3.1/tabs.js"></script><script src="libs/bs3compat-0.3.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
+    
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  </style>
+<style type="text/css">
+    /* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+    div.csl-bib-body { }
+    div.csl-entry {
+      clear: both;
+        }
+    .hanging div.csl-entry {
+      margin-left:2em;
+      text-indent:-2em;
+    }
+    div.csl-left-margin {
+      min-width:2em;
+      float:left;
+    }
+    div.csl-right-inline {
+      margin-left:2em;
+      padding-left:1em;
+    }
+    div.csl-indent {
+      margin-left: 2em;
+    }
+  </style>
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">데이터 과학을 지탱하는 기본기</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html">데이터 과학을 지탱하는 기본기</a></li>
+<li class="book-part">자동화</li>
+<li><a class="" href="shell-intro.html"><span class="header-section-number">1</span> 쉘(Shell) 소개</a></li>
+<li><a class="" href="shell-filedir.html"><span class="header-section-number">2</span> 파일과 폴더 넘나들기</a></li>
+<li><a class="" href="shell-create.html"><span class="header-section-number">3</span> 파일과 디렉토리 작업</a></li>
+<li><a class="" href="pipe-filter.html"><span class="header-section-number">4</span> 파이프와 필터</a></li>
+<li><a class="" href="shell-loop.html"><span class="header-section-number">5</span> 루프(Loops)</a></li>
+<li><a class="" href="shell-script.html"><span class="header-section-number">6</span> 쉘 스크립트</a></li>
+<li><a class="" href="shell-find.html"><span class="header-section-number">7</span> 파일, 문자, 디렉토리 등 찾기</a></li>
+<li class="book-part">버전제어와 협업</li>
+<li><a class="" href="git.html"><span class="header-section-number">8</span> 자동화된 버젼제어</a></li>
+<li><a class="" href="git-setup.html"><span class="header-section-number">9</span> Git 구축 및 설정</a></li>
+<li><a class="" href="git-create.html"><span class="header-section-number">10</span> 저장소 생성</a></li>
+<li><a class="" href="git-change.html"><span class="header-section-number">11</span> 변경사항 추적</a></li>
+<li><a class="" href="git-history.html"><span class="header-section-number">12</span> 이력 탐색</a></li>
+<li><a class="" href="git-ignore.html"><span class="header-section-number">13</span> 추적대상에서 제외</a></li>
+<li><a class="" href="git-github.html"><span class="header-section-number">14</span> GitHub 원격작업</a></li>
+<li><a class="" href="git-collab.html"><span class="header-section-number">15</span> 협업 (Collaborating)</a></li>
+<li><a class="" href="git-conflict.html"><span class="header-section-number">16</span> 충돌 (Conflicts)</a></li>
+<li><a class="" href="git-open.html"><span class="header-section-number">17</span> 공개 과학 (Open Science)</a></li>
+<li><a class="" href="git-licensing.html"><span class="header-section-number">18</span> 라이선싱 (Licensing)</a></li>
+<li><a class="" href="git-hosting.html"><span class="header-section-number">19</span> 호스팅 (Hosting)</a></li>
+<li><a class="" href="git-korean.html"><span class="header-section-number">20</span> Git 추가설정</a></li>
+<li class="book-part">프로그래밍</li>
+<li><a class="" href="r-intro.html"><span class="header-section-number">21</span> R과 RStudio 소개</a></li>
+<li><a class="" href="r-project.html"><span class="header-section-number">22</span> RStudio 프로젝트 관리</a></li>
+<li><a class="" href="r-help.html"><span class="header-section-number">23</span> 도움 청하기</a></li>
+<li><a class="" href="r-data-structure.html"><span class="header-section-number">24</span> 자료구조</a></li>
+<li><a class="" href="r-dataframe.html"><span class="header-section-number">25</span> 데이터프레임 탐색</a></li>
+<li><a class="" href="r-subset.html"><span class="header-section-number">26</span> 부분집합 추출</a></li>
+<li><a class="" href="r-control-flow.html"><span class="header-section-number">27</span> 제어 흐름</a></li>
+<li><a class="" href="r-ggplot.html"><span class="header-section-number">28</span> 논문 품질 그래프 생성</a></li>
+<li><a class="" href="r-vectorization.html"><span class="header-section-number">29</span> 벡터화(Vectorization)</a></li>
+<li><a class="" href="r-function.html"><span class="header-section-number">30</span> 함수 설명</a></li>
+<li><a class="" href="r-writing.html"><span class="header-section-number">31</span> 데이터 저장</a></li>
+<li><a class="" href="r-plyr-split.html"><span class="header-section-number">32</span> plyr로 데이터프레임을 쪼개고 합치기</a></li>
+<li><a class="" href="r-dplyr.html"><span class="header-section-number">33</span> dplyr 솜씨있게 조작</a></li>
+<li><a class="" href="r-tidyr.html"><span class="header-section-number">34</span> tidyr 솜씨있게 조작</a></li>
+<li><a class="" href="r-knitr.html"><span class="header-section-number">35</span> knitr 보고서 생성</a></li>
+<li><a class="" href="r-wrapup.html"><span class="header-section-number">36</span> 좋은 소프트웨어 작성법</a></li>
+<li class="book-part">데이터베이스</li>
+<li><a class="" href="database-sql.html"><span class="header-section-number">37</span> 데이터베이스와 SQL 사용하기</a></li>
+<li><a class="" href="database-sqlite.html"><span class="header-section-number">38</span> SQLite 설치</a></li>
+<li><a class="" href="database-select.html"><span class="header-section-number">39</span> 변수/칼럼 선택하기</a></li>
+<li><a class="" href="database-sort.html"><span class="header-section-number">40</span> 정렬, 중복 제거</a></li>
+<li><a class="" href="database-filter.html"><span class="header-section-number">41</span> 필터링 (Filtering)</a></li>
+<li><a class="" href="database-calc.html"><span class="header-section-number">42</span> 새로운 값 계산하기</a></li>
+<li><a class="" href="database-null.html"><span class="header-section-number">43</span> 결측 데이터 (Missing Data)</a></li>
+<li><a class="" href="database-agg.html"><span class="header-section-number">44</span> 집합(Aggregation)</a></li>
+<li><a class="" href="database-table-join.html"><span class="header-section-number">45</span> 데이터 결합하기</a></li>
+<li><a class="" href="database-data-create.html"><span class="header-section-number">46</span> 데이터 생성과 변형</a></li>
+<li><a class="" href="%EC%B0%B8%EA%B3%A0%EB%AC%B8%ED%97%8C.html">참고문헌</a></li>
+<li class="book-part">작업흐름 관리도구</li>
+<li><a class="" href="make-automation-intro.html"><span class="header-section-number">47</span> 자동화와 Make</a></li>
+<li><a class="" href="make-automation.html"><span class="header-section-number">48</span> 들어가며</a></li>
+<li><a class="" href="make-makefiles-chapter.html"><span class="header-section-number">49</span> Makefiles</a></li>
+<li><a class="" href="make-makefiles.html"><span class="header-section-number">50</span> 자동 변수</a></li>
+<li><a class="" href="make-dependencies.html"><span class="header-section-number">51</span> 데이터와 코드 의존성</a></li>
+<li><a class="" href="make-patterns.html"><span class="header-section-number">52</span> 패턴 규칙</a></li>
+<li><a class="active" href="make-variable.html"><span class="header-section-number">53</span> 변수</a></li>
+<li><a class="" href="make-function.html"><span class="header-section-number">54</span> 함수</a></li>
+<li><a class="" href="make-self-doc.html"><span class="header-section-number">55</span> 문서화 Makefile</a></li>
+<li><a class="" href="make-conclusion.html"><span class="header-section-number">56</span> 결론</a></li>
+</ul>
+
+        <div class="book-extra">
+          
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="make-variable" class="section level1" number="53">
+<h1>
+<span class="header-section-number">53 . </span> 변수<a class="anchor" aria-label="anchor" href="#make-variable"><i class="fas fa-link"></i></a>
+</h1>
+<p>지금까지의 노력에도 불구하고, Makefile에는 여전히 중복된 콘텐트, 즉 <code>countwords.py</code>
+스크립트 명칭과 스크립트를 실행하는데 동원된 프로그램 <code>python</code>이 존재한다.
+해당 스크립트의 이름을 바꾸면, 여러 곳에서 Makefile을 갱신해야만 된다.</p>
+<p>스크립트 명칭을 보관하는 Make <strong>변수(variable)</strong> (Make 일부 버젼에서는 <strong>매크로(macro)</strong>라고도 불림)를 소개한다:</p>
+<pre><code>COUNT_SRC=countwords.py</code></pre>
+<p>변수 <strong>할당(assignment)</strong>하는 예제가 위에 나와 있다 -
+<code>COUNT_SRC</code> 변수에 <code>countwords.py</code> 값이 할당되었다.</p>
+<p><code>countwords.py</code>는 스크립트로, 파이썬(<code>python</code>)에 전달되어 호출된다.
+또다른 변수를 도입해서 스크립트 실행을 표현한다:</p>
+<pre><code>LANGUAGE=python
+COUNT_EXE=$(LANGUAGE) $(COUNT_SRC)</code></pre>
+<p>Make가 실행될 때, <code>$(...)</code>는 Make에게 변수를 해당 값으로 치환하도록 일러준다.
+이것이 변수 <strong>참조(reference)</strong>다.
+변수값을 사용하고자 하는 어떤 곳에서도, 이런 방식으로 작성하고 참조한다.</p>
+<p>여기서는 <code>COUNT_SRC</code> 변수를 참조한다.
+Make로 하여금 <code>COUNT_SRC</code> 변수를 <code>countwords.py</code> 값으로 치환하게 한다.
+Make가 실행될 때, <code>COUNT_EXE</code>에 값으로 <code>python countwords.py</code>를 할당한다.</p>
+<p>이런 방식으로 <code>COUNT_EXE</code> 변수를 정의하면 스크립트 실행방식을 쉽게 변경할 수 있게 된다
+(예를 들어, 스크립트 구현 언어를 파이썬에서 R로 변경하게 되면).</p>
+<div id="make-variable-use" class="rmdcaution">
+<p><strong>변수 사용하기</strong></p>
+<p><code>Makefile</code>를 갱신해서, <code>%.dat</code> 규칙이
+<code>COUNT_SRC</code> 와 <code>COUNT_EXE</code> 변수를 참조하게 한다.
+그리고 나서 <code>ZIPF_SRC</code> 와 <code>ZIPF_EXE</code> 변수명을 사용해서
+<code>testzipf.py</code> 스크립트와 <code>results.txt</code> 규칙에 대해서도 동일하게 작업한다.</p>
+<blockquote>
+<p><strong>해답</strong></p>
+<pre><code>LANGUAGE=python
+COUNT_SRC=countwords.py
+COUNT_EXE=$(LANGUAGE) $(COUNT_SRC)
+ZIPF_SRC=testzipf.py
+ZIPF_EXE=$(LANGUAGE) $(ZIPF_SRC)
+
+# Generate summary table.
+results.txt : $(ZIPF_SRC) isles.dat abyss.dat last.dat
+  $(ZIPF_EXE) *.dat &gt; $@
+
+# Count words.
+.PHONY : dats
+dats : isles.dat abyss.dat last.dat
+
+%.dat : books/%.txt $(COUNT_SRC)
+  $(COUNT_EXE) $&lt; $*.dat
+
+.PHONY : clean
+clean :
+  rm -f *.dat
+  rm -f results.txt</code></pre>
+</blockquote>
+</div>
+<p>Makefile 상단에 변수를 위치시키게 되면, 찾고 변경하기 쉽게 한다는 의미가 된다.
+대안으로, 변수 정보만 간직하는 Makefile을 새로 만들어 넣을 수 있다.
+<code>config.mk</code> 파일을 생성하자:</p>
+<pre><code># Count words script.
+LANGUAGE=python
+COUNT_SRC=countwords.py
+COUNT_EXE=$(LANGUAGE) $(COUNT_SRC)
+
+# Test Zipf's rule
+ZIPF_SRC=testzipf.py
+ZIPF_EXE=$(LANGUAGE) $(ZIPF_SRC)</code></pre>
+<p>다음 명령어를 사용해서, <code>config.mk</code> 파일을 <code>Makefile</code> 내부로 Makefile을 가져올 수 있다:</p>
+<pre><code>include config.mk</code></pre>
+<p>Make를 재실행해서, 모든 것이 여전히 잘 동작하는지 살펴보자:</p>
+<pre><code>$ make clean
+$ make dats
+$ make results.txt</code></pre>
+<p>Makefile 구성정보와 작업을 수행하는 부분, 즉 규칙을 구분했다.
+스크립트 명칭 혹은 실행방식을 변경하려면,
+<code>Makefile</code>에 있는 소스코드가 아니라, 단지 구성파일만 편집하면 된다.
+이런 방식으로 코드를 구성과 결합시키지 않는 것이 좋은 프로그래밍 관례다.
+더 모듈화 되고, 유연해지며, 재사용가능한 코드가 되기 때문이다.</p>
+<div id="make-so-far" class="rmdcaution">
+<p><strong>현재까지 다룬 <code>Makefile</code></strong></p>
+<pre><code>include config.mk
+
+# Generate summary table.
+results.txt : $(ZIPF_SRC) isles.dat abyss.dat last.dat
+    $(ZIPF_EXE) *.dat &gt; $@
+
+# Count words.
+.PHONY : dats
+dats : isles.dat abyss.dat last.dat
+
+%.dat : books/%.txt $(COUNT_SRC)
+    $(COUNT_EXE) $&lt; $*.dat
+
+.PHONY : clean
+clean :
+    rm -f *.dat
+    rm -f results.txt
+</code></pre>
+<p><strong>새로 추가된 config 파일</strong></p>
+<pre><code># Count words script.
+LANGUAGE=python
+COUNT_SRC=countwords.py
+COUNT_EXE=$(LANGUAGE) $(COUNT_SRC)
+
+# Test Zipf's rule
+ZIPF_SRC=testzipf.py
+ZIPF_EXE=$(LANGUAGE) $(ZIPF_SRC)</code></pre>
+</div>
+
+</div>
+  <div class="chapter-nav">
+<div class="prev"><a href="make-patterns.html"><span class="header-section-number">52</span> 패턴 규칙</a></div>
+<div class="next"><a href="make-function.html"><span class="header-section-number">54</span> 함수</a></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav"><li><a class="nav-link" href="#make-variable"><span class="header-section-number">53</span> 변수</a></li></ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+          
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>데이터 과학을 지탱하는 기본기</strong>" was written by 한국 알 사용자회. It was last built on 2022-05-14.</p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer><!-- dynamically load mathjax for compatibility with self-contained --><script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script><script type="text/x-mathjax-config">const popovers = document.querySelectorAll('a.footnote-ref[data-toggle="popover"]');
+for (let popover of popovers) {
+  const div = document.createElement('div');
+  div.setAttribute('style', 'position: absolute; top: 0, left:0; width:0, height:0, overflow: hidden; visibility: hidden;');
+  div.innerHTML = popover.getAttribute('data-content');
+
+  var has_math = div.querySelector("span.math");
+  if (has_math) {
+    document.body.appendChild(div);
+    MathJax.Hub.Queue(["Typeset", MathJax.Hub, div]);
+    MathJax.Hub.Queue(function() {
+      popover.setAttribute('data-content', div.innerHTML);
+      document.body.removeChild(div);
+    })
+  }
+}
+</script>
+</body>
+</html>
