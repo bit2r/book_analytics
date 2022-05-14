@@ -330,3 +330,6 @@ make-function-points
 make-self-doc
 make-conclusion
 make-conclusion-png
+make-conclusion-archive
+make-conclusion-makefile
+make-conclusion-touch

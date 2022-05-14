@@ -66,9 +66,6 @@ rmd_files: [
   "database-join.Rmd",
   "database-create.Rmd",
 
-  # 참고문헌
-  "references.Rmd",
-
   # Make
   "make-index.Rmd",
   "make-intro.Rmd",
@@ -80,6 +77,9 @@ rmd_files: [
   "make-functions.Rmd",
   "make-self-doc.Rmd",
   "make-conclusion.Rmd",
+
+  # 참고문헌
+  "references.Rmd"
 
 ]
 

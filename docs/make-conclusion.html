@@ -115,7 +115,6 @@
 <li><a class="" href="database-agg.html"><span class="header-section-number">44</span> 집합(Aggregation)</a></li>
 <li><a class="" href="database-table-join.html"><span class="header-section-number">45</span> 데이터 결합하기</a></li>
 <li><a class="" href="database-data-create.html"><span class="header-section-number">46</span> 데이터 생성과 변형</a></li>
-<li><a class="" href="%EC%B0%B8%EA%B3%A0%EB%AC%B8%ED%97%8C.html">참고문헌</a></li>
 <li class="book-part">작업흐름 관리도구</li>
 <li><a class="" href="make-automation-intro.html"><span class="header-section-number">47</span> 자동화와 Make</a></li>
 <li><a class="" href="make-automation.html"><span class="header-section-number">48</span> 들어가며</a></li>
@@ -127,6 +126,7 @@
 <li><a class="" href="make-function.html"><span class="header-section-number">54</span> 함수</a></li>
 <li><a class="" href="make-self-doc.html"><span class="header-section-number">55</span> 문서화 Makefile</a></li>
 <li><a class="active" href="make-conclusion.html"><span class="header-section-number">56</span> 결론</a></li>
+<li><a class="" href="%EC%B0%B8%EA%B3%A0%EB%AC%B8%ED%97%8C.html">참고문헌</a></li>
 </ul>
 
         <div class="book-extra">
@@ -227,43 +227,170 @@ ZIPF_EXE=$(LANGUAGE) $(ZIPF_SRC)
 </code></pre>
 </blockquote>
 <div class="figure">
-<img src="assets/images/make/09-conclusion-challenge-1.png" alt=""><p class="caption">이미지가 추가된 후 <code>all</code> 타겟 의존성</p>
-</div>
-
-<div id="refs" class="references csl-bib-body hanging-indent">
-<div id="ref-rcmdr2005paper" class="csl-entry">
-Fox, John. 2005. <span>“The <span>R</span> <span>C</span>ommander: A Basic Statistics Graphical User Interface to <span>R</span>.”</span> <em>Journal of Statistical Software</em> 14 (9): 1–42. <a href="https://doi.org/10.18637/jss.v014.i09">https://doi.org/10.18637/jss.v014.i09</a>.
-</div>
-<div id="ref-fox2016using" class="csl-entry">
-———. 2016. <em>Using the r Commander: A Point-and-Click Interface for r</em>. Chapman; Hall/CRC.
-</div>
-<div id="ref-rcmdr2022manual" class="csl-entry">
-Fox, John, and Milan Bouchet-Valat. 2021. <em><span>Rcmdr: R Commander</span></em>. <a href="https://socialsciences.mcmaster.ca/jfox/Misc/Rcmdr/">https://socialsciences.mcmaster.ca/jfox/Misc/Rcmdr/</a>.
-</div>
-<div id="ref-software-carpentry" class="csl-entry">
-Wilson, Greg. 2022. <span>“Software Carpentry Web Site.”</span> <a href="http://software-carpentry.org">http://software-carpentry.org</a>.
+<img src="assets/images/make/09-conclusion-challenge-1.png" style="width:100.0%" alt=""><p class="caption">이미지가 추가된 후 <code>all</code> 타겟 의존성</p>
 </div>
 </div>
+<div id="make-conclusion-archive" class="section level2" number="56.2">
+<h2>
+<span class="header-section-number">56.2</span> 아카이브 생성<a class="anchor" aria-label="anchor" href="#make-conclusion-archive"><i class="fas fa-link"></i></a>
+</h2>
+<p>데이터, 코드, 결과가 모두 포함된 프로젝트를 담은 아카이브를 생성하면 유용하다.
+많은 파일을 담아 패키지로 묶어 하나의 파일로 제작한
+아카이브 파일(Archive file)은 다른 협업하시는 분과 쉽게 공유할 수 있고 다운로드
+받기도 편하다. <code>Makefile</code> 자체 내부에 아카이브 생성 단계를 추가함으로써
+프로젝트가 변경되더라도 아카이브 파일을 쉽게 갱신하여 최신화시킬 수 있다.</p>
+<p><code>Makefile</code> 파일을 편집해서 프로젝트 아카이브 파일을 생성한다.
+규칙을 새로 추가하고, 변경해서, 새로운 변수도 추가해서 다음 작업을 수행하게 만든다.</p>
+<ul>
+<li>프로젝트 디렉토리에 <code>zipf_analysis</code> 폴더를 새로 생성한다.</li>
+<li>코드, 데이터, 그래프, 지프의 법칙 요약 표, <code>Makefile</code>, <code>config.mk</code> 모든 파일을
+해당 디렉토리로 복사한다. <code>cp -r</code> 명령어를 사용해서 모든 파일과 디렉토리를 새로
+생성한 <code>zipf_analysis</code> 디렉토리에 복사한다.</li>
+</ul>
+<pre><code>$ cp -r [files and directories to copy] zipf_analysis/</code></pre>
+<ul>
+<li>힌트: <code>books</code> 디렉토리에 변수를 새로 생성한다. <code>zipf_analysis</code> 디렉토리에 복사한다.</li>
+<li>
+<code>zipf_analysis.tar.gz</code> 아카이브를 생성한다. <code>tar</code> 배쉬 명령어를 다음과 같이 사용한다.</li>
+</ul>
+<pre><code>$ tar -czf zipf_analysis.tar.gz zipf_analysis</code></pre>
+<ul>
+<li>
+<code>all</code> 타겟을 업데이트해서 <code>zipf_analysis.tar.gz</code> 파일을 생성한다.</li>
+<li>
+<code>make clean</code>이 호출되면 <code>zipf_analysis.tar.gz</code> 파일을 제거한다.</li>
+<li>
+<code>make variables</code>를 호출하게 되면 정의한 추가 변수 값을 출력한다.</li>
+</ul>
+<blockquote>
+<p><strong><code>Makefile</code> 해답</strong></p>
+<pre><code>include config.mk
+
+TXT_DIR=books
+TXT_FILES=$(wildcard $(TXT_DIR)/*.txt)
+DAT_FILES=$(patsubst $(TXT_DIR)/%.txt, %.dat, $(TXT_FILES))
+PNG_FILES=$(patsubst $(TXT_DIR)/%.txt, %.png, $(TXT_FILES))
+RESULTS_FILE=results.txt
+ZIPF_DIR=zipf_analysis
+ZIPF_ARCHIVE=$(ZIPF_DIR).tar.gz
+
+## all         : Generate archive of code, data, plots, summary table, Makefile, and config.mk.
+.PHONY : all
+all : $(ZIPF_ARCHIVE)
+
+$(ZIPF_ARCHIVE) : $(ZIPF_DIR)
+  tar -czf $@ $&lt;
+
+$(ZIPF_DIR): Makefile config.mk $(RESULTS_FILE) \
+             $(DAT_FILES) $(PNG_FILES) $(TXT_DIR) \
+             $(COUNT_SRC) $(PLOT_SRC) $(ZIPF_SRC)
+  mkdir -p $@
+  cp -r $^ $@
+  touch $@
+
+## results.txt : Generate Zipf summary table.
+$(RESULTS_FILE) : $(ZIPF_SRC) $(DAT_FILES)
+  $(ZIPF_EXE) $(DAT_FILES) &gt; $@
+
+## dats        : Count words in text files.
+.PHONY : dats
+dats : $(DAT_FILES)
+
+%.dat : $(TXT_DIR)/%.txt $(COUNT_SRC)
+  $(COUNT_EXE) $&lt; $@
+
+## pngs        : Plot word counts.
+.PHONY : pngs
+pngs : $(PNG_FILES)
+
+%.png : %.dat $(PLOT_SRC)
+  $(PLOT_EXE) $&lt; $@
+
+## clean       : Remove auto-generated files.
+.PHONY : clean
+clean :
+  rm -f $(DAT_FILES)
+  rm -f $(PNG_FILES)
+  rm -f $(RESULTS_FILE)
+  rm -rf $(ZIPF_DIR)
+  rm -f $(ZIPF_ARCHIVE)
+
+## variables   : Print variables.
+.PHONY : variables
+variables:
+  @echo TXT_DIR: $(TXT_DIR)
+  @echo TXT_FILES: $(TXT_FILES)
+  @echo DAT_FILES: $(DAT_FILES)
+  @echo PNG_FILES: $(PNG_FILES)
+  @echo ZIPF_DIR: $(ZIPF_DIR)
+  @echo ZIPF_ARCHIVE: $(ZIPF_ARCHIVE)
+
+.PHONY : help
+help : Makefile
+  @sed -n 's/^##//p' $&lt;</code></pre>
+<p><strong><code>config.mk</code> 해답</strong></p>
+<pre><code># Count words script.
+LANGUAGE=python
+COUNT_SRC=countwords.py
+COUNT_EXE=$(LANGUAGE) $(COUNT_SRC)
+
+# Plot word counts script.
+PLOT_SRC=plotcounts.py
+PLOT_EXE=$(LANGUAGE) $(PLOT_SRC)
+
+# Test Zipf's rule.
+ZIPF_SRC=testzipf.py
+ZIPF_EXE=$(LANGUAGE) $(ZIPF_SRC)
+</code></pre>
+</blockquote>
+</div>
+<div id="make-conclusion-makefile" class="section level2" number="56.3">
+<h2>
+<span class="header-section-number">56.3</span> <code>Makefile</code> 아카이빙<a class="anchor" aria-label="anchor" href="#make-conclusion-makefile"><i class="fas fa-link"></i></a>
+</h2>
+<p>아카이브 디렉토리에 대한 <code>Makefile</code> 규칙에
+<code>Makefile</code>을 코드, 데이터, 그래프, 지프의 요약표에 추가될까?</p>
+<blockquote>
+<p><strong>해답</strong></p>
+<p><code>countwords.py</code>, <code>plotcounts.py</code>, <code>testzipf.py</code> 코드 파일은
+작업흐름의 개별 부분을 담고 있다.
+코드 파일을 통해서 <code>.txt</code> 파일에서 <code>.dat</code> 파일을 생성해낸다.
+그리고, <code>.dat</code> 파일에서 <code>.png</code> 파일과 <code>results.txt</code> 파일을 만들어낸다.
+하지만 <code>Makefile</code>에는 코드파일, 원데이터, 파생데이터, 그래프를 비롯한
+전체 작업흐름이 문서로 담겨있다.
+<code>config.mk</code> 파일은 <code>Makefile</code>에 대한 환경설정 정보도 담겨있어 아카이브로
+저장되어야 한다.</p>
+</blockquote>
+</div>
+<div id="make-conclusion-touch" class="section level2" number="56.4">
+<h2>
+<span class="header-section-number">56.4</span> 아카이브 디렉토리 <code>touch</code><a class="anchor" aria-label="anchor" href="#make-conclusion-touch"><i class="fas fa-link"></i></a>
+</h2>
+<p>코드, 데이터, 그래프, 요약표를 아카이브 디렉토리로 이동시킨 후에
+아카이브 디렉토리에 <code>Makefile</code> 규칙을 왜 <code>touch</code>해야 할까?</p>
+<blockquote>
+<p><strong>해답</strong></p>
+<p>파일이 아카이브 디렉토리로 복사될 때 디렉토리 시간도장이 자동으로 갱신되지 않는다.
+만약 코드, 데이터, 그래프, 요약표를 아카이브 디렉토리로 최신화되어 복사되면,
+<code>touch</code> 명령어로 아카이브 디렉토리 시간도장이 최신으로 갱신되어야 한다.
+그래야만 규칙이 <code>zipf_analysis.tar.gz</code> 파일을 다시 실행시켜 제작시키는 것을 알게 된다.
+<code>touch</code>가 없다면 <code>zipf_analysis.tar.gz</code> 파일은 규칙이 처음 실행될 때 생성되고
+아카이브 디렉토리 콘텐츠가 변경되더라도 후속 변경작업을 일어나지 않게 된다.</p>
+</blockquote>
+
 </div>
 </div>
-
-
-
-
-
-
-
-
-
-
   <div class="chapter-nav">
 <div class="prev"><a href="make-self-doc.html"><span class="header-section-number">55</span> 문서화 Makefile</a></div>
-<div class="empty"></div>
+<div class="next"><a href="%EC%B0%B8%EA%B3%A0%EB%AC%B8%ED%97%8C.html">참고문헌</a></div>
 </div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
     <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
       <ul class="nav navbar-nav">
 <li><a class="nav-link" href="#make-conclusion"><span class="header-section-number">56</span> 결론</a></li>
 <li><a class="nav-link" href="#make-conclusion-png"><span class="header-section-number">56.1</span> PNG 생성하기</a></li>
+<li><a class="nav-link" href="#make-conclusion-archive"><span class="header-section-number">56.2</span> 아카이브 생성</a></li>
+<li><a class="nav-link" href="#make-conclusion-makefile"><span class="header-section-number">56.3</span> Makefile 아카이빙</a></li>
+<li><a class="nav-link" href="#make-conclusion-touch"><span class="header-section-number">56.4</span> 아카이브 디렉토리 touch</a></li>
 </ul>
 
       <div class="book-extra">
