@@ -8,4 +8,6 @@ bookdown::gitbook:
       after: |
         <li><a href="https://github.com/rstudio/bookdown" target="blank">bookdown 패키지로 출판작업</a></li>
     edit: https://github.com/bit2r/book_analytics/edit/master/%s
-bookdown::bs4_book: default
+bookdown::bs4_book:
+  includes:
+    in_header: google_analytics.html
