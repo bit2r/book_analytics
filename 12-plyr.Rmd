@@ -60,7 +60,7 @@ mean(withGDP[withGDP$continent == "Asia", "gdp"])
 
 여기서 맞닥드린 추상화 문제를 "분할-적용-병합(split-apply-combine)" 전략이라고 부른다:
 
-![Split apply combine](../fig/12-plyr-fig1.png)
+<!-- ![Split apply combine](../fig/12-plyr-fig1.png) -->
 
 데이터를 집단으로 *분할(split)*하고, 이번 경우에 대륙,
 해당 집단에 연산작업을 *적용(apply)*하고 나서, 

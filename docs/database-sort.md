@@ -27,25 +27,36 @@ select quant from Survey;
 ```
 
 
-<div class="knitsql-table">
+\begin{table}
 
-
-Table: (\#tab:sqlite-sort-sql)SQL select 쿼리문
-
-|quant |
-|:-----|
-|rad   |
-|sal   |
-|rad   |
-|sal   |
-|rad   |
-|sal   |
-|temp  |
-|rad   |
-|sal   |
-|temp  |
-
-</div>
+\caption{(\#tab:sqlite-sort-sql)SQL select 쿼리문}
+\centering
+\begin{tabular}[t]{l}
+\hline
+quant\\
+\hline
+rad\\
+\hline
+sal\\
+\hline
+rad\\
+\hline
+sal\\
+\hline
+rad\\
+\hline
+sal\\
+\hline
+temp\\
+\hline
+rad\\
+\hline
+sal\\
+\hline
+temp\\
+\hline
+\end{tabular}
+\end{table}
 
 
 
@@ -58,18 +69,22 @@ select distinct quant from Survey;
 ```
 
 
-<div class="knitsql-table">
+\begin{table}
 
-
-Table: (\#tab:sqlite-sort-dedup)중복 제거 쿼리문
-
-|quant |
-|:-----|
-|rad   |
-|sal   |
-|temp  |
-
-</div>
+\caption{(\#tab:sqlite-sort-dedup)중복 제거 쿼리문}
+\centering
+\begin{tabular}[t]{l}
+\hline
+quant\\
+\hline
+rad\\
+\hline
+sal\\
+\hline
+temp\\
+\hline
+\end{tabular}
+\end{table}
 
 
 하나 이상의 칼럼(예를 들어 survey 사이트 ID와 측정된 수량)을 선택한다면, 별개로 구별된 값의 쌍이 반환된다.
@@ -80,25 +95,36 @@ select distinct taken, quant from Survey;
 ```
 
 
-<div class="knitsql-table">
+\begin{table}
 
-
-Table: (\#tab:sqlite-sort-dedup-distinct)칼럼 두개 중복 제거
-
-| taken|quant |
-|-----:|:-----|
-|   619|rad   |
-|   619|sal   |
-|   622|rad   |
-|   622|sal   |
-|   734|rad   |
-|   734|sal   |
-|   734|temp  |
-|   735|rad   |
-|   735|sal   |
-|   735|temp  |
-
-</div>
+\caption{(\#tab:sqlite-sort-dedup-distinct)칼럼 두개 중복 제거}
+\centering
+\begin{tabular}[t]{r|l}
+\hline
+taken & quant\\
+\hline
+619 & rad\\
+\hline
+619 & sal\\
+\hline
+622 & rad\\
+\hline
+622 & sal\\
+\hline
+734 & rad\\
+\hline
+734 & sal\\
+\hline
+734 & temp\\
+\hline
+735 & rad\\
+\hline
+735 & sal\\
+\hline
+735 & temp\\
+\hline
+\end{tabular}
+\end{table}
 
 
 양쪽 경우에 설사 데이터베이스 내에서 서로 인접하지 않더라도 모두 중복이 제거된 것을 주목하세요.
@@ -119,20 +145,26 @@ select * from Person order by ident;
 ```
 
 
-<div class="knitsql-table">
+\begin{table}
 
-
-Table: (\#tab:sqlite-sort-id)ident 칼럼 기준 정렬
-
-|ident    |personal  |family   |
-|:--------|:---------|:--------|
-|danforth |Frank     |Danforth |
-|dyer     |William   |Dyer     |
-|lake     |Anderson  |Lake     |
-|pb       |Frank     |Pabodie  |
-|roe      |Valentina |Roerich  |
-
-</div>
+\caption{(\#tab:sqlite-sort-id)ident 칼럼 기준 정렬}
+\centering
+\begin{tabular}[t]{l|l|l}
+\hline
+ident & personal & family\\
+\hline
+danforth & Frank & Danforth\\
+\hline
+dyer & William & Dyer\\
+\hline
+lake & Anderson & Lake\\
+\hline
+pb & Frank & Pabodie\\
+\hline
+roe & Valentina & Roerich\\
+\hline
+\end{tabular}
+\end{table}
 
 
 디폴트로, 결과는 오름차순으로 정렬되어야 한다. (즉, 가장 적은 값에서 가장 큰 값 순으로 정렬된다.) 
@@ -144,20 +176,26 @@ select * from person order by ident desc;
 ```
 
 
-<div class="knitsql-table">
+\begin{table}
 
-
-Table: (\#tab:sqlite-sort-desc)ident 칼럼 기준 역정렬
-
-|ident    |personal  |family   |
-|:--------|:---------|:--------|
-|roe      |Valentina |Roerich  |
-|pb       |Frank     |Pabodie  |
-|lake     |Anderson  |Lake     |
-|dyer     |William   |Dyer     |
-|danforth |Frank     |Danforth |
-
-</div>
+\caption{(\#tab:sqlite-sort-desc)ident 칼럼 기준 역정렬}
+\centering
+\begin{tabular}[t]{l|l|l}
+\hline
+ident & personal & family\\
+\hline
+roe & Valentina & Roerich\\
+\hline
+pb & Frank & Pabodie\\
+\hline
+lake & Anderson & Lake\\
+\hline
+dyer & William & Dyer\\
+\hline
+danforth & Frank & Danforth\\
+\hline
+\end{tabular}
+\end{table}
 
 (그리고, `desc` 대신에 `asc`를 사용해서 오름차순으로 정렬하고 있다는 것을 명시적으로 표현할 수도 있다.)
 
@@ -170,25 +208,36 @@ select taken, person from Survey order by taken asc, person desc;
 ```
 
 
-<div class="knitsql-table">
+\begin{table}
 
-
-Table: (\#tab:sqlite-sort-asc-desc)칼럼 기준 순정렬, 역정렬
-
-| taken|person |
-|-----:|:------|
-|   619|dyer   |
-|   619|dyer   |
-|   622|dyer   |
-|   622|dyer   |
-|   734|pb     |
-|   734|pb     |
-|   734|lake   |
-|   735|pb     |
-|   735|NA     |
-|   735|NA     |
-
-</div>
+\caption{(\#tab:sqlite-sort-asc-desc)칼럼 기준 순정렬, 역정렬}
+\centering
+\begin{tabular}[t]{r|l}
+\hline
+taken & person\\
+\hline
+619 & dyer\\
+\hline
+619 & dyer\\
+\hline
+622 & dyer\\
+\hline
+622 & dyer\\
+\hline
+734 & pb\\
+\hline
+734 & pb\\
+\hline
+734 & lake\\
+\hline
+735 & pb\\
+\hline
+735 & NA\\
+\hline
+735 & NA\\
+\hline
+\end{tabular}
+\end{table}
 
 
 
@@ -200,25 +249,36 @@ select distinct taken, person from Survey order by taken asc, person desc;
 ```
 
 
-<div class="knitsql-table">
+\begin{table}
 
-
-Table: (\#tab:sqlite-sort-remove-view)중복제거 칼럼 기준 순정렬, 역정렬
-
-| taken|person |
-|-----:|:------|
-|   619|dyer   |
-|   622|dyer   |
-|   734|pb     |
-|   734|lake   |
-|   735|pb     |
-|   735|NA     |
-|   751|pb     |
-|   751|lake   |
-|   752|roe    |
-|   752|lake   |
-
-</div>
+\caption{(\#tab:sqlite-sort-remove-view)중복제거 칼럼 기준 순정렬, 역정렬}
+\centering
+\begin{tabular}[t]{r|l}
+\hline
+taken & person\\
+\hline
+619 & dyer\\
+\hline
+622 & dyer\\
+\hline
+734 & pb\\
+\hline
+734 & lake\\
+\hline
+735 & pb\\
+\hline
+735 & NA\\
+\hline
+751 & pb\\
+\hline
+751 & lake\\
+\hline
+752 & roe\\
+\hline
+752 & lake\\
+\hline
+\end{tabular}
+\end{table}
 
 
 ## 도전 과제 {#db-sort-challenge-two}

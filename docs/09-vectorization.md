@@ -106,7 +106,9 @@ y:  6  7  8  9
 >   geom_point()
 > ```
 > 
-> <img src="09-vectorization_files/figure-html/ch2-sol-1.png" width="576" style="display: block; margin: auto;" /><img src="09-vectorization_files/figure-html/ch2-sol-2.png" width="576" style="display: block; margin: auto;" />
+> 
+> 
+> \begin{center}\includegraphics{09-vectorization_files/figure-latex/ch2-sol-1} \includegraphics{09-vectorization_files/figure-latex/ch2-sol-2} \end{center}
 
 
 비교 연산자, 논리 연산자, 그리고 많은 함수도 벡터화를 지원한다:

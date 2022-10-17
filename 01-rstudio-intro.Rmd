@@ -534,7 +534,7 @@ mass와 age 중 어는 것이 더 큰가?
 >
 > 상기 질문에 답하는 방식은 다음과 같이 `>` 을 사용하는 것이다:
 >
-> ```{r ch3-sol}
+> ```{r ch3-sol, eval = FALSE}
 > mass > age
 >```
 >
@@ -549,7 +549,7 @@ mass와 age 변수를 지워서 작업환경을 청소하자.
 >
 > `rm` 명령어를 사용해서 청소 작업을 수행한다.
 >
-> ```{r ch4-sol}
+> ```{r ch4-sol, eval = FALSE}
 > rm(age, mass)
 > ```
 

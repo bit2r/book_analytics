@@ -28,23 +28,32 @@ select 1.05 * reading from Survey where quant='rad';
 ```
 
 
-<div class="knitsql-table">
+\begin{table}
 
-
-Table: (\#tab:sqlite-sql-calc-reading)신규 칼럼 생성 쿼리문
-
-| 1.05 * reading|
-|--------------:|
-|          10.31|
-|           8.19|
-|           8.83|
-|           7.58|
-|           4.57|
-|           2.30|
-|           1.53|
-|          11.81|
-
-</div>
+\caption{(\#tab:sqlite-sql-calc-reading)신규 칼럼 생성 쿼리문}
+\centering
+\begin{tabular}[t]{r}
+\hline
+1.05 * reading\\
+\hline
+10.31\\
+\hline
+8.19\\
+\hline
+8.83\\
+\hline
+7.58\\
+\hline
+4.57\\
+\hline
+2.30\\
+\hline
+1.53\\
+\hline
+11.81\\
+\hline
+\end{tabular}
+\end{table}
 
 
 쿼리를 실행하면, 표현식 `1.05 * reading`이 각 행마다 평가된다.
@@ -59,19 +68,24 @@ select taken, round(5*(reading-32)/9, 2) from Survey where quant='temp';
 ```
 
 
-<div class="knitsql-table">
+\begin{table}
 
-
-Table: (\#tab:sqlite-sql-calc-rounding)신규 칼럼 반올림 적용 쿼리문
-
-| taken| round(5*(reading-32)/9, 2)|
-|-----:|--------------------------:|
-|   734|                      -29.7|
-|   735|                      -32.2|
-|   751|                      -28.1|
-|   752|                      -26.7|
-
-</div>
+\caption{(\#tab:sqlite-sql-calc-rounding)신규 칼럼 반올림 적용 쿼리문}
+\centering
+\begin{tabular}[t]{r|r}
+\hline
+taken & round(5*(reading-32)/9, 2)\\
+\hline
+734 & -29.7\\
+\hline
+735 & -32.2\\
+\hline
+751 & -28.1\\
+\hline
+752 & -26.7\\
+\hline
+\end{tabular}
+\end{table}
 
 
 다른 필드의 값을 조합할 수도 있다. 예를 들어, 문자열 접합 연산자 (string concatenation operator, `||`)를 사용한다. 
@@ -82,20 +96,26 @@ select personal || ' ' || family from Person;
 ```
 
 
-<div class="knitsql-table">
+\begin{table}
 
-
-Table: (\#tab:sqlite-sql-calc-concat)접합연산자 적용 신규 칼럼 생성 쿼리문
-
-|personal &#124;&#124; ' ' &#124;&#124; family |
-|:---------------------------------------------|
-|William Dyer                                  |
-|Frank Pabodie                                 |
-|Anderson Lake                                 |
-|Valentina Roerich                             |
-|Frank Danforth                                |
-
-</div>
+\caption{(\#tab:sqlite-sql-calc-concat)접합연산자 적용 신규 칼럼 생성 쿼리문}
+\centering
+\begin{tabular}[t]{l}
+\hline
+personal || ' ' || family\\
+\hline
+William Dyer\\
+\hline
+Frank Pabodie\\
+\hline
+Anderson Lake\\
+\hline
+Valentina Roerich\\
+\hline
+Frank Danforth\\
+\hline
+\end{tabular}
+\end{table}
 
 
 > `first`와 `last` 대신에 필드 이름으로 `personal`과 `family`를 사용하는 것이 이상해 보일지 모른다.
@@ -131,17 +151,20 @@ select * from Person where ident='dyer' union select * from Person where ident='
 ```
 
 
-<div class="knitsql-table">
+\begin{table}
 
-
-Table: (\#tab:sqlite-sql-calc-union)union 연산자 적용 쿼리 두개 결합 결과
-
-|ident |personal  |family  |
-|:-----|:---------|:-------|
-|dyer  |William   |Dyer    |
-|roe   |Valentina |Roerich |
-
-</div>
+\caption{(\#tab:sqlite-sql-calc-union)union 연산자 적용 쿼리 두개 결합 결과}
+\centering
+\begin{tabular}[t]{l|l|l}
+\hline
+ident & personal & family\\
+\hline
+dyer & William & Dyer\\
+\hline
+roe & Valentina & Roerich\\
+\hline
+\end{tabular}
+\end{table}
 
 `union`을 사용하여 앞선 도전과제에서 기술되어 수정된 Roerich가 측정한, Roerich만 측정한 염도 측정치의 통합 리스트를 생성하세요.
 출력결과는 다음과 같아야 한다.

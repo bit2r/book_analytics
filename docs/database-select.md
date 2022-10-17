@@ -134,20 +134,26 @@ SELECT family, personal from Person;
 ```
 
 
-<div class="knitsql-table">
+\begin{table}
 
-
-Table: (\#tab:db-selection)첫번째 SQL 쿼리
-
-|family   |personal  |
-|:--------|:---------|
-|Dyer     |William   |
-|Pabodie  |Frank     |
-|Lake     |Anderson  |
-|Roerich  |Valentina |
-|Danforth |Frank     |
-
-</div>
+\caption{(\#tab:db-selection)첫번째 SQL 쿼리}
+\centering
+\begin{tabular}[t]{l|l}
+\hline
+family & personal\\
+\hline
+Dyer & William\\
+\hline
+Pabodie & Frank\\
+\hline
+Lake & Anderson\\
+\hline
+Roerich & Valentina\\
+\hline
+Danforth & Frank\\
+\hline
+\end{tabular}
+\end{table}
 
 
 
@@ -162,20 +168,26 @@ SeLeCt FaMiLy, PeRsOnAl FrOm PeRsOn;
 ```
 
 
-<div class="knitsql-table">
+\begin{table}
 
-
-Table: (\#tab:db-selection-variation)SQL 쿼리문은 대소문자 구분하지 않음
-
-|family   |personal  |
-|:--------|:---------|
-|Dyer     |William   |
-|Pabodie  |Frank     |
-|Lake     |Anderson  |
-|Roerich  |Valentina |
-|Danforth |Frank     |
-
-</div>
+\caption{(\#tab:db-selection-variation)SQL 쿼리문은 대소문자 구분하지 않음}
+\centering
+\begin{tabular}[t]{l|l}
+\hline
+family & personal\\
+\hline
+Dyer & William\\
+\hline
+Pabodie & Frank\\
+\hline
+Lake & Anderson\\
+\hline
+Roerich & Valentina\\
+\hline
+Danforth & Frank\\
+\hline
+\end{tabular}
+\end{table}
 
 모두 소문자, 타이틀 케이스, 소문자 낙타 대문자(Lower Camel Case)를 선택하든지 관계없이 일관성을 가져라.
 랜덤 대문자를 추가적으로 인지하지 않더라고 복잡한 쿼리는 충분히 그 자체로 이해하기 어렵다.
@@ -191,20 +203,26 @@ SELECT personal, family from Person;
 ```
 
 
-<div class="knitsql-table">
+\begin{table}
 
-
-Table: (\#tab:db-selection-order)칼럼 교환
-
-|personal  |family   |
-|:---------|:--------|
-|William   |Dyer     |
-|Frank     |Pabodie  |
-|Anderson  |Lake     |
-|Valentina |Roerich  |
-|Frank     |Danforth |
-
-</div>
+\caption{(\#tab:db-selection-order)칼럼 교환}
+\centering
+\begin{tabular}[t]{l|l}
+\hline
+personal & family\\
+\hline
+William & Dyer\\
+\hline
+Frank & Pabodie\\
+\hline
+Anderson & Lake\\
+\hline
+Valentina & Roerich\\
+\hline
+Frank & Danforth\\
+\hline
+\end{tabular}
+\end{table}
 
 
 혹은 심지어 칼럼을 반복할 수도 있다.
@@ -216,20 +234,26 @@ select ident, ident, ident from Person;
 ```
 
 
-<div class="knitsql-table">
+\begin{table}
 
-
-Table: (\#tab:db-selection-dup)칼럼명 중복 선택
-
-|ident    |ident    |ident    |
-|:--------|:--------|:--------|
-|dyer     |dyer     |dyer     |
-|pb       |pb       |pb       |
-|lake     |lake     |lake     |
-|roe      |roe      |roe      |
-|danforth |danforth |danforth |
-
-</div>
+\caption{(\#tab:db-selection-dup)칼럼명 중복 선택}
+\centering
+\begin{tabular}[t]{l|l|l}
+\hline
+ident & ident & ident\\
+\hline
+dyer & dyer & dyer\\
+\hline
+pb & pb & pb\\
+\hline
+lake & lake & lake\\
+\hline
+roe & roe & roe\\
+\hline
+danforth & danforth & danforth\\
+\hline
+\end{tabular}
+\end{table}
 
 
 손쉬운 방법으로, `*`을 사용해서 테이블의 모든 칼럼을 선택할 수도 있다.
@@ -240,20 +264,26 @@ select * from Person;
 ```
 
 
-<div class="knitsql-table">
+\begin{table}
 
-
-Table: (\#tab:db-selection-wildcard)모든 칼럼 선택
-
-|ident    |personal  |family   |
-|:--------|:---------|:--------|
-|dyer     |William   |Dyer     |
-|pb       |Frank     |Pabodie  |
-|lake     |Anderson  |Lake     |
-|roe      |Valentina |Roerich  |
-|danforth |Frank     |Danforth |
-
-</div>
+\caption{(\#tab:db-selection-wildcard)모든 칼럼 선택}
+\centering
+\begin{tabular}[t]{l|l|l}
+\hline
+ident & personal & family\\
+\hline
+dyer & William & Dyer\\
+\hline
+pb & Frank & Pabodie\\
+\hline
+lake & Anderson & Lake\\
+\hline
+roe & Valentina & Roerich\\
+\hline
+danforth & Frank & Danforth\\
+\hline
+\end{tabular}
+\end{table}
 
 
 ## 도전 과제 {#db-select-challenge}

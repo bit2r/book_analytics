@@ -33,7 +33,7 @@ cats
 ```
 
 ```
-## # A tibble: 3 × 3
+## # A tibble: 3 x 3
 ##   coat   weight likes_string
 ##   <chr>   <dbl>        <dbl>
 ## 1 calico    2.1            1

@@ -270,7 +270,7 @@ ggplot(data = gapminder, aes(x = gdpPercap, y = lifeExp)) +
 > 대륙별로 추세선을 반영한다.
 > 힌트: 색상 인자를 `aesthetic` 내부로 위치시킨다.
 >
->```{r ch4b-sol}
+>```{r ch4b-sol, eval = FALSE}
 > ggplot(data = gapminder, aes(x = gdpPercap, y = lifeExp, color = continent)) +
 > geom_point(size=3, shape=17) + scale_x_log10() +
 > geom_smooth(method="lm", size=1.5)
@@ -297,7 +297,7 @@ ggplot(data = gapminder, aes(x = gdpPercap, y = lifeExp)) +
 :::
 
 
-```{r facet}
+```{r facet, eval = FALSE}
 starts.with <- substr(gapminder$country, start = 1, stop = 1)
 az.countries <- gapminder[starts.with %in% c("A", "Z"), ]
 ggplot(data = az.countries, aes(x = year, y = lifeExp, color=continent)) +
@@ -319,7 +319,7 @@ x-축이 너무 난잡하고, y-축은 데이터프레임 칼럼명이 아닌 "L
 따라서, 색상 범례 제목은 `color = "Continent"`이 되는 반면에,
 채우기(`fill`) 범례는 `fill = "MyTitle"`으로 설정하게 된다.
 
-```{r theme}
+```{r theme, eval = FALSE}
 ggplot(data = az.countries, aes(x = year, y = lifeExp, color=continent)) +
   geom_line() + facet_wrap( ~ country) +
   labs(
@@ -342,7 +342,7 @@ ggplot(data = az.countries, aes(x = year, y = lifeExp, color=continent)) +
 `ggsave()` 함수에 `png` 형식으로 `results` 디렉토리에 저장하도록 지정한다.
 (현 작업디렉토리에 `results/` 폴더가 생성되어 있어야 한다.)
 
-```{r save}
+```{r save, eval = FALSE}
 lifeExp_plot <- ggplot(data = az.countries, aes(x = year, y = lifeExp, color=continent)) +
   geom_line() + facet_wrap( ~ country) +
   labs(

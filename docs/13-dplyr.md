@@ -89,7 +89,7 @@ library("dplyr")
 year_country_gdp <- select(gapminder,year,country,gdpPercap)
 ```
 
-![](../fig/13-dplyr-fig1.png)
+<!-- ![](../fig/13-dplyr-fig1.png) -->
 
 `year_country_gdp` 데이터프레임을 열게되면, 
 `year`, `country`, `gdpPercap` 변수만 담겨있는 것을 보게 된다.
@@ -140,70 +140,37 @@ year_country_gdp_euro <- gapminder %>%
 > >year_country_lifeExp_Africa <- gapminder %>%
 > >                            filter(continent=="Africa") %>%
 > >                            select(year,country,lifeExp)
+> > ```
+> >> {: .solution}
+> >{: .challenge}
+> >
+> >지난번과 마찬가지로, `gapminder` 데이터프레임을 `filter()` 함수에 전달하고 나서, 
+> >필터링된 `gapminder` 데이터프레임 버젼을 `select()` 함수에 전달한다.
+> >**주의:** 연산순서가 이번 경우에 무척 중요하다.
+> >`select()` 함수를 먼저 실행하면, `filter()` 함수는 대륙 변수를 찾을 수 없는데, 
+> >이유는 이전 단계에서 제거했기 때문이다.
+> >
+> >
+> >## `group_by()`와 `summarize()` 사용 {#r-dplyr-groupby-summarize}
+> >
+> >이제, 기본 베이스(base) R로 작업함으로써 실수를 범하기 쉬운 반복작업을 줄일 것으로 생각했지만,
+> >현재까지 목표를 달성하지 못했다. 왜냐하면, 각 대륙마다 상기 작업을 반복해야 되기 때문이다.
+> >`filter()` 대신에, `group_by()`를 사용한다.
+> >`filter()`는 특정 기준을 만족하는 관측점만 넘겨준다(이번 경우: `continent=="Europe"`).
+> >`group_by()`는 본질적으로, 필터에서 사용할 수 있는 모든 유일무이한 기준을 사용할 수 있다.
 > >```
-> {: .solution}
-{: .challenge}
 
-지난번과 마찬가지로, `gapminder` 데이터프레임을 `filter()` 함수에 전달하고 나서, 
-필터링된 `gapminder` 데이터프레임 버젼을 `select()` 함수에 전달한다.
-**주의:** 연산순서가 이번 경우에 무척 중요하다.
-`select()` 함수를 먼저 실행하면, `filter()` 함수는 대륙 변수를 찾을 수 없는데, 
-이유는 이전 단계에서 제거했기 때문이다.
-
-
-## `group_by()`와 `summarize()` 사용 {#r-dplyr-groupby-summarize}
-
-이제, 기본 베이스(base) R로 작업함으로써 실수를 범하기 쉬운 반복작업을 줄일 것으로 생각했지만,
-현재까지 목표를 달성하지 못했다. 왜냐하면, 각 대륙마다 상기 작업을 반복해야 되기 때문이다.
-`filter()` 대신에, `group_by()`를 사용한다.
-`filter()`는 특정 기준을 만족하는 관측점만 넘겨준다(이번 경우: `continent=="Europe"`).
-`group_by()`는 본질적으로, 필터에서 사용할 수 있는 모든 유일무이한 기준을 사용할 수 있다.
-
-
-
-```r
+````r
 str(gapminder)
-```
 
-```
-## 'data.frame':	1704 obs. of  6 variables:
-##  $ country  : chr  "Afghanistan" "Afghanistan" "Afghanistan" "Afghanistan" ...
-##  $ year     : int  1952 1957 1962 1967 1972 1977 1982 1987 1992 1997 ...
-##  $ pop      : num  8425333 9240934 10267083 11537966 13079460 ...
-##  $ continent: chr  "Asia" "Asia" "Asia" "Asia" ...
-##  $ lifeExp  : num  28.8 30.3 32 34 36.1 ...
-##  $ gdpPercap: num  779 821 853 836 740 ...
-```
-
-```r
 str(gapminder %>% group_by(continent))
-```
-
-```
-## grouped_df [1,704 × 6] (S3: grouped_df/tbl_df/tbl/data.frame)
-##  $ country  : chr [1:1704] "Afghanistan" "Afghanistan" "Afghanistan" "Afghanistan" ...
-##  $ year     : int [1:1704] 1952 1957 1962 1967 1972 1977 1982 1987 1992 1997 ...
-##  $ pop      : num [1:1704] 8425333 9240934 10267083 11537966 13079460 ...
-##  $ continent: chr [1:1704] "Asia" "Asia" "Asia" "Asia" ...
-##  $ lifeExp  : num [1:1704] 28.8 30.3 32 34 36.1 ...
-##  $ gdpPercap: num [1:1704] 779 821 853 836 740 ...
-##  - attr(*, "groups")= tibble [5 × 2] (S3: tbl_df/tbl/data.frame)
-##   ..$ continent: chr [1:5] "Africa" "Americas" "Asia" "Europe" ...
-##   ..$ .rows    : list<int> [1:5] 
-##   .. ..$ : int [1:624] 25 26 27 28 29 30 31 32 33 34 ...
-##   .. ..$ : int [1:300] 49 50 51 52 53 54 55 56 57 58 ...
-##   .. ..$ : int [1:396] 1 2 3 4 5 6 7 8 9 10 ...
-##   .. ..$ : int [1:360] 13 14 15 16 17 18 19 20 21 22 ...
-##   .. ..$ : int [1:24] 61 62 63 64 65 66 67 68 69 70 ...
-##   .. ..@ ptype: int(0) 
-##   ..- attr(*, ".drop")= logi TRUE
 ```
 
 `group_by()` 함수를 사용한 데이터프레임 구조(`grouped_df`)가 원래 `gapminder` 데이터프레임 구조(`data.frame`)와 같지 않음에 주목한다.
 `grouped_df`는 `list` 리스트로 간주될 있는데, `list`에 각 항목은 `data.frame`으로, 
 각 데이터프레임은 특정 대륙 `continent`에 대응되는 행만 담겨진다(적어도 상기 예제의 경우).
 
-![](../fig/13-dplyr-fig2.png)
+<!-- ![](../fig/13-dplyr-fig2.png) -->
 
 ## `summarize()` 사용 {#r-dplyr-summarize}
 
@@ -214,19 +181,18 @@ str(gapminder %>% group_by(continent))
 다시 말해, `group_by()` 함수를 사용해서, 
 최초 데이터프레임을 다수 조각으로 쪼개고 나서, 
 각각에 대해 함수(예를 들어 `mean()` 혹은 `sd()`)를 `summarize()` 내부에서 실행시키게 된다.
+````
 
-
-
-```r
+````r
 gdp_bycontinents <- gapminder %>%
     group_by(continent) %>%
     summarize(mean_gdpPercap=mean(gdpPercap))
 ```
 
 ![](assets/images/r/13-dplyr-fig3.png)
+````
 
-
-```r
+````r
 continent mean_gdpPercap
      <fctr>          <dbl>
 1    Africa       2193.755
@@ -246,8 +212,9 @@ continent mean_gdpPercap
 
 > **도전과제 2에 대한 해답**
 >
+````
 >
->```r
+>````r
 >lifeExp_bycountry <- gapminder %>%
 >    group_by(country) %>%
 >    summarize(mean_lifeExp=mean(lifeExp))
@@ -255,53 +222,27 @@ continent mean_gdpPercap
 >lifeExp_bycountry %>%
 >    filter(mean_lifeExp == min(mean_lifeExp) | mean_lifeExp == max(mean_lifeExp))
 >```
->
->```
->## # A tibble: 2 × 2
->##   country      mean_lifeExp
->##   <chr>               <dbl>
->## 1 Iceland              76.5
->## 2 Sierra Leone         36.8
->```
 > 
 > 문제를 프는 또 다른 방식은 `dplyr` 팩키지 `arrange()` 함수를 사용하는 것이다.
 > `arrange()` 함수는 변수에 따라 데이터프레임을 행으로 정렬하는 기능을 갖고 있다.
 > `dplyr` 팩키지 다른 함수처럼 유사한 구문을 갖추고 있다.
 > `arrange()` 함수 내부에 `desc()` 함수를 사용해서 내림차순으로 정렬할 수 있다.
+>````
 >
->
->```r
+>````r
 >lifeExp_bycountry %>%
 >    arrange(mean_lifeExp) %>%
 >    head(1)
->```
->
->```
->## # A tibble: 1 × 2
->##   country      mean_lifeExp
->##   <chr>               <dbl>
->## 1 Sierra Leone         36.8
->```
->
->```r
 >lifeExp_bycountry %>%
 >    arrange(desc(mean_lifeExp)) %>%
 >    head(1)
 >```
 >
->```
->## # A tibble: 1 × 2
->##   country mean_lifeExp
->##   <chr>          <dbl>
->## 1 Iceland         76.5
->```
+>`group_by()` 훔수에 변수 다수를 사용해서 집단으로 그룹을 만들 수도 있다.
+>`year` 와 `continent` 변수로 그룹을 만들어 보자.
+>````
 
-`group_by()` 훔수에 변수 다수를 사용해서 집단으로 그룹을 만들 수도 있다.
-`year` 와 `continent` 변수로 그룹을 만들어 보자.
-
-
-
-```r
+````r
 gdp_bycontinents_byyear <- gapminder %>%
     group_by(continent,year) %>%
     summarize(mean_gdpPercap=mean(gdpPercap))
@@ -309,10 +250,9 @@ gdp_bycontinents_byyear <- gapminder %>%
 
 이미 매우 막강한 기능이지만, 더 좋게 만들 수 있다!
 `summarize()` 함수에 변수 하나를 정의하는 것에 한정되지 않고, 확장도 가능하다.
+````
 
-
-
-```r
+````r
 gdp_pop_bycontinents_byyear <- gapminder %>%
     group_by(continent,year) %>%
     summarize(mean_gdpPercap=mean(gdpPercap),
@@ -329,49 +269,29 @@ gdp_pop_bycontinents_byyear <- gapminder %>%
 예를 들어, 2002년 데이터셋에 포함된 국가수를 확인하고자 한다면,
 `count()` 함수를 사용하는데, 관심있는 그룹을 포함하는 칼럼을 하나이상 지정할 수도 있다.
 선택사항으로 `sort=TRUE`를 인자로 추가하면 내림차순으로 결과를 정렬할 수 있다:
+````
 
-
-```r
+````r
 gapminder %>%
     filter(year == 2002) %>%
     count(continent, sort = TRUE)
 ```
 
-```
-##   continent  n
-## 1    Africa 52
-## 2      Asia 33
-## 3    Europe 30
-## 4  Americas 25
-## 5   Oceania  2
-```
-
 계산과정에서 관측점 갯수를 파악할 필요가 있는 경우, `n()` 함수가 유용하다.
 예를 들어, 각 대륙별 기대수명 표준오차를 다음과 같이 구할 수도 있다:
+````
 
-
-```r
+````r
 gapminder %>%
     group_by(continent) %>%
     summarize(se_le = sd(lifeExp)/sqrt(n()))
 ```
 
-```
-## # A tibble: 5 × 2
-##   continent se_le
-##   <chr>     <dbl>
-## 1 Africa    0.366
-## 2 Americas  0.540
-## 3 Asia      0.596
-## 4 Europe    0.286
-## 5 Oceania   0.775
-```
-
 요약 연산을 몇개 엮어서 계산할 수도 있다;
 이 경우 각 대륙별 기대수명에 대한 `minimum`, `maximum`, `mean`, `se` 값을 다음과 같이 계산한다:
+````
 
-
-```r
+````r
 gapminder %>%
     group_by(continent) %>%
     summarize(
@@ -381,23 +301,12 @@ gapminder %>%
       se_le = sd(lifeExp)/sqrt(n()))
 ```
 
-```
-## # A tibble: 5 × 5
-##   continent mean_le min_le max_le se_le
-##   <chr>       <dbl>  <dbl>  <dbl> <dbl>
-## 1 Africa       48.9   23.6   76.4 0.366
-## 2 Americas     64.7   37.6   80.7 0.540
-## 3 Asia         60.1   28.8   82.6 0.596
-## 4 Europe       71.9   43.6   81.8 0.286
-## 5 Oceania      74.3   69.1   81.2 0.775
-```
-
 ## `mutate()` 사용 {#r-dplyr-mutate}
 
 `mutate()` 함수를 사용해서 정보를 요약하기 전에(혹은 후에도) 새로운 변수를 생성할 수 있다.
+````
 
-
-```r
+````r
 gdp_pop_bycontinents_byyear <- gapminder %>%
     mutate(gdp_billion=gdpPercap*pop/10^9) %>%
     group_by(continent,year) %>%
@@ -415,9 +324,9 @@ gdp_pop_bycontinents_byyear <- gapminder %>%
 `mutate()` 와 `ifelse()`의 단순 조합을 통해서 필요한 것만 적절히 필터링할 수 있다: 즉, 새로운 무언가를 생성하는 순간에 말이다.
 이러한 가독성 높은 문장을 통해서 (데이터프레임 전체 차원을 변경시키지 않고도) 특정 데이터를 버리거나,
 조건에 따라 값을 갱신하는데 신속하고 강력한 방식을 제공할 수 있게 된다.
+````
 
-
-```r
+````r
 ## keeping all data but "filtering" after a certain condition
 # calculate GDP only for people with a life expectation above 25
 gdp_pop_bycontinents_byyear_above25 <- gapminder %>%
@@ -443,9 +352,9 @@ gdp_future_bycontinents_byyear_high_lifeExp <- gapminder %>%
 
 `ggplot2`을 사용해서 퍼싯(facet) 패널 계층을 추가해서 작은 창에 그래프를 담아내는 방식을 
 앞선 시각화 수업에서 확인했따. 다음에 앞서 사용한 코드가 나와 있다:
+````
 
-
-```r
+````r
 # Get the start letter of each country
 starts.with <- substr(gapminder$country, start = 1, stop = 1)
 # Filter countries that start with "A" or "Z"
@@ -455,8 +364,6 @@ ggplot(data = az.countries, aes(x = year, y = lifeExp, color = continent)) +
   geom_line() + facet_wrap( ~ country)
 ```
 
-<img src="13-dplyr_files/figure-html/unnamed-chunk-20-1.png" width="576" style="display: block; margin: auto;" />
-
 상기 코드는 원하는 그래프를 만들어 주지만,
 다른 용도도 뚜렷이 없는 변수(`starts.with`, `az.countries`)도 생성시키게 된다.
 `%>%` 연산자를 사용해서 `dplyr` 함수를 엮어 데이터를 파이프에 흘러 보냈듯이,
@@ -465,9 +372,9 @@ ggplot(data = az.countries, aes(x = year, y = lifeExp, color = continent)) +
 `ggplot()` 함수에 `data =` 인자를 명세할 필요는 없다.
 `dplyr`, `ggplot2` 함수를 조합하게 되면, 동일한 그래프를 생성하는데 있어
 변수를 새로 생성시키거나 데이터를 변경할 필요가 없어진다.
+````
 
-
-```r
+````r
 gapminder %>%
    # Get the start letter of each country
    mutate(startsWith = substr(country, start = 1, stop = 1)) %>%
@@ -479,13 +386,11 @@ gapminder %>%
    facet_wrap( ~ country)
 ```
 
-<img src="13-dplyr_files/figure-html/unnamed-chunk-21-1.png" width="576" style="display: block; margin: auto;" />
-
 `dplyr` 함수를 사용하게 되면 문제를 단순화할 수 있다. 예를 들어,
 첫 두단계를 다음과 같이 조합할 수도 있다:
+````
 
-
-```r
+````r
 gapminder %>%
     # Filter countries that start with "A" or "Z"
 	filter(substr(country, start = 1, stop = 1) %in% c("A", "Z")) %>%
@@ -494,8 +399,6 @@ gapminder %>%
 	geom_line() +
 	facet_wrap( ~ country)
 ```
-
-<img src="13-dplyr_files/figure-html/unnamed-chunk-22-1.png" width="576" style="display: block; margin: auto;" />
 
 ## 고급 도전과제 {#r-dplyr-challenge-advanced}
 
@@ -507,8 +410,9 @@ gapminder %>%
 
 > **고급 도전과제에 대한 해답**
 >
+````
 >
->```r
+>````r
 >lifeExp_2countries_bycontinents <- gapminder %>%
 >    filter(year==2002) %>%
 >    group_by(continent) %>%
@@ -516,11 +420,11 @@ gapminder %>%
 >    summarize(mean_lifeExp=mean(lifeExp)) %>%
 >    arrange(desc(mean_lifeExp))
 >```
-
-## 추가 학습 교재 {#r-dplyr-advanced}
-
-* [R for Data Science](http://r4ds.had.co.nz/)
-* [Data Wrangling Cheat sheet](https://www.rstudio.com/wp-content/uploads/2015/02/data-wrangling-cheatsheet.pdf)
-* [Introduction to dplyr](https://cran.rstudio.com/web/packages/dplyr/vignettes/introduction.html)
-* [Data wrangling with R and RStudio](https://www.rstudio.com/resources/webinars/data-wrangling-with-r-and-rstudio/)
-
+>
+>## 추가 학습 교재 {#r-dplyr-advanced}
+>
+>* [R for Data Science](http://r4ds.had.co.nz/)
+>* [Data Wrangling Cheat sheet](https://www.rstudio.com/wp-content/uploads/2015/02/data-wrangling-cheatsheet.pdf)
+>* [Introduction to dplyr](https://cran.rstudio.com/web/packages/dplyr/vignettes/introduction.html)
+>* [Data wrangling with R and RStudio](https://www.rstudio.com/resources/webinars/data-wrangling-with-r-and-rstudio/)
+>````

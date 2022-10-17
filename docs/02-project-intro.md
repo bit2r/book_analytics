@@ -170,7 +170,7 @@ R에 데이터를 올리는 방법을 결정할 때 데이터셋에 대해 더 �
 > ```
 > 
 > ```
-> ## -rw-r--r-- 1 statkclee 없음 80K May 12 23:26 data/gapminder_data.csv
+> ## -rw-r--r--  1 tidyverse  staff    80K 10 17 19:31 data/gapminder_data.csv
 > ```
 >
 > 파일 크기는 80K.
@@ -181,7 +181,7 @@ R에 데이터를 올리는 방법을 결정할 때 데이터셋에 대해 더 �
 > ```
 > 
 > ```
-> ## 1705 data/gapminder_data.csv
+> ##     1705 data/gapminder_data.csv
 > ```
 >
 > 1705 줄이다. 데이터는 다음과 같이 생겼다:

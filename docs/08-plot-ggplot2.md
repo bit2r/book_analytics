@@ -39,7 +39,9 @@ ggplot(data = gapminder, aes(x = gdpPercap, y = lifeExp)) +
   geom_point()
 ```
 
-<img src="08-plot-ggplot2_files/figure-html/lifeExp-vs-gdpPercap-scatter-1.png" width="576" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics{08-plot-ggplot2_files/figure-latex/lifeExp-vs-gdpPercap-scatter-1} \end{center}
 
 그래서, 처음으로 수행하는 작업은 `ggplot` 함수를 호출하는 것이다. 
 이 함수가 R에게 새로운 그림을 생성하고, 
@@ -62,7 +64,9 @@ ggplot(data = gapminder, aes(x = gdpPercap, y = lifeExp)) +
 ggplot(data = gapminder, aes(x = gdpPercap, y = lifeExp))
 ```
 
-<img src="08-plot-ggplot2_files/figure-html/r-ggplot-1.png" width="576" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics{08-plot-ggplot2_files/figure-latex/r-ggplot-1} \end{center}
 
 `ggplot` 함수에 데이터를 시각적으로 표현하는 방법을 전달할 필요가 있다. 
 **geom** 계층을 추가해서 작업이 수행된다. 본 사례에서, `geom_point`를 사용했다; 
@@ -74,7 +78,9 @@ ggplot(data = gapminder, aes(x = gdpPercap, y = lifeExp)) +
   geom_point()
 ```
 
-<img src="08-plot-ggplot2_files/figure-html/lifeExp-vs-gdpPercap-scatter2-1.png" width="576" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics{08-plot-ggplot2_files/figure-latex/lifeExp-vs-gdpPercap-scatter2-1} \end{center}
 
 
 ## 도전과제 1 {#r-ggplot-challenge-one}
@@ -98,7 +104,9 @@ ggplot(data = gapminder, aes(x = gdpPercap, y = lifeExp)) + geom_point()
 > ggplot(data = gapminder, aes(x = year, y = lifeExp)) + geom_point()
 > ```
 > 
-> <img src="08-plot-ggplot2_files/figure-html/ch1-sol-1.png" width="576" style="display: block; margin: auto;" />
+> 
+> 
+> \begin{center}\includegraphics{08-plot-ggplot2_files/figure-latex/ch1-sol-1} \end{center}
 >
 
 ## 도전과제 2 {#r-ggplot-challenge-two}
@@ -123,7 +131,9 @@ ggplot(data = gapminder, aes(x = gdpPercap, y = lifeExp)) + geom_point()
 >   geom_point()
 > ```
 > 
-> <img src="08-plot-ggplot2_files/figure-html/ch2-sol-1.png" width="576" style="display: block; margin: auto;" />
+> 
+> 
+> \begin{center}\includegraphics{08-plot-ggplot2_files/figure-latex/ch2-sol-1} \end{center}
 >
 
 
@@ -139,7 +149,9 @@ ggplot(data = gapminder, aes(x=year, y=lifeExp, by=country, color=continent)) +
   geom_line()
 ```
 
-<img src="08-plot-ggplot2_files/figure-html/lifeExp-line-1.png" width="576" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics{08-plot-ggplot2_files/figure-latex/lifeExp-line-1} \end{center}
 
 `geom_point` 계층을 추가하는 대신에, `geom_line` 계층을 추가했다.
 *aes*로 **by**를 추가해서, `ggplot`이 각 국가를 직선으로 연결해서 도식화한다.
@@ -153,7 +165,9 @@ ggplot(data = gapminder, aes(x=year, y=lifeExp, by=country, color=continent)) +
   geom_line() + geom_point()
 ```
 
-<img src="08-plot-ggplot2_files/figure-html/lifeExp-line-point-1.png" width="576" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics{08-plot-ggplot2_files/figure-latex/lifeExp-line-point-1} \end{center}
 
 각 계층은 이전 계층 위에 도식화됨에 주목한다.
 이번 예제에서, 점이 직선 *위에* 도식화되었다.
@@ -166,7 +180,9 @@ ggplot(data = gapminder, aes(x=year, y=lifeExp, by=country)) +
   geom_line(aes(color=continent)) + geom_point()
 ```
 
-<img src="08-plot-ggplot2_files/figure-html/lifeExp-layer-example-1-1.png" width="576" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics{08-plot-ggplot2_files/figure-latex/lifeExp-layer-example-1-1} \end{center}
 
 이번 예제에서, *aesthetic*인 **색상** 매핑이 `ggplot`에 전역으로 설정된 점 선택옵션에서 
 `geom_line` 계층으로 이동했다. 그래서, 해당 점에는 더이상 적용되지 않는다.
@@ -198,7 +214,9 @@ ggplot(data = gapminder, aes(x=year, y=lifeExp, by=country)) +
 >  geom_point() + geom_line(aes(color=continent))
 > ```
 > 
-> <img src="08-plot-ggplot2_files/figure-html/ch3-sol-1.png" width="576" style="display: block; margin: auto;" />
+> 
+> 
+> \begin{center}\includegraphics{08-plot-ggplot2_files/figure-latex/ch3-sol-1} \end{center}
 >
 > 선이 점 위에 올라온다!
 >
@@ -215,7 +233,9 @@ ggplot(data = gapminder, aes(x = gdpPercap, y = lifeExp, color=continent)) +
   geom_point()
 ```
 
-<img src="08-plot-ggplot2_files/figure-html/lifeExp-vs-gdpPercap-scatter3-1.png" width="576" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics{08-plot-ggplot2_files/figure-latex/lifeExp-vs-gdpPercap-scatter3-1} \end{center}
 
 현재, 일인당 GDP에 일부 심각한 이상점이 있어 점사이 내재된 관계를 보기 힘들다.
 *scale* 척도함수를 사용해서 y-축 척도를 변경한다.
@@ -229,7 +249,9 @@ ggplot(data = gapminder, aes(x = gdpPercap, y = lifeExp)) +
   geom_point(alpha = 0.5) + scale_x_log10()
 ```
 
-<img src="08-plot-ggplot2_files/figure-html/axis-scale-1.png" width="576" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics{08-plot-ggplot2_files/figure-latex/axis-scale-1} \end{center}
 
 그림에 렌더링하기 전에 `log10` 함수가 `gdpPercap` 칼럼값에 변환을 시켰다.
 그래서, 각 자리수 10은 변환된 척도에 1씩 증가에 대응된다. 
@@ -256,7 +278,9 @@ ggplot(data = gapminder, aes(x = gdpPercap, y = lifeExp)) +
   geom_point() + scale_x_log10() + geom_smooth(method="lm")
 ```
 
-<img src="08-plot-ggplot2_files/figure-html/lm-fit-1.png" width="576" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics{08-plot-ggplot2_files/figure-latex/lm-fit-1} \end{center}
 
 굵은 선은 `geom_smooth` 계층에 *aesthetic* **크기**를 설정해서 조정할 수 있다:
 
@@ -266,7 +290,9 @@ ggplot(data = gapminder, aes(x = gdpPercap, y = lifeExp)) +
   geom_point() + scale_x_log10() + geom_smooth(method="lm", size=1.5)
 ```
 
-<img src="08-plot-ggplot2_files/figure-html/lm-fit2-1.png" width="576" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics{08-plot-ggplot2_files/figure-latex/lm-fit2-1} \end{center}
 
 *미학적인* 항목을 명세할 수 있는 방식이 두개 있다.
 바로 앞에서 `geom_smooth` 함수에 인자로 전달해서 **크기**에 대한 미학적인 설정을 했다.
@@ -291,7 +317,9 @@ ggplot(data = gapminder, aes(x = gdpPercap, y = lifeExp)) +
 >  geom_smooth(method="lm", size=1.5)
 > ```
 > 
-> <img src="08-plot-ggplot2_files/figure-html/ch4a-sol-1.png" width="576" style="display: block; margin: auto;" />
+> 
+> 
+> \begin{center}\includegraphics{08-plot-ggplot2_files/figure-latex/ch4a-sol-1} \end{center}
 
 ## 도전과제 4b {#r-ggplot-challenge-four-b}
 
@@ -314,40 +342,35 @@ ggplot(data = gapminder, aes(x = gdpPercap, y = lifeExp)) +
 > ggplot(data = gapminder, aes(x = gdpPercap, y = lifeExp, color = continent)) +
 > geom_point(size=3, shape=17) + scale_x_log10() +
 > geom_smooth(method="lm", size=1.5)
->```
+> ```
 >
-><img src="08-plot-ggplot2_files/figure-html/ch4b-sol-1.png" width="576" style="display: block; margin: auto;" />
+>
+>## 다중-창(Multi-Panel) 그림 {#r-ggplot-multi-panel}
+>
+>앞에서 그림 하나에 모든 국가에 대해 시간의 변화에 따른 기대수명 변화를 시각화했다.
+>대안으로, **패싯(facet)** 창 계층을 추가해서, 그림을 여러개 창으로 쪼갤 수도 있다:
+>"A" 혹은 "Z"로 시작하는 국가명을 갖는 나라만 집중해 보자.
+>
+>::: {#r-tips-multi-panel .rmdcaution}
+>
+>**팁(Tip)**
+>
+>데이터 부분집합(subset)을 추출하고 시작해 나간다.
+>`substr` 함수를 사용해서 문자열의 일부를 뽑아낸다; 이 경우에,
+>`gapminder$country` 벡터의 시작과 끝 위치 문자가 된다.
+>`%in%` 연산자를 통해서 조건을 만족하는 긴 코드 대신에 다중 비교를 
+>간단히 수행한다. 
+>(이 경우, `starts.with %in% c("A", "Z")` 코드는
+>`starts.with == "A" | starts.with == "Z"`)와 동일하다)
+>:::
+>```
 
-
-## 다중-창(Multi-Panel) 그림 {#r-ggplot-multi-panel}
-
-앞에서 그림 하나에 모든 국가에 대해 시간의 변화에 따른 기대수명 변화를 시각화했다.
-대안으로, **패싯(facet)** 창 계층을 추가해서, 그림을 여러개 창으로 쪼갤 수도 있다:
-"A" 혹은 "Z"로 시작하는 국가명을 갖는 나라만 집중해 보자.
-
-::: {#r-tips-multi-panel .rmdcaution}
-
-**팁(Tip)**
-
-데이터 부분집합(subset)을 추출하고 시작해 나간다.
-`substr` 함수를 사용해서 문자열의 일부를 뽑아낸다; 이 경우에,
-`gapminder$country` 벡터의 시작과 끝 위치 문자가 된다.
-`%in%` 연산자를 통해서 조건을 만족하는 긴 코드 대신에 다중 비교를 
-간단히 수행한다. 
-(이 경우, `starts.with %in% c("A", "Z")` 코드는
-`starts.with == "A" | starts.with == "Z"`)와 동일하다)
-:::
-
-
-
-```r
+````r
 starts.with <- substr(gapminder$country, start = 1, stop = 1)
 az.countries <- gapminder[starts.with %in% c("A", "Z"), ]
 ggplot(data = az.countries, aes(x = year, y = lifeExp, color=continent)) +
   geom_line() + facet_wrap( ~ country)
 ```
-
-<img src="08-plot-ggplot2_files/figure-html/facet-1.png" width="576" style="display: block; margin: auto;" />
 
 `facet_wrap` 계층은 "공식(formula)"을 인자로 받는데, (`~`) 틸드로 표기한다.
 `gapminder` 데이터셋 국가별 칼럼의 유일한 값 각각에 대해 별도 창을 통해 도식화한다.
@@ -363,9 +386,9 @@ x-축이 너무 난잡하고, y-축은 데이터프레임 칼럼명이 아닌 "L
 범례 제목은 `aes()` 함수에서 명세한 것과 동일한 명칭을 사용한다.
 따라서, 색상 범례 제목은 `color = "Continent"`이 되는 반면에,
 채우기(`fill`) 범례는 `fill = "MyTitle"`으로 설정하게 된다.
+````
 
-
-```r
+````r
 ggplot(data = az.countries, aes(x = year, y = lifeExp, color=continent)) +
   geom_line() + facet_wrap( ~ country) +
   labs(
@@ -377,8 +400,6 @@ ggplot(data = az.countries, aes(x = year, y = lifeExp, color=continent)) +
   theme(axis.text.x=element_blank(), axis.ticks.x=element_blank())
 ```
 
-<img src="08-plot-ggplot2_files/figure-html/theme-1.png" width="576" style="display: block; margin: auto;" />
-
 
 ## 그래프 내보내기 {#r-ggplot-export}
 
@@ -389,9 +410,9 @@ ggplot(data = az.countries, aes(x = year, y = lifeExp, color=continent)) +
 먼저 `lifeExp_plot` 변수에 그래프를 할당하고 나서, 
 `ggsave()` 함수에 `png` 형식으로 `results` 디렉토리에 저장하도록 지정한다.
 (현 작업디렉토리에 `results/` 폴더가 생성되어 있어야 한다.)
+````
 
-
-```r
+````r
 lifeExp_plot <- ggplot(data = az.countries, aes(x = year, y = lifeExp, color=continent)) +
   geom_line() + facet_wrap( ~ country) +
   labs(
@@ -437,10 +458,13 @@ ggsave(filename = "results/lifeExp.png", plot = lifeExp_plot, width = 12, height
 > - x-축을 변경해서 쭉 펼쳐진 데이터를 좀더 보기좋게 시각화하라.
 > - 패싯 계층을 추가해서 연도별로 밀도 그래프를 창에 도식화하라.
 >
+````
 > 
 > ```r
 > ggplot(data = gapminder, aes(x = gdpPercap, fill=continent)) +
 >  geom_density(alpha=0.6) + facet_wrap( ~ year) + scale_x_log10()
 > ```
 > 
-> <img src="08-plot-ggplot2_files/figure-html/ch5-sol-1.png" width="576" style="display: block; margin: auto;" />
+> 
+> 
+> \begin{center}\includegraphics{08-plot-ggplot2_files/figure-latex/ch5-sol-1} \end{center}

@@ -109,7 +109,7 @@ cats$weight + cats$coat
 ```
 
 ```
-## Error in cats$weight + cats$coat: non-numeric argument to binary operator
+## Error in cats$weight + cats$coat: 이항연산자에 수치가 아닌 인수입니다
 ```
 
 상기 문장에서 발생된 것을 이해하는 것이 R로 데이터 분석을 성공적으로 수행하는데 중요하다.
@@ -216,7 +216,7 @@ cats$weight + 2
 ```
 
 ```
-## Error in cats$weight + 2: non-numeric argument to binary operator
+## Error in cats$weight + 2: 이항연산자에 수치가 아닌 인수입니다
 ```
 
 무슨 일이 일어난 걸까? R이 csv 파일을 불러올 때, 

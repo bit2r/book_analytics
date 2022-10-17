@@ -581,7 +581,7 @@ ls
 ##     }
 ##     else all.names
 ## }
-## <bytecode: 0x00000274c290f458>
+## <bytecode: 0x7fe50f2a6eb0>
 ## <environment: namespace:base>
 ```
 
@@ -614,7 +614,7 @@ rm(list <- ls())
 ```
 
 ```
-## Error in rm(list <- ls()): ... must contain names or character strings
+## Error in rm(list <- ls()): ...는 반드시 이름 또는 문자열을 포함하고 있어야 합니다
 ```
 
 ::: {#r-tips-warning .rmdcaution}
@@ -700,25 +700,21 @@ mass와 age 중 어는 것이 더 큰가?
 > 상기 질문에 답하는 방식은 다음과 같이 `>` 을 사용하는 것이다:
 >
 > 
-> ```r
+> ````r
 > mass > age
 > ```
 > 
-> ```
-> ## [1] TRUE
-> ```
->
 > 109.25 가 102 보다 큰 경우 TRUE를 반환한다.
-
-
-## 도전과제 4 {#r-rstudio-chellenge-four}
-
-mass와 age 변수를 지워서 작업환경을 청소하자.
-
+> 
+> 
+> ## 도전과제 4 {#r-rstudio-chellenge-four}
+> 
+> mass와 age 변수를 지워서 작업환경을 청소하자.
+> 
 > **도전과제 4에 대한 해답**
->
+> 
 > `rm` 명령어를 사용해서 청소 작업을 수행한다.
->
+> ````
 > 
 > ```r
 > rm(age, mass)
@@ -734,9 +730,9 @@ mass와 age 변수를 지워서 작업환경을 청소하자.
 > `install.packages()` 명령어를 사용해서 팩키지를 설치한다.
 >
 > 
-> ```r
+> ````r
 > install.packages("ggplot2")
 > install.packages("plyr")
 > install.packages("gapminder")
 > ```
-
+> ````

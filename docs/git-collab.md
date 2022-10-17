@@ -39,7 +39,7 @@ $ git clone https://github.com/vlad/planets.git ~/Desktop/vlad-planets
 
 'vlad'를 소유자 사용자이름(저장소를 소유하고 있는 사람)으로 바꾼다.
 
-![저장소 클론한 후 모습](assets/images/git/github-collaboration.svg)
+<!-- ![저장소 클론한 후 모습](assets/images/git/github-collaboration.svg) -->
 
 앞서 작업했던 것과 정확하게 동일한 방식으로, 
 협력자는 이제 소유자의 저장소 클론에서 변경을 마음대로 할 수 있다:

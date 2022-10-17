@@ -42,11 +42,11 @@ $ git init
 로컬 저장소는 다음과 같이 도식적으로 표현할 수 있다:
 
 
-![Git 준비영역(Staging) 로컬 저장소](assets/images/git/git-staging-area.svg)
+<!-- ![Git 준비영역(Staging) 로컬 저장소](assets/images/git/git-staging-area.svg) -->
 
 이제 저장소가 두개로 늘어서, 도식적으로 표현하면 다음과 같다:
 
-![신선한 신규 GitHub 저장소](assets/images/git/git-freshly-made-github-repo.svg)
+<!-- ![신선한 신규 GitHub 저장소](assets/images/git/git-freshly-made-github-repo.svg) -->
 
 현재 로컬 저장소는 여전히 `mars.txt` 파일에 대한 이전 작업정보를 담고 있다. 
 하지만, GitHub의 원격 저장소에는 아직 어떠한 파일도 담고 있지는 않다:
@@ -167,7 +167,7 @@ Git으로 하여금 사용자명과 비밀번호를 사용하도록 기본설정
 
 이제 로컬 저장소와 원격 저장소는 다음과 같은 상태가 된다:
 
-![첫번째 푸쉬(Push) 다음 GitHub 저장소](assets/images/git/github-repo-after-first-push.svg)
+<!-- ![첫번째 푸쉬(Push) 다음 GitHub 저장소](assets/images/git/github-repo-after-first-push.svg) -->
 
 
 ::: {#git-u-flag .rmdcaution}

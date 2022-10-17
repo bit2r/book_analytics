@@ -1,13 +1,2 @@
-bookdown::gitbook:
-  css: style.css
-  config:
-    toc:
-      collapse: section
-      before: |
-        <li><a href="./">데이터 과학을 지탱하는 기본기</a></li>
-      after: |
-        <li><a href="https://github.com/rstudio/bookdown" target="blank">bookdown 패키지로 출판작업</a></li>
-    edit: https://github.com/bit2r/book_analytics/edit/master/%s
-bookdown::bs4_book:
-  includes:
-    in_header: google_analytics.html
+bookdown::pdf_book:
+  latex_engine: xelatex

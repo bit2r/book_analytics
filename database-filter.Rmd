@@ -35,7 +35,7 @@ select ident from Visited where site='DR-1';
 ```
 
 
-![SQL 필터 쿼리문 적용 과정](assets/images/database/sql-filter.svg)
+<!-- ![SQL 필터 쿼리문 적용 과정](assets/images/database/sql-filter.svg) -->
 
 
 데이터를 필터링하는데 불 연산자(Boolean Operators)를 사용할 수 있다. 예를 들어, 1930년 이후로 DR-1 사이트에서 수집된 모든 정보를 요청할 수도 있다.

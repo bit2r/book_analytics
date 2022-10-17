@@ -31,23 +31,32 @@ select * from Visited;
 ```
 
 
-<div class="knitsql-table">
+\begin{table}
 
-
-Table: (\#tab:sqlite-null-sql)결측값을 갖는 테이블
-
-| ident|site  |dated      |
-|-----:|:-----|:----------|
-|   619|DR-1  |1927-02-08 |
-|   622|DR-1  |1927-02-10 |
-|   734|DR-3  |1939-01-07 |
-|   735|DR-3  |1930-01-12 |
-|   751|DR-3  |1930-02-26 |
-|   752|DR-3  |NA         |
-|   837|MSK-4 |1932-01-14 |
-|   844|DR-1  |1932-03-22 |
-
-</div>
+\caption{(\#tab:sqlite-null-sql)결측값을 갖는 테이블}
+\centering
+\begin{tabular}[t]{r|l|l}
+\hline
+ident & site & dated\\
+\hline
+619 & DR-1 & 1927-02-08\\
+\hline
+622 & DR-1 & 1927-02-10\\
+\hline
+734 & DR-3 & 1939-01-07\\
+\hline
+735 & DR-3 & 1930-01-12\\
+\hline
+751 & DR-3 & 1930-02-26\\
+\hline
+752 & DR-3 & NA\\
+\hline
+837 & MSK-4 & 1932-01-14\\
+\hline
+844 & DR-1 & 1932-03-22\\
+\hline
+\end{tabular}
+\end{table}
 
 
 `Null` 다른 값과는 다르게 동작한다.
@@ -60,17 +69,20 @@ select * from Visited where dated<'1930-00-00';
 ```
 
 
-<div class="knitsql-table">
+\begin{table}
 
-
-Table: (\#tab:sqlite-null-where)1930년 이전 레코드 선택
-
-| ident|site |dated      |
-|-----:|:----|:----------|
-|   619|DR-1 |1927-02-08 |
-|   622|DR-1 |1927-02-10 |
-
-</div>
+\caption{(\#tab:sqlite-null-where)1930년 이전 레코드 선택}
+\centering
+\begin{tabular}[t]{r|l|l}
+\hline
+ident & site & dated\\
+\hline
+619 & DR-1 & 1927-02-08\\
+\hline
+622 & DR-1 & 1927-02-10\\
+\hline
+\end{tabular}
+\end{table}
 
 
 결과 2개를 얻게 되고, 만약 1930년 동안 혹은 이후 레코드를 선택한다면,
@@ -81,20 +93,26 @@ select * from Visited where dated>='1930-00-00';
 ```
 
 
-<div class="knitsql-table">
+\begin{table}
 
-
-Table: (\#tab:sqlite-null-where-after)1930년 이후 레코드 선택
-
-| ident|site  |dated      |
-|-----:|:-----|:----------|
-|   734|DR-3  |1939-01-07 |
-|   735|DR-3  |1930-01-12 |
-|   751|DR-3  |1930-02-26 |
-|   837|MSK-4 |1932-01-14 |
-|   844|DR-1  |1932-03-22 |
-
-</div>
+\caption{(\#tab:sqlite-null-where-after)1930년 이후 레코드 선택}
+\centering
+\begin{tabular}[t]{r|l|l}
+\hline
+ident & site & dated\\
+\hline
+734 & DR-3 & 1939-01-07\\
+\hline
+735 & DR-3 & 1930-01-12\\
+\hline
+751 & DR-3 & 1930-02-26\\
+\hline
+837 & MSK-4 & 1932-01-14\\
+\hline
+844 & DR-1 & 1932-03-22\\
+\hline
+\end{tabular}
+\end{table}
 
 
 결과를 5개 얻게되지만, 레코드 #752은 결과값 어디에도 존재하지 않는다.
@@ -117,15 +135,18 @@ select * from Visited where dated=NULL;
 ```
 
 
-<div class="knitsql-table">
+\begin{table}
+
+\caption{(\#tab:sqlite-null-filter)NULL 값 갖는 레코드 선택}
+\centering
+\begin{tabular}[t]{r|l|l}
+\hline
+ident & site & dated\\
 
 
-Table: (\#tab:sqlite-null-filter)NULL 값 갖는 레코드 선택
-
-| ident|site |dated |
-|-----:|:----|:-----|
-
-</div>
+\hline
+\end{tabular}
+\end{table}
 
 
 
@@ -134,15 +155,18 @@ select * from Visited where dated!=NULL;
 ```
 
 
-<div class="knitsql-table">
+\begin{table}
+
+\caption{(\#tab:sqlite-not-null-filter)NULL 값 갖지 않는 레코드 선택}
+\centering
+\begin{tabular}[t]{r|l|l}
+\hline
+ident & site & dated\\
 
 
-Table: (\#tab:sqlite-not-null-filter)NULL 값 갖지 않는 레코드 선택
-
-| ident|site |dated |
-|-----:|:----|:-----|
-
-</div>
+\hline
+\end{tabular}
+\end{table}
 
 
 `null` 인지 아닌지를 점검하기 위해서, 특별한 테스트 `is null`을 사용해야 한다.
@@ -154,16 +178,18 @@ select * from Visited where dated is NULL;
 ```
 
 
-<div class="knitsql-table">
+\begin{table}
 
-
-Table: (\#tab:sqlite-is-null-filter)`is NULL` 사용 NULL 값 갖는 레코드 선택
-
-| ident|site |dated |
-|-----:|:----|:-----|
-|   752|DR-3 |NA    |
-
-</div>
+\caption{(\#tab:sqlite-is-null-filter)`is NULL` 사용 NULL 값 갖는 레코드 선택}
+\centering
+\begin{tabular}[t]{r|l|l}
+\hline
+ident & site & dated\\
+\hline
+752 & DR-3 & NA\\
+\hline
+\end{tabular}
+\end{table}
 
 
 혹은, 역으로는 `is not null`을 사용한다.
@@ -175,22 +201,30 @@ select * from Visited where dated is not NULL;
 ```
 
 
-<div class="knitsql-table">
+\begin{table}
 
-
-Table: (\#tab:sqlite-is-not-null-filter)`is not NULL` 사용 NULL 값 갖지 않는 레코드 선택
-
-| ident|site  |dated      |
-|-----:|:-----|:----------|
-|   619|DR-1  |1927-02-08 |
-|   622|DR-1  |1927-02-10 |
-|   734|DR-3  |1939-01-07 |
-|   735|DR-3  |1930-01-12 |
-|   751|DR-3  |1930-02-26 |
-|   837|MSK-4 |1932-01-14 |
-|   844|DR-1  |1932-03-22 |
-
-</div>
+\caption{(\#tab:sqlite-is-not-null-filter)`is not NULL` 사용 NULL 값 갖지 않는 레코드 선택}
+\centering
+\begin{tabular}[t]{r|l|l}
+\hline
+ident & site & dated\\
+\hline
+619 & DR-1 & 1927-02-08\\
+\hline
+622 & DR-1 & 1927-02-10\\
+\hline
+734 & DR-3 & 1939-01-07\\
+\hline
+735 & DR-3 & 1930-01-12\\
+\hline
+751 & DR-3 & 1930-02-26\\
+\hline
+837 & MSK-4 & 1932-01-14\\
+\hline
+844 & DR-1 & 1932-03-22\\
+\hline
+\end{tabular}
+\end{table}
 
 
 `null` 값은 나타나는 곳마다 두통을 일으킨다.
@@ -203,19 +237,24 @@ select * from Survey where quant='sal' and person!='lake';
 ```
 
 
-<div class="knitsql-table">
+\begin{table}
 
-
-Table: (\#tab:sqlite-null-filter-headache)NULL 값이 갖는 문제
-
-| taken|person |quant | reading|
-|-----:|:------|:-----|-------:|
-|   619|dyer   |sal   |    0.13|
-|   622|dyer   |sal   |    0.09|
-|   752|roe    |sal   |   41.60|
-|   837|roe    |sal   |   22.50|
-
-</div>
+\caption{(\#tab:sqlite-null-filter-headache)NULL 값이 갖는 문제}
+\centering
+\begin{tabular}[t]{r|l|l|r}
+\hline
+taken & person & quant & reading\\
+\hline
+619 & dyer & sal & 0.13\\
+\hline
+622 & dyer & sal & 0.09\\
+\hline
+752 & roe & sal & 41.60\\
+\hline
+837 & roe & sal & 22.50\\
+\hline
+\end{tabular}
+\end{table}
 
 하지만, 상기 쿼리 필터는 누가 측정을 했는지 모르는 레코드는 빠뜨린다.
 다시 한번, 이유는 `person`이 `null`일 때, `!=`비교는 `null`값을 만들어서
@@ -229,20 +268,26 @@ select * from Survey where quant='sal' and (person!='lake' or person is null);
 ```
 
 
-<div class="knitsql-table">
+\begin{table}
 
-
-Table: (\#tab:sqlite-null-filter-solution)NULL 값 갖는 문제 명시적 해결
-
-| taken|person |quant | reading|
-|-----:|:------|:-----|-------:|
-|   619|dyer   |sal   |    0.13|
-|   622|dyer   |sal   |    0.09|
-|   735|NA     |sal   |    0.06|
-|   752|roe    |sal   |   41.60|
-|   837|roe    |sal   |   22.50|
-
-</div>
+\caption{(\#tab:sqlite-null-filter-solution)NULL 값 갖는 문제 명시적 해결}
+\centering
+\begin{tabular}[t]{r|l|l|r}
+\hline
+taken & person & quant & reading\\
+\hline
+619 & dyer & sal & 0.13\\
+\hline
+622 & dyer & sal & 0.09\\
+\hline
+735 & NA & sal & 0.06\\
+\hline
+752 & roe & sal & 41.60\\
+\hline
+837 & roe & sal & 22.50\\
+\hline
+\end{tabular}
+\end{table}
 
 
 여전히 이러한 접근법이 맞는 것인지 아닌 것인지 판단할 필요가 있다.

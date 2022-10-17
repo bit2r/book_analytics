@@ -34,7 +34,7 @@ select dated from Visited;
 select min(dated) from Visited;
 ```
 
-![SQL 집합함수 최소값(min) 찾는 과정](assets/images/database/sql-aggregation.svg)
+<!-- ![SQL 집합함수 최소값(min) 찾는 과정](assets/images/database/sql-aggregation.svg) -->
 
 
 

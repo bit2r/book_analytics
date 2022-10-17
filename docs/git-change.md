@@ -282,7 +282,7 @@ Git이 `git commit -a` 혹은 `git commit --all` 명령어 사용을 재촉한�
 
 :::
 
-![Git 준비(Staging) 영역](assets/images/git/git-staging-area.svg)
+<!-- ![Git 준비(Staging) 영역](assets/images/git/git-staging-area.svg) -->
 
 파일 변경사항을 편집기에서 준비 영역으로, 그리고 장기 저장소로 옮기는 것을 살펴보자. 
 먼저, 파일에 행 하나를 더 추가한다:
@@ -482,7 +482,7 @@ git add <directory-with-files>
 먼저 변경된 파일을 준비 영역(Staging)에 `git add` 명령어로 추가하고 나서, 
 준비 영역의 변경사항을 저장소에 `git commit` 명령어로 최종 커밋한다:
 
-![Git 커밋(Commit) 작업흐름](assets/images/git/git-committing.svg)
+<!-- ![Git 커밋(Commit) 작업흐름](assets/images/git/git-committing.svg) -->
 
 ::: {#git-repo-commit .rmdcaution}
 

@@ -327,7 +327,7 @@ yielding the correct result, elegance, readability, and speed.
 다음과 같은 디렉토리 구조를 사용할 것이다.
 
 
-![`Find` 찾기 예제 파일 구조](assets/images/find-file-tree.svg){width=100%}
+<!-- ![`Find` 찾기 예제 파일 구조](assets/images/find-file-tree.svg){width=100%} -->
 
 
 

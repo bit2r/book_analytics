@@ -275,7 +275,7 @@ print(x)
 
 > **도전과제 2에 대한 해답**
 >
-> ```{r}
+> ```{r, eval = FALSE}
 > x_subset <- x[x<7 & x>4]
 > print(x_subset)
 >```
@@ -289,7 +289,7 @@ print(x)
 R에서 이런 점을 회피하려고 하지만 --- 하지만, 행 명칭은 유일무이해야 된다.)
 다음 예제를 고려해보자:
 
-```{r subset-tips-non-unique}
+```{r subset-tips-non-unique, eval = FALSE}
 x <- 1:3
 x
 names(x) <- c('a', 'a', 'a')
@@ -322,13 +322,13 @@ x[-"a"]
 
 하지만, `!=` 연산자를 사용하면 논리 벡터를 생성해서 원하는 바를 쟁취할 수 있다:
 
-```{r subset-name-vector-test}
+```{r subset-name-vector-test, eval = FALSE}
 x[names(x) != "a"]
 ```
 
 다수 명칭을 갖는 인덱스로 건너뛰는 것도 그리 녹록하지 않다. `"a"`, `"c"` 원소를 누락시키고자 한다고 가정하고, 다음과 같이 시도해 보자:
 
-```{r subset-name-vectors-test}
+```{r subset-name-vectors-test, eval = FALSE}
 x[names(x)!=c("a","c")]
 ```
 
@@ -340,7 +340,7 @@ R이 뭔가 작업을 수행하는데, 주의가 필요하다는 경고를 보�
 
 다음 코드에 대해서 비교연산 구성요소에 대해서 살펴보자:
 
-```{r recycle-names}
+```{r recycle-names, eval = FALSE}
 names(x) != c("a", "c")
 ```
 
@@ -367,7 +367,7 @@ R로 하여금 정말 원하는 바(우측편의 모든 원소와 매칭되는 �
 `%in%` 연산자는 좌측편의 각 원소를 탐색하는데 이번 경우 `x`의 명칭을 찾아보고 "해당 원소가 두번째 인자에도 존재하는가?"라고 묻는다.
 여기서는 값을 제외하고자 하기 때문에 `!`연산자를 사용해서 "in"을 부정하는 "not in"이 되도록 한다:
 
-```{r names-recycle-again}
+```{r names-recycle-again, eval = FALSE}
 x[! names(x) %in% c("a","c") ]
 ```
 
@@ -381,7 +381,7 @@ x[! names(x) %in% c("a","c") ]
 논리 벡터를 생성하는 연산을 어떻게 구성할 수 있을까?
 다음 데이터를 가지고 있다고 가정하자:
 
-```{r subset-asia}
+```{r subset-asia, eval = FALSE}
 seAsia <- c("Myanmar","Thailand","Cambodia","Vietnam","Laos")
 ## read in the gapminder data that we downloaded in episode 2
 gapminder <- read.csv("data/gapminder_data.csv", header=TRUE)
@@ -406,7 +406,7 @@ countries <- unique(as.character(gapminder$country))
 >
 > - 문제에 대한 **투박한** (하지만, 기술적으로 맞는) 방식은  다음과 같다.
 >
-> ```{r results="hide"}
+> ```{r results="hide", eval = FALSE}
 >  (countries=="Myanmar" | countries=="Thailand" |
 >  countries=="Cambodia" | countries == "Vietnam" | countries=="Laos")
 > ```

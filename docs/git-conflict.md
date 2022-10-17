@@ -99,7 +99,7 @@ hint: See the 'Note about fast-forwards' in 'git push --help' for details.
 ```
 
 
-![충돌하는 변경사항](assets/images/git/conflict.svg)
+<!-- ![충돌하는 변경사항](assets/images/git/conflict.svg) -->
 
 Git이 푸쉬를 거절한다.
 이유는 로컬 브랜로 반영되지 않는 신규 업데이터트가 원격 저장소에 있음을 Git이 탐지했기 때문이다.

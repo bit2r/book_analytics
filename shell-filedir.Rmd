@@ -46,7 +46,7 @@ Nelle 과학자 컴퓨터의 파일시스템을 사례로 살펴보자.
 
 넬 과학자 컴퓨터의 파일 시스템은 다음과 같다:
 
-![파일 시스템](assets/images/filesystem.svg)
+<!-- ![파일 시스템](assets/images/filesystem.svg) -->
 
 최상단에 다른 모든 것을 담고 있는 **루트 디렉토리(root directory)**가 있다. 
 슬래쉬 `/` 문자로 나타내고, `/users/nelle`에서 맨 앞에 슬래쉬이기도 하다.
@@ -75,7 +75,7 @@ Nelle 과학자 컴퓨터의 파일시스템을 사례로 살펴보자.
 
 `/Users` 하단에서 Nelle 과학자 컴퓨터 계정과, 랩실 동료 미이라(Mummy)와 늑대인간(Wolfman) 디렉토리를 볼 수 있다.
 
-![홈 디렉토리](assets/images/home-directories.svg)
+<!-- ![홈 디렉토리](assets/images/home-directories.svg) -->
 
 미이라(Mummy) 파일은 `/Users/imhotep` 디렉토리에 저장되어 있고, 
 늑대인가(Wolfman)의 파일은 `/Users/larry` 디렉토리에 저장되어 있고 
@@ -542,7 +542,7 @@ Amanda가 홈디렉토리인 `/home/amanda`로 돌아가도록 사용할 수 있
 3. `2012-12-01/ 2013-01-08/ 2013-01-27/`
 4. `original/ pnas_final/ pnas_sub/`
 
-![도전과제 질문 파일 시스템](assets/images/filesystem-challenge.svg)
+<!-- ![도전과제 질문 파일 시스템](assets/images/filesystem-challenge.svg) -->
 
 > **해답 풀이**
 > 

@@ -236,7 +236,7 @@ gap_long$year <- as.integer(gap_long$year)
 >```
 >
 >```
->## # A tibble: 15 × 3
+>## # A tibble: 15 x 3
 >## # Groups:   continent [5]
 >##   continent obs_type       means
 >##   <chr>     <chr>          <dbl>
@@ -246,7 +246,7 @@ gap_long$year <- as.integer(gap_long$year)
 >## 4 Americas  gdpPercap     7136. 
 >## 5 Americas  lifeExp         64.7
 >## 6 Americas  pop       24504795. 
->## # … with 9 more rows
+>## # ... with 9 more rows
 >```
 
 ## `spread()`로 'long' 형식 변환 {#r-tidyr-wide}

@@ -18,7 +18,7 @@ editor_options:
 그리고 나서, 다양한 그래프가 첨부된 분석결과를 기술해서 동료에게 전자우편을 발송한다.
 분석결과를 논의하는 과정에서 어느 그래프를 지칭하지에 대해 혼란이 종종 수반된다.
 
-워드나 $\LaTeX$으로 좀더 정형화된 보고서로 옮겨가도, 그림이 올바르게 
+워드나 LaTeX으로 좀더 정형화된 보고서로 옮겨가도, 그림이 올바르게 
 보이도록 만드는데 상당한 시간을 소비한다. 대부분 페이지 나누기가 문제가 된다.
 
 웹페이지(html 파일)를 생성하게 되면 모든 것이 훨씬 수월해진다.
@@ -263,7 +263,8 @@ R 코드가 실행되면서 입력과 출력 모두에 대해 치환된다; 그�
 마크다운과 그림 문서는 [pandoc](http://pandoc.org/) 도구로 처리되어서,
 마크다운 파일을 그림이 내장된 HTML 파일로 탈바꿈하게 된다.
 
-<img src="15-knitr-markdown_files/figure-html/rmd_to_html_fig-1.png" width="768" style="display: block; margin: auto auto auto 0;" />
+
+\begin{flushleft}\includegraphics{15-knitr-markdown_files/figure-latex/rmd_to_html_fig-1} \end{flushleft}
 
 
 ## 덩어리 선택옵션 {#r-knitr-chunk-options}

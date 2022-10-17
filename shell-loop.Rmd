@@ -366,7 +366,7 @@ cp unicorn.dat original-unicorn.dat
 다음 도표를 통해서 스크립트가 동작할 때 어떤 작업이 수행하고 있는지 상술하고 있다.
 또한 `echo` 명령어를 사려깊이 사용하는 것이 어떻게 훌륭한 디버깅 기술이 되는지도 보여주고 있다.
 
-![For Loop in Action](assets/images/shell_script_for_loop_flow_chart.svg){width=100%}
+<!-- ![For Loop in Action](assets/images/shell_script_for_loop_flow_chart.svg){width=100%} -->
 
 ## Nelle의 파이프라인: 많은 파일 처리하기 {#nelle-shell-loop}
 

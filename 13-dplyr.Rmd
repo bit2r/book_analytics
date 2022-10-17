@@ -71,7 +71,7 @@ library("dplyr")
 year_country_gdp <- select(gapminder,year,country,gdpPercap)
 ```
 
-![](../fig/13-dplyr-fig1.png)
+<!-- ![](../fig/13-dplyr-fig1.png) -->
 
 `year_country_gdp` 데이터프레임을 열게되면, 
 `year`, `country`, `gdpPercap` 변수만 담겨있는 것을 보게 된다.
@@ -115,7 +115,7 @@ year_country_gdp_euro <- gapminder %>%
 > 데이터프레임 행의 갯수는 얼마나 되는가? 그리고 이유는 무엇인가?
 >
 > > ## 도전과제 1에 대한 해답
-> >```{r}
+> >```{r, eval = FALSE}
 > >year_country_lifeExp_Africa <- gapminder %>%
 > >                            filter(continent=="Africa") %>%
 > >                            select(year,country,lifeExp)
@@ -139,7 +139,7 @@ year_country_gdp_euro <- gapminder %>%
 `group_by()`는 본질적으로, 필터에서 사용할 수 있는 모든 유일무이한 기준을 사용할 수 있다.
 
 
-```{r}
+```{r, eval = FALSE}
 str(gapminder)
 
 str(gapminder %>% group_by(continent))
@@ -149,7 +149,7 @@ str(gapminder %>% group_by(continent))
 `grouped_df`는 `list` 리스트로 간주될 있는데, `list`에 각 항목은 `data.frame`으로, 
 각 데이터프레임은 특정 대륙 `continent`에 대응되는 행만 담겨진다(적어도 상기 예제의 경우).
 
-![](../fig/13-dplyr-fig2.png)
+<!-- ![](../fig/13-dplyr-fig2.png) -->
 
 ## `summarize()` 사용 {#r-dplyr-summarize}
 
@@ -162,7 +162,7 @@ str(gapminder %>% group_by(continent))
 각각에 대해 함수(예를 들어 `mean()` 혹은 `sd()`)를 `summarize()` 내부에서 실행시키게 된다.
 
 
-```{r}
+```{r, eval = FALSE}
 gdp_bycontinents <- gapminder %>%
     group_by(continent) %>%
     summarize(mean_gdpPercap=mean(gdpPercap))
@@ -190,7 +190,7 @@ continent mean_gdpPercap
 
 > **도전과제 2에 대한 해답**
 >
->```{r}
+>```{r, eval = FALSE}
 >lifeExp_bycountry <- gapminder %>%
 >    group_by(country) %>%
 >    summarize(mean_lifeExp=mean(lifeExp))
@@ -204,7 +204,7 @@ continent mean_gdpPercap
 > `dplyr` 팩키지 다른 함수처럼 유사한 구문을 갖추고 있다.
 > `arrange()` 함수 내부에 `desc()` 함수를 사용해서 내림차순으로 정렬할 수 있다.
 >
->```{r}
+>```{r, eval = FALSE}
 >lifeExp_bycountry %>%
 >    arrange(mean_lifeExp) %>%
 >    head(1)
@@ -217,7 +217,7 @@ continent mean_gdpPercap
 `year` 와 `continent` 변수로 그룹을 만들어 보자.
 
 
-```{r}
+```{r, eval = FALSE}
 gdp_bycontinents_byyear <- gapminder %>%
     group_by(continent,year) %>%
     summarize(mean_gdpPercap=mean(gdpPercap))
@@ -227,7 +227,7 @@ gdp_bycontinents_byyear <- gapminder %>%
 `summarize()` 함수에 변수 하나를 정의하는 것에 한정되지 않고, 확장도 가능하다.
 
 
-```{r}
+```{r, eval = FALSE}
 gdp_pop_bycontinents_byyear <- gapminder %>%
     group_by(continent,year) %>%
     summarize(mean_gdpPercap=mean(gdpPercap),
@@ -245,7 +245,7 @@ gdp_pop_bycontinents_byyear <- gapminder %>%
 `count()` 함수를 사용하는데, 관심있는 그룹을 포함하는 칼럼을 하나이상 지정할 수도 있다.
 선택사항으로 `sort=TRUE`를 인자로 추가하면 내림차순으로 결과를 정렬할 수 있다:
 
-```{r}
+```{r, eval = FALSE}
 gapminder %>%
     filter(year == 2002) %>%
     count(continent, sort = TRUE)
@@ -254,7 +254,7 @@ gapminder %>%
 계산과정에서 관측점 갯수를 파악할 필요가 있는 경우, `n()` 함수가 유용하다.
 예를 들어, 각 대륙별 기대수명 표준오차를 다음과 같이 구할 수도 있다:
 
-```{r}
+```{r, eval = FALSE}
 gapminder %>%
     group_by(continent) %>%
     summarize(se_le = sd(lifeExp)/sqrt(n()))
@@ -263,7 +263,7 @@ gapminder %>%
 요약 연산을 몇개 엮어서 계산할 수도 있다;
 이 경우 각 대륙별 기대수명에 대한 `minimum`, `maximum`, `mean`, `se` 값을 다음과 같이 계산한다:
 
-```{r}
+```{r, eval = FALSE}
 gapminder %>%
     group_by(continent) %>%
     summarize(
@@ -277,7 +277,7 @@ gapminder %>%
 
 `mutate()` 함수를 사용해서 정보를 요약하기 전에(혹은 후에도) 새로운 변수를 생성할 수 있다.
 
-```{r}
+```{r, eval = FALSE}
 gdp_pop_bycontinents_byyear <- gapminder %>%
     mutate(gdp_billion=gdpPercap*pop/10^9) %>%
     group_by(continent,year) %>%
@@ -296,7 +296,7 @@ gdp_pop_bycontinents_byyear <- gapminder %>%
 이러한 가독성 높은 문장을 통해서 (데이터프레임 전체 차원을 변경시키지 않고도) 특정 데이터를 버리거나,
 조건에 따라 값을 갱신하는데 신속하고 강력한 방식을 제공할 수 있게 된다.
 
-```{r}
+```{r, eval = FALSE}
 ## keeping all data but "filtering" after a certain condition
 # calculate GDP only for people with a life expectation above 25
 gdp_pop_bycontinents_byyear_above25 <- gapminder %>%
@@ -323,7 +323,7 @@ gdp_future_bycontinents_byyear_high_lifeExp <- gapminder %>%
 `ggplot2`을 사용해서 퍼싯(facet) 패널 계층을 추가해서 작은 창에 그래프를 담아내는 방식을 
 앞선 시각화 수업에서 확인했따. 다음에 앞서 사용한 코드가 나와 있다:
 
-```{r}
+```{r, eval = FALSE}
 # Get the start letter of each country
 starts.with <- substr(gapminder$country, start = 1, stop = 1)
 # Filter countries that start with "A" or "Z"
@@ -342,7 +342,7 @@ ggplot(data = az.countries, aes(x = year, y = lifeExp, color = continent)) +
 `dplyr`, `ggplot2` 함수를 조합하게 되면, 동일한 그래프를 생성하는데 있어
 변수를 새로 생성시키거나 데이터를 변경할 필요가 없어진다.
 
-```{r}
+```{r, eval = FALSE}
 gapminder %>%
    # Get the start letter of each country
    mutate(startsWith = substr(country, start = 1, stop = 1)) %>%
@@ -357,7 +357,7 @@ gapminder %>%
 `dplyr` 함수를 사용하게 되면 문제를 단순화할 수 있다. 예를 들어,
 첫 두단계를 다음과 같이 조합할 수도 있다:
 
-```{r}
+```{r, eval = FALSE}
 gapminder %>%
     # Filter countries that start with "A" or "Z"
 	filter(substr(country, start = 1, stop = 1) %in% c("A", "Z")) %>%
@@ -377,7 +377,7 @@ gapminder %>%
 
 > **고급 도전과제에 대한 해답**
 >
->```{r}
+>```{r, eval = FALSE}
 >lifeExp_2countries_bycontinents <- gapminder %>%
 >    filter(year==2002) %>%
 >    group_by(continent) %>%

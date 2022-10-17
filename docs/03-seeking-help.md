@@ -107,42 +107,41 @@ sessionInfo()
 ```
 
 ```
-## R version 4.2.0 (2022-04-22 ucrt)
-## Platform: x86_64-w64-mingw32/x64 (64-bit)
-## Running under: Windows 10 x64 (build 19043)
+## R version 4.1.3 (2022-03-10)
+## Platform: x86_64-apple-darwin20.6.0 (64-bit)
+## Running under: macOS Big Sur 11.7
 ## 
 ## Matrix products: default
+## BLAS:   /usr/local/Cellar/openblas/0.3.20/lib/libopenblasp-r0.3.20.dylib
+## LAPACK: /usr/local/Cellar/r/4.1.3/lib/R/lib/libRlapack.dylib
 ## 
 ## locale:
-## [1] LC_COLLATE=Korean_Korea.utf8  LC_CTYPE=Korean_Korea.utf8   
-## [3] LC_MONETARY=Korean_Korea.utf8 LC_NUMERIC=C                 
-## [5] LC_TIME=Korean_Korea.utf8    
+## [1] ko_KR.UTF-8/ko_KR.UTF-8/ko_KR.UTF-8/C/ko_KR.UTF-8/C
 ## 
 ## attached base packages:
 ## [1] stats     graphics  grDevices utils     datasets  methods   base     
 ## 
 ## other attached packages:
-##  [1] forcats_0.5.1   stringr_1.4.0   dplyr_1.0.8     purrr_0.3.4    
-##  [5] readr_2.1.2     tidyr_1.2.0     tibble_3.1.6    ggplot2_3.3.5  
-##  [9] tidyverse_1.3.1 DBI_1.1.2      
+##  [1] forcats_0.5.1   stringr_1.4.0   dplyr_1.0.9     purrr_0.3.4    
+##  [5] readr_2.1.1     tidyr_1.2.0     tibble_3.1.8    ggplot2_3.3.5  
+##  [9] tidyverse_1.3.1 DBI_1.1.1      
 ## 
 ## loaded via a namespace (and not attached):
-##  [1] Rcpp_1.0.8.3     lubridate_1.8.0  assertthat_0.2.1 digest_0.6.29   
-##  [5] utf8_1.2.2       R6_2.5.1         cellranger_1.1.0 backports_1.4.1 
-##  [9] reprex_2.0.1     RSQLite_2.2.12   evaluate_0.15    httr_1.4.2      
-## [13] pillar_1.7.0     rlang_1.0.2      readxl_1.4.0     rstudioapi_0.13 
-## [17] blob_1.2.3       jquerylib_0.1.4  rmarkdown_2.13   bit_4.0.4       
-## [21] munsell_0.5.0    broom_0.8.0      compiler_4.2.0   modelr_0.1.8    
-## [25] xfun_0.30        pkgconfig_2.0.3  htmltools_0.5.2  downlit_0.4.0   
-## [29] tidyselect_1.1.2 bookdown_0.26    fansi_1.0.3      crayon_1.5.1    
-## [33] tzdb_0.3.0       dbplyr_2.1.1     withr_2.5.0      grid_4.2.0      
-## [37] jsonlite_1.8.0   gtable_0.3.0     lifecycle_1.0.1  magrittr_2.0.3  
-## [41] scales_1.2.0     cli_3.2.0        stringi_1.7.6    cachem_1.0.6    
-## [45] fs_1.5.2         xml2_1.3.3       bslib_0.3.1      ellipsis_0.3.2  
-## [49] generics_0.1.2   vctrs_0.4.1      tools_4.2.0      bit64_4.0.5     
-## [53] glue_1.6.2       hms_1.1.1        fastmap_1.1.0    yaml_2.3.5      
-## [57] colorspace_2.0-3 rvest_1.0.2      memoise_2.0.1    knitr_1.38      
-## [61] haven_2.5.0      sass_0.4.1
+##  [1] tidyselect_1.1.2 xfun_0.28        haven_2.4.3      colorspace_2.0-2
+##  [5] vctrs_0.4.1      generics_0.1.2   htmltools_0.5.3  yaml_2.2.1      
+##  [9] blob_1.2.2       utf8_1.2.2       rlang_1.0.4      pillar_1.8.1    
+## [13] glue_1.6.2       withr_2.5.0      bit64_4.0.5      dbplyr_2.1.1    
+## [17] modelr_0.1.8     readxl_1.3.1     lifecycle_1.0.1  munsell_0.5.0   
+## [21] gtable_0.3.0     cellranger_1.1.0 rvest_1.0.2      memoise_2.0.1   
+## [25] evaluate_0.14    knitr_1.36       tzdb_0.2.0       fastmap_1.1.0   
+## [29] fansi_1.0.3      broom_1.0.0      Rcpp_1.0.9       backports_1.4.0 
+## [33] scales_1.1.1     cachem_1.0.6     jsonlite_1.8.0   bit_4.0.4       
+## [37] fs_1.5.2         hms_1.1.1        digest_0.6.29    stringi_1.7.6   
+## [41] bookdown_0.24    grid_4.1.3       cli_3.3.0        tools_4.1.3     
+## [45] magrittr_2.0.3   RSQLite_2.2.12   crayon_1.5.1     pkgconfig_2.0.3 
+## [49] ellipsis_0.3.2   xml2_1.3.3       reprex_2.0.1     lubridate_1.8.0 
+## [53] assertthat_0.2.1 rmarkdown_2.11   httr_1.4.2       rstudioapi_0.13 
+## [57] R6_2.5.1         compiler_4.1.3
 ```
 
 `sessionInfo()`는 R 현재 버젼 정보과 함께 적재된 팩키지 정보를 출력한다.

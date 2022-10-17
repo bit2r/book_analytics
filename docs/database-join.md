@@ -33,25 +33,36 @@ select * from Site join Visited;
 ```
 
 
-<div class="knitsql-table">
+\begin{table}
 
-
-Table: (\#tab:sqlite-sql-join)SQL join 쿼리문
-
-|name |   lat| long| ident|site  |dated      |
-|:----|-----:|----:|-----:|:-----|:----------|
-|DR-1 | -49.9| -129|   619|DR-1  |1927-02-08 |
-|DR-1 | -49.9| -129|   622|DR-1  |1927-02-10 |
-|DR-1 | -49.9| -129|   734|DR-3  |1939-01-07 |
-|DR-1 | -49.9| -129|   735|DR-3  |1930-01-12 |
-|DR-1 | -49.9| -129|   751|DR-3  |1930-02-26 |
-|DR-1 | -49.9| -129|   752|DR-3  |NA         |
-|DR-1 | -49.9| -129|   837|MSK-4 |1932-01-14 |
-|DR-1 | -49.9| -129|   844|DR-1  |1932-03-22 |
-|DR-3 | -47.1| -127|   619|DR-1  |1927-02-08 |
-|DR-3 | -47.1| -127|   622|DR-1  |1927-02-10 |
-
-</div>
+\caption{(\#tab:sqlite-sql-join)SQL join 쿼리문}
+\centering
+\begin{tabular}[t]{l|r|r|r|l|l}
+\hline
+name & lat & long & ident & site & dated\\
+\hline
+DR-1 & -49.9 & -129 & 619 & DR-1 & 1927-02-08\\
+\hline
+DR-1 & -49.9 & -129 & 622 & DR-1 & 1927-02-10\\
+\hline
+DR-1 & -49.9 & -129 & 734 & DR-3 & 1939-01-07\\
+\hline
+DR-1 & -49.9 & -129 & 735 & DR-3 & 1930-01-12\\
+\hline
+DR-1 & -49.9 & -129 & 751 & DR-3 & 1930-02-26\\
+\hline
+DR-1 & -49.9 & -129 & 752 & DR-3 & NA\\
+\hline
+DR-1 & -49.9 & -129 & 837 & MSK-4 & 1932-01-14\\
+\hline
+DR-1 & -49.9 & -129 & 844 & DR-1 & 1932-03-22\\
+\hline
+DR-3 & -47.1 & -127 & 619 & DR-1 & 1927-02-08\\
+\hline
+DR-3 & -47.1 & -127 & 622 & DR-1 & 1927-02-10\\
+\hline
+\end{tabular}
+\end{table}
 
 
 `join`은 두 테이블을 **벡터곱(cross product)**한다.
@@ -69,23 +80,32 @@ select * from Site join Visited on Site.name = Visited.site;
 ```
 
 
-<div class="knitsql-table">
+\begin{table}
 
-
-Table: (\#tab:sqlite-sql-join-key)키값을 명시한 SQL join 쿼리문
-
-|name  |   lat| long| ident|site  |dated      |
-|:-----|-----:|----:|-----:|:-----|:----------|
-|DR-1  | -49.9| -129|   619|DR-1  |1927-02-08 |
-|DR-1  | -49.9| -129|   622|DR-1  |1927-02-10 |
-|DR-1  | -49.9| -129|   844|DR-1  |1932-03-22 |
-|DR-3  | -47.1| -127|   734|DR-3  |1939-01-07 |
-|DR-3  | -47.1| -127|   735|DR-3  |1930-01-12 |
-|DR-3  | -47.1| -127|   751|DR-3  |1930-02-26 |
-|DR-3  | -47.1| -127|   752|DR-3  |NA         |
-|MSK-4 | -48.9| -123|   837|MSK-4 |1932-01-14 |
-
-</div>
+\caption{(\#tab:sqlite-sql-join-key)키값을 명시한 SQL join 쿼리문}
+\centering
+\begin{tabular}[t]{l|r|r|r|l|l}
+\hline
+name & lat & long & ident & site & dated\\
+\hline
+DR-1 & -49.9 & -129 & 619 & DR-1 & 1927-02-08\\
+\hline
+DR-1 & -49.9 & -129 & 622 & DR-1 & 1927-02-10\\
+\hline
+DR-1 & -49.9 & -129 & 844 & DR-1 & 1932-03-22\\
+\hline
+DR-3 & -47.1 & -127 & 734 & DR-3 & 1939-01-07\\
+\hline
+DR-3 & -47.1 & -127 & 735 & DR-3 & 1930-01-12\\
+\hline
+DR-3 & -47.1 & -127 & 751 & DR-3 & 1930-02-26\\
+\hline
+DR-3 & -47.1 & -127 & 752 & DR-3 & NA\\
+\hline
+MSK-4 & -48.9 & -123 & 837 & MSK-4 & 1932-01-14\\
+\hline
+\end{tabular}
+\end{table}
 
 
 `on` 은  `where`와 같은 역할을 한다. 특정 테스트를 통과한 레코드만 간직한다.
@@ -106,23 +126,32 @@ on     Site.name=Visited.site;
 ```
 
 
-<div class="knitsql-table">
+\begin{table}
 
-
-Table: (\#tab:sqlite-sql-join-key-notation)점표기법을 적용한 SQL join 쿼리문
-
-|   lat| long|dated      |
-|-----:|----:|:----------|
-| -49.9| -129|1927-02-08 |
-| -49.9| -129|1927-02-10 |
-| -49.9| -129|1932-03-22 |
-| -47.1| -127|NA         |
-| -47.1| -127|1930-01-12 |
-| -47.1| -127|1930-02-26 |
-| -47.1| -127|1939-01-07 |
-| -48.9| -123|1932-01-14 |
-
-</div>
+\caption{(\#tab:sqlite-sql-join-key-notation)점표기법을 적용한 SQL join 쿼리문}
+\centering
+\begin{tabular}[t]{r|r|l}
+\hline
+lat & long & dated\\
+\hline
+-49.9 & -129 & 1927-02-08\\
+\hline
+-49.9 & -129 & 1927-02-10\\
+\hline
+-49.9 & -129 & 1932-03-22\\
+\hline
+-47.1 & -127 & NA\\
+\hline
+-47.1 & -127 & 1930-01-12\\
+\hline
+-47.1 & -127 & 1930-02-26\\
+\hline
+-47.1 & -127 & 1939-01-07\\
+\hline
+-48.9 & -123 & 1932-01-14\\
+\hline
+\end{tabular}
+\end{table}
 
 만약 두개의 테이블을 조인하는 것이 좋은 경우에, 많은 데이블을 조인하는 것은 더 좋아야한다.
 더 많은 `join` 절과 의미없는 레코드 조합을 필터링해서 제거하는 더 많은 `on` 테스트를 단순히 추가해서 사실 쿼리에 임의 갯수의 테이블을 조인할 수 있다.
@@ -137,25 +166,36 @@ and    Visited.dated is not null;
 ```
 
 
-<div class="knitsql-table">
+\begin{table}
 
-
-Table: (\#tab:sqlite-sql-join-key-more)다수 테이블을 확장하여 결합한 SQL join 쿼리문
-
-|   lat| long|dated      |quant | reading|
-|-----:|----:|:----------|:-----|-------:|
-| -49.9| -129|1927-02-08 |rad   |    9.82|
-| -49.9| -129|1927-02-08 |sal   |    0.13|
-| -49.9| -129|1927-02-10 |rad   |    7.80|
-| -49.9| -129|1927-02-10 |sal   |    0.09|
-| -47.1| -127|1939-01-07 |rad   |    8.41|
-| -47.1| -127|1939-01-07 |sal   |    0.05|
-| -47.1| -127|1939-01-07 |temp  |  -21.50|
-| -47.1| -127|1930-01-12 |rad   |    7.22|
-| -47.1| -127|1930-01-12 |sal   |    0.06|
-| -47.1| -127|1930-01-12 |temp  |  -26.00|
-
-</div>
+\caption{(\#tab:sqlite-sql-join-key-more)다수 테이블을 확장하여 결합한 SQL join 쿼리문}
+\centering
+\begin{tabular}[t]{r|r|l|l|r}
+\hline
+lat & long & dated & quant & reading\\
+\hline
+-49.9 & -129 & 1927-02-08 & rad & 9.82\\
+\hline
+-49.9 & -129 & 1927-02-08 & sal & 0.13\\
+\hline
+-49.9 & -129 & 1927-02-10 & rad & 7.80\\
+\hline
+-49.9 & -129 & 1927-02-10 & sal & 0.09\\
+\hline
+-47.1 & -127 & 1939-01-07 & rad & 8.41\\
+\hline
+-47.1 & -127 & 1939-01-07 & sal & 0.05\\
+\hline
+-47.1 & -127 & 1939-01-07 & temp & -21.50\\
+\hline
+-47.1 & -127 & 1930-01-12 & rad & 7.22\\
+\hline
+-47.1 & -127 & 1930-01-12 & sal & 0.06\\
+\hline
+-47.1 & -127 & 1930-01-12 & temp & -26.00\\
+\hline
+\end{tabular}
+\end{table}
 
 
 
@@ -181,20 +221,26 @@ select rowid, * from Person;
 ```
 
 
-<div class="knitsql-table">
+\begin{table}
 
-
-Table: (\#tab:sqlite-sql-join-rowid)행ID(rowid) 쿼리문
-
-|rowid |ident    |personal  |family   |
-|:-----|:--------|:---------|:--------|
-|1     |dyer     |William   |Dyer     |
-|2     |pb       |Frank     |Pabodie  |
-|3     |lake     |Anderson  |Lake     |
-|4     |roe      |Valentina |Roerich  |
-|5     |danforth |Frank     |Danforth |
-
-</div>
+\caption{(\#tab:sqlite-sql-join-rowid)행ID(rowid) 쿼리문}
+\centering
+\begin{tabular}[t]{l|l|l|l}
+\hline
+rowid & ident & personal & family\\
+\hline
+1 & dyer & William & Dyer\\
+\hline
+2 & pb & Frank & Pabodie\\
+\hline
+3 & lake & Anderson & Lake\\
+\hline
+4 & roe & Valentina & Roerich\\
+\hline
+5 & danforth & Frank & Danforth\\
+\hline
+\end{tabular}
+\end{table}
 
 
 ## 데이터 위생 (Data Hygiene) {#db-join-hygiene}

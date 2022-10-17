@@ -21,18 +21,22 @@ select * from Visited where site='DR-1';
 ```
 
 
-<div class="knitsql-table">
+\begin{table}
 
-
-Table: (\#tab:sqlite-sql-filter-site)SQL 필터 쿼리문
-
-| ident|site |dated      |
-|-----:|:----|:----------|
-|   619|DR-1 |1927-02-08 |
-|   622|DR-1 |1927-02-10 |
-|   844|DR-1 |1932-03-22 |
-
-</div>
+\caption{(\#tab:sqlite-sql-filter-site)SQL 필터 쿼리문}
+\centering
+\begin{tabular}[t]{r|l|l}
+\hline
+ident & site & dated\\
+\hline
+619 & DR-1 & 1927-02-08\\
+\hline
+622 & DR-1 & 1927-02-10\\
+\hline
+844 & DR-1 & 1932-03-22\\
+\hline
+\end{tabular}
+\end{table}
 
 
 데이터베이스 관리자는 두 단계로 나누어 쿼리를 실행한다.
@@ -49,21 +53,25 @@ select ident from Visited where site='DR-1';
 ```
 
 
-<div class="knitsql-table">
+\begin{table}
+
+\caption{(\#tab:sqlite-sql-filter-select)SQL 칼럼 선택과 결합된 필터 쿼리문}
+\centering
+\begin{tabular}[t]{r}
+\hline
+ident\\
+\hline
+619\\
+\hline
+622\\
+\hline
+844\\
+\hline
+\end{tabular}
+\end{table}
 
 
-Table: (\#tab:sqlite-sql-filter-select)SQL 칼럼 선택과 결합된 필터 쿼리문
-
-| ident|
-|-----:|
-|   619|
-|   622|
-|   844|
-
-</div>
-
-
-![SQL 필터 쿼리문 적용 과정](assets/images/database/sql-filter.svg)
+<!-- ![SQL 필터 쿼리문 적용 과정](assets/images/database/sql-filter.svg) -->
 
 
 데이터를 필터링하는데 불 연산자(Boolean Operators)를 사용할 수 있다. 예를 들어, 1930년 이후로 DR-1 사이트에서 수집된 모든 정보를 요청할 수도 있다.
@@ -75,16 +83,18 @@ select * from Visited where (site='DR-1') and (dated>='1930-00-00');
 ```
 
 
-<div class="knitsql-table">
+\begin{table}
 
-
-Table: (\#tab:sqlite-sql-filter-boolean)SQL 필터 부울연산 반영쿼리문
-
-| ident|site |dated      |
-|-----:|:----|:----------|
-|   844|DR-1 |1932-03-22 |
-
-</div>
+\caption{(\#tab:sqlite-sql-filter-boolean)SQL 필터 부울연산 반영쿼리문}
+\centering
+\begin{tabular}[t]{r|l|l}
+\hline
+ident & site & dated\\
+\hline
+844 & DR-1 & 1932-03-22\\
+\hline
+\end{tabular}
+\end{table}
 
 
 
@@ -107,25 +117,36 @@ select * from Survey where person='lake' or person='roe';
 ```
 
 
-<div class="knitsql-table">
+\begin{table}
 
-
-Table: (\#tab:sqlite-sql-filter)SQL 필터 부울 선택(OR) 연산자 반영쿼리문
-
-| taken|person |quant | reading|
-|-----:|:------|:-----|-------:|
-|   734|lake   |sal   |    0.05|
-|   751|lake   |sal   |    0.10|
-|   752|lake   |rad   |    2.19|
-|   752|lake   |sal   |    0.09|
-|   752|lake   |temp  |  -16.00|
-|   752|roe    |sal   |   41.60|
-|   837|lake   |rad   |    1.46|
-|   837|lake   |sal   |    0.21|
-|   837|roe    |sal   |   22.50|
-|   844|roe    |rad   |   11.25|
-
-</div>
+\caption{(\#tab:sqlite-sql-filter)SQL 필터 부울 선택(OR) 연산자 반영쿼리문}
+\centering
+\begin{tabular}[t]{r|l|l|r}
+\hline
+taken & person & quant & reading\\
+\hline
+734 & lake & sal & 0.05\\
+\hline
+751 & lake & sal & 0.10\\
+\hline
+752 & lake & rad & 2.19\\
+\hline
+752 & lake & sal & 0.09\\
+\hline
+752 & lake & temp & -16.00\\
+\hline
+752 & roe & sal & 41.60\\
+\hline
+837 & lake & rad & 1.46\\
+\hline
+837 & lake & sal & 0.21\\
+\hline
+837 & roe & sal & 22.50\\
+\hline
+844 & roe & rad & 11.25\\
+\hline
+\end{tabular}
+\end{table}
 
 
 다른 방식으로, `in`을 사용하여 특정 집합에 값이 있는지 확인할 수 있다.
@@ -136,25 +157,36 @@ select * from Survey where person in ('lake', 'roe');
 ```
 
 
-<div class="knitsql-table">
+\begin{table}
 
-
-Table: (\#tab:sqlite-sql-filter-in)SQL 필터 가독성 높은 부울 선택(OR) 연산 쿼리문
-
-| taken|person |quant | reading|
-|-----:|:------|:-----|-------:|
-|   734|lake   |sal   |    0.05|
-|   751|lake   |sal   |    0.10|
-|   752|lake   |rad   |    2.19|
-|   752|lake   |sal   |    0.09|
-|   752|lake   |temp  |  -16.00|
-|   752|roe    |sal   |   41.60|
-|   837|lake   |rad   |    1.46|
-|   837|lake   |sal   |    0.21|
-|   837|roe    |sal   |   22.50|
-|   844|roe    |rad   |   11.25|
-
-</div>
+\caption{(\#tab:sqlite-sql-filter-in)SQL 필터 가독성 높은 부울 선택(OR) 연산 쿼리문}
+\centering
+\begin{tabular}[t]{r|l|l|r}
+\hline
+taken & person & quant & reading\\
+\hline
+734 & lake & sal & 0.05\\
+\hline
+751 & lake & sal & 0.10\\
+\hline
+752 & lake & rad & 2.19\\
+\hline
+752 & lake & sal & 0.09\\
+\hline
+752 & lake & temp & -16.00\\
+\hline
+752 & roe & sal & 41.60\\
+\hline
+837 & lake & rad & 1.46\\
+\hline
+837 & lake & sal & 0.21\\
+\hline
+837 & roe & sal & 22.50\\
+\hline
+844 & roe & rad & 11.25\\
+\hline
+\end{tabular}
+\end{table}
 
 
 `and`와 `or`를 조합할 수는 있지만, 어느 연산자가 먼저 수행되는지 주의할 필요가 있다.
@@ -166,22 +198,30 @@ select * from Survey where quant='sal' and person='lake' or person='roe';
 ```
 
 
-<div class="knitsql-table">
+\begin{table}
 
-
-Table: (\#tab:sqlite-sql-filter-order)SQL 필터 부울 선택(OR) 연산 적용순서
-
-| taken|person |quant | reading|
-|-----:|:------|:-----|-------:|
-|   734|lake   |sal   |    0.05|
-|   751|lake   |sal   |    0.10|
-|   752|lake   |sal   |    0.09|
-|   752|roe    |sal   |   41.60|
-|   837|lake   |sal   |    0.21|
-|   837|roe    |sal   |   22.50|
-|   844|roe    |rad   |   11.25|
-
-</div>
+\caption{(\#tab:sqlite-sql-filter-order)SQL 필터 부울 선택(OR) 연산 적용순서}
+\centering
+\begin{tabular}[t]{r|l|l|r}
+\hline
+taken & person & quant & reading\\
+\hline
+734 & lake & sal & 0.05\\
+\hline
+751 & lake & sal & 0.10\\
+\hline
+752 & lake & sal & 0.09\\
+\hline
+752 & roe & sal & 41.60\\
+\hline
+837 & lake & sal & 0.21\\
+\hline
+837 & roe & sal & 22.50\\
+\hline
+844 & roe & rad & 11.25\\
+\hline
+\end{tabular}
+\end{table}
 
 
 상기 결과는 Lake가 측정한 염분량과 Roerich가 측정한 *임의* 측정값이다.
@@ -194,21 +234,28 @@ select * from Survey where quant='sal' and (person='lake' or person='roe');
 ```
 
 
-<div class="knitsql-table">
+\begin{table}
 
-
-Table: (\#tab:sqlite-sql-filter-order-parenthesis)SQL 필터 괄호적용 부울 선택(OR) 연산 적용순서
-
-| taken|person |quant | reading|
-|-----:|:------|:-----|-------:|
-|   734|lake   |sal   |    0.05|
-|   751|lake   |sal   |    0.10|
-|   752|lake   |sal   |    0.09|
-|   752|roe    |sal   |   41.60|
-|   837|lake   |sal   |    0.21|
-|   837|roe    |sal   |   22.50|
-
-</div>
+\caption{(\#tab:sqlite-sql-filter-order-parenthesis)SQL 필터 괄호적용 부울 선택(OR) 연산 적용순서}
+\centering
+\begin{tabular}[t]{r|l|l|r}
+\hline
+taken & person & quant & reading\\
+\hline
+734 & lake & sal & 0.05\\
+\hline
+751 & lake & sal & 0.10\\
+\hline
+752 & lake & sal & 0.09\\
+\hline
+752 & roe & sal & 41.60\\
+\hline
+837 & lake & sal & 0.21\\
+\hline
+837 & roe & sal & 22.50\\
+\hline
+\end{tabular}
+\end{table}
 
 
 마지막으로 `distinct`와 `where`를 사용하여  두번째 수준의 필터링을 한다.
@@ -219,20 +266,26 @@ select distinct person, quant from Survey where person='lake' or person='roe';
 ```
 
 
-<div class="knitsql-table">
+\begin{table}
 
-
-Table: (\#tab:sqlite-sql-filter-order-distinct)SQL 중복제거 선택문과 결합된 필터 부울 선택(OR) 연산
-
-|person |quant |
-|:------|:-----|
-|lake   |sal   |
-|lake   |rad   |
-|lake   |temp  |
-|roe    |sal   |
-|roe    |rad   |
-
-</div>
+\caption{(\#tab:sqlite-sql-filter-order-distinct)SQL 중복제거 선택문과 결합된 필터 부울 선택(OR) 연산}
+\centering
+\begin{tabular}[t]{l|l}
+\hline
+person & quant\\
+\hline
+lake & sal\\
+\hline
+lake & rad\\
+\hline
+lake & temp\\
+\hline
+roe & sal\\
+\hline
+roe & rad\\
+\hline
+\end{tabular}
+\end{table}
 
 
 하지만, 기억하라. `distinct`는 처리될 때 선택된 칼럼에 표시되는 값에만 적용되고 전체 행에는 적용되지 않는다.

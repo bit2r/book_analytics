@@ -25,23 +25,32 @@ select dated from Visited;
 ```
 
 
-<div class="knitsql-table">
+\begin{table}
 
-
-Table: (\#tab:sqlite-sql-agg-select)SQL select 쿼리문
-
-|dated      |
-|:----------|
-|1927-02-08 |
-|1927-02-10 |
-|1939-01-07 |
-|1930-01-12 |
-|1930-02-26 |
-|NA         |
-|1932-01-14 |
-|1932-03-22 |
-
-</div>
+\caption{(\#tab:sqlite-sql-agg-select)SQL select 쿼리문}
+\centering
+\begin{tabular}[t]{l}
+\hline
+dated\\
+\hline
+1927-02-08\\
+\hline
+1927-02-10\\
+\hline
+1939-01-07\\
+\hline
+1930-01-12\\
+\hline
+1930-02-26\\
+\hline
+NA\\
+\hline
+1932-01-14\\
+\hline
+1932-03-22\\
+\hline
+\end{tabular}
+\end{table}
 
 
 하지만 조합하기 위해서는 `min` 혹은 `max` 같은 **집합 함수(aggregation function)**를 사용해야만 한다.
@@ -54,18 +63,20 @@ select min(dated) from Visited;
 ```
 
 
-<div class="knitsql-table">
+\begin{table}
 
+\caption{(\#tab:sqlite-sql-agg-min)최소값 집합 함수 적용 쿼리문}
+\centering
+\begin{tabular}[t]{l}
+\hline
+min(dated)\\
+\hline
+1927-02-08\\
+\hline
+\end{tabular}
+\end{table}
 
-Table: (\#tab:sqlite-sql-agg-min)최소값 집합 함수 적용 쿼리문
-
-|min(dated) |
-|:----------|
-|1927-02-08 |
-
-</div>
-
-![SQL 집합함수 최소값(min) 찾는 과정](assets/images/database/sql-aggregation.svg)
+<!-- ![SQL 집합함수 최소값(min) 찾는 과정](assets/images/database/sql-aggregation.svg) -->
 
 
 
@@ -75,16 +86,18 @@ select max(dated) from Visited;
 ```
 
 
-<div class="knitsql-table">
+\begin{table}
 
-
-Table: (\#tab:sqlite-sql-agg-max)최대값 집합 함수 적용 쿼리문
-
-|max(dated) |
-|:----------|
-|1939-01-07 |
-
-</div>
+\caption{(\#tab:sqlite-sql-agg-max)최대값 집합 함수 적용 쿼리문}
+\centering
+\begin{tabular}[t]{l}
+\hline
+max(dated)\\
+\hline
+1939-01-07\\
+\hline
+\end{tabular}
+\end{table}
 
 
 `min`과 `max`는 SQL에 내장된 단지 두개의 집합 함수다.
@@ -98,16 +111,18 @@ select avg(reading) from Survey where quant='sal';
 ```
 
 
-<div class="knitsql-table">
+\begin{table}
 
-
-Table: (\#tab:sqlite-sql-agg-avg)평균값 집합 함수 적용 쿼리문
-
-| avg(reading)|
-|------------:|
-|          7.2|
-
-</div>
+\caption{(\#tab:sqlite-sql-agg-avg)평균값 집합 함수 적용 쿼리문}
+\centering
+\begin{tabular}[t]{r}
+\hline
+avg(reading)\\
+\hline
+7.2\\
+\hline
+\end{tabular}
+\end{table}
 
 
 ```sql
@@ -115,16 +130,18 @@ select count(reading) from Survey where quant='sal';
 ```
 
 
-<div class="knitsql-table">
+\begin{table}
 
-
-Table: (\#tab:sqlite-sql-agg-count)개수 집합 함수 적용 쿼리문
-
-| count(reading)|
-|--------------:|
-|              9|
-
-</div>
+\caption{(\#tab:sqlite-sql-agg-count)개수 집합 함수 적용 쿼리문}
+\centering
+\begin{tabular}[t]{r}
+\hline
+count(reading)\\
+\hline
+9\\
+\hline
+\end{tabular}
+\end{table}
 
 
 
@@ -133,16 +150,18 @@ select sum(reading) from Survey where quant='sal';
 ```
 
 
-<div class="knitsql-table">
+\begin{table}
 
-
-Table: (\#tab:sqlite-sql-agg-sum)합계 집합 함수 적용 쿼리문
-
-| sum(reading)|
-|------------:|
-|         64.8|
-
-</div>
+\caption{(\#tab:sqlite-sql-agg-sum)합계 집합 함수 적용 쿼리문}
+\centering
+\begin{tabular}[t]{r}
+\hline
+sum(reading)\\
+\hline
+64.8\\
+\hline
+\end{tabular}
+\end{table}
 
 
 
@@ -157,16 +176,18 @@ select min(reading), max(reading) from Survey where quant='sal' and reading<=1.0
 ```
 
 
-<div class="knitsql-table">
+\begin{table}
 
-
-Table: (\#tab:sqlite-sql-agg-minmax)최소, 최대값 집합 함수 적용 쿼리문
-
-| min(reading)| max(reading)|
-|------------:|------------:|
-|         0.05|         0.21|
-
-</div>
+\caption{(\#tab:sqlite-sql-agg-minmax)최소, 최대값 집합 함수 적용 쿼리문}
+\centering
+\begin{tabular}[t]{r|r}
+\hline
+min(reading) & max(reading)\\
+\hline
+0.05 & 0.21\\
+\hline
+\end{tabular}
+\end{table}
 
 
 출력결과가 놀라움을 줄 수도 있지만, 원 결과값과 집합 결과를 조합할 수도 있다.
@@ -178,16 +199,18 @@ select person, count(*) from Survey where quant='sal' and reading<=1.0;
 ```
 
 
-<div class="knitsql-table">
+\begin{table}
 
-
-Table: (\#tab:sqlite-sql-agg-composition)원 결과값과 집합 함수를 적용한 쿼리문
-
-|person | count(*)|
-|:------|--------:|
-|dyer   |        7|
-
-</div>
+\caption{(\#tab:sqlite-sql-agg-composition)원 결과값과 집합 함수를 적용한 쿼리문}
+\centering
+\begin{tabular}[t]{l|r}
+\hline
+person & count(*)\\
+\hline
+dyer & 7\\
+\hline
+\end{tabular}
+\end{table}
 
 
 왜 Roerich 혹은 Dyer가 아닌 Lake의 이름이 나타날까요?
@@ -202,16 +225,18 @@ select person, count(*) from Survey where quant='sal' and reading<=1.0;
 ```
 
 
-<div class="knitsql-table">
+\begin{table}
 
-
-Table: (\#tab:sqlite-sql-agg-null)NULL 값이 포함된 원데이터에 집합 함수를 적용한 쿼리문
-
-|person | count(*)|
-|:------|--------:|
-|dyer   |        7|
-
-</div>
+\caption{(\#tab:sqlite-sql-agg-null)NULL 값이 포함된 원데이터에 집합 함수를 적용한 쿼리문}
+\centering
+\begin{tabular}[t]{l|r}
+\hline
+person & count(*)\\
+\hline
+dyer & 7\\
+\hline
+\end{tabular}
+\end{table}
 
 
 집합 함수의 마지막 중요한 한가지 기능은 매우 유용한 방식으로 나머지 SQL과는 일관되지 않다는 것이다.
@@ -226,16 +251,18 @@ select min(dated) from Visited;
 ```
 
 
-<div class="knitsql-table">
+\begin{table}
 
-
-Table: (\#tab:sqlite-sql-agg-null-deal)NULL 값이 포함된 원데이터를 명시적으로 처리한 후 집합 함수를 적용한 쿼리문
-
-|min(dated) |
-|:----------|
-|1927-02-08 |
-
-</div>
+\caption{(\#tab:sqlite-sql-agg-null-deal)NULL 값이 포함된 원데이터를 명시적으로 처리한 후 집합 함수를 적용한 쿼리문}
+\centering
+\begin{tabular}[t]{l}
+\hline
+min(dated)\\
+\hline
+1927-02-08\\
+\hline
+\end{tabular}
+\end{table}
 
 명시적으로 항상 다음과 같이 필터하는 쿼리를 작성할 필요가 없다.
 
@@ -245,16 +272,18 @@ select min(dated) from Visited where dated is not null;
 ```
 
 
-<div class="knitsql-table">
+\begin{table}
 
-
-Table: (\#tab:sqlite-sql-agg-null-explicit)NULL 값이 포함된 원데이터를 명시적으로 처리하지 않는 집합 함수를 적용한 쿼리문
-
-|min(dated) |
-|:----------|
-|1927-02-08 |
-
-</div>
+\caption{(\#tab:sqlite-sql-agg-null-explicit)NULL 값이 포함된 원데이터를 명시적으로 처리하지 않는 집합 함수를 적용한 쿼리문}
+\centering
+\begin{tabular}[t]{l}
+\hline
+min(dated)\\
+\hline
+1927-02-08\\
+\hline
+\end{tabular}
+\end{table}
 
 
 한번에 모든 레코드를 집합하는 것이 항상 타당하지는 않다.
@@ -269,16 +298,18 @@ where quant='rad';
 ```
 
 
-<div class="knitsql-table">
+\begin{table}
 
-
-Table: (\#tab:sqlite-sql-agg-rad-issue)주의깊이 살펴볼 쿼리문
-
-|person | count(reading)| round(avg(reading), 2)|
-|:------|--------------:|----------------------:|
-|dyer   |              8|                   6.56|
-
-</div>
+\caption{(\#tab:sqlite-sql-agg-rad-issue)주의깊이 살펴볼 쿼리문}
+\centering
+\begin{tabular}[t]{l|r|r}
+\hline
+person & count(reading) & round(avg(reading), 2)\\
+\hline
+dyer & 8 & 6.56\\
+\hline
+\end{tabular}
+\end{table}
 
 
 왜냐하면 데이터베이스 관리자가 각 과학자별로 구분된 집합하기 보다는 임의의 한명의 과학자 이름만 선택하기 때문이다.
@@ -293,16 +324,18 @@ and   person='dyer';
 ```
 
 
-<div class="knitsql-table">
+\begin{table}
 
-
-Table: (\#tab:sqlite-sql-agg-rad)사람별로 작성한 쿼리문 문제 예제
-
-|person | count(reading)| round(avg(reading), 2)|
-|:------|--------------:|----------------------:|
-|dyer   |              2|                   8.81|
-
-</div>
+\caption{(\#tab:sqlite-sql-agg-rad)사람별로 작성한 쿼리문 문제 예제}
+\centering
+\begin{tabular}[t]{l|r|r}
+\hline
+person & count(reading) & round(avg(reading), 2)\\
+\hline
+dyer & 2 & 8.81\\
+\hline
+\end{tabular}
+\end{table}
 
 
 하지만, 이러한 접근법은 성가시고, 만약 50명 혹은 500명의 과학자를 가진 데이터셋을 분석한다면,
@@ -319,19 +352,24 @@ group by person;
 ```
 
 
-<div class="knitsql-table">
+\begin{table}
 
-
-Table: (\#tab:sqlite-sql-agg-group-by)`group by` 문을 사용해서 사람별로 작성한 쿼리문 예제
-
-|person | count(reading)| round(avg(reading), 2)|
-|:------|--------------:|----------------------:|
-|dyer   |              2|                   8.81|
-|lake   |              2|                   1.83|
-|pb     |              3|                   6.66|
-|roe    |              1|                  11.25|
-
-</div>
+\caption{(\#tab:sqlite-sql-agg-group-by)`group by` 문을 사용해서 사람별로 작성한 쿼리문 예제}
+\centering
+\begin{tabular}[t]{l|r|r}
+\hline
+person & count(reading) & round(avg(reading), 2)\\
+\hline
+dyer & 2 & 8.81\\
+\hline
+lake & 2 & 1.83\\
+\hline
+pb & 3 & 6.66\\
+\hline
+roe & 1 & 11.25\\
+\hline
+\end{tabular}
+\end{table}
 
 
 
@@ -354,25 +392,36 @@ group by person, quant;
 ```
 
 
-<div class="knitsql-table">
+\begin{table}
 
-
-Table: (\#tab:sqlite-sql-agg-groupby-advanced)`group by` 문을 확장하여 적용한 쿼리문 사례
-
-|person |quant | count(reading)| round(avg(reading), 2)|
-|:------|:-----|--------------:|----------------------:|
-|NA     |sal   |              1|                   0.06|
-|NA     |temp  |              1|                 -26.00|
-|dyer   |rad   |              2|                   8.81|
-|dyer   |sal   |              2|                   0.11|
-|lake   |rad   |              2|                   1.83|
-|lake   |sal   |              4|                   0.11|
-|lake   |temp  |              1|                 -16.00|
-|pb     |rad   |              3|                   6.66|
-|pb     |temp  |              2|                 -20.00|
-|roe    |rad   |              1|                  11.25|
-
-</div>
+\caption{(\#tab:sqlite-sql-agg-groupby-advanced)`group by` 문을 확장하여 적용한 쿼리문 사례}
+\centering
+\begin{tabular}[t]{l|l|r|r}
+\hline
+person & quant & count(reading) & round(avg(reading), 2)\\
+\hline
+NA & sal & 1 & 0.06\\
+\hline
+NA & temp & 1 & -26.00\\
+\hline
+dyer & rad & 2 & 8.81\\
+\hline
+dyer & sal & 2 & 0.11\\
+\hline
+lake & rad & 2 & 1.83\\
+\hline
+lake & sal & 4 & 0.11\\
+\hline
+lake & temp & 1 & -16.00\\
+\hline
+pb & rad & 3 & 6.66\\
+\hline
+pb & temp & 2 & -20.00\\
+\hline
+roe & rad & 1 & 11.25\\
+\hline
+\end{tabular}
+\end{table}
 
 
 그렇지 않으면 결과가 의미가 없기 때문에, `person`을 표시되는 필드 리스트에 추가한 것을 주목하라.
@@ -390,24 +439,34 @@ order by person, quant;
 ```
 
 
-<div class="knitsql-table">
+\begin{table}
 
-
-Table: (\#tab:sqlite-sql-agg-groupby-advanced2)사람별로 측정값을 정렬한 쿼리문 사례
-
-|person |quant | count(reading)| round(avg(reading), 2)|
-|:------|:-----|--------------:|----------------------:|
-|dyer   |rad   |              2|                   8.81|
-|dyer   |sal   |              2|                   0.11|
-|lake   |rad   |              2|                   1.83|
-|lake   |sal   |              4|                   0.11|
-|lake   |temp  |              1|                 -16.00|
-|pb     |rad   |              3|                   6.66|
-|pb     |temp  |              2|                 -20.00|
-|roe    |rad   |              1|                  11.25|
-|roe    |sal   |              2|                  32.05|
-
-</div>
+\caption{(\#tab:sqlite-sql-agg-groupby-advanced2)사람별로 측정값을 정렬한 쿼리문 사례}
+\centering
+\begin{tabular}[t]{l|l|r|r}
+\hline
+person & quant & count(reading) & round(avg(reading), 2)\\
+\hline
+dyer & rad & 2 & 8.81\\
+\hline
+dyer & sal & 2 & 0.11\\
+\hline
+lake & rad & 2 & 1.83\\
+\hline
+lake & sal & 4 & 0.11\\
+\hline
+lake & temp & 1 & -16.00\\
+\hline
+pb & rad & 3 & 6.66\\
+\hline
+pb & temp & 2 & -20.00\\
+\hline
+roe & rad & 1 & 11.25\\
+\hline
+roe & sal & 2 & 32.05\\
+\hline
+\end{tabular}
+\end{table}
 
 
 

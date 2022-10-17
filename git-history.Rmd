@@ -244,11 +244,11 @@ HEAD is now at f22b25e Start notes on Mars as a base
 아래 예제에서는 커밋 번호가 `f22b25e`인 가장 최신 커밋(`HEAD~1`) 앞의 상태로 다시 되돌리고자 한다:
 
 
-![Git Checkout](assets/images/git/git-checkout.svg)
+<!-- ![Git Checkout](assets/images/git/git-checkout.svg) -->
 
 그래서, 모두 한군데 놓아보자:
 
-![https://figshare.com/articles/How_Git_works_a_cartoon/1328266](assets/images/git/git_staging.svg)
+<!-- ![https://figshare.com/articles/How_Git_works_a_cartoon/1328266](assets/images/git/git_staging.svg) -->
 
 ::: {#git-simplify-common .rmdcaution}
 
